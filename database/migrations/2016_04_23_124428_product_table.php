@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Enums\ProductStat;
 use App\Models\Product;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -12,8 +13,9 @@ class ProductTable extends Migration
         $t->increments('product_id');
         $t->integer('category_id');
         $t->integer('brand_id');
-        $t->string('name', 50);
+        $t->string('name', 100);
         $t->text('desc');
+        $t->string('desc_short', 250);
         $t->string('image', 50);
         $t->char('stat', 1);
         $t->string('updated_by', 10);
@@ -26,7 +28,162 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Viva La Venison',
         'image'=>'product_img_1.jpg',
-        'stat'=>1,
+        'stat'=>ProductStat::Available,
+        'desc_short'=>'Delicious!',
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>2,
+        'category_id'=>1,
+        'brand_id'=>1,
+        'name'=>'Addiction Salmon Bleu',
+        'image'=>'product_img_1.jpg',
+        'stat'=>ProductStat::Hidden,
+        'desc_short'=>'Delicious!',
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>3,
+        'category_id'=>1,
+        'brand_id'=>1,
+        'name'=>'Addiction Le Lamb',
+        'image'=>'product_img_1.jpg',
+        'stat'=>ProductStat::Available,
+        'desc_short'=>'Delicious!',
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>4,
+        'category_id'=>1,
+        'brand_id'=>1,
+        'name'=>'Addiction Dry Dog Food Wild Kangaroo & Apples',
+        'image'=>'product_img_1.jpg',
+        'stat'=>ProductStat::Available,
+        'desc_short'=>'Delicious!',
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>5,
+        'category_id'=>1,
+        'brand_id'=>1,
+        'name'=>'Addiction La Porchetta',
+        'image'=>'product_img_1.jpg',
+        'stat'=>ProductStat::Available,
+        'desc_short'=>'Delicious!',
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>6,
+        'category_id'=>1,
+        'brand_id'=>1,
+        'name'=>'Addiction Zen Vegetarian',
+        'image'=>'product_img_1.jpg',
+        'stat'=>ProductStat::Available,
+        'desc_short'=>'Delicious!',
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>7,
+        'category_id'=>1,
+        'brand_id'=>1,
+        'name'=>'Addiction Viva La Venison Puppy',
+        'image'=>'product_img_1.jpg',
+        'stat'=>ProductStat::Available,
+        'desc_short'=>'Delicious!',
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>8,
+        'category_id'=>1,
+        'brand_id'=>1,
+        'name'=>'Addiction Salmon Bleu Puppy',
+        'image'=>'product_img_1.jpg',
+        'stat'=>ProductStat::Available,
+        'desc_short'=>'Delicious!',
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>9,
+        'category_id'=>1,
+        'brand_id'=>1,
+        'name'=>'Addiction Raw Dehydrated - Figlicious Venison Feast (Grain Free)',
+        'image'=>'product_img_1.jpg',
+        'stat'=>ProductStat::Available,
+        'desc_short'=>'Delicious!',
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>10,
+        'category_id'=>1,
+        'brand_id'=>1,
+        'name'=>'Addiction Raw Dehydrated - Herbed Lamb & Potatos (Grain Free)',
+        'image'=>'product_img_1.jpg',
+        'stat'=>ProductStat::Available,
+        'desc_short'=>'Delicious!',
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>11,
+        'category_id'=>1,
+        'brand_id'=>1,
+        'name'=>'Addiction Raw Dehydrated - Steakhouse Beef & Zucchini (Grain Free)',
+        'image'=>'product_img_1.jpg',
+        'stat'=>ProductStat::Available,
+        'desc_short'=>'Delicious!',
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>12,
+        'category_id'=>1,
+        'brand_id'=>1,
+        'name'=>'Addiction Raw Dehydrated - NZ Forest Delicacies',
+        'image'=>'product_img_1.jpg',
+        'stat'=>ProductStat::Available,
+        'desc_short'=>'Delicious!',
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>13,
+        'category_id'=>1,
+        'brand_id'=>1,
+        'name'=>'Addiction Raw Dehydrated - Homestyle Venison & Cranberry Dinner',
+        'image'=>'product_img_1.jpg',
+        'stat'=>ProductStat::Available,
+        'desc_short'=>'Delicious!',
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>14,
+        'category_id'=>1,
+        'brand_id'=>1,
+        'name'=>'Addiction Raw Dehydrated - Perfect Summer Brushtail (Grain Free)',
+        'image'=>'product_img_1.jpg',
+        'stat'=>ProductStat::Available,
+        'desc_short'=>'Delicious!',
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>15,
+        'category_id'=>1,
+        'brand_id'=>1,
+        'name'=>'Addiction Raw Dehydrated - Country Chicken & Apricot Dinner (Grain Free)',
+        'image'=>'product_img_1.jpg',
+        'stat'=>ProductStat::Available,
+        'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
       ]);
 
