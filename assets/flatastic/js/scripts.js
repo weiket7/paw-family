@@ -917,7 +917,7 @@ rMenu.init();
 
 	// twitter
 
-	(function(){
+	/*(function(){
 		$('.twitterfeed').tweet({
 			username: 'fanfbmltemplate',
 			modpath : 'twitter/',
@@ -925,7 +925,7 @@ rMenu.init();
 	        loading_text: 'loading twitter feed...',
 	        template: '<a class="color_dark" href="{user_url}">@{screen_name}</a> {text}<div>{time}</div><ul class="horizontal_list clearfix tw_buttons"><li>{reply_action}</li><li class="m_left_5">{retweet_action}</li><li class="m_left_5">{favorite_action}</li></ul>'
 	    });
-	})();
+	})();*/
 
 	// quick view carousel
 

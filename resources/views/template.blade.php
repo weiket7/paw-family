@@ -2,7 +2,7 @@
 <!--[if IE 9 ]><html class="ie9" lang="en"><![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
 <head>
-  <title>Flatastic - Home</title>
+  <title>Paw Family - Home</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <!--meta info-->
@@ -75,7 +75,7 @@
       <div class="clearfix row">
         <div class="col-lg-6 col-md-6 col-sm-4 t_xs_align_c">
           <a href="index.html" class="logo m_xs_bottom_15 d_xs_inline_b">
-            <img src="{{url("assets/flatastic")}}/images/logo.png" alt="">
+            <img src="{{url("assets")}}/images/paw-family-logo.png" alt="">
           </a>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-8">
@@ -110,82 +110,30 @@
         <!--main menu-->
         <nav role="navigation" class="f_left f_xs_none d_xs_none t_xs_align_l">
           <ul class="horizontal_list main_menu clearfix">
-            <li class="current relative f_xs_none m_xs_bottom_5"><a href="index.html" class="tr_delay_hover color_light tt_uppercase"><b>Home</b></a>
+            <li class="current relative f_xs_none m_xs_bottom_5">
+              <a href="{{url("/")}}" class="tr_delay_hover color_light tt_uppercase"><b>Home</b></a>
+            </li>
+            <li class="relative f_xs_none m_xs_bottom_5"><a href="{{url("/")}}" class="tr_delay_hover color_light tt_uppercase"><b>Dogs</b></a>
               <!--sub menu-->
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
-                  <li><a class="color_dark tr_delay_hover" href="index.html">Home Variant 1</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="index_layout_2.html">Home Variant 2</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="index_layout_wide.html">Home Variant 3</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="index_corporate.html">Home Variant 4</a></li>
+                  @foreach($categories['D'] as $category)
+                    <li><a class="color_dark tr_delay_hover" href="index_layout_wide.html">{{$category->name}}</a></li>
+                  @endforeach
                 </ul>
               </div>
             </li>
-            <li class="relative f_xs_none m_xs_bottom_5"><a href="index_layout_wide.html" class="tr_delay_hover color_light tt_uppercase"><b>Sliders</b></a>
+            <li class="relative f_xs_none m_xs_bottom_5"><a href="category_grid.html" class="tr_delay_hover color_light tt_uppercase"><b>Cats</b></a>
               <!--sub menu-->
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
-                  <li><a class="color_dark tr_delay_hover" href="index_layout_wide.html">Revolution Slider</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="index.html">Camera Slider</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="index_layout_2.html">Flex Slider</a></li>
+                  @foreach($categories['C'] as $category)
+                    <li><a class="color_dark tr_delay_hover" href="index_layout_wide.html">{{$category->name}}</a></li>
+                  @endforeach
                 </ul>
               </div>
             </li>
-            <li class="relative f_xs_none m_xs_bottom_5"><a href="category_grid.html" class="tr_delay_hover color_light tt_uppercase"><b>Shop</b></a>
-              <!--sub menu-->
-              <div class="sub_menu_wrap top_arrow d_xs_none tr_all_hover clearfix r_corners w_xs_auto">
-                <div class="f_left f_xs_none">
-                  <b class="color_dark m_left_20 m_bottom_5 m_top_5 d_inline_b">Dresses</b>
-                  <ul class="sub_menu first">
-                    <li><a class="color_dark tr_delay_hover" href="#">Evening Dresses</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Casual Dresses</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Party Dresses</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Maxi Dresses</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Midi Dresses</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Strapless Dresses</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Day Dresses</a></li>
-                  </ul>
-                </div>
-                <div class="f_left m_left_10 m_xs_left_0 f_xs_none">
-                  <b class="color_dark m_left_20 m_bottom_5 m_top_5 d_inline_b">Accessories</b>
-                  <ul class="sub_menu">
-                    <li><a class="color_dark tr_delay_hover" href="#">Bags and Purces</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Belts</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Scarves</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Gloves</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Jewellery</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Sunglasses</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Hair Accessories</a></li>
-                  </ul>
-                </div>
-                <div class="f_left m_left_10 m_xs_left_0 f_xs_none">
-                  <b class="color_dark m_left_20 m_bottom_5 m_top_5 d_inline_b">Tops</b>
-                  <ul class="sub_menu">
-                    <li><a class="color_dark tr_delay_hover" href="#">Evening Tops</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Long Sleeved</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Short Sleeved</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Sleeveless</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Tanks</a></li>
-                    <li><a class="color_dark tr_delay_hover" href="#">Tunics</a></li>
-                  </ul>
-                </div>
-                <img src="{{url("assets/flatastic")}}/images/woman_image_1.jpg" class="d_sm_none f_right m_bottom_10" alt="">
-              </div>
-            </li>
-            <li class="relative f_xs_none m_xs_bottom_5"><a href="#" class="tr_delay_hover color_light tt_uppercase"><b>Portfolio</b></a>
-              <!--sub menu-->
-              <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
-                <ul class="sub_menu">
-                  <li><a class="color_dark tr_delay_hover" href="portfolio_two_columns.html">Portfolio 2 Columns</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="portfolio_three_columns.html">Portfolio 3 Columns</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="portfolio_four_columns.html">Portfolio 4 Columns</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="portfolio_masonry.html">Masonry Portfolio</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="portfolio_single_1.html">Single Portfolio Post v1</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="portfolio_single_2.html">Single Portfolio Post v2</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="relative f_xs_none m_xs_bottom_5"><a href="category_grid.html" class="tr_delay_hover color_light tt_uppercase"><b>Pages</b></a>
+            <li class="relative f_xs_none m_xs_bottom_5"><a href="category_grid.html" class="tr_delay_hover color_light tt_uppercase"><b>Small Animals</b></a>
               <!--sub menu-->
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
@@ -201,24 +149,6 @@
                   <li><a class="color_dark tr_delay_hover" href="manufacturer_details.html">Manufacturer Page</a></li>
                   <li><a class="color_dark tr_delay_hover" href="orders_list.html">Orders List</a></li>
                   <li><a class="color_dark tr_delay_hover" href="order_details.html">Order Details</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="relative f_xs_none m_xs_bottom_5"><a href="blog.html" class="tr_delay_hover color_light tt_uppercase"><b>Blog</b></a>
-              <!--sub menu-->
-              <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
-                <ul class="sub_menu">
-                  <li><a class="color_dark tr_delay_hover" href="blog.html">Blog page</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="blog_post.html">Single Blog Post page</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="relative f_xs_none m_xs_bottom_5"><a href="blog.html" class="tr_delay_hover color_light tt_uppercase"><b>Features</b></a>
-              <!--sub menu-->
-              <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
-                <ul class="sub_menu">
-                  <li><a class="color_dark tr_delay_hover" href="features_shortcodes.html">Shortcodes</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="features_typography.html">Typography</a></li>
                 </ul>
               </div>
             </li>
@@ -1548,8 +1478,7 @@
 </div>
 <button class="t_align_c r_corners type_2 tr_all_hover animate_ftl" id="go_to_top"><i class="fa fa-angle-up"></i></button>
 <!--scripts include-->
-<script src="{{url("assets/flatastic")}}/js/jquery-2.1.0.min.js"></script>
-<script src="{{url("assets/flatastic")}}/js/retina.js"></script>
+<script src="{{url("assets/flatastic")}}/js/jquery-2.2.3.min.js"></script>
 <script src="{{url("assets/flatastic")}}/js/jquery.flexslider-min.js"></script>
 <script src="{{url("assets/flatastic")}}/js/waypoints.min.js"></script>
 <script src="{{url("assets/flatastic")}}/js/jquery.isotope.min.js"></script>
