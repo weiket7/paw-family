@@ -82,8 +82,8 @@
           <div class="row clearfix">
             <div class="col-lg-6 col-md-6 col-sm-6 t_align_r t_xs_align_c m_xs_bottom_15">
               <dl class="l_height_medium">
-                <dt class="f_size_small">Call us toll free:</dt>
-                <dd class="f_size_ex_large color_dark"><b>(123) 456-7890</b></dd>
+                <dt class="f_size_small">Call us:</dt>
+                <dd class="f_size_ex_large color_dark"><b>8233 5100</b></dd>
               </dl>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
@@ -117,7 +117,7 @@
               <!--sub menu-->
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
-                  @foreach($categories['D'] as $category)
+                  @foreach($categories_cache['D'] as $category)
                     <li><a class="color_dark tr_delay_hover" href="index_layout_wide.html">{{$category->name}}</a></li>
                   @endforeach
                 </ul>
@@ -127,7 +127,7 @@
               <!--sub menu-->
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
-                  @foreach($categories['C'] as $category)
+                  @foreach($categories_cache['C'] as $category)
                     <li><a class="color_dark tr_delay_hover" href="index_layout_wide.html">{{$category->name}}</a></li>
                   @endforeach
                 </ul>
@@ -156,13 +156,6 @@
           </ul>
         </nav>
         <ul class="f_right horizontal_list clearfix t_align_l t_xs_align_c site_settings d_xs_inline_b f_xs_none">
-          <!--like-->
-          <li class="d_sm_none d_xs_block">
-            <a role="button" href="#" class="button_type_1 color_dark d_block bg_light_color_1 r_corners tr_delay_hover box_s_none"><i class="fa fa-heart-o f_size_ex_large"></i><span class="count circle t_align_c">12</span></a>
-          </li>
-          <li class="m_left_5 d_sm_none d_xs_block">
-            <a role="button" href="#" class="button_type_1 color_dark d_block bg_light_color_1 r_corners tr_delay_hover box_s_none"><i class="fa fa-files-o f_size_ex_large"></i><span class="count circle t_align_c">3</span></a>
-          </li>
           <!--shopping cart-->
           <li class="m_left_5 relative container3d" id="shopping_button">
             <a role="button" href="#" class="button_type_3 color_light bg_scheme_color d_block r_corners tr_delay_hover box_s_none">
@@ -853,7 +846,7 @@
                     <span class="d_inline_middle">
                       <img class="d_inline_middle m_md_bottom_5" src="{{url("assets/flatastic")}}/images/banner_img_4.png" alt="">
                       <span class="d_inline_middle m_left_10 t_align_l d_md_block t_md_align_c">
-                        <b>Free<br class="d_none d_sm_block"> Shipping</b><br><span class="color_dark">On All Items</span>
+                        <b>Free<br class="d_none d_sm_block"> Delivery</b><br><span class="color_dark">For Orders >= ${{$settings_cache["freedeliveryaboveorequalto"]}}</span>
                       </span>
                     </span>
               </a>
