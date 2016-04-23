@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'IndexController@index');
+
+Route::group(array('before'=>'admin'), function() {
+  Route::get('adopt/admin', 'AdoptController@admin');
+  Route::get('adopt/last_update', 'AdoptController@lastUpdate');
+
 });

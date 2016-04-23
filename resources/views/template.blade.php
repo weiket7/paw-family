@@ -9,17 +9,17 @@
   <meta name="author" content="">
   <meta name="keywords" content="">
   <meta name="description" content="">
-  <link rel="icon" type="image/ico" href="images/fav.ico">
+  <link rel="icon" type="image/ico" href="{{url("assets/flatastic")}}/images/fav.ico">
   <!--stylesheet include-->
-  <link rel="stylesheet" type="text/css" media="all" href="css/flexslider.css">
-  <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" media="all" href="css/owl.carousel.css">
-  <link rel="stylesheet" type="text/css" media="all" href="css/owl.transitions.css">
-  <link rel="stylesheet" type="text/css" media="all" href="css/jquery.custom-scrollbar.css">
-  <link rel="stylesheet" type="text/css" media="all" href="css/style.css">
+  <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/flexslider.css">
+  <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/owl.carousel.css">
+  <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/owl.transitions.css">
+  <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/jquery.custom-scrollbar.css">
+  <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/style.css">
   <!--font include-->
-  <link href="css/font-awesome.min.css" rel="stylesheet">
-  <script src="js/modernizr.js"></script>
+  <link href="{{url("assets/flatastic")}}/css/font-awesome.min.css" rel="stylesheet">
+  <script src="{{url("assets/flatastic")}}/js/modernizr.js"></script>
 </head>
 <body>
 <!--boxed layout-->
@@ -35,7 +35,7 @@
       <div class="container">
         <div class="row clearfix">
           <div class="col-lg-4 col-md-4 col-sm-3 t_xs_align_c">
-            <p class="f_size_small">Welcome visitor can you	<a href="#" data-popup="#login_popup">Log In</a> or <a href="#">Create an Account</a> </p>
+            <p class="f_size_small">Welcome visitor can you <a href="#" data-popup="#login_popup">Log In</a> or <a href="#">Create an Account</a> </p>
           </div>
           <nav class="col-lg-4 col-md-4 col-sm-6 t_align_c t_xs_align_c">
             <ul class="d_inline_b horizontal_list clearfix f_size_small users_nav">
@@ -48,13 +48,13 @@
           <div class="col-lg-4 col-md-4 col-sm-3 t_align_r t_xs_align_c">
             <ul class="horizontal_list clearfix d_inline_b t_align_l f_size_small site_settings type_2">
               <li class="container3d relative">
-                <a role="button" href="#" class="color_dark" id="lang_button"><img class="d_inline_middle m_right_10" src="images/flag_en.jpg" alt="">English</a>
+                <a role="button" href="#" class="color_dark" id="lang_button"><img class="d_inline_middle m_right_10" src="{{url("assets/flatastic")}}/images/flag_en.jpg" alt="">English</a>
                 <ul class="dropdown_list type_2 top_arrow color_light">
-                  <li><a href="#" class="tr_delay_hover color_light"><img class="d_inline_middle" src="images/flag_en.jpg" alt="">English</a></li>
-                  <li><a href="#" class="tr_delay_hover color_light"><img class="d_inline_middle" src="images/flag_fr.jpg" alt="">French</a></li>
-                  <li><a href="#" class="tr_delay_hover color_light"><img class="d_inline_middle" src="images/flag_g.jpg" alt="">German</a></li>
-                  <li><a href="#" class="tr_delay_hover color_light"><img class="d_inline_middle" src="images/flag_i.jpg" alt="">Italian</a></li>
-                  <li><a href="#" class="tr_delay_hover color_light"><img class="d_inline_middle" src="images/flag_s.jpg" alt="">Spanish</a></li>
+                  <li><a href="#" class="tr_delay_hover color_light"><img class="d_inline_middle" src="{{url("assets/flatastic")}}/images/flag_en.jpg" alt="">English</a></li>
+                  <li><a href="#" class="tr_delay_hover color_light"><img class="d_inline_middle" src="{{url("assets/flatastic")}}/images/flag_fr.jpg" alt="">French</a></li>
+                  <li><a href="#" class="tr_delay_hover color_light"><img class="d_inline_middle" src="{{url("assets/flatastic")}}/images/flag_g.jpg" alt="">German</a></li>
+                  <li><a href="#" class="tr_delay_hover color_light"><img class="d_inline_middle" src="{{url("assets/flatastic")}}/images/flag_i.jpg" alt="">Italian</a></li>
+                  <li><a href="#" class="tr_delay_hover color_light"><img class="d_inline_middle" src="{{url("assets/flatastic")}}/images/flag_s.jpg" alt="">Spanish</a></li>
                 </ul>
               </li>
               <li class="m_left_20 relative container3d">
@@ -75,7 +75,7 @@
       <div class="clearfix row">
         <div class="col-lg-6 col-md-6 col-sm-4 t_xs_align_c">
           <a href="index.html" class="logo m_xs_bottom_15 d_xs_inline_b">
-            <img src="images/logo.png" alt="">
+            <img src="{{url("assets/flatastic")}}/images/logo.png" alt="">
           </a>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-8">
@@ -169,7 +169,7 @@
                     <li><a class="color_dark tr_delay_hover" href="#">Tunics</a></li>
                   </ul>
                 </div>
-                <img src="images/woman_image_1.jpg" class="d_sm_none f_right m_bottom_10" alt="">
+                <img src="{{url("assets/flatastic")}}/images/woman_image_1.jpg" class="d_sm_none f_right m_bottom_10" alt="">
               </div>
             </li>
             <li class="relative f_xs_none m_xs_bottom_5"><a href="#" class="tr_delay_hover color_light tt_uppercase"><b>Portfolio</b></a>
@@ -236,10 +236,10 @@
           <!--shopping cart-->
           <li class="m_left_5 relative container3d" id="shopping_button">
             <a role="button" href="#" class="button_type_3 color_light bg_scheme_color d_block r_corners tr_delay_hover box_s_none">
-									<span class="d_inline_middle shop_icon">
-										<i class="fa fa-shopping-cart"></i>
-										<span class="count tr_delay_hover type_2 circle t_align_c">3</span>
-									</span>
+                  <span class="d_inline_middle shop_icon">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="count tr_delay_hover type_2 circle t_align_c">3</span>
+                  </span>
               <b>$355</b>
             </a>
             <div class="shopping_cart top_arrow tr_all_hover r_corners">
@@ -248,7 +248,7 @@
                 <li>
                   <div class="clearfix">
                     <!--product image-->
-                    <img class="f_left m_right_10" src="images/shopping_c_img_1.jpg" alt="">
+                    <img class="f_left m_right_10" src="{{url("assets/flatastic")}}/images/shopping_c_img_1.jpg" alt="">
                     <!--product description-->
                     <div class="f_left product_description">
                       <a href="#" class="color_dark m_bottom_5 d_block">Cursus eleifend elit aenean auctor wisi et urna</a>
@@ -266,7 +266,7 @@
                 <li>
                   <div class="clearfix">
                     <!--product image-->
-                    <img class="f_left m_right_10" src="images/shopping_c_img_2.jpg" alt="">
+                    <img class="f_left m_right_10" src="{{url("assets/flatastic")}}/images/shopping_c_img_2.jpg" alt="">
                     <!--product description-->
                     <div class="f_left product_description">
                       <a href="#" class="color_dark m_bottom_5 d_block">Cursus eleifend elit aenean auctor wisi et urna</a>
@@ -284,7 +284,7 @@
                 <li>
                   <div class="clearfix">
                     <!--product image-->
-                    <img class="f_left m_right_10" src="images/shopping_c_img_3.jpg" alt="">
+                    <img class="f_left m_right_10" src="{{url("assets/flatastic")}}/images/shopping_c_img_3.jpg" alt="">
                     <!--product description-->
                     <div class="f_left product_description">
                       <a href="#" class="color_dark m_bottom_5 d_block">Cursus eleifend elit aenean auctor wisi et urna</a>
@@ -324,7 +324,7 @@
         <div class="flexslider animate_ftr long">
           <ul class="slides">
             <li>
-              <img src="images/slide_04.jpg" alt="" data-custom-thumb="images/slide_01.jpg">
+              <img src="{{url("assets/flatastic")}}/images/slide_04.jpg" alt="" data-custom-thumb="{{url("assets/flatastic")}}/images/slide_01.jpg">
               <section class="slide_caption t_align_c d_xs_none">
                 <div class="f_size_large color_light tt_uppercase slider_title_3 m_bottom_10">Meet New Theme</div>
                 <hr class="slider_divider d_inline_b m_bottom_10">
@@ -334,7 +334,7 @@
               </section>
             </li>
             <li>
-              <img src="images/slide_05.jpg" alt="" data-custom-thumb="images/slide_03.jpg">
+              <img src="{{url("assets/flatastic")}}/images/slide_05.jpg" alt="" data-custom-thumb="{{url("assets/flatastic")}}/images/slide_03.jpg">
               <section class="slide_caption_2 t_align_c d_xs_none">
                 <div class="f_size_large tt_uppercase slider_title_3 scheme_color">New arrivals</div>
                 <hr class="slider_divider type_2 m_bottom_5 d_inline_b">
@@ -343,9 +343,9 @@
               </section>
             </li>
             <li>
-              <img src="images/slide_06.jpg" alt="" data-custom-thumb="images/slide_02.jpg">
+              <img src="{{url("assets/flatastic")}}/images/slide_06.jpg" alt="" data-custom-thumb="{{url("assets/flatastic")}}/images/slide_02.jpg">
               <section class="slide_caption_3 t_align_c d_xs_none">
-                <img src="images/slider_layer_img.png" alt="" class="m_bottom_5">
+                <img src="{{url("assets/flatastic")}}/images/slider_layer_img.png" alt="" class="m_bottom_5">
                 <div class="color_light slider_title tt_uppercase t_align_c m_bottom_60 m_sm_bottom_20"><b class="color_dark">up to 70% off</b></div>
                 <a href="#" role="button" class="d_sm_inline_b button_type_4 bg_scheme_color color_light r_corners tt_uppercase tr_all_hover">Shop Now</a>
               </section>
@@ -356,10 +356,10 @@
       <!--banners-->
       <div class="col-lg-3 col-md-3 col-sm-3 t_xs_align_c s_banners">
         <a href="#" class="d_block d_xs_inline_b m_bottom_20 animate_ftr">
-          <img src="images/banner_img_7.jpg" alt="">
+          <img src="{{url("assets/flatastic")}}/images/banner_img_7.jpg" alt="">
         </a>
         <a href="#" class="d_block d_xs_inline_b m_xs_left_5 animate_ftr m_mxs_left_0">
-          <img src="images/banner_img_8.jpg" alt="">
+          <img src="{{url("assets/flatastic")}}/images/banner_img_8.jpg" alt="">
         </a>
       </div>
     </div>
@@ -371,28 +371,28 @@
       <section class="row clearfix">
         <div class="col-lg-6 col-md-6 col-sm-6 m_bottom_50 m_sm_bottom_35">
           <a href="#" class="d_block banner animate_ftr wrapper r_corners relative m_xs_bottom_30">
-            <img src="images/banner_img_1.png" alt="">
-								<span class="banner_caption d_block vc_child t_align_c w_sm_auto">
-									<span class="d_inline_middle">
-										<span class="d_block color_dark tt_uppercase m_bottom_5 let_s">New Collection!</span>
-										<span class="d_block divider_type_2 centered_db m_bottom_5"></span>
-										<span class="d_block color_light tt_uppercase m_bottom_25 m_xs_bottom_10 banner_title"><b>Colored Fashion</b></span>
-										<span class="button_type_6 bg_scheme_color tt_uppercase r_corners color_light d_inline_b tr_all_hover box_s_none f_size_ex_large">Shop Now!</span>
-									</span>
-								</span>
+            <img src="{{url("assets/flatastic")}}/images/banner_img_1.png" alt="">
+                <span class="banner_caption d_block vc_child t_align_c w_sm_auto">
+                  <span class="d_inline_middle">
+                    <span class="d_block color_dark tt_uppercase m_bottom_5 let_s">New Collection!</span>
+                    <span class="d_block divider_type_2 centered_db m_bottom_5"></span>
+                    <span class="d_block color_light tt_uppercase m_bottom_25 m_xs_bottom_10 banner_title"><b>Colored Fashion</b></span>
+                    <span class="button_type_6 bg_scheme_color tt_uppercase r_corners color_light d_inline_b tr_all_hover box_s_none f_size_ex_large">Shop Now!</span>
+                  </span>
+                </span>
           </a>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 m_bottom_50 m_sm_bottom_35">
           <a href="#" class="d_block banner animate_ftr wrapper r_corners type_2 relative">
-            <img src="images/banner_img_2.png" alt="">
-								<span class="banner_caption d_block vc_child t_align_c w_sm_auto">
-									<span class="d_inline_middle">
-										<span class="d_block scheme_color banner_title type_2 m_bottom_5 m_mxs_bottom_5"><b>-50%</b></span>
-										<span class="d_block divider_type_2 centered_db m_bottom_5 d_sm_none"></span>
-										<span class="d_block color_light tt_uppercase m_bottom_15 banner_title_3 m_md_bottom_5 d_mxs_none">On All<br><b>Sunglasses</b></span>
-										<span class="button_type_6 bg_dark_color tt_uppercase r_corners color_light d_inline_b tr_all_hover box_s_none f_size_ex_large">Shop Now!</span>
-									</span>
-								</span>
+            <img src="{{url("assets/flatastic")}}/images/banner_img_2.png" alt="">
+                <span class="banner_caption d_block vc_child t_align_c w_sm_auto">
+                  <span class="d_inline_middle">
+                    <span class="d_block scheme_color banner_title type_2 m_bottom_5 m_mxs_bottom_5"><b>-50%</b></span>
+                    <span class="d_block divider_type_2 centered_db m_bottom_5 d_sm_none"></span>
+                    <span class="d_block color_light tt_uppercase m_bottom_15 banner_title_3 m_md_bottom_5 d_mxs_none">On All<br><b>Sunglasses</b></span>
+                    <span class="button_type_6 bg_dark_color tt_uppercase r_corners color_light d_inline_b tr_all_hover box_s_none f_size_ex_large">Shop Now!</span>
+                  </span>
+                </span>
           </a>
         </div>
       </section>
@@ -472,13 +472,13 @@
             </figcaption>
             <div class="widget_content">
               <div class="clearfix m_bottom_15 relative cw_product">
-                <img src="images/bestsellers_img_1.jpg" alt="" class="f_left m_right_15 m_sm_bottom_10 f_sm_none f_xs_left m_xs_bottom_0">
+                <img src="{{url("assets/flatastic")}}/images/bestsellers_img_1.jpg" alt="" class="f_left m_right_15 m_sm_bottom_10 f_sm_none f_xs_left m_xs_bottom_0">
                 <a href="#" class="color_dark d_block bt_link">Ut tellus dolor<br> dapibus</a>
                 <button type="button" class="f_size_medium f_right color_dark bg_tr tr_all_hover close_fieldset"><i class="fa fa-times lh_inherit"></i></button>
               </div>
               <hr class="m_bottom_15">
               <div class="clearfix m_bottom_25 relative cw_product">
-                <img src="images/bestsellers_img_2.jpg" alt="" class="f_left m_right_15 m_sm_bottom_10 f_sm_none f_xs_left m_xs_bottom_0">
+                <img src="{{url("assets/flatastic")}}/images/bestsellers_img_2.jpg" alt="" class="f_left m_right_15 m_sm_bottom_10 f_sm_none f_xs_left m_xs_bottom_0">
                 <a href="#" class="color_dark d_block bt_link">Elemenum vel</a>
                 <button type="button" class="f_size_medium f_right color_dark bg_tr tr_all_hover close_fieldset"><i class="fa fa-times lh_inherit"></i></button>
               </div>
@@ -496,7 +496,7 @@
           </figure>
           <!--banner-->
           <a href="#" class="widget animate_ftr d_block r_corners m_bottom_30">
-            <img src="images/banner_img_6.jpg" alt="">
+            <img src="{{url("assets/flatastic")}}/images/banner_img_6.jpg" alt="">
           </a>
           <!--Bestsellers-->
           <figure class="widget animate_ftr shadow r_corners wrapper m_bottom_30">
@@ -505,7 +505,7 @@
             </figcaption>
             <div class="widget_content">
               <div class="clearfix m_bottom_15">
-                <img src="images/bestsellers_img_1.jpg" alt="" class="f_left m_right_15 m_sm_bottom_10 f_sm_none f_xs_left m_xs_bottom_0">
+                <img src="{{url("assets/flatastic")}}/images/bestsellers_img_1.jpg" alt="" class="f_left m_right_15 m_sm_bottom_10 f_sm_none f_xs_left m_xs_bottom_0">
                 <a href="#" class="color_dark d_block bt_link">Ut dolor dapibus</a>
                 <!--rating-->
                 <ul class="horizontal_list clearfix d_inline_b rating_list type_2 tr_all_hover m_bottom_10">
@@ -534,7 +534,7 @@
               </div>
               <hr class="m_bottom_15">
               <div class="clearfix m_bottom_15">
-                <img src="images/bestsellers_img_2.jpg" alt="" class="f_left m_right_15 m_sm_bottom_10 f_sm_none f_xs_left m_xs_bottom_0">
+                <img src="{{url("assets/flatastic")}}/images/bestsellers_img_2.jpg" alt="" class="f_left m_right_15 m_sm_bottom_10 f_sm_none f_xs_left m_xs_bottom_0">
                 <a href="#" class="color_dark d_block bt_link">Elementum vel</a>
                 <!--rating-->
                 <ul class="horizontal_list clearfix d_inline_b rating_list type_2 tr_all_hover m_bottom_10">
@@ -563,7 +563,7 @@
               </div>
               <hr class="m_bottom_15">
               <div class="clearfix m_bottom_5">
-                <img src="images/bestsellers_img_3.jpg" alt="" class="f_left m_right_15 m_sm_bottom_10 f_sm_none f_xs_left m_xs_bottom_0">
+                <img src="{{url("assets/flatastic")}}/images/bestsellers_img_3.jpg" alt="" class="f_left m_right_15 m_sm_bottom_10 f_sm_none f_xs_left m_xs_bottom_0">
                 <a href="#" class="color_dark d_block bt_link">Crsus eleifend elit</a>
                 <!--rating-->
                 <ul class="horizontal_list clearfix d_inline_b rating_list type_2 tr_all_hover m_bottom_10">
@@ -625,8 +625,8 @@
                 <!--product preview-->
                 <a href="#" class="d_block relative pp_wrap m_bottom_15">
                   <!--hot product-->
-                  <span class="hot_stripe"><img src="images/hot_product.png" alt=""></span>
-                  <img src="images/product_img_1.jpg" class="tr_all_hover" alt="">
+                  <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/hot_product.png" alt=""></span>
+                  <img src="{{url("assets/flatastic")}}/images/product_img_1.jpg" class="tr_all_hover" alt="">
                   <span role="button" data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
                 </a>
                 <!--description and price of product-->
@@ -671,7 +671,7 @@
               <figure class="r_corners photoframe animate_ftb long type_2 t_align_c shadow relative">
                 <!--product preview-->
                 <a href="#" class="d_block relative pp_wrap m_bottom_15">
-                  <img src="images/product_img_2.jpg" class="tr_all_hover" alt="">
+                  <img src="{{url("assets/flatastic")}}/images/product_img_2.jpg" class="tr_all_hover" alt="">
                   <span role="button" data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
                 </a>
                 <!--description and price of product-->
@@ -720,7 +720,7 @@
               <figure class="r_corners photoframe animate_ftb long type_2 t_align_c shadow relative">
                 <!--product preview-->
                 <a href="#" class="d_block relative pp_wrap m_bottom_15">
-                  <img src="images/product_img_3.jpg" class="tr_all_hover" alt="">
+                  <img src="{{url("assets/flatastic")}}/images/product_img_3.jpg" class="tr_all_hover" alt="">
                   <span role="button" data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
                 </a>
                 <!--description and price of product-->
@@ -767,7 +767,7 @@
               <figure class="r_corners photoframe animate_ftb long type_2 t_align_c shadow relative">
                 <!--product preview-->
                 <a href="#" class="d_block relative pp_wrap m_bottom_15">
-                  <img src="images/product_img_7.jpg" class="tr_all_hover" alt="">
+                  <img src="{{url("assets/flatastic")}}/images/product_img_7.jpg" class="tr_all_hover" alt="">
                   <span role="button" data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
                 </a>
                 <!--description and price of product-->
@@ -815,8 +815,8 @@
                 <!--product preview-->
                 <a href="#" class="d_block relative pp_wrap m_bottom_15">
                   <!--sale product-->
-                  <span class="hot_stripe"><img src="images/sale_product.png" alt=""></span>
-                  <img src="images/product_img_9.jpg" class="tr_all_hover" alt="">
+                  <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/sale_product.png" alt=""></span>
+                  <img src="{{url("assets/flatastic")}}/images/product_img_9.jpg" class="tr_all_hover" alt="">
                   <span role="button" data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
                 </a>
                 <!--description and price of product-->
@@ -863,7 +863,7 @@
               <figure class="r_corners photoframe animate_ftb long type_2 t_align_c shadow relative">
                 <!--product preview-->
                 <a href="#" class="d_block relative pp_wrap m_bottom_15">
-                  <img src="images/product_img_6.jpg" class="tr_all_hover" alt="">
+                  <img src="{{url("assets/flatastic")}}/images/product_img_6.jpg" class="tr_all_hover" alt="">
                   <span role="button" data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
                 </a>
                 <!--description and price of product-->
@@ -910,22 +910,22 @@
           <div class="row clearfix m_bottom_45">
             <div class="col-lg-6 col-md-6 col-sm-6">
               <a href="#" class="d_block animate_ftb h_md_auto m_xs_bottom_15 banner_type_2 r_corners red t_align_c tt_uppercase vc_child n_sm_vc_child">
-										<span class="d_inline_middle">
-											<img class="d_inline_middle m_md_bottom_5" src="images/banner_img_3.png" alt="">
-											<span class="d_inline_middle m_left_10 t_align_l d_md_block t_md_align_c">
-												<b>100% Satisfaction</b><br><span class="color_dark">Guaranteed</span>
-											</span>
-										</span>
+                    <span class="d_inline_middle">
+                      <img class="d_inline_middle m_md_bottom_5" src="{{url("assets/flatastic")}}/images/banner_img_3.png" alt="">
+                      <span class="d_inline_middle m_left_10 t_align_l d_md_block t_md_align_c">
+                        <b>100% Satisfaction</b><br><span class="color_dark">Guaranteed</span>
+                      </span>
+                    </span>
               </a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
               <a href="#" class="d_block animate_ftb h_md_auto m_xs_bottom_15 banner_type_2 r_corners green t_align_c tt_uppercase vc_child n_sm_vc_child">
-										<span class="d_inline_middle">
-											<img class="d_inline_middle m_md_bottom_5" src="images/banner_img_4.png" alt="">
-											<span class="d_inline_middle m_left_10 t_align_l d_md_block t_md_align_c">
-												<b>Free<br class="d_none d_sm_block"> Shipping</b><br><span class="color_dark">On All Items</span>
-											</span>
-										</span>
+                    <span class="d_inline_middle">
+                      <img class="d_inline_middle m_md_bottom_5" src="{{url("assets/flatastic")}}/images/banner_img_4.png" alt="">
+                      <span class="d_inline_middle m_left_10 t_align_l d_md_block t_md_align_c">
+                        <b>Free<br class="d_none d_sm_block"> Shipping</b><br><span class="color_dark">On All Items</span>
+                      </span>
+                    </span>
               </a>
             </div>
           </div>
@@ -942,8 +942,8 @@
               <!--product preview-->
               <a href="#" class="d_block relative pp_wrap m_bottom_15">
                 <!--hot product-->
-                <span class="hot_stripe type_2"><img src="images/hot_product_type_2.png" alt=""></span>
-                <img src="images/product_img_5.jpg" class="tr_all_hover" alt="">
+                <span class="hot_stripe type_2"><img src="{{url("assets/flatastic")}}/images/hot_product_type_2.png" alt=""></span>
+                <img src="{{url("assets/flatastic")}}/images/product_img_5.jpg" class="tr_all_hover" alt="">
                 <span role="button" data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
               </a>
               <!--description and price of product-->
@@ -987,7 +987,7 @@
             <figure class="r_corners photoframe animate_ftb long tr_all_hover type_2 t_align_c shadow relative">
               <!--product preview-->
               <a href="#" class="d_block relative pp_wrap m_bottom_15">
-                <img src="images/product_img_8.jpg" class="tr_all_hover" alt="">
+                <img src="{{url("assets/flatastic")}}/images/product_img_8.jpg" class="tr_all_hover" alt="">
                 <span role="button" data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
               </a>
               <!--description and price of product-->
@@ -1032,8 +1032,8 @@
               <!--product preview-->
               <a href="#" class="d_block relative pp_wrap m_bottom_15">
                 <!--sale product-->
-                <span class="hot_stripe type_2"><img src="images/sale_product_type_2.png" alt=""></span>
-                <img src="images/product_img_4.jpg" class="tr_all_hover" alt="">
+                <span class="hot_stripe type_2"><img src="{{url("assets/flatastic")}}/images/sale_product_type_2.png" alt=""></span>
+                <img src="{{url("assets/flatastic")}}/images/product_img_4.jpg" class="tr_all_hover" alt="">
                 <span role="button" data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
               </a>
               <!--description and price of product-->
@@ -1077,7 +1077,7 @@
             <figure class="r_corners photoframe animate_ftb long tr_all_hover type_2 t_align_c shadow relative">
               <!--product preview-->
               <a href="#" class="d_block relative wrapper pp_wrap m_bottom_15">
-                <img src="images/product_img_6.jpg" class="tr_all_hover" alt="">
+                <img src="{{url("assets/flatastic")}}/images/product_img_6.jpg" class="tr_all_hover" alt="">
                 <span role="button" data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
               </a>
               <!--description and price of product-->
@@ -1129,18 +1129,18 @@
           </div>
           <!--product brands carousel-->
           <div class="product_brands with_sidebar m_sm_bottom_35">
-            <a href="#" class="d_block t_align_c animate_fade"><img src="images/brand_logo.jpg" alt=""></a>
-            <a href="#" class="d_block t_align_c animate_fade"><img src="images/brand_logo.jpg" alt=""></a>
-            <a href="#" class="d_block t_align_c animate_fade"><img src="images/brand_logo.jpg" alt=""></a>
-            <a href="#" class="d_block t_align_c animate_fade"><img src="images/brand_logo.jpg" alt=""></a>
-            <a href="#" class="d_block t_align_c animate_fade"><img src="images/brand_logo.jpg" alt=""></a>
-            <a href="#" class="d_block t_align_c animate_fade"><img src="images/brand_logo.jpg" alt=""></a>
-            <a href="#" class="d_block t_align_c animate_fade"><img src="images/brand_logo.jpg" alt=""></a>
-            <a href="#" class="d_block t_align_c animate_fade"><img src="images/brand_logo.jpg" alt=""></a>
-            <a href="#" class="d_block t_align_c animate_fade"><img src="images/brand_logo.jpg" alt=""></a>
-            <a href="#" class="d_block t_align_c animate_fade"><img src="images/brand_logo.jpg" alt=""></a>
-            <a href="#" class="d_block t_align_c animate_fade"><img src="images/brand_logo.jpg" alt=""></a>
-            <a href="#" class="d_block t_align_c animate_fade"><img src="images/brand_logo.jpg" alt=""></a>
+            <a href="#" class="d_block t_align_c animate_fade"><img src="{{url("assets/flatastic")}}/images/brand_logo.jpg" alt=""></a>
+            <a href="#" class="d_block t_align_c animate_fade"><img src="{{url("assets/flatastic")}}/images/brand_logo.jpg" alt=""></a>
+            <a href="#" class="d_block t_align_c animate_fade"><img src="{{url("assets/flatastic")}}/images/brand_logo.jpg" alt=""></a>
+            <a href="#" class="d_block t_align_c animate_fade"><img src="{{url("assets/flatastic")}}/images/brand_logo.jpg" alt=""></a>
+            <a href="#" class="d_block t_align_c animate_fade"><img src="{{url("assets/flatastic")}}/images/brand_logo.jpg" alt=""></a>
+            <a href="#" class="d_block t_align_c animate_fade"><img src="{{url("assets/flatastic")}}/images/brand_logo.jpg" alt=""></a>
+            <a href="#" class="d_block t_align_c animate_fade"><img src="{{url("assets/flatastic")}}/images/brand_logo.jpg" alt=""></a>
+            <a href="#" class="d_block t_align_c animate_fade"><img src="{{url("assets/flatastic")}}/images/brand_logo.jpg" alt=""></a>
+            <a href="#" class="d_block t_align_c animate_fade"><img src="{{url("assets/flatastic")}}/images/brand_logo.jpg" alt=""></a>
+            <a href="#" class="d_block t_align_c animate_fade"><img src="{{url("assets/flatastic")}}/images/brand_logo.jpg" alt=""></a>
+            <a href="#" class="d_block t_align_c animate_fade"><img src="{{url("assets/flatastic")}}/images/brand_logo.jpg" alt=""></a>
+            <a href="#" class="d_block t_align_c animate_fade"><img src="{{url("assets/flatastic")}}/images/brand_logo.jpg" alt=""></a>
           </div>
         </section>
       </div>
@@ -1293,11 +1293,11 @@
       <div class="container clearfix t_mxs_align_c">
         <p class="f_left f_mxs_none m_mxs_bottom_10">&copy; 2014 <span class="color_light">Flatastic</span>. All Rights Reserved.</p>
         <ul class="f_right horizontal_list clearfix f_mxs_none d_mxs_inline_b">
-          <li><img src="images/payment_img_1.png" alt=""></li>
-          <li class="m_left_5"><img src="images/payment_img_2.png" alt=""></li>
-          <li class="m_left_5"><img src="images/payment_img_3.png" alt=""></li>
-          <li class="m_left_5"><img src="images/payment_img_4.png" alt=""></li>
-          <li class="m_left_5"><img src="images/payment_img_5.png" alt=""></li>
+          <li><img src="{{url("assets/flatastic")}}/images/payment_img_1.png" alt=""></li>
+          <li class="m_left_5"><img src="{{url("assets/flatastic")}}/images/payment_img_2.png" alt=""></li>
+          <li class="m_left_5"><img src="{{url("assets/flatastic")}}/images/payment_img_3.png" alt=""></li>
+          <li class="m_left_5"><img src="{{url("assets/flatastic")}}/images/payment_img_4.png" alt=""></li>
+          <li class="m_left_5"><img src="{{url("assets/flatastic")}}/images/payment_img_5.png" alt=""></li>
         </ul>
       </div>
     </div>
@@ -1380,8 +1380,8 @@
         <!--left popup column-->
         <div class="f_left half_column">
           <div class="relative d_inline_b m_bottom_10 qv_preview">
-            <span class="hot_stripe"><img src="images/sale_product.png" alt=""></span>
-            <img src="images/quick_view_img_1.jpg" class="tr_all_hover" alt="">
+            <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/sale_product.png" alt=""></span>
+            <img src="{{url("assets/flatastic")}}/images/quick_view_img_1.jpg" class="tr_all_hover" alt="">
           </div>
           <!--carousel-->
           <div class="relative qv_carousel_wrap m_bottom_20">
@@ -1389,12 +1389,12 @@
               <i class="fa fa-angle-left "></i>
             </button>
             <ul class="qv_carousel d_inline_middle">
-              <li data-src="images/quick_view_img_1.jpg"><img src="images/quick_view_img_4.jpg" alt=""></li>
-              <li data-src="images/quick_view_img_2.jpg"><img src="images/quick_view_img_5.jpg" alt=""></li>
-              <li data-src="images/quick_view_img_3.jpg"><img src="images/quick_view_img_6.jpg" alt=""></li>
-              <li data-src="images/quick_view_img_1.jpg"><img src="images/quick_view_img_4.jpg" alt=""></li>
-              <li data-src="images/quick_view_img_2.jpg"><img src="images/quick_view_img_5.jpg" alt=""></li>
-              <li data-src="images/quick_view_img_3.jpg"><img src="images/quick_view_img_6.jpg" alt=""></li>
+              <li data-src="{{url("assets/flatastic")}}/images/quick_view_img_1.jpg"><img src="{{url("assets/flatastic")}}/images/quick_view_img_4.jpg" alt=""></li>
+              <li data-src="{{url("assets/flatastic")}}/images/quick_view_img_2.jpg"><img src="{{url("assets/flatastic")}}/images/quick_view_img_5.jpg" alt=""></li>
+              <li data-src="{{url("assets/flatastic")}}/images/quick_view_img_3.jpg"><img src="{{url("assets/flatastic")}}/images/quick_view_img_6.jpg" alt=""></li>
+              <li data-src="{{url("assets/flatastic")}}/images/quick_view_img_1.jpg"><img src="{{url("assets/flatastic")}}/images/quick_view_img_4.jpg" alt=""></li>
+              <li data-src="{{url("assets/flatastic")}}/images/quick_view_img_2.jpg"><img src="{{url("assets/flatastic")}}/images/quick_view_img_5.jpg" alt=""></li>
+              <li data-src="{{url("assets/flatastic")}}/images/quick_view_img_3.jpg"><img src="{{url("assets/flatastic")}}/images/quick_view_img_6.jpg" alt=""></li>
             </ul>
             <button class="button_type_11 t_align_c f_size_ex_large bg_cs_hover r_corners d_inline_middle bg_tr tr_all_hover qv_btn_next">
               <i class="fa fa-angle-right "></i>
@@ -1548,15 +1548,15 @@
 </div>
 <button class="t_align_c r_corners type_2 tr_all_hover animate_ftl" id="go_to_top"><i class="fa fa-angle-up"></i></button>
 <!--scripts include-->
-<script src="js/jquery-2.1.0.min.js"></script>
-<script src="js/retina.js"></script>
-<script src="js/jquery.flexslider-min.js"></script>
-<script src="js/waypoints.min.js"></script>
-<script src="js/jquery.isotope.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.tweet.min.js"></script>
-<script src="js/jquery.custom-scrollbar.js"></script>
-<script src="js/scripts.js"></script>
+<script src="{{url("assets/flatastic")}}/js/jquery-2.1.0.min.js"></script>
+<script src="{{url("assets/flatastic")}}/js/retina.js"></script>
+<script src="{{url("assets/flatastic")}}/js/jquery.flexslider-min.js"></script>
+<script src="{{url("assets/flatastic")}}/js/waypoints.min.js"></script>
+<script src="{{url("assets/flatastic")}}/js/jquery.isotope.min.js"></script>
+<script src="{{url("assets/flatastic")}}/js/owl.carousel.min.js"></script>
+<script src="{{url("assets/flatastic")}}/js/jquery.tweet.min.js"></script>
+<script src="{{url("assets/flatastic")}}/js/jquery.custom-scrollbar.js"></script>
+<script src="{{url("assets/flatastic")}}/js/scripts.js"></script>
 <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5306f8f674bfda4c"></script>
 </body>
 </html>
