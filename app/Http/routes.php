@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'IndexController@index');
+Route::get('product/category/{slug}', 'ProductController@category');
 
 Route::group(array('before'=>'admin'), function() {
   Route::get('adopt/admin', 'AdoptController@admin');

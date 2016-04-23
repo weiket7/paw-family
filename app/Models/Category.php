@@ -15,4 +15,9 @@ class Category extends Eloquent {
     }
     return $res;
   }
+
+  public function getCategoryBySlug($slug)
+  {
+    return Category::where('slug', $slug)->firstOrFail();
+  }
 }

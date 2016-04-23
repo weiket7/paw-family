@@ -15,5 +15,10 @@ class Product extends Eloquent
     $products = DB::select($s);
     return $products;
   }
-  
+
+  public function getProductByCategoryId($category_id)
+  {
+    return Product::where('category_id', $category_id)->get();
+  }
+
 }

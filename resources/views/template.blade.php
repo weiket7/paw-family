@@ -17,6 +17,7 @@
   <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/owl.transitions.css">
   <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/jquery.custom-scrollbar.css">
   <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/style.css">
+  <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/custom.css">
   <!--font include-->
   <link href="{{url("assets/flatastic")}}/css/font-awesome.min.css" rel="stylesheet">
   <script src="{{url("assets/flatastic")}}/js/modernizr.js"></script>
@@ -100,7 +101,7 @@
     </section>
     <!--main menu container-->
     <div class="container">
-      <section class="menu_wrap type_2 relative clearfix t_xs_align_c m_bottom_20">
+      <section class="menu_wrap type_2 relative clearfix t_xs_align_c"> <!--removed m_bottom_20-->
         <!--button for responsive menu-->
         <button id="menu_button" class="r_corners centered_db d_none tr_all_hover d_xs_block m_bottom_15">
           <span class="centered_db r_corners"></span>
@@ -118,7 +119,7 @@
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
                   @foreach($categories_cache['D'] as $category)
-                    <li><a class="color_dark tr_delay_hover" href="index_layout_wide.html">{{$category->name}}</a></li>
+                    <li><a class="color_dark tr_delay_hover" href="{{url("product/category/".str_slug($category->name))}}">{{$category->name}}</a></li>
                   @endforeach
                 </ul>
               </div>

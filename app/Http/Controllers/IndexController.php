@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Product;
-use Validator;
-use App\Http\Controllers\Controller;
-
 
 class IndexController extends Controller
 {
