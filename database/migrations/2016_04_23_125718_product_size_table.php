@@ -10,17 +10,30 @@ class ProductSizeTable extends Migration
       Schema::create('product_size', function(Blueprint $t) {
         $t->increments('product_size_id');
         $t->integer('product_id');
+        $t->string('size_name', 10);
         $t->integer('quantity');
         $t->decimal('weight_lb', 5, 2);
         $t->decimal('weight_kg', 5, 2);
         $t->string('updated_by', 10);
         $t->timestamp('updated_at');
       });
+
+      DB::table('product_size')->insert([
+        'product_size_id'=>1, 'product_id'=>1, 'size_name'=>'Small', 'quantity'=>5, 'weight_lb'=>4,
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+      DB::table('product_size')->insert([
+        'product_size_id'=>2, 'product_id'=>1, 'size_name'=>'Medium', 'quantity'=>10, 'weight_lb'=>20,
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+      DB::table('product_size')->insert([
+        'product_size_id'=>3, 'product_id'=>1, 'size_name'=>'Large', 'quantity'=>0, 'weight_lb'=>33,
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
     }
 
     public function down()
     {
       Schema::dropIfExists('product_size');
-
     }
 }

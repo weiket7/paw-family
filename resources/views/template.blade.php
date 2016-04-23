@@ -11,6 +11,8 @@
   <meta name="description" content="">
   <link rel="icon" type="image/ico" href="{{url("assets/flatastic")}}/images/fav.ico">
   <!--stylesheet include-->
+  <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/jquery.fancybox-1.3.4.css">
+
   <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/flexslider.css">
   <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/owl.carousel.css">
@@ -119,7 +121,7 @@
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
                   @foreach($categories_cache['D'] as $category)
-                    <li><a class="color_dark tr_delay_hover" href="{{url("product/category/".str_slug($category->name))}}">{{$category->name}}</a></li>
+                    <li><a class="color_dark tr_delay_hover" href="{{url("product/category/".$category->slug)}}">{{$category->name}}</a></li>
                   @endforeach
                 </ul>
               </div>
@@ -645,7 +647,14 @@
 </div>
 <button class="t_align_c r_corners type_2 tr_all_hover animate_ftl" id="go_to_top"><i class="fa fa-angle-up"></i></button>
 <!--scripts include-->
-<script src="{{url("assets/flatastic")}}/js/jquery-2.2.3.min.js"></script>
+<script src="{{url("assets/flatastic")}}/js/jquery-2.1.0.min.js"></script>
+<script src="{{url("assets/flatastic")}}/js/jquery-ui.min.js"></script>
+<script src="{{url("assets/flatastic")}}/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="{{url("assets/flatastic")}}/js/retina.js"></script>
+<script src="{{url("assets/flatastic")}}/js/elevatezoom.min.js"></script>
+<script src="{{url("assets/flatastic")}}/js/waypoints.min.js"></script>
+<script src="{{url("assets/flatastic")}}/js/jquery.tweet.min.js"></script>
+<script src="{{url("assets/flatastic")}}/js/jquery.fancybox-1.3.4.js"></script>
 <script src="{{url("assets/flatastic")}}/js/jquery.flexslider-min.js"></script>
 <script src="{{url("assets/flatastic")}}/js/waypoints.min.js"></script>
 <script src="{{url("assets/flatastic")}}/js/jquery.isotope.min.js"></script>

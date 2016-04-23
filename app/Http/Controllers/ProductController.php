@@ -15,4 +15,11 @@ class ProductController extends Controller
     $data['category'] = $category;
     return view("category", $data);
   }
+
+  public function view($slug) {
+    $product_service = new Product();
+    $product = $product_service->getProductBySlug($slug);
+    $data['product'] = $product;
+    return view("product-view", $data);
+  }
 }

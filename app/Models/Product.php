@@ -21,4 +21,16 @@ class Product extends Eloquent
     return Product::where('category_id', $category_id)->get();
   }
 
+  public function getProductBySlug($slug)
+  {
+    $s = "SELECT p.name, p.slug, p.image, b.name as brand, c.name as category, desc_short from product as p
+    inner join brand as b on p.brand_id = b.brand_id
+    inner join category as c on p.category_id = c.category_id
+    where p.slug = :slug";
+    $p['slug'] = $slug;
+
+    $data = DB::select($s, $p);
+    return $data[0];
+  }
+
 }

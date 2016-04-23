@@ -66,19 +66,17 @@
             <div class="product_item hit w_xs_full">
               <figure class="r_corners photoframe animate_ftb type_2 t_align_c tr_all_hover shadow relative">
                 <!--product preview-->
-                <a href="#" class="d_block relative pp_wrap m_bottom_15">
+                <a href="{{url("product/view/".$product->slug)}}" class="d_block relative pp_wrap m_bottom_15">
                   @if($product->product_featured_stat == ProductFeaturedStat::Hot)
                     <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/hot_product.png" alt=""></span>
                   @elseif($product->product_featured_stat == ProductFeaturedStat::Sale)
                     <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/sale_product.png" alt=""></span>
                   @endif
                   <img src="{{url("assets/flatastic")}}/images/product_img_1.jpg" class="tr_all_hover" alt="">
-                  <span role="button" data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
                 </a>
                 <figcaption>
-                  <h5 class="m_bottom_10"><a href="#" class="color_dark">Eget elementum vel</a></h5>
+                  <h5 class="m_bottom_10"><a href="#" class="color_dark">{{$product->name}}</a></h5>
                   <p class="scheme_color f_size_large m_bottom_15">$102.00</p>
-                  <button class="button_type_4 bg_scheme_color r_corners tr_all_hover color_light mw_0 m_bottom_15">Add to Cart</button>
                 </figcaption>
               </figure>
             </div>
