@@ -12,6 +12,7 @@ class ProductSizeTable extends Migration
         $t->integer('product_id');
         $t->string('size_name', 10);
         $t->integer('quantity');
+        $t->decimal('price', 7, 2);
         $t->decimal('weight_lb', 5, 2);
         $t->decimal('weight_kg', 5, 2);
         $t->string('updated_by', 10);
@@ -19,15 +20,15 @@ class ProductSizeTable extends Migration
       });
 
       DB::table('product_size')->insert([
-        'product_size_id'=>1, 'product_id'=>1, 'size_name'=>'Small', 'quantity'=>5, 'weight_lb'=>4,
+        'product_size_id'=>1, 'product_id'=>1, 'size_name'=>'Small', 'quantity'=>5, 'weight_lb'=>4, 'price'=>39.1,
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
       ]);
       DB::table('product_size')->insert([
-        'product_size_id'=>2, 'product_id'=>1, 'size_name'=>'Medium', 'quantity'=>10, 'weight_lb'=>20,
+        'product_size_id'=>2, 'product_id'=>1, 'size_name'=>'Medium', 'quantity'=>10, 'weight_lb'=>20, 'price'=>142.9,
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
       ]);
       DB::table('product_size')->insert([
-        'product_size_id'=>3, 'product_id'=>1, 'size_name'=>'Large', 'quantity'=>0, 'weight_lb'=>33,
+        'product_size_id'=>3, 'product_id'=>1, 'size_name'=>'Large', 'quantity'=>0, 'weight_lb'=>33, 'price'=>195.55,
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
       ]);
     }

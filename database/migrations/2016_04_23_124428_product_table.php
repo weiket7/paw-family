@@ -29,7 +29,7 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Viva La Venison',
         'slug'=>'addiction-viva-la-venison',
-        'image'=>'product_img_1.jpg',
+        'image'=>'addiction-viva-la-venison.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -41,7 +41,7 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Salmon Bleu',
         'slug'=>'addiction-salmon-bleu',
-        'image'=>'product_img_1.jpg',
+        'image'=>'addiction-salmon-bleu.jpg',
         'stat'=>ProductStat::Hidden,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -53,7 +53,7 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Le Lamb',
         'slug'=>'addiction-le-lamb',
-        'image'=>'product_img_1.jpg',
+        'image'=>'addiction-le-lamb.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')

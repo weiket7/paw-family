@@ -33,7 +33,7 @@ class ProductRepackTable extends Migration
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
     DB::table('product_repack')->insert([
-      'product_repack_id'=>3, 'product_id'=>1, 'product_size_id'=>3, 'repack_name'=>'repack - 4packs',
+      'product_repack_id'=>4, 'product_id'=>1, 'product_size_id'=>3, 'repack_name'=>'repack - 4packs',
       'cost'=>1,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);

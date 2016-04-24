@@ -5,6 +5,31 @@
 @endsection
 
 @section('content')
+<script type="text/javascript">
+  function selectSize() {
+    var size = $('input[name=size]:checked').val()
+    var repack_options_json = '{!! json_encode($product->repack) !!}';
+    var repack_options_object = JSON.parse(repack_options_json);
+    var repack_options = repack_options_object[size];
+    //console.log(JSON.stringify(repack_options)+"<br>");
+    var html = "";
+    if (typeof repack_options === 'undefined') {
+      $("#repack_option_title").text("No repack options")
+      $("#repack_option").html("");
+      return;
+    };
+
+    for (var key in repack_options) {
+      if (repack_options.hasOwnProperty(key)) {
+        html += "<li class='tr_delay_hover'>"+repack_options[key].repack_name+"</li>";
+      }
+    }
+    $("#repack_option_title").text("Select Repack")
+    $("#repack_option").html(html);
+    //console.log(html);
+  }
+</script>
+
 
   <!--breadcrumbs-->
 <section class="breadcrumbs">
@@ -20,44 +45,23 @@
 <div class="page_content_offset">
   <div class="container">
     <div class="clearfix m_bottom_30 t_xs_align_c">
-      <div class="photoframe type_2 shadow r_corners f_left f_sm_none d_xs_inline_b product_single_preview relative m_right_30 m_bottom_5 m_sm_bottom_20 m_xs_right_0 w_mxs_full">
-        <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/sale_product.png" alt=""></span>
-        <div class="relative d_inline_b m_bottom_10 qv_preview d_xs_block">
-          <img id="zoom_image" src="{{url("assets/flatastic")}}/images/quick_view_img_7.jpg" data-zoom-image="images/preview_zoom_1.jpg" class="tr_all_hover" alt="">
-          <a href="images/preview_zoom_1.jpg" class="d_block button_type_5 r_corners tr_all_hover box_s_none color_light p_hr_0">
-            <i class="fa fa-expand"></i>
-          </a>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="photoframe type_2 shadow r_corners f_left f_sm_none d_xs_inline_b product_single_preview relative m_right_30 m_bottom_5 m_sm_bottom_20 m_xs_right_0 w_mxs_full">
+            <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/sale_product.png" alt=""></span>
+            <div class="relative d_inline_b m_bottom_10 qv_preview d_xs_block">
+              <img id="zoom_image" src="{{url("assets/images/products/".$product->image)}}" data-zoom-image="images/preview_zoom_1.jpg" class="tr_all_hover" alt="">
+              <a href="images/preview_zoom_1.jpg" class="d_block button_type_5 r_corners tr_all_hover box_s_none color_light p_hr_0">
+                <i class="fa fa-expand"></i>
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="p_top_10 t_xs_align_l">
+        <div class="col-md-7">
+
+          <div class="p_top_10 t_xs_align_l">
         <!--description-->
         <h2 class="color_dark fw_medium m_bottom_10">{{$product->name}}</h2>
-        {{--<div class="m_bottom_10">
-          <!--rating-->
-          <ul class="horizontal_list d_inline_middle type_2 clearfix rating_list tr_all_hover">
-            <li class="active">
-              <i class="fa fa-star-o empty tr_all_hover"></i>
-              <i class="fa fa-star active tr_all_hover"></i>
-            </li>
-            <li class="active">
-              <i class="fa fa-star-o empty tr_all_hover"></i>
-              <i class="fa fa-star active tr_all_hover"></i>
-            </li>
-            <li class="active">
-              <i class="fa fa-star-o empty tr_all_hover"></i>
-              <i class="fa fa-star active tr_all_hover"></i>
-            </li>
-            <li class="active">
-              <i class="fa fa-star-o empty tr_all_hover"></i>
-              <i class="fa fa-star active tr_all_hover"></i>
-            </li>
-            <li>
-              <i class="fa fa-star-o empty tr_all_hover"></i>
-              <i class="fa fa-star active tr_all_hover"></i>
-            </li>
-          </ul>
-          <a href="#" class="d_inline_middle default_t_color f_size_small m_left_5">1 Review(s) </a>
-        </div>--}}
         <hr class="m_bottom_10 divider_type_3">
         <table class="description_table m_bottom_10">
           <tr>
@@ -88,21 +92,24 @@
         <p class="m_bottom_10">Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit. Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Donec sit amet eros. Lorem ipsum dolor sit amet, consecvtetuer adipiscing. </p>
         <hr class="divider_type_3 m_bottom_15">
 
-
         <table class="description_table type_2 m_bottom_15">
           @if(count($product->sizes))
           <tr>
-            <td class="v_align_m">Size:</td>
+            <td class="v_align_t">Size:</td>
             <td class="v_align_m">
-              <div class="custom_select f_size_medium relative d_inline_middle">
-                <div class="select_title r_corners relative color_dark">Small</div>
-                <ul class="select_list d_none"></ul>
-                <select name="product_name">
-                  @foreach($product->sizes as $size)
-                  <option value="s">{{$size->size_name}}</option>
-                  @endforeach
-                </select>
-              </div>
+              <table class="size_table">
+                @foreach($product->sizes as $size)
+                <tr>
+                  <td>
+                    <input type="radio" name="size" id="size{{$size->size_name}}" class="d_none" value="{{$size->product_size_id}}" onclick="selectSize()">
+                    <label for="size{{$size->size_name}}">{{$size->size_name}}</label>
+                  </td>
+                  <td>
+                    ${{$size->price}}
+                  </td>
+                </tr>
+                @endforeach
+              </table>
             </td>
           </tr>
           @endif
@@ -121,9 +128,9 @@
             <td class="v_align_m">Repack:</td>
             <td class="v_align_m">
               <div class="custom_select f_size_medium relative d_inline_middle">
-                <div class="select_title r_corners relative color_dark">s</div>
-                <ul class="select_list d_none"></ul>
-                <select name="product_name">
+                <div class="select_title r_corners relative color_dark" id="repack_option_title">Select Size</div>
+                <ul class="select_list d_none" id="repack_option"></ul>
+                <select name="repack_option">
                   <option value="s">s</option>
                   <option value="m">m</option>
                   <option value="l">l</option>
@@ -140,9 +147,10 @@
         </div>
         <div class="d_ib_offset_0 m_bottom_20">
           <button class="button_type_12 r_corners bg_scheme_color color_light tr_delay_hover d_inline_b f_size_large m_right_5">Add to Cart</button>
-          <a href="{{url("/")}}">
-            <button class="button_type_12 r_corners bg_color_blue color_light tr_delay_hover d_inline_b f_size_large">Back</button>
-          </a>
+          <button class="button_type_12 r_corners bg_color_blue color_light tr_delay_hover d_inline_b f_size_large" onclick="history.go(-1)">Back</button>
+        </div>
+      </div>
+
         </div>
       </div>
     </div>
