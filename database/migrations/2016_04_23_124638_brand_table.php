@@ -29,7 +29,11 @@ class BrandTable extends Migration
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
     DB::table('brand')->insert([
-      'brand_id'=>4, 'name'=>'Barking Heads', 'image'=>'barkingheads.jpg',
+      'brand_id'=>4, 'name'=>'Barking Heads', 'image'=>'barking-heads.jpg',
+      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+    ]);
+    DB::table('brand')->insert([
+      'brand_id'=>5, 'name'=>'Bosch', 'image'=>'bosch.jpg',
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
   }

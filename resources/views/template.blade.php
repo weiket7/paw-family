@@ -94,47 +94,42 @@
                 </ul>
               </div>
             </li>
-            <li class="relative f_xs_none m_xs_bottom_5"><a href="category_grid.html" class="tr_delay_hover color_light tt_uppercase"><b>Cats</b></a>
+            <li class="relative f_xs_none m_xs_bottom_5"><a href="#" class="tr_delay_hover color_light tt_uppercase"><b>Cats</b></a>
               <!--sub menu-->
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
-                  @foreach($categories_cache['C'] as $category)
-                    <li><a class="color_dark tr_delay_hover" href="index_layout_wide.html">{{$category->name}}</a></li>
-                  @endforeach
+                  @if(isset($categories_cache['C']))
+                    @foreach($categories_cache['C'] as $category)
+                      <li><a class="color_dark tr_delay_hover" href="{{url("product/category/".$category->slug)}}">{{$category->name}}</a></li>
+                    @endforeach
+                  @endif
                 </ul>
               </div>
             </li>
-            <li class="relative f_xs_none m_xs_bottom_5"><a href="category_grid.html" class="tr_delay_hover color_light tt_uppercase"><b>Small Animals</b></a>
+            <li class="relative f_xs_none m_xs_bottom_5"><a href="#" class="tr_delay_hover color_light tt_uppercase"><b>Small Animals</b></a>
               <!--sub menu-->
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
-                  <li><a class="color_dark tr_delay_hover" href="category_grid.html">Grid View Category Page</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="category_list.html">List View Category Page</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="category_no_products.html">Category Page Without Products</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="product_page_sidebar.html">Product Page With Sidebar</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="full_width_product_page.html">Full Width Product Page</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="wishlist.html">Wishlist</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="compare_products.html">Compare Products</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="checkout.html">Checkout</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="manufacturers.html">Manufacturers</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="manufacturer_details.html">Manufacturer Page</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="orders_list.html">Orders List</a></li>
-                  <li><a class="color_dark tr_delay_hover" href="order_details.html">Order Details</a></li>
+                  @if(isset($categories_cache['S']))
+                    @foreach($categories_cache['S'] as $category)
+                      <li><a class="color_dark tr_delay_hover" href="{{url("product/category/".$category->slug)}}">{{$category->name}}</a></li>
+                    @endforeach
+                  @endif
                 </ul>
               </div>
             </li>
             <li class="relative f_xs_none m_xs_bottom_5">
-              <a href="contact.html" class="tr_delay_hover color_light tt_uppercase">
+              <a href="{{url("brands")}}" class="tr_delay_hover color_light tt_uppercase">
                 <b>Brands</b>
               </a>
             </li>
             <li class="relative f_xs_none m_xs_bottom_5">
-              <a href="contact.html" class="tr_delay_hover color_light tt_uppercase">
+              <a href="{{url("contact")}}" class="tr_delay_hover color_light tt_uppercase">
                 <b>Contact</b>
               </a>
             </li>
             <li class="relative f_xs_none m_xs_bottom_5">
-              <a href="contact.html" class="tr_delay_hover color_light tt_uppercase">
+              <a href="{{url("login")}}" class="tr_delay_hover color_light tt_uppercase">
                 <b>Log In</b>
               </a>
             </li>

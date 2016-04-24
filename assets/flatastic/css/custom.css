@@ -5,3 +5,8 @@
 .size_table td{
   padding:0;
 }
+
+.product_single_preview{
+  width: auto;
+  z-index:0;
+}
