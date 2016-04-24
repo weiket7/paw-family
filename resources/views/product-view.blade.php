@@ -6,28 +6,69 @@
 
 @section('content')
 <script type="text/javascript">
+  var repack_options_json = '{!! json_encode($product->repacks) !!}';
+  var repack_options_object = JSON.parse(repack_options_json);
+  var sizes_json = '{!! json_encode($product->sizes) !!}';
+  var sizes_object =  JSON.parse(sizes_json);
+
   function selectSize() {
     var size = $('input[name=size]:checked').val()
-    var repack_options_json = '{!! json_encode($product->repack) !!}';
-    var repack_options_object = JSON.parse(repack_options_json);
     var repack_options = repack_options_object[size];
-    //console.log(JSON.stringify(repack_options)+"<br>");
+    //console.log(JSON.stringify(repack_options));
     var html = "";
-    if (typeof repack_options === 'undefined') {
-      $("#repack_option_title").text("No repack options")
-      $("#repack_option").html("");
-      return;
-    };
-
-    for (var key in repack_options) {
-      if (repack_options.hasOwnProperty(key)) {
-        html += "<li class='tr_delay_hover'>"+repack_options[key].repack_name+"</li>";
+    if (typeof repack_options === 'undefined' || repack_options.length === 0) {
+      $("#repack_options_default").text("No Repack")
+      $("#repack_options").html("");
+    } else {
+      for (var key in repack_options) {
+        if (repack_options.hasOwnProperty(key)) {
+          html += "<li class='tr_delay_hover' onclick='selectRepack("+repack_options[key].product_repack_id+")'>"+repack_options[key].repack_name+"</li>";
+        }
       }
+      $("#repack_options_default").text("Select Repack")
+      $("#repack_options").html(html);
+      //console.log(html);
     }
-    $("#repack_option_title").text("Select Repack")
-    $("#repack_option").html(html);
-    //console.log(html);
+
+    updatePrice();
   }
+
+  function updateQuantity(element) {
+    var data = $(element).data('direction'),
+      i = $(element).parent().children('input[type="text"]'),
+      val = i.val();
+    if(data == "up"){
+      val++;
+      i.val(val);
+    }else if(data == "down"){
+      if(val == 1) return;
+      val--;
+      i.val(val);
+    }
+
+    updatePrice();
+  }
+
+  function selectRepack(product_repack_id) {
+    //console.log(product_repack_id);
+    $("#repack").val(product_repack_id);
+    updatePrice();
+
+  }
+
+  function updatePrice() {
+    var size = $('input[name=size]:checked').val();
+    var repack = $("repack").val();
+    var quantity = $("#quantity").val();
+    //console.log('quantity=' + quantity + ' size=' + size + ' repack=' + repack);
+    var sizes = sizes_object[size];
+    //console.log(JSON.stringify(sizes));
+    var price = sizes.price;
+    var final_price = price * quantity;
+    //console.log(price);
+    $("#final_price").text("$"+toTwoDecimal(final_price));
+  }
+
 </script>
 
 
@@ -117,9 +158,9 @@
             <td class="v_align_m">Quantity:</td>
             <td class="v_align_m">
               <div class="clearfix quantity r_corners d_inline_middle f_size_medium color_dark">
-                <button class="bg_tr d_block f_left" data-direction="down">-</button>
-                <input type="text" name="" readonly value="1" class="f_left">
-                <button class="bg_tr d_block f_left" data-direction="up">+</button>
+                <button class="bg_tr d_block f_left" data-direction="down" onclick="updateQuantity(this)">-</button>
+                <input type="text" name="quantity" id="quantity" value="1" class="f_left" >
+                <button class="bg_tr d_block f_left" data-direction="up" onclick="updateQuantity(this)">+</button>
               </div>
             </td>
           </tr>
@@ -127,14 +168,10 @@
           <tr>
             <td class="v_align_m">Repack:</td>
             <td class="v_align_m">
+              <input type="text" name="repack" id="repack">
               <div class="custom_select f_size_medium relative d_inline_middle">
-                <div class="select_title r_corners relative color_dark" id="repack_option_title">Select Size</div>
-                <ul class="select_list d_none" id="repack_option"></ul>
-                <select name="repack_option">
-                  <option value="s">s</option>
-                  <option value="m">m</option>
-                  <option value="l">l</option>
-                </select>
+                <div class="select_title r_corners relative color_dark" id="repack_options_default">Select Size</div>
+                <ul class="select_list d_none" id="repack_options"></ul>
               </div>
             </td>
           </tr>
@@ -142,8 +179,8 @@
         </table>
 
         <div class="m_bottom_15">
-          <s class="v_align_b f_size_ex_large">$152.00</s>
-          <span class="v_align_b f_size_big m_left_5 scheme_color fw_medium">$102.00</span>
+          <s class="v_align_b f_size_ex_large" id="original_price">$152.00</s>
+          <span class="v_align_b f_size_big m_left_5 scheme_color fw_medium" id="final_price">$102.00</span>
         </div>
         <div class="d_ib_offset_0 m_bottom_20">
           <button class="button_type_12 r_corners bg_scheme_color color_light tr_delay_hover d_inline_b f_size_large m_right_5">Add to Cart</button>

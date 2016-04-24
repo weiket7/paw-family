@@ -969,8 +969,8 @@ rMenu.init();
 
 	// quantity
 
-	(function(){
-		
+	/*(function(){
+
 		$('.quantity').on('click','button',function(){
 			var data = $(this).data('direction'),
 				i = $(this).parent().children('input[type="text"]'),
@@ -985,7 +985,7 @@ rMenu.init();
 			}
 		});
 
-	})();
+	})();*/
 
 	// popup  
 

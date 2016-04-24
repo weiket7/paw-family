@@ -643,6 +643,7 @@
 <script src="{{url("assets/flatastic")}}/js/jquery.tweet.min.js"></script>
 <script src="{{url("assets/flatastic")}}/js/jquery.custom-scrollbar.js"></script>
 <script src="{{url("assets/flatastic")}}/js/scripts.js"></script>
+<script src="{{url("assets/flatastic")}}/js/custom.js"></script>
 <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5306f8f674bfda4c"></script>
 </body>
 </html>

@@ -13,6 +13,8 @@ class ProductSizeTable extends Migration
         $t->string('size_name', 10);
         $t->integer('quantity');
         $t->decimal('price', 7, 2);
+        $t->decimal('discount_amt', 7, 2); //10% or $10, detect based on %
+        $t->char('discount_type', 1); //A or P
         $t->decimal('weight_lb', 5, 2);
         $t->decimal('weight_kg', 5, 2);
         $t->string('updated_by', 10);

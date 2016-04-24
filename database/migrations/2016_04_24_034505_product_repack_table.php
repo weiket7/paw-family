@@ -18,22 +18,22 @@ class ProductRepackTable extends Migration
     });
 
     DB::table('product_repack')->insert([
-      'product_repack_id'=>1, 'product_id'=>1, 'product_size_id'=>2, 'repack_name'=>'repack - 2packs',
+      'product_repack_id'=>1, 'product_id'=>1, 'product_size_id'=>2, 'repack_name'=>'2 packs',
       'cost'=>0,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
     DB::table('product_repack')->insert([
-      'product_repack_id'=>2, 'product_id'=>1, 'product_size_id'=>2, 'repack_name'=>'repack - 3packs',
+      'product_repack_id'=>2, 'product_id'=>1, 'product_size_id'=>2, 'repack_name'=>'3 packs',
       'cost'=>1,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
     DB::table('product_repack')->insert([
-      'product_repack_id'=>3, 'product_id'=>1, 'product_size_id'=>3, 'repack_name'=>'repack - 3packs',
+      'product_repack_id'=>3, 'product_id'=>1, 'product_size_id'=>3, 'repack_name'=>'3 packs',
       'cost'=>0,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
     DB::table('product_repack')->insert([
-      'product_repack_id'=>4, 'product_id'=>1, 'product_size_id'=>3, 'repack_name'=>'repack - 4packs',
+      'product_repack_id'=>4, 'product_id'=>1, 'product_size_id'=>3, 'repack_name'=>'4 packs',
       'cost'=>1,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);

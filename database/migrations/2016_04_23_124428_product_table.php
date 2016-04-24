@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Enums\DiscountType;
 use App\Models\Enums\ProductStat;
 use App\Models\Product;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,6 +16,8 @@ class ProductTable extends Migration
         $t->integer('brand_id');
         $t->string('name', 100);
         $t->string('slug', 100);
+        $t->decimal('discount_amt', 7, 2); //10% or $10, detect based on %
+        $t->char('discount_type', 1); //A or P
         $t->text('desc');
         $t->string('desc_short', 250);
         $t->string('image', 50);
@@ -29,6 +32,8 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Viva La Venison',
         'slug'=>'addiction-viva-la-venison',
+        'discount_amt'=>'10',
+        'discount_type'=>DiscountType::Amount,
         'image'=>'addiction-viva-la-venison.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -41,6 +46,8 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Salmon Bleu',
         'slug'=>'addiction-salmon-bleu',
+        'discount_amt'=>'10',
+        'discount_type'=>DiscountType::Percentage,
         'image'=>'addiction-salmon-bleu.jpg',
         'stat'=>ProductStat::Hidden,
         'desc_short'=>'Delicious!',

@@ -33,7 +33,7 @@ class Product extends Eloquent
     $product = $data[0];
 
     $product->sizes = $this->getProductSize($product->product_id);
-    $product->repack = $this->getProductRepack($product->product_id);
+    $product->repacks = $this->getProductRepack($product->product_id);
 
     return $product;
   }
@@ -42,11 +42,17 @@ class Product extends Eloquent
     $s = "SELECT product_size_id, size_name, price, quantity, weight_lb, weight_kg from product_size
     where product_id = :product_id";
     $p['product_id'] = $product_id;
-    return DB::select($s, $p);
+    $data = DB::select($s, $p);
+
+    $res = [];
+    foreach($data as $d) {
+      $res[$d->product_size_id] = $d;
+    }
+    return $res;
   }
 
   public function getProductRepack($product_id) {
-    $s = "SELECT product_size_id, repack_name, cost from product_repack
+    $s = "SELECT product_repack_id, product_size_id, repack_name, cost from product_repack
     where product_id = :product_id";
     $p['product_id'] = $product_id;
     $data = DB::select($s, $p);

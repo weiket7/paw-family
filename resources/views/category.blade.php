@@ -72,7 +72,7 @@
                   @elseif($product->product_featured_stat == ProductFeaturedStat::Sale)
                     <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/sale_product.png" alt=""></span>
                   @endif
-                  <img src="{{url("assets/flatastic")}}/images/product_img_1.jpg" class="tr_all_hover" alt="">
+                  <img src="{{url("assets/images/products/".$product->image)}}" class="tr_all_hover" alt="">
                 </a>
                 <figcaption>
                   <h5 class="m_bottom_10"><a href="#" class="color_dark">{{$product->name}}</a></h5>
