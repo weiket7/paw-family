@@ -1,28 +1,36 @@
-@extends('template')
+<?php use App\Models\Enums\MainCategory; ?>
 
-@section('script')
+@extends('template', [
+  "breadcrumbs"=>[
+    0=>MainCategory::$values[$product->main_category],
+    1=>$product->category,
+    2=>$product->name,
+  ]
+])
+
+@section('breadcrumb')
 
 @endsection
 
 @section('content')
 <script type="text/javascript">
-  var repack_options_json = '{!! json_encode($product->repacks) !!}';
-  var repack_options_object = JSON.parse(repack_options_json);
+  var repacks_json = '{!! json_encode($product->repacks) !!}';
+  var repacks_object = JSON.parse(repacks_json);
   var sizes_json = '{!! json_encode($product->sizes) !!}';
   var sizes_object =  JSON.parse(sizes_json);
 
   function selectSize() {
     var size = $('input[name=size]:checked').val()
-    var repack_options = repack_options_object[size];
+    var repacks = repacks_object[size];
     //console.log(JSON.stringify(repack_options));
     var html = "";
-    if (typeof repack_options === 'undefined' || repack_options.length === 0) {
+    if (typeof repacks === 'undefined' || repacks.length === 0) {
       $("#repack_options_default").text("No Repack")
       $("#repack_options").html("");
     } else {
-      for (var key in repack_options) {
-        if (repack_options.hasOwnProperty(key)) {
-          html += "<li class='tr_delay_hover' onclick='selectRepack("+repack_options[key].product_repack_id+")'>"+repack_options[key].repack_name+"</li>";
+      for (var key in repacks) {
+        if (repacks.hasOwnProperty(key)) {
+          html += "<li class='tr_delay_hover' onclick='selectRepack("+repacks[key].repack_id+")'>"+repacks[key].repack_name+"</li>";
         }
       }
       $("#repack_options_default").text("Select Repack")
@@ -49,39 +57,42 @@
     updatePrice();
   }
 
-  function selectRepack(product_repack_id) {
-    //console.log(product_repack_id);
-    $("#repack").val(product_repack_id);
+  function selectRepack(repack_id) {
+    //console.log(repack_id);
+    $("#repack").val(repack_id);
     updatePrice();
-
   }
 
   function updatePrice() {
     var size = $('input[name=size]:checked').val();
-    var repack = $("repack").val();
+    var repack = $("#repack").val();
     var quantity = $("#quantity").val();
-    //console.log('quantity=' + quantity + ' size=' + size + ' repack=' + repack);
     var sizes = sizes_object[size];
-    //console.log(JSON.stringify(sizes));
-    var price = sizes.price;
-    var final_price = price * quantity;
-    //console.log(price);
+    var size_price = sizes.price;
+
+    var repack_options = repacks_object[size];
+    var repack_price = 0;
+    if (typeof repack_options === 'undefined' || repack_options.length === 0) {
+      repack_price = 0;
+    } else {
+      for (var key in repack_options) {
+        if (repack_options.hasOwnProperty(key)) {
+          if (repack_options[key].repack_id == repack) {
+            repack_price = repack_options[key].cost;
+          }
+        }
+      }
+    }
+
+    //console.log('quantity=' + quantity + ' size=' + size + ' repack=' + repack);
+    //console.log('size_price='+size_price + ' repack_price='+repack_price);
+
+    var final_price = size_price * quantity + repack_price * quantity;
     $("#final_price").text("$"+toTwoDecimal(final_price));
   }
 
 </script>
 
-
-  <!--breadcrumbs-->
-<section class="breadcrumbs">
-  <div class="container">
-    <ul class="horizontal_list clearfix bc_list f_size_medium">
-      <li class="m_right_10 current"><a href="#" class="default_t_color">Home<i class="fa fa-angle-right d_inline_middle m_left_10"></i></a></li>
-      <li class="m_right_10"><a href="#" class="default_t_color">Women</a><i class="fa fa-angle-right d_inline_middle m_left_10"></i></li>
-      <li><a href="#" class="default_t_color">Eget elementum vel</a></li>
-    </ul>
-  </div>
-</section>
 <!--content-->
 <div class="page_content_offset">
   <div class="container">
@@ -140,9 +151,10 @@
             <td class="v_align_m">
               <table class="size_table">
                 @foreach($product->sizes as $size)
+                <?php $checked = $size->size_id == array_first($product->sizes)->size_id ? "checked" : ""; ?>
                 <tr>
                   <td>
-                    <input type="radio" name="size" id="size{{$size->size_name}}" class="d_none" value="{{$size->product_size_id}}" onclick="selectSize()">
+                    <input type="radio" name="size" {{$checked}} id="size{{$size->size_name}}" class="d_none" value="{{$size->size_id}}" onclick="selectSize()">
                     <label for="size{{$size->size_name}}">{{$size->size_name}}</label>
                   </td>
                   <td>
@@ -168,7 +180,7 @@
           <tr>
             <td class="v_align_m">Repack:</td>
             <td class="v_align_m">
-              <input type="text" name="repack" id="repack">
+              <input type="hidden" name="repack" id="repack">
               <div class="custom_select f_size_medium relative d_inline_middle">
                 <div class="select_title r_corners relative color_dark" id="repack_options_default">Select Size</div>
                 <ul class="select_list d_none" id="repack_options"></ul>
@@ -179,7 +191,6 @@
         </table>
 
         <div class="m_bottom_15">
-          <s class="v_align_b f_size_ex_large" id="original_price">$152.00</s>
           <span class="v_align_b f_size_big m_left_5 scheme_color fw_medium" id="final_price">$102.00</span>
         </div>
         <div class="d_ib_offset_0 m_bottom_20">

@@ -25,6 +25,7 @@
   <script src="{{url("assets/flatastic")}}/js/modernizr.js"></script>
 </head>
 <body>
+
 <!--boxed layout-->
 <div class="wide_layout relative w_xs_auto">
   <!--[if (lt IE 9) | IE 9]>
@@ -223,6 +224,25 @@
       </section>
     </div>
   </header>
+
+  @if(isset($breadcrumbs))
+  <div class="container">
+    <ul class="horizontal_list clearfix bc_list f_size_medium"  style="background-color:#f2f4f5; padding: 9px;">
+      <li class="m_right_10 current">
+        Home<i class="fa fa-angle-right d_inline_middle m_left_10"></i>
+      </li>
+      @foreach($breadcrumbs as $b)
+        <li class="m_right_10">
+        @if($b != array_last($breadcrumbs))
+          {{ $b }}
+          <i class="fa fa-angle-right d_inline_middle m_left_10"></i>
+        @else
+          <a href="#"><b>{{$b}}</b></a>
+        @endif
+      @endforeach
+    </ul>
+  </div>
+  @endif
 
   @yield('content')
 

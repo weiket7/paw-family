@@ -23,7 +23,7 @@ class Product extends Eloquent
 
   public function getProductBySlug($slug)
   {
-    $s = "SELECT product_id, p.name, p.slug, p.image, b.name as brand, c.name as category, desc_short from product as p
+    $s = "SELECT product_id, p.name, p.slug, p.image, b.name as brand, c.main_category, c.name as category, desc_short from product as p
     inner join brand as b on p.brand_id = b.brand_id
     inner join category as c on p.category_id = c.category_id
     where p.slug = :slug";
@@ -39,27 +39,27 @@ class Product extends Eloquent
   }
 
   public function getProductSize($product_id) {
-    $s = "SELECT product_size_id, size_name, price, quantity, weight_lb, weight_kg from product_size
+    $s = "SELECT size_id, size_name, price, quantity, weight_lb, weight_kg from size
     where product_id = :product_id";
     $p['product_id'] = $product_id;
     $data = DB::select($s, $p);
 
     $res = [];
     foreach($data as $d) {
-      $res[$d->product_size_id] = $d;
+      $res[$d->size_id] = $d;
     }
     return $res;
   }
 
   public function getProductRepack($product_id) {
-    $s = "SELECT product_repack_id, product_size_id, repack_name, cost from product_repack
+    $s = "SELECT repack_id, size_id, repack_name, cost from repack
     where product_id = :product_id";
     $p['product_id'] = $product_id;
     $data = DB::select($s, $p);
 
     $res = [];
     foreach($data as $d) {
-      $res[$d->product_size_id][] = $d;
+      $res[$d->size_id][] = $d;
     }
     return $res;
   }

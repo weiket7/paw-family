@@ -220,7 +220,7 @@
 				offset = container.closest('[role="banner"]').hasClass('type_5') ? 0 : -container.outerHeight(),
 				menu = $('.menu_wrap'),
 				mHeight = menu.outerHeight();
-				console.log(mHeight);
+				//console.log(mHeight);
 			container.waypoint(function(direction){
 				var _this = $(this);
 				if(direction == "down"){

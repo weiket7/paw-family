@@ -1,6 +1,6 @@
 <?php namespace App\Models\Enums;
 
-abstract class ProductFeaturedStat {
+abstract class FeaturedStat {
   const Hot = 'H';
   const New2 = 'N';
   const Sale = 'S';

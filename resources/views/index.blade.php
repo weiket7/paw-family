@@ -1,4 +1,4 @@
-<?php use App\Models\Enums\ProductFeaturedStat; ?>
+<?php use App\Models\Enums\FeaturedStat; ?>
 
 @extends('template')
 
@@ -317,9 +317,9 @@
             <figure class="r_corners photoframe animate_ftb type_2 t_align_c tr_all_hover shadow relative">
               <!--product preview-->
               <a href="#" class="d_block relative pp_wrap m_bottom_15">
-                @if($product->product_featured_stat == ProductFeaturedStat::Hot)
+                @if($product->featured_stat == FeaturedStat::Hot)
                   <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/hot_product.png" alt=""></span>
-                @elseif($product->product_featured_stat == ProductFeaturedStat::Sale)
+                @elseif($product->featured_stat == FeaturedStat::Sale)
                   <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/sale_product.png" alt=""></span>
                 @endif
                 <img src="{{url("assets/flatastic")}}/images/product_img_1.jpg" class="tr_all_hover" alt="">

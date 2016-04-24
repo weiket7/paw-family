@@ -1,27 +1,14 @@
-<?php use App\Models\Enums\ProductFeaturedStat; ?>
+<?php use App\Models\Enums\FeaturedStat; ?>
 <?php use App\Models\Enums\MainCategory; ?>
 
-@extends('template')
-
-@section('script')
-
-@endsection
+@extends('template', [
+  "breadcrumbs"=>[
+    0=>MainCategory::$values[$category->main_category],
+    1=>$category->name,
+  ],
+])
 
 @section('content')
-
-<!--<section class="breadcrumbs">-->
-  <div class="container">
-    <ul class="horizontal_list clearfix bc_list f_size_medium"  style="background-color:#f2f4f5; padding: 9px;">
-      <li class="m_right_10 current">
-        Home<i class="fa fa-angle-right d_inline_middle m_left_10"></i>
-      </li>
-      <li class="m_right_10 current">
-        {{MainCategory::$values[$category->main_category]}}<i class="fa fa-angle-right d_inline_middle m_left_10"></i>
-      </li>
-      <li><a href="#" class=""><b>{{$category->name}}</b></a></li>
-    </ul>
-  </div>
-<!--</section>-->
 
 <div class="page_content_offset">
   <div class="container">
@@ -67,9 +54,9 @@
               <figure class="r_corners photoframe animate_ftb type_2 t_align_c tr_all_hover shadow relative">
                 <!--product preview-->
                 <a href="{{url("product/view/".$product->slug)}}" class="d_block relative pp_wrap m_bottom_15">
-                  @if($product->product_featured_stat == ProductFeaturedStat::Hot)
+                  @if($product->featured_stat == FeaturedStat::Hot)
                     <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/hot_product.png" alt=""></span>
-                  @elseif($product->product_featured_stat == ProductFeaturedStat::Sale)
+                  @elseif($product->featured_stat == FeaturedStat::Sale)
                     <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/sale_product.png" alt=""></span>
                   @endif
                   <img src="{{url("assets/images/products/".$product->image)}}" class="tr_all_hover" alt="">
