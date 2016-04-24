@@ -14,13 +14,14 @@ class ProductTable extends Migration
         $t->increments('product_id');
         $t->integer('category_id');
         $t->integer('brand_id');
-        $t->string('name', 100);
-        $t->string('slug', 100);
+        $t->string('name', 150);
+        $t->string('slug', 150);
+        $t->decimal('price', 7, 2);
         $t->decimal('discount_amt', 7, 2); //10% or $10, detect based on %
         $t->char('discount_type', 1); //A or P
         $t->text('desc');
         $t->string('desc_short', 250);
-        $t->string('image', 50);
+        $t->string('image', 150);
         $t->char('stat', 1);
         $t->string('updated_by', 10);
         $t->timestamp('updated_at');
@@ -32,9 +33,10 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Viva La Venison',
         'slug'=>'addiction-viva-la-venison',
+        'price'=>39.1,
+        'image'=>'addiction-viva-la-venison.jpg',
         'discount_amt'=>'10',
         'discount_type'=>DiscountType::Amount,
-        'image'=>'addiction-viva-la-venison.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -46,9 +48,10 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Salmon Bleu',
         'slug'=>'addiction-salmon-bleu',
+        'price'=>39.1,
+        'image'=>'addiction-salmon-bleu.jpg',
         'discount_amt'=>'10',
         'discount_type'=>DiscountType::Percentage,
-        'image'=>'addiction-salmon-bleu.jpg',
         'stat'=>ProductStat::Hidden,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -60,6 +63,7 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Le Lamb',
         'slug'=>'addiction-le-lamb',
+        'price'=>29.95,
         'image'=>'addiction-le-lamb.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -72,7 +76,8 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Dry Dog Food Wild Kangaroo & Apples',
         'slug'=>'addiction-dry-dog-food-wild-kangaroo-apples',
-        'image'=>'product_img_1.jpg',
+        'price'=>31.30,
+        'image'=>'addiction-dry-dog-food-wild-kangaroo-apples.png',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -84,7 +89,8 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction La Porchetta',
         'slug'=>'addiction-la-porchetta',
-        'image'=>'product_img_1.jpg',
+        'price'=>29.95,
+        'image'=>'addiction-la-porchetta.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -96,7 +102,8 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Zen Vegetarian',
         'slug'=>'addiction-zen-vegetarian',
-        'image'=>'product_img_1.jpg',
+        'price'=>23.35,
+        'image'=>'addiction-zen-vegetarian.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -108,7 +115,8 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Viva La Venison Puppy',
         'slug'=>'addiction-viva-la-venison-puppy',
-        'image'=>'product_img_1.jpg',
+        'price'=>40.95,
+        'image'=>'addiction-viva-la-venison-puppy.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -120,7 +128,8 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Salmon Bleu Puppy',
         'slug'=>'addiction-salmon-bleu-puppy',
-        'image'=>'product_img_1.jpg',
+        'price'=>40.90,
+        'image'=>'addiction-salmon-bleu-puppy.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -132,7 +141,8 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Raw Dehydrated - Figlicious Venison Feast (Grain Free)',
         'slug'=>'addiction-raw-dehydrated-figlicious-venison-feast-grain-free',
-        'image'=>'product_img_1.jpg',
+        'price'=>41.60,
+        'image'=>'addiction-raw-dehydrated-figlicious-venison-feast-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -144,7 +154,8 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Raw Dehydrated - Herbed Lamb & Potatos (Grain Free)',
         'slug'=>'addiction-raw-dehydrated-herbed-lamb-potatoes-grain-free',
-        'image'=>'product_img_1.jpg',
+        'price'=>37.05,
+        'image'=>'addiction-raw-dehydrated-herbed-lamb-potatoes-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -156,7 +167,8 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Raw Dehydrated - Steakhouse Beef & Zucchini (Grain Free)',
         'slug'=>'addiction-raw-dehydrated-steakhouse-beef-zucchini-grain-free',
-        'image'=>'product_img_1.jpg',
+        'price'=>37.05,
+        'image'=>'addiction-raw-dehydrated-steakhouse-beef-zucchini-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -168,7 +180,8 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Raw Dehydrated - NZ Forest Delicacies',
         'slug'=>'addiction-raw-dehydrated-nz-forest-delicacies',
-        'image'=>'product_img_1.jpg',
+        'price'=>41.6,
+        'image'=>'addiction-raw-dehydrated-nz-forest-delicacies.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -180,7 +193,8 @@ class ProductTable extends Migration
         'brand_id'=>1,
         'name'=>'Addiction Raw Dehydrated - Homestyle Venison & Cranberry Dinner',
         'slug'=>'addiction-raw-dehydrated-homestyle-venison-cranberry-dinner',
-        'image'=>'product_img_1.jpg',
+        'price'=>39.15,
+        'image'=>'addiction-raw-dehydrated-homestyle-venison-cranberry-dinner.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -191,8 +205,9 @@ class ProductTable extends Migration
         'category_id'=>1,
         'brand_id'=>1,
         'name'=>'Addiction Raw Dehydrated - Perfect Summer Brushtail (Grain Free)',
-        'slug'=>'ddiction-raw-dehydrated-perfect-summer-brushtail-grain-free',
-        'image'=>'product_img_1.jpg',
+        'slug'=>'addiction-raw-dehydrated-perfect-summer-brushtail-grain-free',
+        'price'=>41.6,
+        'image'=>'addiction-raw-dehydrated-perfect-summer-brushtail-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
@@ -203,8 +218,9 @@ class ProductTable extends Migration
         'category_id'=>1,
         'brand_id'=>1,
         'name'=>'Addiction Raw Dehydrated - Country Chicken & Apricot Dinner (Grain Free)',
-        'slug'=>'ddiction-raw-dehydrated-country-chicken-apricot-dinner-grain-free',
-        'image'=>'product_img_1.jpg',
+        'slug'=>'addiction-raw-dehydrated-country-chicken-apricot-dinner-grain-free',
+        'price'=>37.05,
+        'image'=>'addiction-raw-dehydrated-country-chicken-apricot-dinner-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')

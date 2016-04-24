@@ -9,9 +9,9 @@ class Product extends Eloquent
   protected $validation;
 
   public function getProductFeatured() {
-    $s = "SELECT p.name, p.desc_short, p.stat as product_stat, pf.stat as product_featured_stat
+    $s = "SELECT p.name, p.desc_short, p.stat as product_stat, f.stat as featured_stat
       FROM product AS p
-      inner join product_featured as pf on pf.product_id = p.product_id";
+      inner join featured as f on f.product_id = p.product_id";
     $products = DB::select($s);
     return $products;
   }
@@ -21,9 +21,16 @@ class Product extends Eloquent
     return Product::where('category_id', $category_id)->get();
   }
 
+  public function hasSizes() {
+    if (! isset($this->sizes)) {
+      $this->sizes = $this->getProductSize($this->product_id);
+    }
+    return count($this->sizes);
+  }
+
   public function getProductBySlug($slug)
   {
-    $s = "SELECT product_id, p.name, p.slug, p.image, b.name as brand, c.main_category, c.name as category, desc_short from product as p
+    $s = "SELECT product_id, p.name, price, p.slug, p.image, b.name as brand, c.main_category, c.name as category, desc_short from product as p
     inner join brand as b on p.brand_id = b.brand_id
     inner join category as c on p.category_id = c.category_id
     where p.slug = :slug";

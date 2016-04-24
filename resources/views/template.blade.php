@@ -84,7 +84,7 @@
             <li class="current relative f_xs_none m_xs_bottom_5">
               <a href="{{url("/")}}" class="tr_delay_hover color_light tt_uppercase"><b>Home</b></a>
             </li>
-            <li class="relative f_xs_none m_xs_bottom_5"><a href="{{url("/")}}" class="tr_delay_hover color_light tt_uppercase"><b>Dogs</b></a>
+            <li class="relative f_xs_none m_xs_bottom_5"><a href="#" class="tr_delay_hover color_light tt_uppercase"><b>Dogs</b></a>
               <!--sub menu-->
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">

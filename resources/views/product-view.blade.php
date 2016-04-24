@@ -68,7 +68,14 @@
     var repack = $("#repack").val();
     var quantity = $("#quantity").val();
     var sizes = sizes_object[size];
-    var size_price = sizes.price;
+    var size_price = 0;
+    if (typeof sizes === 'undefined' || sizes.length === 0) {
+      size_price = $("#starting_price").text();
+      size_price = parseFloat(size_price.trim());
+    } else {
+      size_price = sizes.price;
+    }
+    //console.log(size_price);
 
     var repack_options = repacks_object[size];
     var repack_price = 0;
@@ -102,9 +109,7 @@
           <div class="photoframe type_2 shadow r_corners f_left f_sm_none d_xs_inline_b product_single_preview relative m_right_30 m_bottom_5 m_sm_bottom_20 m_xs_right_0 w_mxs_full">
             <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/sale_product.png" alt=""></span>
             <div class="relative d_inline_b m_bottom_10 qv_preview d_xs_block">
-              <img id="zoom_image" src="{{url("assets/images/products/".$product->image)}}" data-zoom-image="images/preview_zoom_1.jpg" class="tr_all_hover" alt="">
-              <a href="images/preview_zoom_1.jpg" class="d_block button_type_5 r_corners tr_all_hover box_s_none color_light p_hr_0">
-                <i class="fa fa-expand"></i>
+              <img id="zoom_image" src="{{url("assets/images/products/".$product->image)}}" class="tr_all_hover" alt="">
               </a>
             </div>
           </div>
@@ -122,7 +127,7 @@
           </tr>
           <tr>
             <td>Availability:</td>
-            <td><span class="color_green">in stock</span> 20 item(s)</td>
+            <td><span class="color_green">In stock</span> {{--20 item(s)--}}</td>
           </tr>
           <tr>
             <td>Product Code:</td>
@@ -191,7 +196,16 @@
         </table>
 
         <div class="m_bottom_15">
-          <span class="v_align_b f_size_big m_left_5 scheme_color fw_medium" id="final_price">$102.00</span>
+          @if(count($product->sizes) == 0)
+            <span id="starting_price" style="display:none">{{$product->price}}</span>
+          @endif
+          <span class="v_align_b f_size_big m_left_5 scheme_color fw_medium" id="final_price">
+          @if(count($product->sizes))
+              ${{array_first($product->sizes)->price}}
+          @else
+            ${{$product->price}}
+          @endif
+          </span>
         </div>
         <div class="d_ib_offset_0 m_bottom_20">
           <button class="button_type_12 r_corners bg_scheme_color color_light tr_delay_hover d_inline_b f_size_large m_right_5">Add to Cart</button>
