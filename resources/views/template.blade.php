@@ -11,10 +11,10 @@
   <meta name="description" content="">
   <link rel="icon" type="image/ico" href="{{url("assets/flatastic")}}/images/fav.ico">
   <!--stylesheet include-->
+  <link rel="stylesheet" type="text/css" media="all" href="{{url("assets")}}/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" media="all" href="{{url("assets")}}/css/typeaheadjs.css">
   <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/jquery.fancybox-1.3.4.css">
-
   <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/flexslider.css">
-  <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/owl.carousel.css">
   <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/owl.transitions.css">
   <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/jquery.custom-scrollbar.css">
@@ -49,7 +49,7 @@
                   Free delivery for orders ${{$settings_cache["freedeliveryaboveorequalto"]}} and above within 1-3 working days!
                 </div>
                 <div class="col-xs-5 t_align_c">
-                  <b class="f_size_ex_large color_dark"><i class="fa fa-phone"></i> 8233 5100</b>
+                  <b class="f_size_ex_large color_dark"><i class="fa fa-phone"></i> 9026 4166</b>
                 </div>
               </div>
               {{--<dl class="l_height_medium">
@@ -59,7 +59,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
               <form class="relative type_2" role="search">
-                <input type="text" placeholder="Search" name="search" class="r_corners f_size_medium full_width">
+                <input type="text" placeholder="Search" name="search" id="search" autocomplete="off" class="r_corners f_size_medium full_width">
                 <button class="f_right search_button tr_all_hover f_xs_none">
                   <i class="fa fa-search"></i>
                 </button>
@@ -643,7 +643,7 @@
 </div>
 <button class="t_align_c r_corners type_2 tr_all_hover animate_ftl" id="go_to_top"><i class="fa fa-angle-up"></i></button>
 <!--scripts include-->
-<script src="{{url("assets/flatastic")}}/js/jquery-2.1.0.min.js"></script>
+<script src="{{url("assets")}}/js/jquery-2.2.3.min.js"></script>
 <script src="{{url("assets/flatastic")}}/js/jquery-ui.min.js"></script>
 <script src="{{url("assets/flatastic")}}/js/jquery-migrate-1.2.1.min.js"></script>
 <script src="{{url("assets/flatastic")}}/js/retina.js"></script>
@@ -659,6 +659,19 @@
 <script src="{{url("assets/flatastic")}}/js/jquery.custom-scrollbar.js"></script>
 <script src="{{url("assets/flatastic")}}/js/scripts.js"></script>
 <script src="{{url("assets/flatastic")}}/js/custom.js"></script>
+<script src="{{url("assets")}}/js/bootstrap3-typeahead.min.js"></script>
+{{--<script src="{{url("assets")}}/js/typeahead.bundle.js"></script>--}}
 <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5306f8f674bfda4c"></script>
+
+<script type="text/javascript">
+  $("#search").typeahead({
+    source: function (query, process) {
+      return $.get('{{url("product/search")}}', { query: query }, function (data) {
+        return process(data.options);
+      });
+    }
+  });
+</script>
+
 </body>
 </html>

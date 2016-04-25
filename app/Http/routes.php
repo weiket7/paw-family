@@ -18,6 +18,7 @@ Route::get('login', 'IndexController@login');
 
 Route::get('product/category/{slug}', 'ProductController@category');
 Route::get('product/view/{slug}', 'ProductController@view');
+Route::get('product/search', 'ProductController@search');
 
 Route::group(array('before'=>'admin'), function() {
   Route::get('adopt/admin', 'AdoptController@admin');
