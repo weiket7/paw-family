@@ -37,7 +37,7 @@
     <section class="h_bot_part container">
       <div class="clearfix row">
         <div class="col-lg-4 col-md-4 col-sm-4 t_xs_align_c">
-          <a href="index.html" class="logo m_xs_bottom_15 d_xs_inline_b">
+          <a href="{{url("/")}}" class="logo m_xs_bottom_15 d_xs_inline_b">
             <img src="{{url("assets")}}/images/paw-family-logo.png" alt="">
           </a>
         </div>
@@ -58,8 +58,8 @@
               </dl>--}}
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
-              <form class="relative type_2" role="search">
-                <input type="text" placeholder="Search" name="search" id="search" autocomplete="off" class="r_corners f_size_medium full_width">
+              <form class="relative type_2" role="search" method="get" action="{{url("product/search")}}">
+                <input type="text" placeholder="Search" name="term" id="search" autocomplete="off" class="r_corners f_size_medium full_width">
                 <button class="f_right search_button tr_all_hover f_xs_none">
                   <i class="fa fa-search"></i>
                 </button>
@@ -664,11 +664,30 @@
 <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5306f8f674bfda4c"></script>
 
 <script type="text/javascript">
+  var objects;
+  var map;
+
+  //http://stackoverflow.com/questions/12389948/twitter-bootstrap-typeahead-id-label
   $("#search").typeahead({
+    minLength: 2,
+    autoSelect: false,
+    //highlight: true,
     source: function (query, process) {
-      return $.get('{{url("product/search")}}', { query: query }, function (data) {
-        return process(data.options);
+      objects = [];
+      map = {};
+
+      return $.get('{{url("product/autocomplete")}}', { query: query }, function(data) {
+        $.each(data, function(i, object) {
+          map[object.name] = object;
+          objects.push(object.name);
+        });
+        return process(objects);
       });
+    },
+    updater: function(item) {
+
+      //console.log(map[item].slug);
+      window.location.replace('{{url("product/view/")}}/'+map[item].slug);
     }
   });
 </script>

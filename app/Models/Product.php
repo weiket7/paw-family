@@ -73,7 +73,7 @@ class Product extends Eloquent
 
   public function searchProduct($term)
   {
-    $s = "SELECT product_id, name from product where name like :term";
+    $s = "SELECT slug, name from product where name like :term";
     $p["term"] = '%'.$term.'%';
     return DB::select($s, $p);
   }

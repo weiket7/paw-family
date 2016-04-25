@@ -21,18 +21,27 @@ class ProductController extends Controller
     $product_service = new Product();
     $product = $product_service->getProductBySlug($slug);
     $data['product'] = $product;
-    return view("product-view", $data);
+    return view("view", $data);
   }
 
   public function search() {
+    $data = [];
+    return view("search", $data);
+  }
+
+  public function autocomplete() {
     $term = Input::get("query");
     $product_service = new Product();
     $data = $product_service->searchProduct($term);
 
     $res = [];
     foreach($data as $d) {
-      $res["options"][] = $d->name;
+      $res[] = ['name'=>$d->name, 'slug'=>$d->slug];
     }
     return $res;
+  }
+
+  public function slug($name) {
+    return str_slug($name);
   }
 }
