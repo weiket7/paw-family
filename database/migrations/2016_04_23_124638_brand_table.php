@@ -17,23 +17,23 @@ class BrandTable extends Migration
     });
 
     DB::table('brand')->insert([
-      'brand_id'=>1, 'name'=>'Addiction', 'image'=>'addiction.jpg',
+      'brand_id'=>1, 'name'=>'Addiction', 'image'=>'addiction.jpg', 'pos'=>1,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
     DB::table('brand')->insert([
-      'brand_id'=>2, 'name'=>'ANF', 'image'=>'anf.jpg',
+      'brand_id'=>2, 'name'=>'ANF', 'image'=>'anf.jpg', 'pos'=>2,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
     DB::table('brand')->insert([
-      'brand_id'=>3, 'name'=>'Avoderm', 'image'=>'avoderm.jpg',
+      'brand_id'=>3, 'name'=>'Avoderm', 'image'=>'avoderm.jpg', 'pos'=>3,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
     DB::table('brand')->insert([
-      'brand_id'=>4, 'name'=>'Barking Heads', 'image'=>'barking-heads.jpg',
+      'brand_id'=>4, 'name'=>'Barking Heads', 'image'=>'barking-heads.jpg', 'pos'=>4,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
     DB::table('brand')->insert([
-      'brand_id'=>5, 'name'=>'Bosch', 'image'=>'bosch.jpg',
+      'brand_id'=>5, 'name'=>'Bosch', 'image'=>'bosch.jpg', 'pos'=>5,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
   }

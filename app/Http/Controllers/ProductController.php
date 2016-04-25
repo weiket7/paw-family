@@ -22,7 +22,7 @@ class ProductController extends Controller
 
   public function view($slug) {
     $product_service = new Product();
-    $product = $product_service->getProductBySlug($slug);
+    $product = $product_service->getProduct($slug);
     $data['product'] = $product;
     return view("view", $data);
   }
@@ -42,9 +42,5 @@ class ProductController extends Controller
       $res[] = ['name'=>$d->name, 'slug'=>$d->slug];
     }
     return $res;
-  }
-
-  public function slug($name) {
-    return str_slug($name);
   }
 }

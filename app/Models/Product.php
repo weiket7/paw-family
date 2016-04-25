@@ -17,29 +17,31 @@ class Product extends Eloquent
     return $products;
   }
 
-  public function getProductByCategory($category_id)
-  {
+  public function getProductByCategory($category_id) {
     return Product::where('category_id', $category_id)->get();
   }
 
-  public function hasSizes() {
-    if (! isset($this->sizes)) {
-      $this->sizes = $this->getProductSize($this->product_id);
-    }
-    return count($this->sizes);
+  public function getProducts($product_ids) {
+    $product_ids = implode($product_ids, ',');
+    //TODO
   }
 
-  public function getProductBySlug($slug)
+  public function getProduct($intOrSlug)
   {
     $s = "SELECT product_id, p.name, price, p.slug, p.image, b.name as brand, c.main_category, c.name as category, desc_short from product as p
     inner join brand as b on p.brand_id = b.brand_id
-    inner join category as c on p.category_id = c.category_id
-    where p.slug = :slug";
-    $p['slug'] = $slug;
+    inner join category as c on p.category_id = c.category_id";
 
+    if (is_int($intOrSlug)) {
+      $s .= " where product_id = :product_id";
+      $p['product_id'] = $intOrSlug;
+    } else {
+      $s .= " where p.slug = :slug";
+      $p['slug'] = $intOrSlug;
+    }
     $data = DB::select($s, $p);
-    $product = $data[0];
 
+    $product = $data[0];
     $product->sizes = $this->getProductSize($product->product_id);
     $product->repacks = $this->getProductOption($product->product_id, ProductOptionType::Repack);
 
@@ -71,10 +73,6 @@ class Product extends Eloquent
       $res[$d->size_id][] = $d;
     }
     return $res;
-  }
-
-  public function getProductByBrand() {
-
   }
 
   public function searchProduct($term)
