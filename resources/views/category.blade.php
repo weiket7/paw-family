@@ -63,7 +63,7 @@
                 </a>
                 <figcaption>
                   <h5 class="m_bottom_10"><a href="#" class="color_dark">{{$product->name}}</a></h5>
-                  <p class="scheme_color f_size_large m_bottom_15">$102.00</p>
+                  <p class="scheme_color f_size_large m_bottom_15">${{$product->price}}</p>
                 </figcaption>
               </figure>
             </div>
@@ -85,9 +85,9 @@
                 <legend class="default_t_color f_size_large m_bottom_15 clearfix full_width relative">
                   <b class="f_left">Brands</b>
                 </legend>
-                <input type="checkbox" name="" id="checkbox_1" class="d_none"><label for="checkbox_1">Chanel</label><br>
-                <input type="checkbox" checked name="" id="checkbox_2" class="d_none"><label for="checkbox_2">Calvin Klein</label><br>
-                <input type="checkbox" name="" id="checkbox_3" class="d_none"><label for="checkbox_3">Prada</label><br>
+                @foreach($brands as $brand_id => $name)
+                <input type="checkbox" name="" id="checkbox_1" class="d_none"><label for="checkbox_1">{{ $name }}</label><br>
+                @endforeach
               </fieldset>
               <!--price-->
               <fieldset class="m_bottom_20">

@@ -73,6 +73,10 @@ class Product extends Eloquent
     return $res;
   }
 
+  public function getProductByBrand() {
+
+  }
+
   public function searchProduct($term)
   {
     $s = "SELECT slug, name from product where name like :term";
