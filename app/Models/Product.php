@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+use App\Models\Enums\ProductOptionType;
 use Eloquent, DB, Validator, Input;
 
 class Product extends Eloquent
@@ -16,7 +17,7 @@ class Product extends Eloquent
     return $products;
   }
 
-  public function getProductByCategoryId($category_id)
+  public function getProductByCategory($category_id)
   {
     return Product::where('category_id', $category_id)->get();
   }
@@ -40,7 +41,7 @@ class Product extends Eloquent
     $product = $data[0];
 
     $product->sizes = $this->getProductSize($product->product_id);
-    $product->repacks = $this->getProductRepack($product->product_id);
+    $product->repacks = $this->getProductOption($product->product_id, ProductOptionType::Repack);
 
     return $product;
   }
@@ -58,10 +59,11 @@ class Product extends Eloquent
     return $res;
   }
 
-  public function getProductRepack($product_id) {
-    $s = "SELECT repack_id, size_id, repack_name, cost from repack
-    where product_id = :product_id";
+  public function getProductOption($product_id, $type) {
+    $s = "SELECT option_id, size_id, name, type, price from `option`
+    where product_id = :product_id and type = :type";
     $p['product_id'] = $product_id;
+    $p['type'] = $type;
     $data = DB::select($s, $p);
 
     $res = [];

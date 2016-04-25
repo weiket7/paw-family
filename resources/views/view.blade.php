@@ -26,7 +26,7 @@
       } else {
         for (var key in repacks) {
           if (repacks.hasOwnProperty(key)) {
-            html += "<li class='tr_delay_hover' onclick='selectRepack("+repacks[key].repack_id+")'>"+repacks[key].repack_name+"</li>";
+            html += "<li class='tr_delay_hover' onclick='selectRepack("+repacks[key].option_id+")'>"+repacks[key].name+"</li>";
           }
         }
         $("#repack_options_default").text("Select Repack")
@@ -53,9 +53,9 @@
       updatePrice();
     }
 
-    function selectRepack(repack_id) {
-      //console.log(repack_id);
-      $("#repack").val(repack_id);
+    function selectRepack(option_id) {
+      //console.log(option_id);
+      $("#repack").val(option_id);
       updatePrice();
     }
 
@@ -80,8 +80,8 @@
       } else {
         for (var key in repack_options) {
           if (repack_options.hasOwnProperty(key)) {
-            if (repack_options[key].repack_id == repack) {
-              repack_price = repack_options[key].cost;
+            if (repack_options[key].option_id == repack) {
+              repack_price = repack_options[key].price;
             }
           }
         }

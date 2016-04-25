@@ -12,7 +12,7 @@ class ProductController extends Controller
     $category_service = new Category();
     $category = $category_service->getCategoryBySlug($slug);
     $product_service = new Product();
-    $data['products'] = $product_service->getProductByCategoryId($category->category_id);
+    $data['products'] = $product_service->getProductByCategory($category->category_id);
     $data['category'] = $category;
     return view("category", $data);
   }
