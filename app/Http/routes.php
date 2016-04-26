@@ -25,12 +25,13 @@ Route::get('cart', 'SaleController@cart');
 Route::get('checkout', 'SaleController@checkout');
 
 Route::group(array('before'=>'admin'), function() {
+  Route::get('admin', 'Admin\AdminController@index');
   Route::get('adopt/admin', 'AdoptController@admin');
   Route::get('adopt/last_update', 'AdoptController@lastUpdate');
-
 });
 
 Route::get('test', function() {
+  return Hash::make("Pawpaw168");
   return str_slug("Addiction Raw Dehydrated - Figlicious Venison Feast (Grain Free)");
 });
 

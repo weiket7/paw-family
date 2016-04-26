@@ -19,13 +19,13 @@ class BannerTable extends Migration
 
       DB::table('banner')->insert([
         'banner_id'=>1, 'image'=>'slider_layer_img.png', 'pos'=>1,
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')]);
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')]);
       DB::table('banner')->insert([
         'banner_id'=>2, 'image'=>'slide_04.jpg', 'pos'=>2,
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')]);
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')]);
       DB::table('banner')->insert([
         'banner_id'=>3, 'image'=>'slide_04.jpg', 'pos'=>3,
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')]);
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')]);
     }
 
     public function down()

@@ -20,19 +20,19 @@ class OptionTable extends Migration
 
     DB::table('option')->insert([
       'option_id'=>1, 'product_id'=>1, 'size_id'=>2, 'name'=>'2 packs - $0', 'type'=>'R', 'price'=>0,
-      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
     ]);
     DB::table('option')->insert([
       'option_id'=>2, 'product_id'=>1, 'size_id'=>2, 'name'=>'3 packs - $1', 'type'=>'R', 'price'=>1,
-      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
     ]);
     DB::table('option')->insert([
       'option_id'=>3, 'product_id'=>1, 'size_id'=>3, 'name'=>'3 packs - $0', 'type'=>'R', 'price'=>0,
-      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
     ]);
     DB::table('option')->insert([
       'option_id'=>4, 'product_id'=>1, 'size_id'=>3, 'name'=>'4 packs - $1', 'type'=>'R', 'price'=>1,
-      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
     ]);
   }
 

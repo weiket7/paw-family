@@ -22,7 +22,7 @@ class FeaturedTable extends Migration
       'product_id'=>1,
       'pos'=>1,
       'stat'=> FeaturedStat::Hot,
-      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
     ]);
 
     DB::table('featured')->insert([
@@ -30,7 +30,7 @@ class FeaturedTable extends Migration
       'product_id'=>3,
       'pos'=>2,
       'stat'=> FeaturedStat::Sale,
-      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
     ]);
 
     DB::table('featured')->insert([
@@ -38,7 +38,7 @@ class FeaturedTable extends Migration
       'product_id'=>4,
       'pos'=>3,
       'stat'=> FeaturedStat::New2,
-      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
     ]);
 
     DB::table('featured')->insert([
@@ -46,7 +46,7 @@ class FeaturedTable extends Migration
       'product_id'=>5,
       'pos'=>4,
       'stat'=> FeaturedStat::Normal,
-      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
     ]);
 
     DB::table('featured')->insert([
@@ -54,7 +54,7 @@ class FeaturedTable extends Migration
       'product_id'=>6,
       'pos'=>5,
       'stat'=> FeaturedStat::Normal,
-      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
     ]);
 
     DB::table('featured')->insert([
@@ -62,7 +62,7 @@ class FeaturedTable extends Migration
       'product_id'=>7,
       'pos'=>6,
       'stat'=> FeaturedStat::Normal,
-      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
     ]);
   }
 

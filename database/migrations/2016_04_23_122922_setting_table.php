@@ -15,7 +15,7 @@ class SettingTable extends Migration
         $t->timestamp('updated_at');
       });
 
-      DB::table('setting')->insert(['setting_id'=>1, 'name'=>'freedeliveryaboveorequalto', 'value'=>'80', 'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')]);
+      DB::table('setting')->insert(['setting_id'=>1, 'name'=>'freedeliveryaboveorequalto', 'value'=>'80', 'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')]);
     }
 
     public function down()
