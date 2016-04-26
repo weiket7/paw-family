@@ -23,4 +23,17 @@ class Brand extends Eloquent
     }
     return $res;
   }
+
+  public function getBrandIdBySlug($slugs) {
+    $s = "SELECT brand_id from brand";
+    $slugs = "'".implode("','", $slugs)."'";
+    $s .= " where slug in (".$slugs.")";
+    $data = DB::select($s);
+
+    $res = [];
+    foreach($data as $d) {
+      $res[] = $d->brand_id;
+    }
+    return $res;
+  }
 }

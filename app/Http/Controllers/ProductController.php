@@ -12,10 +12,20 @@ class ProductController extends Controller
   public function category($slug) {
     $category_service = new Category();
     $category = $category_service->getCategoryBySlug($slug);
-    $data['category'] = $category;
-    $product_service = new Product();
-    $data['products'] = $product_service->getProductByCategory($category->category_id);
+
     $brand_service = new Brand();
+    $product_service = new Product();
+    if (Input::has("brands")) {
+      $selected_brand_slugs = Input::get("brands");
+      $selected_brand_slugs = explode(",", $selected_brand_slugs);
+      $selected_brand_ids = $brand_service->getBrandIdBySlug($selected_brand_slugs);
+      $data['products'] = $product_service->getProductByCategoryAndBrand($category->category_id, $selected_brand_ids);
+      $data['selected_brand_ids'] = $selected_brand_ids;
+    } else {
+      $data['products'] = $product_service->getProductByCategory($category->category_id);
+    }
+
+    $data['category'] = $category;
     $data['brands'] = $brand_service->getDistinctBrandByCategory($category->category_id);
     return view("category", $data);
   }

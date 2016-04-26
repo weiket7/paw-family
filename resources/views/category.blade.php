@@ -8,9 +8,27 @@
   ],
 ])
 
-@section('content')
+@section('script')
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("input[name='brand']").change(function() {
+      var brands = [];
+      $("input[name='brand']").each(function() {
+        var checked = $(this).is(":checked");
+        if (checked) {
+          brands.push($(this).val());
+        }
+      });
+      brands = brands.join(",");
+      console.log(brands);
+      redirect("{{url('product/category/dog-dry-food?brands=')}}"+brands);
+    });
+  })
+</script>
+@endsection
 
-<div class="page_content_offset">
+@section('content')
+  <div class="page_content_offset">
   <div class="container">
     <div class="row clearfix">
       <!--left content column-->
@@ -86,11 +104,13 @@
                   <b class="f_left">Brands</b>
                 </legend>
                 @foreach($brands as $brand_id => $name)
-                <input type="checkbox" name="" id="checkbox_1" class="d_none"><label for="checkbox_1">{{ $name }}</label><br>
+                  <?php $checked = isset($selected_brand_ids) && in_array($brand_id, $selected_brand_ids) ? "checked" : ""; ?>
+                  <input type="checkbox" name="brand" id="checkbox{{$brand_id}}" value="{{$name}}" {{$checked}} class="d_none" >
+                  <label for="checkbox{{$brand_id}}">{{ $name }}</label><br>
                 @endforeach
               </fieldset>
               <!--price-->
-              <fieldset class="m_bottom_20">
+              {{--<fieldset class="m_bottom_20">
                 <legend class="default_t_color f_size_large m_bottom_15 clearfix full_width relative">
                   <b class="f_left">Price</b>
                 </legend>
@@ -99,25 +119,7 @@
                   <input class="f_left first_limit" readonly name="" type="text" value="$0">
                   <input class="f_right last_limit t_align_r" readonly name="" type="text" value="$250">
                 </div>
-              </fieldset>
-              <!--size-->
-              <fieldset class="m_bottom_15">
-                <legend class="default_t_color f_size_large m_bottom_15 clearfix full_width relative">
-                  <b class="f_left">Size</b>
-                </legend>
-                <input type="radio" name="size" id="radio_1" class="d_none"><label for="radio_1">S</label><br>
-                <input type="radio" name="size" checked id="radio_2" class="d_none"><label for="radio_2">M</label><br>
-                <input type="radio" name="size" id="radio_3" class="d_none"><label for="radio_3">L</label><br>
-              </fieldset>
-              <fieldset class="m_bottom_25">
-                <legend class="default_t_color f_size_large m_bottom_15 clearfix full_width relative">
-                  <b class="f_left">Weight</b>
-                </legend>
-                <div class="clearfix">
-                  <input type="text" name="" class="r_corners f_left type_2">
-                  <input type="text" name="" class="r_corners f_left type_2 m_left_10">
-                </div>
-              </fieldset>
+              </fieldset>--}}
               <button type="reset" class="color_dark bg_tr text_cs_hover tr_all_hover"><i class="fa fa-refresh lh_inherit m_right_10"></i>Reset</button>
             </form>
           </div>

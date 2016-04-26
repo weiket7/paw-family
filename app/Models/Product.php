@@ -21,6 +21,20 @@ class Product extends Eloquent
     return Product::where('category_id', $category_id)->get();
   }
 
+  public function getProductByCategoryAndBrand($category_ids, $brand_ids) {
+    //var_dump($category_ids);
+    //var_dump($brand_ids);
+    if (is_array($category_ids) && is_array($brand_ids)) {
+      return Product::whereIn('category_id', $category_ids)->whereIn('brand_id', $brand_ids)->get();
+    } else if (is_array($category_ids)) {
+      return Product::whereIn('category_id', $category_ids)->where('brand_id', $brand_ids)->get();
+    } else if (is_array($brand_ids)) {
+      return Product::where('category_id', $category_ids)->whereIn('brand_id', $brand_ids)->get();
+    } else {
+      return Product::where('category_id', $category_ids)->where('brand_id', $brand_ids)->get();
+    }
+  }
+
   public function getProducts($product_ids) {
     $product_ids = implode($product_ids, ',');
     //TODO

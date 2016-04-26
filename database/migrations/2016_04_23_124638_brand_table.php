@@ -10,6 +10,7 @@ class BrandTable extends Migration
     Schema::create('brand', function(Blueprint $t) {
       $t->increments('brand_id');
       $t->string('name', 50);
+      $t->string('slug', 50);
       $t->string('image', 50);
       $t->mediumInteger('pos');
       $t->string('updated_by', 10);
@@ -17,23 +18,27 @@ class BrandTable extends Migration
     });
 
     DB::table('brand')->insert([
-      'brand_id'=>1, 'name'=>'Addiction', 'image'=>'addiction.jpg', 'pos'=>1,
+      'brand_id'=>1, 'name'=>'Addiction', 'slug'=>'addiction', 'image'=>'addiction.jpg', 'pos'=>1,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
     DB::table('brand')->insert([
-      'brand_id'=>2, 'name'=>'ANF', 'image'=>'anf.jpg', 'pos'=>2,
+      'brand_id'=>2, 'name'=>'ANF', 'slug'=>'anf', 'image'=>'anf.jpg', 'pos'=>2,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
     DB::table('brand')->insert([
-      'brand_id'=>3, 'name'=>'Avoderm', 'image'=>'avoderm.jpg', 'pos'=>3,
+      'brand_id'=>3, 'name'=>'Avoderm', 'slug'=>'avoderm', 'image'=>'avoderm.jpg', 'pos'=>3,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
     DB::table('brand')->insert([
-      'brand_id'=>4, 'name'=>'Barking Heads', 'image'=>'barking-heads.jpg', 'pos'=>4,
+      'brand_id'=>4, 'name'=>'Barking Heads', 'slug'=>'barking-heads', 'image'=>'barking-heads.jpg', 'pos'=>4,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
     DB::table('brand')->insert([
-      'brand_id'=>5, 'name'=>'Bosch', 'image'=>'bosch.jpg', 'pos'=>5,
+      'brand_id'=>5, 'name'=>'Bosch', 'slug'=>'bosch', 'image'=>'bosch.jpg', 'pos'=>5,
+      'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+    ]);
+    DB::table('brand')->insert([
+      'brand_id'=>6, 'name'=>'Primal', 'slug'=>'primal', 'image'=>'primal.jpg', 'pos'=>6,
       'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
     ]);
   }

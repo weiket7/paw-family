@@ -226,6 +226,54 @@ class ProductTable extends Migration
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
       ]);
 
+      DB::table('product')->insert([
+        'product_id'=>16,
+        'category_id'=>1,
+        'brand_id'=>6,
+        'name'=>'Primal Freeze Dried Canine Turkey & Sardine',
+        'slug'=>'primal-freeze-dried-canine-turkey-sardine',
+        'price'=>42.70,
+        'image'=>'primal-freeze-dried-canine-turkey-sardine.jpg',
+        'stat'=>ProductStat::Available,
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>17,
+        'category_id'=>1,
+        'brand_id'=>6,
+        'name'=>'Primal Freeze Dried Canine Lamb Formula',
+        'slug'=>'primal-freeze-dried-canine-lamb-formula',
+        'price'=>42.70,
+        'image'=>'primal-freeze-dried-canine-lamb-formula.jpg',
+        'stat'=>ProductStat::Available,
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>18,
+        'category_id'=>1,
+        'brand_id'=>6,
+        'name'=>'Primal Freeze Dried Canine Duck Formula',
+        'slug'=>'primal-freeze-dried-canine-duck-formula',
+        'price'=>42.70,
+        'image'=>'primal-freeze-dried-canine-duck-formula.jpg',
+        'stat'=>ProductStat::Available,
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>19,
+        'category_id'=>1,
+        'brand_id'=>6,
+        'name'=>'Primal Freeze Dried Canine Chicken Formula',
+        'slug'=>'primal-freeze-dried-canine-chicken-formula',
+        'price'=>42.70,
+        'image'=>'primal-freeze-dried-canine-chicken-formula.jpg',
+        'stat'=>ProductStat::Available,
+        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:is')
+      ]);
+
       $product = Product::find(1);
       $product->desc = 'Addiction Dry Dog Food Viva La Venison
 

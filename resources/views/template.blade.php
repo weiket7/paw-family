@@ -685,12 +685,15 @@
       });
     },
     updater: function(item) {
-
       //console.log(map[item].slug);
-      window.location.replace('{{url("product/view/")}}/'+map[item].slug);
+      redirect('{{url("product/view/")}}/'+map[item].slug);
     }
   });
 </script>
+
+@section('script')
+
+@show
 
 </body>
 </html>
