@@ -3,29 +3,32 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Request;
+use App\Models\Operator;
+use Illuminate\Http\Request;
+use Session;
 
 class AdminController extends Controller
 {
-  public function index() {
-
+  public function login(Request $request) {
+    $operator = new Operator();
+    if ($request->isMethod('post')) {
+      $login = $operator->loginOperator($request->input('username'), $request->input('password'));
+      var_dump($login !== false);
+      if ( $login !== false ) {
+        $request->session()->put('auth_operator', $login->username);
+        return redirect('admin/dashboard');
+      } else {
+        //return redirect('admin')->with('msg', 'Wrong username and/or password');
+      }
+    }
+    return view('admin.login');
   }
 
-  public function login() {
-    if (Request::isMethod("post")) {
-      $user = new User();
-      $input = Input::all();
-      $user_id = $user->loginUser($input['username'], $input['password']);
-      if ($user_id) {
-        $user = User::find($user_id);
-        Auth::login($user);
-        return redirect('adopt/admin')->with('alert', ['type'=>'success', 'msg'=>'You have logged in']);;
-      }
-      return redirect('login')->with('alert', ['type'=>'error', 'msg'=>'Wrong username/password']);
-    }
-    return view("site/login");
+  public function logout(Request $request) {
+    $request->session()->forget('auth_operator');
+  }
+
+  public function dashboard(Request $request) {
+    return view('admin.dashboard');
   }
 }

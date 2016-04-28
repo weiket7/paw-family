@@ -1,7 +1,7 @@
 <?php namespace App\Models;
 
 use App\Models\Enums\ProductOptionType;
-use Eloquent, DB, Validator, Input;
+use Eloquent, DB, Validator;
 
 class Product extends Eloquent
 {

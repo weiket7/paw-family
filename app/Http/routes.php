@@ -24,10 +24,12 @@ Route::get('product/autocomplete', 'ProductController@autocomplete');
 Route::get('cart', 'SaleController@cart');
 Route::get('checkout', 'SaleController@checkout');
 
-Route::group(array('before'=>'admin'), function() {
-  Route::get('admin', 'Admin\AdminController@index');
-  Route::get('adopt/admin', 'AdoptController@admin');
-  Route::get('adopt/last_update', 'AdoptController@lastUpdate');
+Route::get('admin', 'Admin\AdminController@login');
+Route::post('admin', 'Admin\AdminController@login');
+
+Route::group(['middleware'=>'auth_operator'], function() {
+  Route::get('admin/dashboard', 'Admin\AdminController@dashboard');
+  Route::get('admin/product', 'Admin\ProductController@index');
 });
 
 Route::get('test', function() {
