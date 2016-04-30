@@ -31,11 +31,24 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::get('admin/dashboard', 'Admin\AdminController@dashboard');
   Route::get('admin/product', 'Admin\ProductController@index');
   Route::get('admin/product/save/{product_id}', 'Admin\ProductController@save');
+  Route::post('admin/product/save/{product_id}', 'Admin\ProductController@save');
 });
 
 Route::get('test', function() {
-  return Hash::make("Pawpaw168");
-  return str_slug("Addiction Raw Dehydrated - Figlicious Venison Feast (Grain Free)");
+  $pass = "test168";
+  $salt = "Gq";
+  $encryptedPass = md5($salt.$pass).":".$salt;
+  echo $encryptedPass;
+  $expectedPass = "4bb6c925ec104715a2ca6ec85e79e66d:Gq";
+  echo "<br>";
+  echo $expectedPass;
+  echo "<br>";
+  $str = "password";
+  $salt="Dr";
+  $pass= md5($salt.$str).":".$salt;
+  echo $pass; // the out put will be  fa23eb07d1c851f81707f4f649cb2c42:Dr
+  //return Hash::make("Pawpaw168");
+  //return str_slug("Addiction Raw Dehydrated - Figlicious Venison Feast (Grain Free)");
 });
 
 Route::get('clear-cache', function() {

@@ -41,8 +41,9 @@ class Product extends Eloquent
   }
 
   public function getProductAll() {
-    $s = "SELECT product_id, p.name, price, p.slug, p.image, desc_short, price, discount_amt, discount_type,
-    b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id 
+    $s = "SELECT product_id, p.name, price, p.slug, p.image, price, discount_amt, discount_type, p.stat,
+    b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight_lb, weight_kg,
+    desc_short, desc_long
     from product as p
     inner join brand as b on p.brand_id = b.brand_id
     inner join category as c on p.category_id = c.category_id";
@@ -56,8 +57,9 @@ class Product extends Eloquent
   }
 
   public function getProduct($intOrSlug) {
-    $s = "SELECT product_id, p.name, price, p.slug, p.image, desc_short, price, discount_amt, discount_type,
-    b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id 
+    $s = "SELECT product_id, p.name, price, p.slug, p.image, price, discount_amt, discount_type, p.stat,
+    b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight_lb, weight_kg,
+    desc_short, desc_long
     FROM product as p
     inner join brand as b on p.brand_id = b.brand_id
     inner join category as c on p.category_id = c.category_id";

@@ -29,8 +29,8 @@
         @foreach($products as $p)
           <tr>
             <td width="450px"><a href="{{url("admin/product/save/".$p->product_id)}}">{{ $p->name }}</a></td>
-            <td>{{ $p->brand }}</td>
-            <td>{{ $p->category }}</td>
+            <td>{{ $p->brand_name }}</td>
+            <td>{{ $p->category_name }}</td>
             <td>${{ $p->price }}</td>
             <td>${{ CommonHelper::getDiscountAmt($p->price, $p->discount_amt, $p->discount_type) }}</td>
             <td>

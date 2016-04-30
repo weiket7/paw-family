@@ -17,9 +17,12 @@ class ProductTable extends Migration
         $t->string('name', 150);
         $t->string('slug', 150);
         $t->decimal('price', 7, 2);
+        $t->decimal('weight_lb', 7, 2);
+        $t->decimal('weight_kg', 7, 2);
+        $t->tinyInteger('processing_day');
         $t->decimal('discount_amt', 7, 2); //10% or $10, detect based on %
         $t->char('discount_type', 1); //A or P
-        $t->text('desc');
+        $t->text('desc_long');
         $t->string('desc_short', 250);
         $t->string('image', 150);
         $t->char('stat', 1);
@@ -34,6 +37,9 @@ class ProductTable extends Migration
         'name'=>'Addiction Viva La Venison',
         'slug'=>'addiction-viva-la-venison',
         'price'=>39.1,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-viva-la-venison.jpg',
         'discount_amt'=>'10',
         'discount_type'=>DiscountType::Amount,
@@ -49,6 +55,9 @@ class ProductTable extends Migration
         'name'=>'Addiction Salmon Bleu',
         'slug'=>'addiction-salmon-bleu',
         'price'=>39.1,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-salmon-bleu.jpg',
         'discount_amt'=>'10',
         'discount_type'=>DiscountType::Percentage,
@@ -64,6 +73,9 @@ class ProductTable extends Migration
         'name'=>'Addiction Le Lamb',
         'slug'=>'addiction-le-lamb',
         'price'=>29.95,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-le-lamb.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -77,6 +89,9 @@ class ProductTable extends Migration
         'name'=>'Addiction Dry Dog Food Wild Kangaroo & Apples',
         'slug'=>'addiction-dry-dog-food-wild-kangaroo-apples',
         'price'=>31.30,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-dry-dog-food-wild-kangaroo-apples.png',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -90,6 +105,9 @@ class ProductTable extends Migration
         'name'=>'Addiction La Porchetta',
         'slug'=>'addiction-la-porchetta',
         'price'=>29.95,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-la-porchetta.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -103,6 +121,9 @@ class ProductTable extends Migration
         'name'=>'Addiction Zen Vegetarian',
         'slug'=>'addiction-zen-vegetarian',
         'price'=>23.35,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-zen-vegetarian.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -116,6 +137,9 @@ class ProductTable extends Migration
         'name'=>'Addiction Viva La Venison Puppy',
         'slug'=>'addiction-viva-la-venison-puppy',
         'price'=>40.95,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-viva-la-venison-puppy.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -129,6 +153,9 @@ class ProductTable extends Migration
         'name'=>'Addiction Salmon Bleu Puppy',
         'slug'=>'addiction-salmon-bleu-puppy',
         'price'=>40.90,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-salmon-bleu-puppy.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -142,6 +169,9 @@ class ProductTable extends Migration
         'name'=>'Addiction Raw Dehydrated - Figlicious Venison Feast (Grain Free)',
         'slug'=>'addiction-raw-dehydrated-figlicious-venison-feast-grain-free',
         'price'=>41.60,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-raw-dehydrated-figlicious-venison-feast-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -155,6 +185,9 @@ class ProductTable extends Migration
         'name'=>'Addiction Raw Dehydrated - Herbed Lamb & Potatos (Grain Free)',
         'slug'=>'addiction-raw-dehydrated-herbed-lamb-potatoes-grain-free',
         'price'=>37.05,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-raw-dehydrated-herbed-lamb-potatoes-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -168,6 +201,9 @@ class ProductTable extends Migration
         'name'=>'Addiction Raw Dehydrated - Steakhouse Beef & Zucchini (Grain Free)',
         'slug'=>'addiction-raw-dehydrated-steakhouse-beef-zucchini-grain-free',
         'price'=>37.05,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-raw-dehydrated-steakhouse-beef-zucchini-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -181,6 +217,9 @@ class ProductTable extends Migration
         'name'=>'Addiction Raw Dehydrated - NZ Forest Delicacies',
         'slug'=>'addiction-raw-dehydrated-nz-forest-delicacies',
         'price'=>41.6,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-raw-dehydrated-nz-forest-delicacies.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -194,6 +233,9 @@ class ProductTable extends Migration
         'name'=>'Addiction Raw Dehydrated - Homestyle Venison & Cranberry Dinner',
         'slug'=>'addiction-raw-dehydrated-homestyle-venison-cranberry-dinner',
         'price'=>39.15,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-raw-dehydrated-homestyle-venison-cranberry-dinner.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -207,6 +249,9 @@ class ProductTable extends Migration
         'name'=>'Addiction Raw Dehydrated - Perfect Summer Brushtail (Grain Free)',
         'slug'=>'addiction-raw-dehydrated-perfect-summer-brushtail-grain-free',
         'price'=>41.6,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-raw-dehydrated-perfect-summer-brushtail-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -220,6 +265,9 @@ class ProductTable extends Migration
         'name'=>'Addiction Raw Dehydrated - Country Chicken & Apricot Dinner (Grain Free)',
         'slug'=>'addiction-raw-dehydrated-country-chicken-apricot-dinner-grain-free',
         'price'=>37.05,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'addiction-raw-dehydrated-country-chicken-apricot-dinner-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
@@ -233,6 +281,9 @@ class ProductTable extends Migration
         'name'=>'Primal Freeze Dried Canine Turkey & Sardine',
         'slug'=>'primal-freeze-dried-canine-turkey-sardine',
         'price'=>42.70,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'primal-freeze-dried-canine-turkey-sardine.jpg',
         'stat'=>ProductStat::Available,
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
@@ -245,6 +296,9 @@ class ProductTable extends Migration
         'name'=>'Primal Freeze Dried Canine Lamb Formula',
         'slug'=>'primal-freeze-dried-canine-lamb-formula',
         'price'=>42.70,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'primal-freeze-dried-canine-lamb-formula.jpg',
         'stat'=>ProductStat::Available,
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
@@ -257,6 +311,9 @@ class ProductTable extends Migration
         'name'=>'Primal Freeze Dried Canine Duck Formula',
         'slug'=>'primal-freeze-dried-canine-duck-formula',
         'price'=>42.70,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'primal-freeze-dried-canine-duck-formula.jpg',
         'stat'=>ProductStat::Available,
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
@@ -269,13 +326,16 @@ class ProductTable extends Migration
         'name'=>'Primal Freeze Dried Canine Chicken Formula',
         'slug'=>'primal-freeze-dried-canine-chicken-formula',
         'price'=>42.70,
+        'weight_lb'=>4,
+        'weight_kg'=>1.81,
+        'processing_day'=>3,
         'image'=>'primal-freeze-dried-canine-chicken-formula.jpg',
         'stat'=>ProductStat::Available,
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       $product = Product::find(1);
-      $product->desc = 'Addiction Dry Dog Food Viva La Venison
+      $product->desc_long = 'Addiction Dry Dog Food Viva La Venison
 
 - New Zealand Venison High in Protein, Low in Fat
 - Probiotics for a Healthy Digestive & Immune System
