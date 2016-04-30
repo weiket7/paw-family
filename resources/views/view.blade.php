@@ -3,7 +3,7 @@
 @extends('template', [
   "breadcrumbs"=>[
     0=>MainCategory::$values[$product->main_category],
-    1=>$product->category,
+    1=>$product->category_name,
     2=>$product->name,
   ]
 ])
@@ -119,7 +119,7 @@
                 <table class="description_table m_bottom_10">
                   <tr>
                     <td>Brand:</td>
-                    <td><a href="#" class="color_dark">{{ $product->brand }}</a></td>
+                    <td><a href="#" class="color_dark">{{ $product->brand_name }}</a></td>
                   </tr>
                   <tr>
                     <td>Availability:</td>
@@ -155,8 +155,8 @@
                             <?php $checked = $size->size_id == array_first($product->sizes)->size_id ? "checked" : ""; ?>
                             <tr>
                               <td>
-                                <input type="radio" name="size" {{$checked}} id="size{{$size->size_name}}" class="d_none" value="{{$size->size_id}}" onclick="selectSize()">
-                                <label for="size{{$size->size_name}}">{{$size->size_name}}</label>
+                                <input type="radio" name="size" {{$checked}} id="size{{$size->name}}" class="d_none" value="{{$size->size_id}}" onclick="selectSize()">
+                                <label for="size{{$size->name}}">{{$size->name}}</label>
                               </td>
                               <td>
                                 ${{$size->price}}

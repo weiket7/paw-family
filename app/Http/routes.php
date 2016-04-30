@@ -30,6 +30,7 @@ Route::post('admin', 'Admin\AdminController@login');
 Route::group(['middleware'=>'auth_operator'], function() {
   Route::get('admin/dashboard', 'Admin\AdminController@dashboard');
   Route::get('admin/product', 'Admin\ProductController@index');
+  Route::get('admin/product/save/{product_id}', 'Admin\ProductController@save');
 });
 
 Route::get('test', function() {

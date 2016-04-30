@@ -40,9 +40,25 @@ class Product extends Eloquent
     //TODO
   }
 
-  public function getProduct($intOrSlug)
-  {
-    $s = "SELECT product_id, p.name, price, p.slug, p.image, b.name as brand, c.main_category, c.name as category, desc_short from product as p
+  public function getProductAll() {
+    $s = "SELECT product_id, p.name, price, p.slug, p.image, desc_short, price, discount_amt, discount_type,
+    b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id 
+    from product as p
+    inner join brand as b on p.brand_id = b.brand_id
+    inner join category as c on p.category_id = c.category_id";
+    $products = DB::select($s);
+
+    foreach($products as $product) {
+      $product->sizes = $this->getProductSize($product->product_id);
+      $product->repacks = $this->getProductOption($product->product_id, ProductOptionType::Repack);
+    }
+    return $products;
+  }
+
+  public function getProduct($intOrSlug) {
+    $s = "SELECT product_id, p.name, price, p.slug, p.image, desc_short, price, discount_amt, discount_type,
+    b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id 
+    FROM product as p
     inner join brand as b on p.brand_id = b.brand_id
     inner join category as c on p.category_id = c.category_id";
 
@@ -63,7 +79,7 @@ class Product extends Eloquent
   }
 
   public function getProductSize($product_id) {
-    $s = "SELECT size_id, size_name, price, quantity, weight_lb, weight_kg from size
+    $s = "SELECT size_id, name, price, quantity, weight_lb, weight_kg from size
     where product_id = :product_id";
     $p['product_id'] = $product_id;
     $data = DB::select($s, $p);

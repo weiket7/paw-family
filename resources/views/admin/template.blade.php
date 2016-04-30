@@ -527,7 +527,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </a>
         </li>
         <li class="nav-item  ">
-          <a href="{{url("reload")}}" class="nav-link nav-toggle">
+          <a href="{{url("admin/product")}}" class="nav-link nav-toggle">
             <i class="icon-star"></i>
             <span class="title">Products</span>
             <span class="arrow"></span>
