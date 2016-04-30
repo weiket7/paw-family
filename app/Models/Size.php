@@ -7,6 +7,7 @@ class Size extends Eloquent
   public $table = 'size';
   protected $primaryKey = 'size_id';
   protected $validation;
+  public $timestamps = false;
 
   private $rules = [
     'name'=>'required',
@@ -37,6 +38,8 @@ class Size extends Eloquent
       return false;
     }
 
+    if (isset($input['product_id']))
+      $this->product_id = $input['product_id'];
     $this->name = $input['name'];
     $this->quantity = $input['quantity'];
     $this->price = $input['price'];
@@ -44,8 +47,14 @@ class Size extends Eloquent
     $this->discount_type = $input['discount_type'];
     $this->weight_lb = $input['weight_lb'];
     $this->weight_kg = $input['weight_kg'];
+    $this->updated_by = date('Y-m-d H:i:s');
     $this->save();
     return true;
+  }
+
+  public function getProductName() {
+    $product_name =  DB::table("product")->where("product_id", $this->attributes['product_id'])->value("name");
+    return $product_name;
   }
 
   public function getValidation() {
