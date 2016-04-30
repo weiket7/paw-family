@@ -1,7 +1,6 @@
 
 @extends("admin.template", [
   "title"=>"Brands",
-  "form"=>false,
 ])
 
 @section("content")

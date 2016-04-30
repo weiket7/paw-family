@@ -25,21 +25,17 @@ class CommonHelper {
     return round($discount_amt / 100 * $price, 2);
   }
 
-  public static function getImageDir() {
+  public static function uploadImage($folder, $name, $image) {
     if (App::environment('local')) {
-      return $_SERVER['DOCUMENT_ROOT'] . "adoptadog/images/";
-    } else if (App::environment('production')) {
-      return $_SERVER['DOCUMENT_ROOT'] . "/images/";
+      $base_path = $_SERVER['DOCUMENT_ROOT'] . "/pawfamily/assets/images/";
+    } else {
+      $base_path = $_SERVER['DOCUMENT_ROOT'] . "/assets/images/";
     }
-  }
 
-  public static function getFileName($name, $file) {
-    $fileName = trim($name);
-    $fileName = strtolower($fileName);
-    $fileName = preg_replace('/[^A-Za-z0-9\-]/', '', $fileName);
-    $fileName = str_replace(array(' ', '-'), '_', $fileName);
-    $fileName = $fileName.'.'.$file->getClientOriginalExtension();
-    return $fileName;
+    $destination_path = $base_path . $folder . "/";
+    $file_name = str_slug($name).'.'.$image->getClientOriginalExtension();
+    $image->move($destination_path, $file_name);
+    return $file_name;
   }
 
   public static function formatVetTime($time) {

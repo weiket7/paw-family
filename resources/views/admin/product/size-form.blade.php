@@ -2,7 +2,7 @@
 
 @extends("admin.template", [
   "title"=>ucfirst($action) . " Size",
-  "form"=>true,
+  "action"=>$action,
 ])
 
 @section("content")
@@ -54,4 +54,16 @@
       </div>
     </div>
   </div>
-@endsection
+@stop
+
+@section("script")
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#btn-delete').on('confirmed.bs.confirmation', function () {
+        $("#delete").val("true");
+        $("form").submit();
+      });
+    });
+  </script>
+@stop
+

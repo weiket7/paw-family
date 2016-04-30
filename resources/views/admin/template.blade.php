@@ -54,7 +54,7 @@ License: You must have a valid license purchased only from themeforest(the above
   <link href="{{url("assets/metronic/custom.css")}}" rel="stylesheet" type="text/css" id="style_color" />
 
   <!-- END THEME LAYOUT STYLES -->
-  <link rel="shortcut icon" href="favicon.ico" />
+  {{--<link rel="shortcut icon" href="favicon.ico" />--}}
   @section("css")
 
   @endsection
@@ -587,7 +587,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="col-md-12">
 
           <!--<h3 class="page-title"> Blank Page Layout</h3>-->
-          <form method="post" action="" class="form-horizontal">
+          <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
             {!! csrf_field() !!}
             <div class="portlet light">
               @if(isset($title) && $title)
@@ -597,8 +597,12 @@ License: You must have a valid license purchased only from themeforest(the above
                       <h3 class="page-title">{{ $title }}</h3>
                     </div>
                     <div class='col-xs-6 text-right'>
-                      @if(isset($form) && $form)
+                      @if(isset($action) && $action)
                         <button class="btn green-haze" type="submit"><i class="fa fa-check"></i> Save</button>
+                        @if($action == "update")
+                          <input type="hidden" name="delete" id="delete">
+                          <button id="btn-delete" type="button" class="btn red-sunglo" data-placement="bottom" data-singleton='true' data-toggle='confirmation' data-original-title='Are you sure?'><i class="fa fa-times"></i> Delete</button>
+                        @endif
                         <button type="button" name="back" class="btn btn-default" onclick="history.go(-1)"><i class="fa fa-angle-left"></i> Back</button>
                       @endif
                     </div>
@@ -1241,21 +1245,22 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{url("assets/metronic/layouts/global/scripts/quick-sidebar.min.js")}}" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 
-<script src="{{url("assets/metronic/js/custom.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/metronic/custom.js")}}" type="text/javascript"></script>
 
 <script type="text/javascript">
   toastr.options.positionClass = "toast-top-center";
   $.fn.editable.defaults.inputclass = 'form-control';
-  $(document).ready(function() {
-    /*$('.datatable').DataTable({
-     "paging": false
-     });*/
 
+  $(document).ready(function() {
+    $('#btn-delete').on('confirmed.bs.confirmation', function () {
+      $("#delete").val("true");
+      $("form").submit();
+    });
   });
 </script>
 
 @section("script")
 
-@endsection
+@show
 </body>
 </html>

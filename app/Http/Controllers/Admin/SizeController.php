@@ -15,6 +15,10 @@ class SizeController extends Controller
 
     if($request->isMethod('post')) {
       $input = $request->all();
+      if (isset($input['delete']) && $input['delete'] == 'true') {
+        $size->delete();
+        return redirect('admin/product/save/'.$size->product_id)->with('msg', 'Size deleted');
+      }
       if (! $size->saveSize($input)) {
         return redirect()->back()->withErrors($size->getValidation())->withInput($input);
       }

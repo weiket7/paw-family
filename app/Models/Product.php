@@ -1,6 +1,7 @@
 <?php namespace App\Models;
 
 use App\Models\Enums\ProductOptionType;
+use CommonHelper;
 use Eloquent, DB, Validator;
 
 class Product extends Eloquent
@@ -8,6 +9,28 @@ class Product extends Eloquent
   public $table = 'product';
   protected $primaryKey = 'product_id';
   protected $validation;
+
+  public function saveProduct($input, $image) {
+    //var_dump($image);
+    $this->name = $input['name'];
+    $this->stat = $input['stat'];
+    $this->brand_id = $input['brand_id'];
+    $this->category_id = $input['category_id'];
+    $this->price = $input['price'];
+    $this->processing_day = $input['processing_day'];
+    $this->weight_lb = $input['weight_lb'];
+    $this->weight_kg = $input['weight_kg'];
+    $this->discount_type = $input['discount_type'];
+    $this->discount_amt = $input['discount_amt'];
+    $this->desc_short = $input['desc_short'];
+    $this->desc_long = $input['desc_long'];
+
+    if ($image) {
+      $this->image = CommonHelper::uploadImage('products', $input['name'], $image);
+    }
+    $this->save();
+    return true;
+  }
 
   public function getProductFeatured() {
     $s = "SELECT p.name, p.desc_short, p.stat as product_stat, f.stat as featured_stat
@@ -112,6 +135,10 @@ class Product extends Eloquent
     $s = "SELECT slug, name from product where name like :term";
     $p["term"] = '%'.$term.'%';
     return DB::select($s, $p);
+  }
+
+  public function getValidation() {
+    return $this->validation;
   }
 
 }

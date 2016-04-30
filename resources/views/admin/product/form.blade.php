@@ -4,7 +4,7 @@
 
 @extends("admin.template", [
   "title"=>ucfirst($action) . " Product",
-  "form"=>true,
+  "action"=>$action,
 ])
 
 @section("content")
@@ -52,7 +52,7 @@
               <div class="form-group">
                 <label class="control-label col-md-3">Brand</label>
                 <div class="col-md-9">
-                  {!! Form::select('brand', [''=>'']+$brands, $product->brand_id, ['class'=>'form-control']) !!}
+                  {!! Form::select('brand_id', [''=>'']+$brands, $product->brand_id, ['class'=>'form-control']) !!}
                 </div>
               </div>
             </div>
@@ -60,7 +60,7 @@
               <div class="form-group">
                 <label class="control-label col-md-3">Category</label>
                 <div class="col-md-9">
-                  <select class="form-control" name="category">
+                  <select class="form-control" name="category_id">
                     @foreach($categories as $main_category => $category)
                       <optgroup label="{{MainCategory::$values[$main_category]}}">
                         @foreach($category as $c)
@@ -129,11 +129,22 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-2">Short Description</label>
-                <div class="col-md-10">
+                <label class="control-label col-md-3">Short Description</label>
+                <div class="col-md-9">
                   {!! Form::text('desc_short', $product->desc_short, ['class'=>'form-control']) !!}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Image</label>
+                <div class="col-md-9">
+                  @if(strlen($product->image) > 0)
+                      <img src="{{url("assets/images/products/".$product->image)}}" class='thumbnail' style="max-height:200px;"/>
+                  @endif
+                  <input type='file' name='image'>
                 </div>
               </div>
             </div>
@@ -151,6 +162,8 @@
         </div>
       </div>
       <div class="tab-pane" id="tab_sizes">
+        <a href="{{url("admin/size/save?product_id=".$product->product_id)}}"><button type="button" class="btn blue btn-create">Create Size</button></a>
+        <br>
         <table class="table table-bordered">
           <thead>
           <tr>
@@ -179,6 +192,8 @@
         </table>
       </div>
       <div class="tab-pane" id="tab_repacks">
+        <a href="{{url("admin/option/save?product_id=".$product->product_id)}}"><button type="button" class="btn blue btn-create">Create Repack</button></a>
+        <br>
         <table class="table table-bordered">
           <thead>
           <tr>
