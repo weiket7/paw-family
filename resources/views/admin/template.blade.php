@@ -499,7 +499,7 @@ License: You must have a valid license purchased only from themeforest(the above
       <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
       <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
         <li class="nav-item start ">
-          <a href="{{url("index/dashboard")}}" class="nav-link nav-toggle">
+          <a href="#" class="nav-link nav-toggle">
             <i class="icon-home"></i>
             <span class="title">Dashboard</span>
             <span class="arrow"></span>
@@ -513,7 +513,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </a>
           <ul class="sub-menu">
             <li class="nav-item start ">
-              <a href="{{url("project")}}" class="nav-link ">
+              <a href="#" class="nav-link ">
                 <i class="icon-bar-chart"></i>
                 <span class="title">New Orders</span>
               </a>
@@ -521,7 +521,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </ul>
         </li>
         <li class="nav-item start ">
-          <a href="{{url("index/dashboard")}}" class="nav-link nav-toggle">
+          <a href="#" class="nav-link nav-toggle">
             <i class="icon-users"></i>
             <span class="title">Customers</span>
             <span class="arrow"></span>
@@ -535,21 +535,21 @@ License: You must have a valid license purchased only from themeforest(the above
           </a>
         </li>
         <li class="nav-item  ">
-          <a href="{{url("admin/report")}}" class="nav-link nav-toggle">
+          <a href="#" class="nav-link nav-toggle">
             <i class="icon-bar-chart"></i>
             <span class="title">Reports</span>
             <span class="arrow"></span>
           </a>
         </li>
         <li class="nav-item  ">
-          <a href="{{url("index/comingsoon")}}" class="nav-link nav-toggle">
+          <a href="#" class="nav-link nav-toggle">
             <i class="icon-badge"></i>
             <span class="title">Brands</span>
             <span class="arrow"></span>
           </a>
         </li>
         <li class="nav-item  ">
-          <a href="{{url("index/comingsoon")}}" class="nav-link nav-toggle">
+          <a href="#" class="nav-link nav-toggle">
             <i class="icon-frame"></i>
             <span class="title">Banners</span>
             <span class="arrow"></span>
@@ -598,6 +598,14 @@ License: You must have a valid license purchased only from themeforest(the above
                   @if(Session::has('msg'))
                     <div class="alert alert-success ">
                       {{ Session::get('msg') }}
+                    </div>
+                  @endif
+
+                  @if ($errors->has())
+                    <div class="alert alert-danger">
+                      @foreach ($errors->all() as $error)
+                        {{ $error }}<br>
+                      @endforeach
                     </div>
                   @endif
                 </div>
