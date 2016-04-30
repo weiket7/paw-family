@@ -3,9 +3,7 @@
 @section("content")
   <div class="portlet light">
     <div class="portlet-title">
-      <div class="caption">
-        <span class="caption-subject bold uppercase">Products</span>
-      </div>
+      <h3 class="page-title">Product</h3>
     </div>
     <div class="portlet-body">
 

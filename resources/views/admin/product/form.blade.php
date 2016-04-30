@@ -2,30 +2,32 @@
 <?php use App\Models\Enums\ProductStat; ?>
 <?php use App\Models\Enums\DiscountType; ?>
 
-@extends("admin.template")
+@extends("admin.template", [
+  "title"=>ucfirst($action) . " Product",
+  "form"=>true,
+])
 
 @section("content")
-  <form method="post" action="" class="form-horizontal">
-    {!! csrf_field() !!}
-    <div class="portlet light">
-      <div class="portlet-title">
-        <div class='row'>
-          <div class='col-xs-6'>
-            <h3 class="page-title">{{ ucfirst(Request::segment(3)) }} Product</h3>
-          </div>
-          <div class='col-xs-6 text-right'>
-            <button class="btn green-haze" type="submit"><i class="fa fa-check"></i> Save</button>
-            <button type="button" name="back" class="btn btn-default" onclick="history.go(-1)"><i class="fa fa-angle-left"></i> Back</button>
-          </div>
-        </div>
 
-        @if(Session::has('msg'))
-          <div class="alert alert-success ">
-            {{ Session::get('msg') }}
-          </div>
-        @endif
-      </div>
-      <div class="portlet-body">
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#tab_general" data-toggle="tab">
+          General </a>
+      </li>
+      {{--<li>--}}
+      {{--<a href="#tab_details" data-toggle="tab">--}}
+      {{--Details </a>--}}
+      {{--</li>--}}
+      <li>
+        <a href="#tab_sizes" data-toggle="tab">Sizes</a>
+      </li>
+      <li>
+        <a href="#tab_repacks" data-toggle="tab">Repacks</a>
+      </li>
+    </ul>
+    <div class="tab-content no-space">
+      <div class="tab-pane active" id="tab_general">
         <div class="form-body">
           <div class="row">
             <div class="col-md-6">
@@ -148,7 +150,67 @@
           </div>
         </div>
       </div>
+      <div class="tab-pane" id="tab_sizes">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th width="150px">Name</th>
+            <th width="100px">Quantity</th>
+            <th width="100px">Price</th>
+            <th width="150px">Discount Amount</th>
+            <th width="150px">Discount Type</th>
+            <th width="100px">Weight (lbs)</th>
+            <th>Weight (kgs)</th>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach($product->sizes as $size)
+            <tr>
+              <td><a href="{{url("admin/size/save/".$size->size_id)}}">{{$size->name}}</a></td>
+              <td>{{$size->quantity}}</td>
+              <td>{{$size->price}}</td>
+              <td>{{$size->discount_amt}}</td>
+              <td>{{DiscountType::$values[$size->discount_type]}}</td>
+              <td>{{$size->weight_lb}}</td>
+              <td>{{$size->weight_kg}}</td>
+            </tr>
+          @endforeach
+          </tbody>
+        </table>
+      </div>
+      <div class="tab-pane" id="tab_repacks">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th width="150px">Size</th>
+            <th width="200px">Name</th>
+            <th>Price</th>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach($product->sizes as $size)
+            <?php $size_shown = false ?>
+            @if(isset($product->repacks[$size->size_id]))
+              @foreach($product->repacks[$size->size_id] as $r)
+                <tr>
+                  @if($size_shown == false)
+                    <td rowspan="{{count($product->repacks[$size->size_id])}}">{{ $size->name }}</td>
+                    <?php $size_shown = true; ?>
+                  @endif
+                  <td>
+                    {{ $r->name}}
+                  </td>
+                  <td>
+                    ${{ $r->price}}
+                  </td>
+                </tr>
+              @endforeach
+            @endif
+          @endforeach
+          </tbody>
+        </table>
+      </div>
     </div>
-  </form>
+  </div>
 
 @endsection

@@ -23,14 +23,17 @@ class SizeTable extends Migration
 
       DB::table('size')->insert([
         'size_id'=>1, 'product_id'=>1, 'name'=>'Small', 'quantity'=>5, 'weight_lb'=>4, 'price'=>39.1,
+        'discount_amt'=>10, 'discount_type'=>'A',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
       DB::table('size')->insert([
         'size_id'=>2, 'product_id'=>1, 'name'=>'Medium', 'quantity'=>10, 'weight_lb'=>20, 'price'=>142.9,
+        'discount_amt'=>10, 'discount_type'=>'A',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
       DB::table('size')->insert([
         'size_id'=>3, 'product_id'=>1, 'name'=>'Large', 'quantity'=>0, 'weight_lb'=>33, 'price'=>195.55,
+        'discount_amt'=>10, 'discount_type'=>'P',
         'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
     }

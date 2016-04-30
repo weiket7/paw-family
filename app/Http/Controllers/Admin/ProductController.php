@@ -23,6 +23,7 @@ class ProductController extends Controller
     $data['categories'] = $category_service->getCategoryAllForMenu();
     $brand_service = new Brand();
     $data['brands'] = $brand_service->getBrandForDropdown();
-    return view("admin.product.form", $data);
+    $data['action'] = ($product_id == null || $product_id == 0) ? "create" : "update";
+      return view("admin.product.form", $data);
   }
 }

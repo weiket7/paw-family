@@ -51,6 +51,7 @@ License: You must have a valid license purchased only from themeforest(the above
   <!-- BEGIN THEME LAYOUT STYLES -->
   <link href="{{url("assets/metronic/layouts/layout2/css/layout.min.css")}}" rel="stylesheet" type="text/css" />
   <link href="{{url("assets/metronic/layouts/layout2/css/themes/blue.min.css")}}" rel="stylesheet" type="text/css" id="style_color" />
+  <link href="{{url("assets/metronic/custom.css")}}" rel="stylesheet" type="text/css" id="style_color" />
 
   <!-- END THEME LAYOUT STYLES -->
   <link rel="shortcut icon" href="favicon.ico" />
@@ -577,9 +578,35 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="col-md-12">
 
           <!--<h3 class="page-title"> Blank Page Layout</h3>-->
+          <form method="post" action="" class="form-horizontal">
+            {!! csrf_field() !!}
+            <div class="portlet light">
+              @if(isset($title) && $title)
+                <div class="portlet-title">
+                  <div class='row'>
+                    <div class='col-xs-6'>
+                      <h3 class="page-title">{{ $title }}</h3>
+                    </div>
+                    <div class='col-xs-6 text-right'>
+                      @if(isset($form) && $form)
+                        <button class="btn green-haze" type="submit"><i class="fa fa-check"></i> Save</button>
+                        <button type="button" name="back" class="btn btn-default" onclick="history.go(-1)"><i class="fa fa-angle-left"></i> Back</button>
+                      @endif
+                    </div>
+                  </div>
 
-          @yield("content")
-
+                  @if(Session::has('msg'))
+                    <div class="alert alert-success ">
+                      {{ Session::get('msg') }}
+                    </div>
+                  @endif
+                </div>
+              @endif
+              <div class="portlet-body">
+                @yield("content")
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -1197,7 +1224,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{url("assets/metronic/layouts/global/scripts/quick-sidebar.min.js")}}" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 
-<script src="{{url("assets/js/custom.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/metronic/js/custom.js")}}" type="text/javascript"></script>
 
 <script type="text/javascript">
   toastr.options.positionClass = "toast-top-center";

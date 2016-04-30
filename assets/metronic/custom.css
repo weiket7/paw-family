@@ -1,0 +1,7 @@
+.tbl_size td {
+  padding: 0px 7px;
+}
+
+.portlet.light>.portlet-title {
+  padding: 10px 0 0 0;
+}
