@@ -37,6 +37,10 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::post('admin/size/save', 'Admin\SizeController@save');
   Route::get('admin/size/save/{size_id}', 'Admin\SizeController@save');
   Route::post('admin/size/save/{size_id}', 'Admin\SizeController@save');
+
+  Route::get('admin/brand', 'Admin\BrandController@index');
+  Route::get('admin/category', 'Admin\CategoryController@index');
+
 });
 
 Route::get('test', function() {

@@ -115,7 +115,7 @@
               <div class="form-group">
                 <label class="control-label col-md-3">Discount Type</label>
                 <div class="col-md-9">
-                  {!! Form::select('discount_type', [''=>'']+DiscountType::$values, $product->discount_type, ['class'=>'form-control']) !!}
+                  {!! Form::select('discount_type', DiscountType::$values, $product->discount_type, ['class'=>'form-control']) !!}
                 </div>
               </div>
             </div>

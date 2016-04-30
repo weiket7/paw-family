@@ -1,3 +1,5 @@
+<?php use App\Models\Enums\DiscountType; ?>
+
 @extends("admin.template", [
   "title"=>ucfirst($action) . " Size",
   "form"=>true,
@@ -36,7 +38,7 @@
     <div class="form-group">
       <label class="control-label col-md-2">Discount Type</label>
       <div class="col-md-10">
-        {!! Form::text('discount_type', $size->discount_type, ['class'=>'form-control']) !!}
+        {!! Form::select('discount_type', DiscountType::$values, $size->discount_type, ['class'=>'form-control']) !!}
       </div>
     </div>
     <div class="form-group">

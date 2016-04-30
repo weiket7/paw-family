@@ -543,13 +543,6 @@ License: You must have a valid license purchased only from themeforest(the above
         </li>
         <li class="nav-item  ">
           <a href="#" class="nav-link nav-toggle">
-            <i class="icon-badge"></i>
-            <span class="title">Brands</span>
-            <span class="arrow"></span>
-          </a>
-        </li>
-        <li class="nav-item  ">
-          <a href="#" class="nav-link nav-toggle">
             <i class="icon-frame"></i>
             <span class="title">Banners</span>
             <span class="arrow"></span>
@@ -561,6 +554,22 @@ License: You must have a valid license purchased only from themeforest(the above
             <span class="title">Settings</span>
             <span class="arrow"></span>
           </a>
+          <ul class="sub-menu">
+            <li class="nav-item start ">
+              <a href="{{url("admin/brand")}}" class="nav-link ">
+                <i class="icon-bar-chart"></i>
+                <span class="title">Brands</span>
+              </a>
+              <a href="{{url("admin/category")}}" class="nav-link ">
+                <i class="icon-bar-chart"></i>
+                <span class="title">Categories</span>
+              </a>
+              <a href="#" class="nav-link ">
+                <i class="icon-bar-chart"></i>
+                <span class="title">Settings</span>
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
       <!-- END SIDEBAR MENU -->

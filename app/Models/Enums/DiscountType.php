@@ -4,8 +4,9 @@ abstract class DiscountType {
   const Amount = 'A';
   const Percentage = 'P';
 
-  static $values = array(
+  static $values = [
+    ''=>'',
     self::Amount=>'Amount',
     self::Percentage=>'Percentage',
-  );
+  ];
 }
