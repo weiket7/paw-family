@@ -29,7 +29,10 @@ Route::post('admin', 'Admin\AdminController@login');
 
 Route::group(['middleware'=>'auth_operator'], function() {
   Route::get('admin/dashboard', 'Admin\AdminController@dashboard');
+
   Route::get('admin/product', 'Admin\ProductController@index');
+  Route::get('admin/product/save', 'Admin\ProductController@save');
+  Route::post('admin/product/save', 'Admin\ProductController@save');
   Route::get('admin/product/save/{product_id}', 'Admin\ProductController@save');
   Route::post('admin/product/save/{product_id}', 'Admin\ProductController@save');
 
@@ -39,8 +42,16 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::post('admin/size/save/{size_id}', 'Admin\SizeController@save');
 
   Route::get('admin/brand', 'Admin\BrandController@index');
-  Route::get('admin/category', 'Admin\CategoryController@index');
+  Route::get('admin/brand/save', 'Admin\BrandController@save');
+  Route::post('admin/brand/save', 'Admin\BrandController@save');
+  Route::get('admin/brand/save/{brand_id}', 'Admin\BrandController@save');
+  Route::post('admin/brand/save/{brand_id}', 'Admin\BrandController@save');
 
+  Route::get('admin/category', 'Admin\CategoryController@index');
+  Route::get('admin/category/save', 'Admin\CategoryController@save');
+  Route::post('admin/category/save', 'Admin\CategoryController@save');
+  Route::get('admin/category/save/{category_id}', 'Admin\CategoryController@save');
+  Route::post('admin/category/save/{category_id}', 'Admin\CategoryController@save');
 });
 
 Route::get('test', function() {

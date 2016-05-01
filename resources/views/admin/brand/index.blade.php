@@ -1,6 +1,8 @@
 
 @extends("admin.template", [
   "title"=>"Brands",
+  "action"=>"index",
+  "controller"=>"brand"
 ])
 
 @section("content")
@@ -15,7 +17,7 @@
   <tbody>
   @foreach($brands as $brand)
     <tr>
-      <td><a href="{{(url("admin/brand/save".$brand->brand_id))}}">{{$brand->name}}</a></td>
+      <td><a href="{{(url("admin/brand/save/".$brand->brand_id))}}">{{$brand->name}}</a></td>
       <td><img src="{{url("assets/images/brands/".$brand->image)}}"></td>
       <td>{{$brand->pos}}</td>
     </tr>

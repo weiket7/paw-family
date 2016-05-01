@@ -1,5 +1,7 @@
 @extends("admin.template", [
   "title"=>"Products",
+  "action"=>"index",
+  "controller"=>"product"
 ])
 
 @section("content")

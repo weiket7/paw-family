@@ -1,7 +1,8 @@
 
 @extends("admin.template", [
   "title"=>"Categories",
-  "form"=>false,
+  "action"=>"index",
+  "controller"=>"category"
 ])
 
 @section("content")
@@ -17,7 +18,7 @@
     @foreach($categories as $main_category => $category)
       @foreach($category as $c)
       <tr>
-        <td><a href="{{(url("admin/category/save".$c->category_id))}}">{{$c->name}}</a></td>
+        <td><a href="{{(url("admin/category/save/".$c->category_id))}}">{{$c->name}}</a></td>
         <td>{{ \App\Models\Enums\MainCategory::$values[$main_category] }}</td>
         <td>{{$c->pos}}</td>
       </tr>

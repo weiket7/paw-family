@@ -555,15 +555,19 @@ License: You must have a valid license purchased only from themeforest(the above
             <span class="arrow"></span>
           </a>
           <ul class="sub-menu">
-            <li class="nav-item start ">
+            <li class="nav-item">
               <a href="{{url("admin/brand")}}" class="nav-link ">
                 <i class="icon-bar-chart"></i>
                 <span class="title">Brands</span>
               </a>
+            </li>
+            <li class="nav-item">
               <a href="{{url("admin/category")}}" class="nav-link ">
                 <i class="icon-bar-chart"></i>
                 <span class="title">Categories</span>
               </a>
+            </li>
+            <li class="nav-item">
               <a href="#" class="nav-link ">
                 <i class="icon-bar-chart"></i>
                 <span class="title">Settings</span>
@@ -597,13 +601,15 @@ License: You must have a valid license purchased only from themeforest(the above
                       <h3 class="page-title">{{ $title }}</h3>
                     </div>
                     <div class='col-xs-6 text-right'>
-                      @if(isset($action) && $action)
+                      @if($action == "create" || $action == "update")
                         <button class="btn green-haze" type="submit"><i class="fa fa-check"></i> Save</button>
                         @if($action == "update")
                           <input type="hidden" name="delete" id="delete">
                           <button id="btn-delete" type="button" class="btn red-sunglo" data-placement="bottom" data-singleton='true' data-toggle='confirmation' data-original-title='Are you sure?'><i class="fa fa-times"></i> Delete</button>
                         @endif
                         <button type="button" name="back" class="btn btn-default" onclick="history.go(-1)"><i class="fa fa-angle-left"></i> Back</button>
+                      @elseif($action == "index")
+                        <a href="{{url("admin/".$controller."/save")}}"><button type="button" class="btn blue btn-create">Create</button></a>
                       @endif
                     </div>
                   </div>
