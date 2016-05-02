@@ -97,7 +97,7 @@
               <div class="form-group">
                 <label class="control-label col-md-3">Last Login On</label>
                 <label class="form-control-static col-md-9">
-                  {{ CommonHelper::formatDate($customer->last_login_on) }}
+                  {{ CommonHelper::formatDateTime($customer->last_login_on) }}
                 </label>
               </div>
             </div>
@@ -105,7 +105,7 @@
               <div class="form-group">
                 <label class="control-label col-md-3">Joined On</label>
                 <label class="form-control-static col-md-9">
-                  {{ CommonHelper::formatDate($customer->joined_on) }}
+                  {{ CommonHelper::formatDateTime($customer->joined_on) }}
                 </label>
               </div>
             </div>

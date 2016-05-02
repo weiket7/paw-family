@@ -37,9 +37,11 @@ class ProductController extends Controller
     return view("view", $data);
   }
 
-  public function search() {
-    $data = [];
-    return view("search", $data);
+  public function brand($slug) {
+    $brand_service = new Brand();
+    $brand = $brand_service->getBrandIdBySlug($slug);
+    //TODO
+    return view("", $data);
   }
 
   public function autocomplete() {

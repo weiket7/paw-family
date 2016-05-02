@@ -15,18 +15,21 @@ Route::get('/', 'SiteController@index');
 Route::get('brands', 'SiteController@brand');
 Route::get('contact', 'SiteController@contact');
 
-Route::get('login', 'SiteController@login');
-Route::get('register', 'SiteController@register');
-Route::post('register', 'SiteController@register');
-Route::get('login', 'SiteController@login');
-Route::post('login', 'SiteController@login');
-Route::get('account', 'SiteController@account');
-Route::get('forgot-password', 'SiteController@forgotPassword');
-
 Route::get('product/category/{slug}', 'ProductController@category');
 Route::get('product/view/{slug}', 'ProductController@view');
 Route::get('product/search', 'ProductController@search');
 Route::get('product/autocomplete', 'ProductController@autocomplete');
+
+Route::get('login', 'SiteController@login');
+Route::post('login', 'SiteController@login');
+Route::get('forgot-password', 'SiteController@forgotPassword');
+Route::get('logout', 'SiteController@logout');
+Route::get('register', 'SiteController@register');
+Route::post('register', 'SiteController@register');
+Route::get('account', 'SiteController@account');
+Route::post('account', 'SiteController@account');
+Route::get('order/{sale_no}', 'SiteController@order');
+Route::post('order/{sale_no}', 'SiteController@order');
 
 Route::get('cart', 'SaleController@cart');
 Route::get('checkout', 'SaleController@checkout');

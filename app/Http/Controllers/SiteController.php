@@ -3,24 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Product;
+use App\Models\Sale;
 use Auth;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
-  public function index() {
-    $product_service = new Product();
-    $data['products'] = $product_service->getProductFeatured();
-    return view("index", $data);
+  public function account(Request $request) {
+    $customer_id = Auth::id();
+    $sale_service = new Sale();
+    $data['sales'] = $sale_service->getSalesByCustomer($customer_id);
+    $data['customer'] = Customer::find($customer_id);
+    return view('account', $data);
   }
 
-  public function brand() {
-    $data['brands'] = Brand::all();
-    return view("brand");
-  }
-
-  public function contact() {
-    return view("contact");
+  public function order(Request $request, $sale_no) {
+    $sale_service = new Sale();
+    $data['sale'] = $sale_service->getSale($sale_no);
+    return view('order', $data);
   }
 
   public function login(Request $request) {
@@ -29,7 +30,7 @@ class SiteController extends Controller
       $password = $request->get("password");
       if (! Auth::attempt(['email'=>$email, 'password'=>$password])) {
         //TODO login_log
-        return redirect()->back()->with('msg', "Wrong username and/or password");
+        return redirect("login")->with('msg', "Wrong username and/or password");
       }
       return redirect()->intended("account");
     }
@@ -45,10 +46,27 @@ class SiteController extends Controller
       }
       return redirect()->intended("account");
     }
-    return view("register");
+    return view("login");
   }
 
-  public function account() {
-    return view('account');
+  public function index() {
+    $product_service = new Product();
+    $data['products'] = $product_service->getProductFeatured();
+    return view("index", $data);
   }
+
+  public function brand() {
+    $data['brands'] = Brand::all();
+    return view("brand");
+  }
+
+  public function contact() {
+    return view("contact");
+  }
+
+  public function logout() {
+    Auth::logout();
+    //TODO redirect
+  }
+
 }

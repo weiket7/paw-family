@@ -29,7 +29,7 @@ class CustomerTable extends Migration
       });
 
       DB::table('customer')->insert([
-        'customer_id'=>18,
+        'customer_id'=>1,
         'stat'=>CustomerStat::Active,
         'email'=>'wei_ket@hotmail.com',
         'password'=>Hash::make("test168"),

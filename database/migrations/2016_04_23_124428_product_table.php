@@ -29,7 +29,7 @@ class ProductTable extends Migration
         //$t->string('ingredient', 250);
         $t->string('image', 150);
         $t->char('stat', 1);
-        $t->string('updated_by', 10);
+        $t->string('updated_on', 10);
         $t->timestamp('updated_at');
       });
 
@@ -50,7 +50,7 @@ class ProductTable extends Migration
         'discount_type'=>DiscountType::Amount,
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -70,7 +70,7 @@ class ProductTable extends Migration
         'discount_type'=>DiscountType::Percentage,
         'stat'=>ProductStat::Hidden,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -88,7 +88,7 @@ class ProductTable extends Migration
         'image'=>'addiction-le-lamb.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -106,7 +106,7 @@ class ProductTable extends Migration
         'image'=>'addiction-dry-dog-food-wild-kangaroo-apples.png',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -124,7 +124,7 @@ class ProductTable extends Migration
         'image'=>'addiction-la-porchetta.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -142,7 +142,7 @@ class ProductTable extends Migration
         'image'=>'addiction-zen-vegetarian.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -160,7 +160,7 @@ class ProductTable extends Migration
         'image'=>'addiction-viva-la-venison-puppy.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -178,7 +178,7 @@ class ProductTable extends Migration
         'image'=>'addiction-salmon-bleu-puppy.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -196,7 +196,7 @@ class ProductTable extends Migration
         'image'=>'addiction-raw-dehydrated-figlicious-venison-feast-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -214,7 +214,7 @@ class ProductTable extends Migration
         'image'=>'addiction-raw-dehydrated-herbed-lamb-potatoes-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -232,7 +232,7 @@ class ProductTable extends Migration
         'image'=>'addiction-raw-dehydrated-steakhouse-beef-zucchini-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -250,7 +250,7 @@ class ProductTable extends Migration
         'image'=>'addiction-raw-dehydrated-nz-forest-delicacies.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -268,7 +268,7 @@ class ProductTable extends Migration
         'image'=>'addiction-raw-dehydrated-homestyle-venison-cranberry-dinner.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -286,7 +286,7 @@ class ProductTable extends Migration
         'image'=>'addiction-raw-dehydrated-perfect-summer-brushtail-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -304,7 +304,7 @@ class ProductTable extends Migration
         'image'=>'addiction-raw-dehydrated-country-chicken-apricot-dinner-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -321,7 +321,7 @@ class ProductTable extends Migration
         'processing_day'=>3,
         'image'=>'primal-freeze-dried-canine-turkey-sardine.jpg',
         'stat'=>ProductStat::Available,
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -338,7 +338,7 @@ class ProductTable extends Migration
         'processing_day'=>3,
         'image'=>'primal-freeze-dried-canine-lamb-formula.jpg',
         'stat'=>ProductStat::Available,
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -355,7 +355,7 @@ class ProductTable extends Migration
         'processing_day'=>3,
         'image'=>'primal-freeze-dried-canine-duck-formula.jpg',
         'stat'=>ProductStat::Available,
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       DB::table('product')->insert([
@@ -372,7 +372,7 @@ class ProductTable extends Migration
         'processing_day'=>3,
         'image'=>'primal-freeze-dried-canine-chicken-formula.jpg',
         'stat'=>ProductStat::Available,
-        'updated_by'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
       $product = Product::find(1);
