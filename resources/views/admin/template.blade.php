@@ -521,7 +521,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </ul>
         </li>
         <li class="nav-item start ">
-          <a href="{{url("admin/customer")}}" class="nav-link nav-toggle">
+          <a href="{{url("")}}" class="nav-link nav-toggle">
             <i class="icon-users"></i>
             <span class="title">Customers</span>
             <span class="arrow"></span>

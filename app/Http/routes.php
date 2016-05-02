@@ -11,15 +11,17 @@
 |
 */
 
-Route::get('/', 'IndexController@index');
-Route::get('brands', 'IndexController@brand');
-Route::get('contact', 'IndexController@contact');
+Route::get('/', 'SiteController@index');
+Route::get('brands', 'SiteController@brand');
+Route::get('contact', 'SiteController@contact');
 
-Route::get('login', 'IndexController@login');
-Route::get('register', 'IndexController@register');
-Route::get('login', 'IndexController@login');
-Route::post('login', 'IndexController@login');
-Route::get('account', 'IndexController@account');
+Route::get('login', 'SiteController@login');
+Route::get('register', 'SiteController@register');
+Route::post('register', 'SiteController@register');
+Route::get('login', 'SiteController@login');
+Route::post('login', 'SiteController@login');
+Route::get('account', 'SiteController@account');
+Route::get('forgot-password', 'SiteController@forgotPassword');
 
 Route::get('product/category/{slug}', 'ProductController@category');
 Route::get('product/view/{slug}', 'ProductController@view');

@@ -48,8 +48,8 @@
         <td width="450px"><a href="{{url("admin/customer/save/".$customer->customer_id)}}">{{ $customer->name }}</a></td>
         <td>{{$customer->email}}</td>
         <td>{{$customer->mobile}}</td>
-        <td>{{$customer->num_order}}</td>
-        <td>{{$customer->amt_spent_total}}</td>
+        <td>{{$customer->order_count}}</td>
+        <td>{{$customer->spent_amt_total}}</td>
       </tr>
     @endforeach
     </tbody>

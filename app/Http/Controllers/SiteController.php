@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Auth;
 use Illuminate\Http\Request;
 
-class IndexController extends Controller
+class SiteController extends Controller
 {
   public function index() {
     $product_service = new Product();
@@ -35,7 +36,15 @@ class IndexController extends Controller
     return view("login");
   }
 
-  public function register() {
+  public function register(Request $request) {
+    if($request->isMethod('post')) {
+      $input = $request->all();
+      $customer = new Customer();
+      if (! $customer->registerCustomer($input)) {
+        return redirect("register#tab-2")->withErrors($customer->getValidation())->withInput($input);
+      }
+      return redirect()->intended("account");
+    }
     return view("register");
   }
 
