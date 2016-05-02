@@ -13,6 +13,12 @@ class ProductController extends Controller
   public function index(Request $request)
   {
     $product_service = new Product();
+    $category_service = new Category();
+    $data['categories'] = $category_service->getCategoryForDropdown();
+    $supplier_service = new Supplier();
+    $data['suppliers'] = $supplier_service->getSupplierForDropdown();
+    $brand_service = new Brand();
+    $data['brands'] = $brand_service->getBrandForDropdown();
     $data['products'] = $product_service->getProductAll();
     return view("admin.product.index", $data);
   }

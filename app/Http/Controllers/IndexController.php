@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
-use App\Models\Product;
+use Auth;
+use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
@@ -22,11 +22,24 @@ class IndexController extends Controller
     return view("contact");
   }
 
-  public function login() {
+  public function login(Request $request) {
+    if($request->isMethod('post')) {
+      $email = $request->get("email");
+      $password = $request->get("password");
+      if (! Auth::attempt(['email'=>$email, 'password'=>$password])) {
+        //TODO login_log
+        return redirect()->back()->with('msg', "Wrong username and/or password");
+      }
+      return redirect()->intended("account");
+    }
     return view("login");
   }
 
   public function register() {
     return view("register");
+  }
+
+  public function account() {
+    return view('account');
   }
 }

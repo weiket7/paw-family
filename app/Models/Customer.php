@@ -2,6 +2,8 @@
 
 use CommonHelper;
 use Eloquent, DB, Validator, Input;
+use Hash;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class Customer extends Eloquent
 {

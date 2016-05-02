@@ -11,17 +11,26 @@
       <th>Name</th>
       <th>Brand</th>
       <th>Category</th>
+      <th>Price</th>
     </tr>
     </thead>
     <tbody>
     <tr>
       <td><input type="text" name="name" class="form-control"></td>
-      <td><input type="text" name="name" class="form-control"></td>
-      <td><input type="text" name="name" class="form-control"></td>
+      <td>
+        {!! Form::select('brand_id', $brands, '', ['class'=>'form-control']) !!}
+      </td>
+      <td>
+        {!! Form::select('category_id', $categories, '', ['class'=>'form-control']) !!}
+      </td>
+      <td>
+        <input type="text" class="form-control" placeholder="From">
+        <input type="text" class="form-control" placeholder="To">
+      </td>
     </tr>
     </tbody>
     <tfoot>
-    <td colspan="3" class="text-center"><button type="submit" class="btn blue">Search</button></td>
+    <td colspan="4" class="text-center"><button type="submit" class="btn blue">Search</button></td>
     </tfoot>
   </table>
 

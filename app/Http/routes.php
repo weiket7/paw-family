@@ -14,9 +14,12 @@
 Route::get('/', 'IndexController@index');
 Route::get('brands', 'IndexController@brand');
 Route::get('contact', 'IndexController@contact');
+
 Route::get('login', 'IndexController@login');
 Route::get('register', 'IndexController@register');
 Route::get('login', 'IndexController@login');
+Route::post('login', 'IndexController@login');
+Route::get('account', 'IndexController@account');
 
 Route::get('product/category/{slug}', 'ProductController@category');
 Route::get('product/view/{slug}', 'ProductController@view');
@@ -33,10 +36,12 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::get('admin/dashboard', 'Admin\AdminController@dashboard');
 
   Route::get('admin/customer', 'Admin\CustomerController@index');
+  Route::post('admin/customer', 'Admin\CustomerController@index');
   Route::get('admin/customer/save/{customer_id}', 'Admin\CustomerController@save');
   Route::post('admin/customer/save/{customer_id}', 'Admin\CustomerController@save');
 
   Route::get('admin/product', 'Admin\ProductController@index');
+  Route::post('admin/product', 'Admin\ProductController@index');
   Route::get('admin/product/save', 'Admin\ProductController@save');
   Route::post('admin/product/save', 'Admin\ProductController@save');
   Route::get('admin/product/save/{product_id}', 'Admin\ProductController@save');
