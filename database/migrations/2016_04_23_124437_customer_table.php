@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Enums\CustomerStat;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -9,17 +10,42 @@ class CustomerTable extends Migration
     {
       Schema::create('customer', function (Blueprint $table) {
         $table->increments('customer_id');
-        $table->string('name');
+        $table->char('stat');
         $table->string('email');
         $table->string('password');
+        $table->string('name');
+        $table->string("mobile", 20);
+        $table->string("phone", 20);
+        $table->string("postal", 10);
+        $table->string("address", 200);
+        $table->dateTime("birthday");
+        $table->decimal("amt_spent_total", 9, 2);
+        $table->integer("num_order");
+        $table->dateTime("last_login_on");
+        $table->dateTime("joined_on");
         $table->rememberToken();
-        $table->timestamps();
       });
+
+      DB::table('customer')->insert([
+        'customer_id'=>18,
+        'stat'=>CustomerStat::Active,
+        'email'=>'wei_ket@hotmail.com',
+        'password'=>Hash::make("test168"),
+        'name'=>'Ong Wei Ket',
+        'mobile'=>'9011 0130',
+        'phone'=>'6123 4567',
+        'postal'=>'470134',
+        'address'=>'Blk 134, Bedok Reservoir Rd',
+        'birthday'=>'1989-01-05',
+        'amt_spent_total'=>0,
+        'num_order'=>0,
+        'last_login_on'=>date("Y-m-d H:i:s"),
+        'joined_on'=>'2016-05-01',
+      ]);
     }
 
     public function down()
     {
       Schema::dropIfExists('customer');
-
     }
 }

@@ -18,11 +18,13 @@ class Brand extends Eloquent
     'name.required'=>'Name is required',
   ];
 
-  public function saveBrand($input, $image) {
-    $this->name = $input['name'];
-    if ($image) {
-      $this->image = CommonHelper::uploadImage('products', $input['name'], $image);
+  public function saveBrand($input) {
+    $this->validation = Validator::make($input, $this->rules, $this->messages );
+    if ( $this->validation->fails() ) {
+      return false;
     }
+  
+    $this->name = $input['name'];
     $this->save();
     return true;
   }

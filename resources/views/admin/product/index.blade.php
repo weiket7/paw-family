@@ -5,7 +5,29 @@
 ])
 
 @section("content")
-<table class="table table-bordered table-hover">
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Brand</th>
+      <th>Category</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><input type="text" name="name" class="form-control"></td>
+      <td><input type="text" name="name" class="form-control"></td>
+      <td><input type="text" name="name" class="form-control"></td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <td colspan="3" class="text-center"><button type="submit" class="btn blue">Search</button></td>
+    </tfoot>
+  </table>
+
+  <hr>
+
+  <table class="table table-bordered table-hover">
     <thead>
     <tr>
       <th>Name</th>
@@ -26,7 +48,7 @@
         <td>${{ CommonHelper::getDiscountAmt($p->price, $p->discount_amt, $p->discount_type) }}</td>
         <td>
           <table class="tbl_size">
-              @foreach($p->sizes as $size)
+            @foreach($p->sizes as $size)
               <tr>
                 <td>{{ $size->name }}</td>
                 <td>{{ $size->weight_lb }} lbs</td>
@@ -37,7 +59,7 @@
                   @endif
                 </td>
               </tr>
-              @endforeach
+            @endforeach
           </table>
         </td>
       </tr>

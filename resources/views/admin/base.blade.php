@@ -1,7 +1,8 @@
 
 @extends("admin.template", [
   "title"=>"Size",
-  "form"=>true,
+  "action"=>"index",
+  "controller"=>"product"
 ])
 
 @section("content")

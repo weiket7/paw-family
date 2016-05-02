@@ -15,10 +15,6 @@
         <a href="#tab_general" data-toggle="tab">
           General </a>
       </li>
-      {{--<li>--}}
-      {{--<a href="#tab_details" data-toggle="tab">--}}
-      {{--Details </a>--}}
-      {{--</li>--}}
       <li>
         <a href="#tab_sizes" data-toggle="tab">Sizes</a>
       </li>
