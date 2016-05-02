@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class Controller extends BaseController
@@ -34,5 +35,7 @@ class Controller extends BaseController
       Cache::put("settings_cache", $settings, 1440);
       view()->share("settings_cache", $settings);
     }
+
+    view()->share("auth_check", Auth::check());
   }
 }

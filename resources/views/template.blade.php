@@ -129,7 +129,7 @@
               </a>
             </li>
             <li class="relative f_xs_none m_xs_bottom_5">
-              @if(Auth::check())
+              @if($auth_check)
                 <a href="{{url("account")}}" class="tr_delay_hover color_light tt_uppercase">
                   <b>Account</b>
                 </a>
@@ -709,10 +709,10 @@
         url: "{{ url("login") }}",
         data: data,
         success: function(response) {
-          console.log(data);
-          console.log(response);
+          //console.log(data);
+          //console.log(response);
           if (response === "fail") {
-            $("#div-login-result").show();
+            $("#div-login-result").slideDown();
           } else if (response === "success") {
             redirect("{{url("account")}}");
           } else {

@@ -25,12 +25,16 @@ Route::get('forgot-password', 'SiteController@forgotPassword');
 Route::get('logout', 'SiteController@logout');
 Route::get('register', 'SiteController@register');
 Route::post('register', 'SiteController@register');
-Route::get('account', 'SiteController@account');
-Route::post('account', 'SiteController@account');
-Route::get('order/{sale_no}', 'SiteController@order');
-Route::post('order/{sale_no}', 'SiteController@order');
+
+Route::group(['middleware'=>'auth'], function() {
+  Route::get('account', 'SiteController@account');
+  Route::post('account', 'SiteController@account');
+  Route::get('order/{sale_no}', 'SiteController@order');
+  Route::post('order/{sale_no}', 'SiteController@order');
+});
 
 Route::get('cart', 'SaleController@cart');
+Route::post('add-to-cart', 'SaleController@addToCart');
 Route::get('checkout', 'SaleController@checkout');
 
 Route::get('admin', 'Admin\AdminController@login');
@@ -75,6 +79,10 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::post('admin/option/save/{option_id}', 'Admin\OptionController@save');
 });
 
+Route::get('test2', function() {
+  var_dump(Session::get("cart"));
+});
+
 Route::get('test', function() {
   $pass = "test168";
   $salt = "Gq";
@@ -91,6 +99,8 @@ Route::get('test', function() {
   //return Hash::make("Pawpaw168");
   //return str_slug("Addiction Raw Dehydrated - Figlicious Venison Feast (Grain Free)");
 });
+
+
 
 Route::get('clear-cache', function() {
   Cache::forget("categories_cache");

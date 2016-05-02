@@ -11,6 +11,10 @@ class CommonHelper {
     return date('d M Y', strtotime($date));
   }
 
+  public static function formatNumber($number) {
+    return number_format(round($number, 2), 2);
+  }
+
   public static function getPriceAfterDiscount($price, $discount_amt, $discount_type) {
     if ($discount_type == null || $discount_type == DiscountType::Amount) {
       return $price - $discount_amt;
@@ -36,13 +40,5 @@ class CommonHelper {
     $file_name = str_slug($name).'.'.$image->getClientOriginalExtension();
     $image->move($destination_path, $file_name);
     return $file_name;
-  }
-
-  public static function formatVetTime($time) {
-    if ($time == "") {
-      return "";
-    }
-    $time_arr = explode("-", $time);
-    return date('g:ia', strtotime($time_arr[0])). " - ". date('g:ia', strtotime($time_arr[1]));
   }
 }

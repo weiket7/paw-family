@@ -10,89 +10,7 @@
 
 @section('content')
   <script type="text/javascript">
-    var repacks_json = '{!! json_encode($product->repacks) !!}';
-    var repacks_object = JSON.parse(repacks_json);
-    var sizes_json = '{!! json_encode($product->sizes) !!}';
-    var sizes_object =  JSON.parse(sizes_json);
 
-    function selectSize() {
-      var size = $('input[name=size]:checked').val()
-      var repacks = repacks_object[size];
-      //console.log(JSON.stringify(repack_options));
-      var html = "";
-      if (typeof repacks === 'undefined' || repacks.length === 0) {
-        $("#repack_options_default").text("No Repack")
-        $("#repack_options").html("");
-      } else {
-        for (var key in repacks) {
-          if (repacks.hasOwnProperty(key)) {
-            html += "<li class='tr_delay_hover' onclick='selectRepack("+repacks[key].option_id+")'>"+repacks[key].name+" - $"+repacks[key].price+"</li>";
-          }
-        }
-        $("#repack_options_default").text("Select Repack")
-        $("#repack_options").html(html);
-        //console.log(html);
-      }
-
-      updatePrice();
-    }
-
-    function updateQuantity(element) {
-      var data = $(element).data('direction'),
-        i = $(element).parent().children('input[type="text"]'),
-        val = i.val();
-      if(data == "up"){
-        val++;
-        i.val(val);
-      }else if(data == "down"){
-        if(val == 1) return;
-        val--;
-        i.val(val);
-      }
-
-      updatePrice();
-    }
-
-    function selectRepack(option_id) {
-      //console.log(option_id);
-      $("#repack").val(option_id);
-      updatePrice();
-    }
-
-    function updatePrice() {
-      var size = $('input[name=size]:checked').val();
-      var repack = $("#repack").val();
-      var quantity = $("#quantity").val();
-      var sizes = sizes_object[size];
-      var size_price = 0;
-      if (typeof sizes === 'undefined' || sizes.length === 0) {
-        size_price = $("#starting_price").text();
-        size_price = parseFloat(size_price.trim());
-      } else {
-        size_price = sizes.price;
-      }
-      //console.log(size_price);
-
-      var repack_options = repacks_object[size];
-      var repack_price = 0;
-      if (typeof repack_options === 'undefined' || repack_options.length === 0) {
-        repack_price = 0;
-      } else {
-        for (var key in repack_options) {
-          if (repack_options.hasOwnProperty(key)) {
-            if (repack_options[key].option_id == repack) {
-              repack_price = repack_options[key].price;
-            }
-          }
-        }
-      }
-
-      //console.log('quantity=' + quantity + ' size=' + size + ' repack=' + repack);
-      //console.log('size_price='+size_price + ' repack_price='+repack_price);
-
-      var final_price = size_price * quantity + repack_price * quantity;
-      $("#final_price").text("$"+toTwoDecimal(final_price));
-    }
 
   </script>
 
@@ -196,16 +114,17 @@
                     <span id="starting_price" style="display:none">{{$product->price}}</span>
                   @endif
                   <span class="v_align_b f_size_big m_left_5 scheme_color fw_medium" id="final_price">
-          @if(count($product->sizes))
+                    @if(count($product->sizes))
                       ${{array_first($product->sizes)->price}}
                     @else
                       ${{$product->price}}
                     @endif
-          </span>
+                  </span>
                 </div>
                 <div class="d_ib_offset_0 m_bottom_20">
-                  <button class="button_type_12 r_corners bg_scheme_color color_light tr_delay_hover d_inline_b f_size_large m_right_5">Add to Cart</button>
-                  <button class="button_type_12 r_corners bg_color_blue color_light tr_delay_hover d_inline_b f_size_large" onclick="history.go(-1)">Back</button>
+                  {{ csrf_field() }}
+                  <button type="button" class="button_type_12 r_corners bg_scheme_color color_light tr_delay_hover d_inline_b f_size_large m_right_5" id="btn-add-to-cart">Add to Cart</button>
+                  <button type="button" class="button_type_12 r_corners bg_color_blue color_light tr_delay_hover d_inline_b f_size_large" onclick="history.go(-1)">Back</button>
                 </div>
               </div>
 
@@ -452,4 +371,119 @@
   </div>
   <!--markup footer-->
 
+@endsection
+
+@section('script')
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#btn-add-to-cart").click(function() {
+        var data = {
+          quantity: $("#quantity").val(),
+          product_id: "{{$product->product_id}}",
+          _token: $("input[name='_token']").val(),
+        };
+
+        $.ajax({
+          type: "POST",
+          url: "{{ url("add-to-cart") }}",
+          data: data,
+          success: function(response) {
+            console.log(response);
+            if (response === "fail") {
+              //$("#div-login-result").slideDown();
+            } else if (response === "success") {
+              //redirect("{{url("account")}}");
+            }
+          },
+          error: function(  ) {
+            alert("An error has occurred, please contact admin@pawfamily.sg");
+          }
+        });
+      });
+    });
+
+    var repacks_json = '{!! json_encode($product->repacks) !!}';
+    var repacks_object = JSON.parse(repacks_json);
+    var sizes_json = '{!! json_encode($product->sizes) !!}';
+    var sizes_object =  JSON.parse(sizes_json);
+
+    function selectSize() {
+      var size = $('input[name=size]:checked').val()
+      var repacks = repacks_object[size];
+      //console.log(JSON.stringify(repack_options));
+      var html = "";
+      if (typeof repacks === 'undefined' || repacks.length === 0) {
+        $("#repack_options_default").text("No Repack")
+        $("#repack_options").html("");
+      } else {
+        for (var key in repacks) {
+          if (repacks.hasOwnProperty(key)) {
+            html += "<li class='tr_delay_hover' onclick='selectRepack("+repacks[key].option_id+")'>"+repacks[key].name+" - $"+repacks[key].price+"</li>";
+          }
+        }
+        $("#repack_options_default").text("Select Repack")
+        $("#repack_options").html(html);
+        //console.log(html);
+      }
+
+      updatePrice();
+    }
+
+    function updateQuantity(element) {
+      var data = $(element).data('direction'),
+        i = $(element).parent().children('input[type="text"]'),
+        val = i.val();
+      if(data == "up"){
+        val++;
+        i.val(val);
+      }else if(data == "down"){
+        if(val == 1) return;
+        val--;
+        i.val(val);
+      }
+
+      updatePrice();
+    }
+
+    function selectRepack(option_id) {
+      //console.log(option_id);
+      $("#repack").val(option_id);
+      updatePrice();
+    }
+
+    function updatePrice() {
+      var size = $('input[name=size]:checked').val();
+      var repack = $("#repack").val();
+      var quantity = $("#quantity").val();
+      var sizes = sizes_object[size];
+      var size_price = 0;
+      if (typeof sizes === 'undefined' || sizes.length === 0) {
+        size_price = $("#starting_price").text();
+        size_price = parseFloat(size_price.trim());
+      } else {
+        size_price = sizes.price;
+      }
+      //console.log(size_price);
+
+      var repack_options = repacks_object[size];
+      var repack_price = 0;
+      if (typeof repack_options === 'undefined' || repack_options.length === 0) {
+        repack_price = 0;
+      } else {
+        for (var key in repack_options) {
+          if (repack_options.hasOwnProperty(key)) {
+            if (repack_options[key].option_id == repack) {
+              repack_price = repack_options[key].price;
+            }
+          }
+        }
+      }
+
+      //console.log('quantity=' + quantity + ' size=' + size + ' repack=' + repack);
+      //console.log('size_price='+size_price + ' repack_price='+repack_price);
+
+      var final_price = size_price * quantity + repack_price * quantity;
+      $("#final_price").text("$"+toTwoDecimal(final_price));
+    }
+  </script>
 @endsection
