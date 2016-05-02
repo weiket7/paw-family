@@ -16,14 +16,17 @@ class Customer extends Eloquent
 
   public function registerCustomer($input) {
     $this->validation = Validator::make($input, $this->rules_register, $this->messages_register );
+
+    $this->email = $input['email'];
+    $this->validation->after(function($validator) {
+      if(! $this->emailAvailable($this->email)) {
+        $validator->errors()->add("email", "Email has been registered");
+      }
+    });
+
     if ( $this->validation->fails() ) {
       return false;
     }
-
-    if ($this->emailAvailable($input['email']) > 0) {
-      $this->validation->messages()->add("email", "Email has been registered");
-      return false;
-    };
 
     $this->name = $input['name'];
     $this->email = $input['email'];
@@ -35,9 +38,12 @@ class Customer extends Eloquent
     return true;
   }
 
-  public function emailAvailable($email) {
+  public function emailAvailable($email, $customer_id = null) {
+    if ($customer_id != null) {
+      $count = DB::table("customer")->where("email", $email)->whereNotIn("customer_id", $customer_id)->count();
+    }
     $count = DB::table("customer")->where("email", $email)->count();
-    return $count;
+    return $count == 0;
   }
 
   public function sendRegisterEmail($data) {
@@ -55,7 +61,8 @@ class Customer extends Eloquent
     }
 
     $this->name = $input['name'];
-    $this->stat = $input['stat'];
+    if (isset($input['stat']))
+      $this->stat = $input['stat'];
     $this->email = $input['email'];
     $this->birthday = $input['birthday'];
     $this->mobile = $input['mobile'];
@@ -85,7 +92,7 @@ class Customer extends Eloquent
 
   private $rules = [
     'name'=>'required',
-    'stat'=>'required',
+    'stat'=>'sometimes|required',
     'email'=>'required|email',
     'birthday'=>'date',
     'mobile'=>'required',

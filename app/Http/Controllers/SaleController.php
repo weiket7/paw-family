@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 class SaleController extends Controller
 {
   public function checkout() {
-
+    
   }
 
   public function cart() {

@@ -25,6 +25,7 @@ class CustomerTable extends Migration
         $table->integer("order_count");
         $table->dateTime("last_login_on");
         $table->dateTime("joined_on");
+        $table->dateTime("updated_at");
         $table->rememberToken();
       });
 

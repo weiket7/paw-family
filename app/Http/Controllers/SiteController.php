@@ -13,9 +13,18 @@ class SiteController extends Controller
 {
   public function account(Request $request) {
     $customer_id = Auth::id();
+    $customer = Customer::find($customer_id);
+    if($request->isMethod('post')) {
+      $input = $request->all();
+      if (! $customer->saveCustomer($input)) {
+        return redirect("account")->withErrors($customer->getValidation())->withInput($input);
+      }
+      return redirect('account')->with('msg', 'Account updated');
+    }
     $sale_service = new Sale();
     $data['sales'] = $sale_service->getSalesByCustomer($customer_id);
-    $data['customer'] = Customer::find($customer_id);
+    $data['customer'] = $customer;
+
     return view('account', $data);
   }
 
