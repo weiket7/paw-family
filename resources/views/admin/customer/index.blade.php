@@ -18,13 +18,14 @@
     </thead>
     <tbody>
     <tr>
+      <td>{!! Form::select('stat', CustomerStat::$values, '', ['class'=>'form-control']) !!}</td>
       <td><input type="text" name="name" class="form-control"></td>
       <td><input type="text" name="name" class="form-control"></td>
       <td><input type="text" name="name" class="form-control"></td>
     </tr>
     </tbody>
     <tfoot>
-      <td colspan="3" class="text-center"><button type="submit" class="btn blue">Search</button></td>
+      <td colspan="4" class="text-center"><button type="submit" class="btn blue">Search</button></td>
     </tfoot>
   </table>
 

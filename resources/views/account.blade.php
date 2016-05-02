@@ -9,6 +9,13 @@
     <div class="container">
       <div class="row clearfix">
         <section class="col-lg-12 col-md-12 col-sm-12 m_xs_bottom_30">
+
+          @if(Session::has('login'))
+            <div class="alert_box r_corners color_green success m_bottom_10">
+              <i class="fa fa-smile-o"></i><p>Welcome {{$customer->name}}! </p>
+            </div>
+          @endif
+
           <div class="tabs m_bottom_45">
             <!--tabs navigation-->
             <nav>

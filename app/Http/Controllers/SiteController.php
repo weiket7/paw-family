@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
@@ -29,12 +30,12 @@ class SiteController extends Controller
       $email = $request->get("email");
       $password = $request->get("password");
       if (! Auth::attempt(['email'=>$email, 'password'=>$password])) {
-        //TODO login_log
-        return redirect("login")->with('msg', "Wrong username and/or password");
+        return "fail";
       }
-      return redirect()->intended("account");
+      $request->session()->flash("login", true);
+      return "success";
     }
-    return view("login");
+    return "error";
   }
 
   public function register(Request $request) {
@@ -42,11 +43,11 @@ class SiteController extends Controller
       $input = $request->all();
       $customer = new Customer();
       if (! $customer->registerCustomer($input)) {
-        return redirect("register#tab-2")->withErrors($customer->getValidation())->withInput($input);
+        return redirect("register")->withErrors($customer->getValidation())->withInput($input);
       }
       return redirect()->intended("account");
     }
-    return view("login");
+    return view("register");
   }
 
   public function index() {

@@ -129,9 +129,15 @@
               </a>
             </li>
             <li class="relative f_xs_none m_xs_bottom_5">
-              <a href="{{url("login")}}" class="tr_delay_hover color_light tt_uppercase">
-                <b>Log In</b>
-              </a>
+              @if(Auth::check())
+                <a href="{{url("account")}}" class="tr_delay_hover color_light tt_uppercase">
+                  <b>Account</b>
+                </a>
+              @else
+                <a href="#" data-popup="#login_popup" class="tr_delay_hover color_light tt_uppercase">
+                  <b>Log In</b>
+                </a>
+              @endif
             </li>
           </ul>
         </nav>
@@ -587,7 +593,7 @@
               </td>
             </tr>
             <tr>
-              <td class="v_align_m">Quantity:</td>
+              <td class="v_align_m"><Quantity></Quantity>:</td>
               <td class="v_align_m">
                 <div class="clearfix quantity r_corners d_inline_middle f_size_medium color_dark">
                   <button class="bg_tr d_block f_left" data-direction="down">-</button>
@@ -613,31 +619,31 @@
   <section class="popup r_corners shadow">
     <button class="bg_tr color_dark tr_all_hover text_cs_hover close f_size_large"><i class="fa fa-times"></i></button>
     <h3 class="m_bottom_20 color_dark">Log In</h3>
-    <form>
-      <ul>
-        <li class="m_bottom_15">
-          <label for="username" class="m_bottom_5 d_inline_b">Username</label><br>
-          <input type="text" name="" id="username" class="r_corners full_width">
-        </li>
-        <li class="m_bottom_25">
-          <label for="password" class="m_bottom_5 d_inline_b">Password</label><br>
-          <input type="password" name="" id="password" class="r_corners full_width">
-        </li>
-        <li class="m_bottom_15">
-          <input type="checkbox" class="d_none" id="checkbox_10"><label for="checkbox_10">Remember me</label>
-        </li>
-        <li class="clearfix m_bottom_30">
-          <button class="button_type_4 tr_all_hover r_corners f_left bg_scheme_color color_light f_mxs_none m_mxs_bottom_15">Log In</button>
-          <div class="f_right f_size_medium f_mxs_none">
-            <a href="#" class="color_dark">Forgot your password?</a><br>
-            <a href="#" class="color_dark">Forgot your username?</a>
-          </div>
-        </li>
-      </ul>
-    </form>
+    {{csrf_field()}}
+    <ul>
+      <li id="div-login-result" class="m_bottom_15" style="display:none">
+        <div class="alert_box r_corners error m_bottom_10">
+          <i class="fa fa-exclamation"></i><p>Wrong username and/or password</p>
+        </div>
+      </li>
+      <li class="m_bottom_15">
+        <label for="email" class="m_bottom_5 d_inline_b">Email</label><br>
+        <input type="text" name="email" id="email" class="r_corners full_width">
+      </li>
+      <li class="m_bottom_25">
+        <label for="password" class="m_bottom_5 d_inline_b">Password</label><br>
+        <input type="password" name="password" id="password" class="r_corners full_width">
+      </li>
+      <li class="clearfix m_bottom_30">
+        <button type="button" id="btn-login" class="button_type_4 tr_all_hover r_corners f_left bg_scheme_color color_light f_mxs_none m_mxs_bottom_15">Log In</button>
+        <div class="f_right f_size_medium f_mxs_none">
+          <a href="{{url("forgot-password")}}" class="color_dark">Forgot your password?</a><br>
+        </div>
+      </li>
+    </ul>
     <footer class="bg_light_color_1 t_mxs_align_c">
-      <h3 class="color_dark d_inline_middle d_mxs_block m_mxs_bottom_15">New Customer?</h3>
-      <a href="#" role="button" class="tr_all_hover r_corners button_type_4 bg_dark_color bg_cs_hover color_light d_inline_middle m_mxs_left_0">Create an Account</a>
+      <h3 class="color_dark d_inline_middle d_mxs_block m_mxs_bottom_15">New customer?</h3>
+      <a href="{{url("register")}}" role="button" class="tr_all_hover r_corners button_type_4 bg_dark_color bg_cs_hover color_light d_inline_middle m_mxs_left_0">Register here</a>
     </footer>
   </section>
 </div>
@@ -688,6 +694,36 @@
       //console.log(map[item].slug);
       redirect('{{url("product/view/")}}/'+map[item].slug);
     }
+  });
+
+  $(document).ready(function() {
+    $('#btn-login').click(function (){
+      var data = {
+        email: $("#email").val(),
+        password: $("#password").val(),
+        _token: $("input[name='_token']").val(),
+      };
+
+      $.ajax({
+        type: "POST",
+        url: "{{ url("login") }}",
+        data: data,
+        success: function(response) {
+          console.log(data);
+          console.log(response);
+          if (response === "fail") {
+            $("#div-login-result").show();
+          } else if (response === "success") {
+            redirect("{{url("account")}}");
+          } else {
+            alert("An error has occurred, please contact admin@pawfamily.sg");
+          }
+        },
+        error: function(response) {
+          alert("An error has occurred, please contact admin@pawfamily.sg");
+        }
+      });
+    });
   });
 </script>
 

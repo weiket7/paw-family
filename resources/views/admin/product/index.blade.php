@@ -42,6 +42,7 @@
       <th>Name</th>
       <th>Brand</th>
       <th>Category</th>
+      <th>Supplier</th>
       <th>Price</th>
       <th>Discount</th>
       <th>Size</th>
@@ -53,6 +54,7 @@
         <td width="450px"><a href="{{url("admin/product/save/".$p->product_id)}}">{{ $p->name }}</a></td>
         <td>{{ $p->brand_name }}</td>
         <td>{{ $p->category_name }}</td>
+        <td>{{ $p->supplier_id }}</td>
         <td>${{ $p->price }}</td>
         <td>${{ CommonHelper::getDiscountAmt($p->price, $p->discount_amt, $p->discount_type) }}</td>
         <td>

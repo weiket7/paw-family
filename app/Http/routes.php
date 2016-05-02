@@ -20,7 +20,6 @@ Route::get('product/view/{slug}', 'ProductController@view');
 Route::get('product/search', 'ProductController@search');
 Route::get('product/autocomplete', 'ProductController@autocomplete');
 
-Route::get('login', 'SiteController@login');
 Route::post('login', 'SiteController@login');
 Route::get('forgot-password', 'SiteController@forgotPassword');
 Route::get('logout', 'SiteController@logout');

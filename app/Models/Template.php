@@ -3,10 +3,10 @@
 use CommonHelper;
 use Eloquent, DB, Validator, Input;
 
-class Brand extends Eloquent
+class Template extends Eloquent
 {
-  public $table = 'brand';
-  protected $primaryKey = 'brand_id';
+  public $table = 'template';
+  protected $primaryKey = 'template_id';
   protected $validation;
   public $timestamps = false;
 
@@ -18,7 +18,7 @@ class Brand extends Eloquent
     'name.required'=>'Name is required',
   ];
 
-  public function saveBrand($input) {
+  public function saveTemplate($input) {
     $this->validation = Validator::make($input, $this->rules, $this->messages );
     if ( $this->validation->fails() ) {
       return false;

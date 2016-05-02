@@ -14,3 +14,7 @@
 .dropdown-menu>li>a {
   font-weight: 300;
 }
+
+#login_popup [role="button"] {
+  margin-left: 70px;
+}
