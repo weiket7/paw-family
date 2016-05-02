@@ -26,7 +26,7 @@
       } else {
         for (var key in repacks) {
           if (repacks.hasOwnProperty(key)) {
-            html += "<li class='tr_delay_hover' onclick='selectRepack("+repacks[key].option_id+")'>"+repacks[key].name+"</li>";
+            html += "<li class='tr_delay_hover' onclick='selectRepack("+repacks[key].option_id+")'>"+repacks[key].name+" - $"+repacks[key].price+"</li>";
           }
         }
         $("#repack_options_default").text("Select Repack")

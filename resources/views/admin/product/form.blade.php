@@ -209,7 +209,8 @@
               @foreach($product->repacks[$size->size_id] as $r)
                 <tr>
                   @if($size_shown == false)
-                    <td rowspan="{{count($product->repacks[$size->size_id])}}">{{ $size->name }}</td>
+                    <td rowspan="{{count($product->repacks[$size->size_id])}}">
+                      <a href="{{url("admin/option/save/".$r->option_id)}}">{{ $size->name }}</a></td>
                     <?php $size_shown = true; ?>
                   @endif
                   <td>

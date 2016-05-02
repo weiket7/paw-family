@@ -52,12 +52,12 @@ class Size extends Eloquent
     return true;
   }
 
-  public function getProductName() {
-    $product_name =  DB::table("product")->where("product_id", $this->attributes['product_id'])->value("name");
-    return $product_name;
-  }
-
   public function getValidation() {
     return $this->validation;
+  }
+
+  public function getSizeName($size_id)  {
+    $size_name = DB::table("size")->where("size_id", $size_id)->value("name");
+    return $size_name;
   }
 }

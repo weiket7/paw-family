@@ -31,6 +31,7 @@ class Category extends Eloquent {
     }
     return $res;
   }
+  
   public function getCategoryForDropdown() {
     $data = Category::all();
     $res = [];

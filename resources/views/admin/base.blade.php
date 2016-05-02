@@ -1,6 +1,6 @@
 
 @extends("admin.template", [
-  "title"=>" Size",
+  "title"=>"Size",
   "form"=>true,
 ])
 

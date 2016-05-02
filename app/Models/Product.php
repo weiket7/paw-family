@@ -103,6 +103,11 @@ class Product extends Eloquent
     return $product;
   }
 
+  public function getProductName($product_id) {
+    $product_name = DB::table("product")->where("product_id", $product_id)->value("name");
+    return $product_name;
+  }
+
   private function getProductSize($product_id) {
     $s = "SELECT size_id, name, price, quantity, weight_lb, weight_kg, discount_amt, discount_type from size
     where product_id = :product_id";

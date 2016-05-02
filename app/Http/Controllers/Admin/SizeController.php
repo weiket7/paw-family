@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\Size;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,8 @@ class SizeController extends Controller
       return redirect('admin/size/save/'.$size->size_id)->with('msg', 'Size ' . $action . "d");
     }
     $data['action'] = $action;
+    $product_service = new Product();
+    $data['product_name'] = $product_service->getProductName($size->product_id);
     $data['size'] = $size;
     return view('admin.product.size-form', $data);
   }

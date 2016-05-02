@@ -9,7 +9,7 @@
   <div class="form-body">
     <div class="form-group">
       <label class="control-label col-md-2">Product</label>
-      <label class="form-control-static col-md-10">{{ $size->getProductName() }}</label>
+      <label class="form-control-static col-md-10">{{ $product_name }}</label>
     </div>
     <div class="form-group">
       <label class="control-label col-md-2">Name</label>
