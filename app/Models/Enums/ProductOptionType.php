@@ -3,9 +3,9 @@
 abstract class ProductOptionType {
   const Repack = 'R';
 
-  static $values = array(
+  static $values = [
     self::Repack=>'Repack',
-  );
+  ];
 }
 
 

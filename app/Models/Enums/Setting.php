@@ -3,9 +3,9 @@
 abstract class Setting {
   const freedeliveryaboveorequalto = 'freedeliveryaboveorequalto';
 
-  static $values = array(
+  static $values = [
     self::freedeliveryaboveorequalto=>'freedeliveryaboveorequalto',
-  );
+  ];
 }
 
 

@@ -15,6 +15,8 @@ Route::get('/', 'IndexController@index');
 Route::get('brands', 'IndexController@brand');
 Route::get('contact', 'IndexController@contact');
 Route::get('login', 'IndexController@login');
+Route::get('register', 'IndexController@register');
+Route::get('login', 'IndexController@login');
 
 Route::get('product/category/{slug}', 'ProductController@category');
 Route::get('product/view/{slug}', 'ProductController@view');

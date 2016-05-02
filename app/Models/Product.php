@@ -9,11 +9,32 @@ class Product extends Eloquent
   public $table = 'product';
   protected $primaryKey = 'product_id';
   protected $validation;
+  public $timestamps = false;
+
+  private $rules = [
+    'name'=>'required',
+    'stat'=>'required',
+    'brand_id'=>'required',
+    'category_id'=>'required',
+  ];
+
+  private $messages = [
+    'name.required'=>'Name is required',
+    'stat.required'=>'Status is required',
+    'brand_id.required'=>'Brand is required',
+    'category_id.required'=>'Category is required',
+  ];
 
   public function saveProduct($input, $image) {
-    //var_dump($image);
+    $this->validation = Validator::make($input, $this->rules, $this->messages );
+    if ( $this->validation->fails() ) {
+      return false;
+    }
+
     $this->name = $input['name'];
     $this->stat = $input['stat'];
+    $this->sku = $input['sku'];
+    $this->supplier_id = $input['supplier_id'];
     $this->brand_id = $input['brand_id'];
     $this->category_id = $input['category_id'];
     $this->price = $input['price'];
@@ -64,7 +85,7 @@ class Product extends Eloquent
   }
 
   public function getProductAll() {
-    $s = "SELECT product_id, p.name, price, p.slug, p.image, price, discount_amt, discount_type, p.stat,
+    $s = "SELECT product_id, p.name, price, p.slug, p.image, price, discount_amt, discount_type, p.stat, supplier_id, sku,
     b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight_lb, weight_kg,
     desc_short, desc_long
     from product as p
@@ -80,7 +101,7 @@ class Product extends Eloquent
   }
 
   public function getProduct($intOrSlug) {
-    $s = "SELECT product_id, p.name, price, p.slug, p.image, price, discount_amt, discount_type, p.stat,
+    $s = "SELECT product_id, p.name, price, p.slug, p.image, price, discount_amt, discount_type, p.stat, supplier_id, sku,
     b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight_lb, weight_kg,
     desc_short, desc_long
     FROM product as p

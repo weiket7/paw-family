@@ -28,7 +28,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Name</label>
+                <label class="control-label col-md-3">Name <span class="required">*</span></label>
                 <div class="col-md-9">
                   {!! Form::text('name', $product->name, ['class'=>'form-control']) !!}
                 </div>
@@ -36,7 +36,7 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Status</label>
+                <label class="control-label col-md-3">Status <span class="required">*</span></label>
                 <div class="col-md-9">
                   {!! Form::select('stat', [''=>'']+ProductStat::$values, $product->stat, ['class'=>'form-control']) !!}
                 </div>
@@ -46,26 +46,17 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Brand</label>
+                <label class="control-label col-md-3">Brand <span class="required">*</span></label>
                 <div class="col-md-9">
-                  {!! Form::select('brand_id', [''=>'']+$brands, $product->brand_id, ['class'=>'form-control']) !!}
+                  {!! Form::select('brand_id', $brands, $product->brand_id, ['class'=>'form-control']) !!}
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Category</label>
+                <label class="control-label col-md-3">Category <span class="required">*</span></label>
                 <div class="col-md-9">
-                  <select class="form-control" name="category_id">
-                    @foreach($categories as $main_category => $category)
-                      <optgroup label="{{MainCategory::$values[$main_category]}}">
-                        @foreach($category as $c)
-                          <?php $selected = $product->category_id == $c->category_id ? "selected" : ""; ?>
-                          <option value="{{$c->category_id}}" {{$selected}}>{{$c->name}}</option>
-                        @endforeach
-                      </optgroup>
-                    @endforeach
-                  </select>
+                  {!! Form::select('category_id', $categories, $product->category_id, ['class'=>'form-control']) !!}
                 </div>
               </div>
             </div>
@@ -120,6 +111,24 @@
                 <label class="control-label col-md-3">Discount Amount</label>
                 <div class="col-md-9">
                   {!! Form::text('discount_amt', $product->discount_amt, ['class'=>'form-control']) !!}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Supplier</label>
+                <div class="col-md-9">
+                  {!! Form::select('supplier_id', $suppliers, $product->supplier_id, ['class'=>'form-control']) !!}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">SKU</label>
+                <div class="col-md-9">
+                  {!! Form::text('sku', $product->sku, ['class'=>'form-control']) !!}
                 </div>
               </div>
             </div>

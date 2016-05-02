@@ -6,12 +6,12 @@ abstract class FeaturedStat {
   const Sale = 'S';
   const Normal = 'O';
 
-  static $values = array(
+  static $values = [
     self::Hot=>'Hot',
     self::New2=>'New',
     self::Sale=>'Sale',
     self::Normal=>'Normal',
-  );
+  ];
 }
 
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -34,7 +35,9 @@ class ProductController extends Controller
     $product_service = new Product();
     $data['product'] = $product_service->getProduct((int)$product_id);
     $category_service = new Category();
-    $data['categories'] = $category_service->getCategoryAllForMenu();
+    $data['categories'] = $category_service->getCategoryForDropdown();
+    $supplier_service = new Supplier();
+    $data['suppliers'] = $supplier_service->getSupplierForDropdown();
     $brand_service = new Brand();
     $data['brands'] = $brand_service->getBrandForDropdown();
     $data['action'] = ($product_id == null || $product_id == 0) ? "create" : "update";

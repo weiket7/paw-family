@@ -69,7 +69,7 @@ class Brand extends Eloquent
     foreach($data as $d) {
       $res[$d->brand_id] = $d->brand_name;
     }
-    return $res;
+    return [''=>''] + $res;
   }
 
   public function getValidation() {

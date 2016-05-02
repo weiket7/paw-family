@@ -24,6 +24,5 @@ class OperatorTable extends Migration
   public function down()
   {
     Schema::dropIfExists('operator');
-
   }
 }

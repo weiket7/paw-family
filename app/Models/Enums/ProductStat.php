@@ -5,11 +5,11 @@ abstract class ProductStat {
   const Hidden = 'H';
   const OutOfStock = 'O';
 
-  static $values = array(
+  static $values = [
     self::Available=>'Available',
     self::Hidden=>'Hidden',
     self::OutOfStock=>'Out Of Stock',
-  );
+  ];
 }
 
 
