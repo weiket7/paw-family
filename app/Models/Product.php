@@ -129,7 +129,7 @@ class Product extends Eloquent
     return $product_name;
   }
 
-  private function getProductSize($product_id) {
+  public function getProductSize($product_id) {
     $s = "SELECT size_id, name, price, quantity, weight_lb, weight_kg, discount_amt, discount_type from size
     where product_id = :product_id";
     $p['product_id'] = $product_id;
@@ -142,7 +142,7 @@ class Product extends Eloquent
     return $res;
   }
 
-  private function getProductOption($product_id, $type) {
+  public function getProductOption($product_id, $type) {
     $s = "SELECT option_id, size_id, name, type, price from `option`
     where product_id = :product_id and type = :type";
     $p['product_id'] = $product_id;

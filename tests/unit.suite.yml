@@ -12,5 +12,5 @@ modules:
           dsn: 'mysql:host=localhost;dbname=pawfamily'
           user: 'root'
           password: ''
-          populate: false
-          cleanup: false
+          populate: true
+          cleanup: true

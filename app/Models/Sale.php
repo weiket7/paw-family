@@ -44,7 +44,7 @@ class Sale extends Eloquent
 
   public function getSale($sale_id_or_code)
   {
-    $s = "SELECT sale_id, sale_code, stat, payment_type, discount_total, gross_total, nett_total, point, sale_on
+    $s = "SELECT customer_id, sale_id, sale_code, stat, payment_type, discount_total, gross_total, nett_total, point, sale_on
     FROM sale ";
     if (is_int($sale_id_or_code)) {
       $s .= " where sale_id = :sale_id";
