@@ -15,9 +15,12 @@ class SaleTable extends Migration
       $table->integer('customer_id');
       $table->char('stat', 1);
       $table->char('payment_type', 1);
-      $table->decimal('delivery_fee', 9, 2);
-      $table->decimal('discount_total', 9,2);
       $table->decimal('gross_total', 9,2);
+      $table->decimal('product_discount', 9,2);
+      $table->integer('promo_id');
+      $table->decimal('promo_discount', 9,2);
+      $table->decimal('flat_discount', 9,2);
+      $table->decimal('delivery_fee', 9, 2);
       $table->decimal('nett_total', 9,2); //after subtractions
       $table->integer('point');
       $table->dateTime('sale_on');

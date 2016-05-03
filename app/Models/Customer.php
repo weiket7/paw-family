@@ -54,6 +54,10 @@ class Customer extends Eloquent
     });
   }
 
+  public function getPet($customer_id) {
+    return DB::table("pet")->where("customer_id", $customer_id)->get();
+  }
+
   public function saveCustomer($input) {
     $this->validation = Validator::make($input, $this->rules, $this->messages );
     if ( $this->validation->fails() ) {

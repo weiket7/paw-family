@@ -10,9 +10,17 @@ class BannerTable extends Migration
       Schema::create('banner', function(Blueprint $t) {
         $t->increments('banner_id');
         $t->string('name');
-        $t->string('image', 50);
-        $t->tinyInteger('pos');
+        $t->string('link', 200);
+        $t->char('type', 1);
         $t->char('stat', 1);
+        $t->string('image', 50);
+        $t->integer('product_id');
+        $t->integer('brand_id');
+        $t->integer('category_id');
+        $t->integer('promo_id');
+        //$t->dateTime('start_on');
+        //$t->dateTime('end_on');
+        $t->tinyInteger('pos');
         $t->string('updated_on', 10);
         $t->timestamp('updated_at');
       });
