@@ -24,6 +24,8 @@ class SaleController extends Controller
         'name'=>$product->name,
         'quantity'=>$c['quantity'],
         'price'=>$product->price,
+        'image'=>$product->image,
+        'discounted_price'=>$product->discounted_price,
       ];
     }
     $data['products'] = $products;

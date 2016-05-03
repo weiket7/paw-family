@@ -174,9 +174,9 @@
           <tr>
             <th width="150px">Name</th>
             <th width="100px">Quantity</th>
+            <th width="140px">Discounted Price</th>
             <th width="100px">Price</th>
             <th width="150px">Discount Amount</th>
-            <th width="150px">Discount Type</th>
             <th width="100px">Weight (lbs)</th>
             <th>Weight (kgs)</th>
           </tr>
@@ -186,9 +186,16 @@
             <tr>
               <td><a href="{{url("admin/size/save/".$size->size_id)}}">{{$size->name}}</a></td>
               <td>{{$size->quantity}}</td>
-              <td>{{$size->price}}</td>
-              <td>{{$size->discount_amt}}</td>
-              <td>{{DiscountType::$values[$size->discount_type]}}</td>
+              <td>${{$size->discounted_price}}</td>
+              <td>${{$size->price}}</td>
+              <td>
+                @if($size->discount_percentage > 0)
+                  {{$size->discount_percentage}}%
+                  (${{$size->discount_amt}})
+                @else
+                  ${{$size->discount_amt}}
+                @endif
+              </td>
               <td>{{$size->weight_lb}}</td>
               <td>{{$size->weight_kg}}</td>
             </tr>

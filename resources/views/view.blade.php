@@ -72,12 +72,15 @@
                           @foreach($product->sizes as $size)
                             <?php $checked = $size->size_id == array_first($product->sizes)->size_id ? "checked" : ""; ?>
                             <tr>
-                              <td>
+                              <td style="padding-right: 10px;">
                                 <input type="radio" name="size" {{$checked}} id="size{{$size->name}}" class="d_none" value="{{$size->size_id}}" onclick="selectSize()">
                                 <label for="size{{$size->name}}">{{$size->name}}</label>
                               </td>
+                              <td style="padding-right: 10px;">
+                                <s>${{$size->price}}</s>
+                              </td>
                               <td>
-                                ${{$size->price}}
+                                ${{$size->discounted_price}}
                               </td>
                             </tr>
                           @endforeach
@@ -111,15 +114,16 @@
 
                 <div class="m_bottom_15">
                   @if(count($product->sizes) == 0)
-                    <span id="starting_price" style="display:none">{{$product->price}}</span>
+                    <s id='price-total' class="v_align_b f_size_ex_large">${{$product->price}}</s>
+                    <span id="discounted-price-total" data-discounted-price="{{$product->discounted_price}}" data-price="{{$product->price}}"class="v_align_b f_size_big m_left_5 scheme_color fw_medium">
+                      ${{$product->discounted_price}}
+                    </span>
+                  @else
+                    <s id='price-total' class="v_align_b f_size_ex_large">${{array_first($product->sizes)->price}}</s>
+                    <span id="discounted-price-total" class="v_align_b f_size_big m_left_5 scheme_color fw_medium">
+                      ${{array_first($product->sizes)->discounted_price}}
+                    </span>
                   @endif
-                  <span class="v_align_b f_size_big m_left_5 scheme_color fw_medium" id="final_price">
-                    @if(count($product->sizes))
-                      ${{array_first($product->sizes)->price}}
-                    @else
-                      ${{$product->price}}
-                    @endif
-                  </span>
                 </div>
                 <div class="d_ib_offset_0 m_bottom_20">
                   {{ csrf_field() }}
@@ -407,6 +411,7 @@
     var sizes_json = '{!! json_encode($product->sizes) !!}';
     var sizes_object =  JSON.parse(sizes_json);
 
+
     function selectSize() {
       var size = $('input[name=size]:checked').val()
       var repacks = repacks_object[size];
@@ -452,24 +457,32 @@
     }
 
     function updatePrice() {
-      var size = $('input[name=size]:checked').val();
-      var repack = $("#repack").val();
+      var productHasSizes = getObjectSize(sizes_object) > 0;
+      //console.log('productHasSizes=' + productHasSizes);
       var quantity = $("#quantity").val();
-      var sizes = sizes_object[size];
-      var size_price = 0;
-      if (typeof sizes === 'undefined' || sizes.length === 0) {
-        size_price = $("#starting_price").text();
-        size_price = parseFloat(size_price.trim());
-      } else {
-        size_price = sizes.price;
-      }
-      //console.log(size_price);
 
-      var repack_options = repacks_object[size];
-      var repack_price = 0;
-      if (typeof repack_options === 'undefined' || repack_options.length === 0) {
-        repack_price = 0;
+      var discounted_price = 0;
+      var final_price = 0;
+      var price = 0;
+      var price_total = 0, discounted_price_total = 0;
+      if (! productHasSizes) {
+        discounted_price = $("#discounted-price-total").attr("data-discounted-price");
+        discounted_price = parseFloat(discounted_price);
+        price = parseFloat($("#discounted-price-total").attr("data-price"));
+        //console.log('quantity='+quantity+' discounted_price='+discounted_price + ' price'+price);
+        price_total = price * quantity;
+        discounted_price_total = discounted_price * quantity;
       } else {
+        var size = $('input[name=size]:checked').val();
+        var repack = $("#repack").val();
+        //console.log('quantity='+quantity+' selected_size='+size + ' selected_repack='+repack);
+
+        var sizes = sizes_object[size];
+        var price = sizes.price;
+        var discounted_price = sizes.discounted_price;
+
+        var repack_options = repacks_object[size];
+        var repack_price = 0;
         for (var key in repack_options) {
           if (repack_options.hasOwnProperty(key)) {
             if (repack_options[key].option_id == repack) {
@@ -477,13 +490,13 @@
             }
           }
         }
+        //console.log('quantity='+quantity+' discounted_price='+discounted_price+' repack_price='+repack_price);
+        price_total = price * quantity + repack_price * quantity;
+        discounted_price_total = discounted_price * quantity + repack_price * quantity;
       }
 
-      //console.log('quantity=' + quantity + ' size=' + size + ' repack=' + repack);
-      //console.log('size_price='+size_price + ' repack_price='+repack_price);
-
-      var final_price = size_price * quantity + repack_price * quantity;
-      $("#final_price").text("$"+toTwoDecimal(final_price));
+      $("#price-total").text("$"+toTwoDecimal(price_total));
+      $("#discounted-price-total").text("$"+toTwoDecimal(discounted_price_total));
     }
   </script>
 @endsection

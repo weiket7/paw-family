@@ -15,13 +15,6 @@ class CommonHelper {
     return number_format(round($number, 2), 2);
   }
 
-  public static function getPriceAfterDiscount($price, $discount_amt, $discount_type) {
-    if ($discount_type == null || $discount_type == DiscountType::Amount) {
-      return $price - $discount_amt;
-    }
-    return round($price - ($discount_amt / 100 * $price), 2);
-  }
-
   public static function getDiscountAmt($price, $discount_amt, $discount_type = null) {
     if ($discount_type == null || $discount_type == DiscountType::Amount) {
       return $discount_amt;

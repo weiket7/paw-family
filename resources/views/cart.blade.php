@@ -20,7 +20,10 @@
           <tbody>
           @foreach($products as $p)
             <tr>
-              <td>{{$p->name}}</td>
+              <td>
+                <img src="{{url('assets/images/products/'.$p->image)}}" alt="" class="m_md_bottom_5 d_xs_block d_xs_centered" style="max-height: 100px">
+                {{$p->name}}
+              </td>
               <td>${{$p->price}}</td>
               <td>
                 <div class="clearfix quantity r_corners d_inline_middle f_size_medium color_dark m_bottom_10">

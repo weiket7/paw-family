@@ -22,12 +22,14 @@ class ProductTable extends Migration
         $t->decimal('weight_lb', 7, 2);
         $t->decimal('weight_kg', 7, 2);
         $t->tinyInteger('processing_day');
-        $t->decimal('discount_amt', 7, 2); //10% or $10, detect based on %
+        $t->decimal('discount_amt', 7, 2); //round down
+        $t->decimal('discount_percentage', 5, 2);
         $t->char('discount_type', 1); //A or P
-        $t->text('desc_long');
-        $t->string('desc_short', 250);
+        $t->decimal('discounted_price', 7, 2);
         //$t->string('ingredient', 250);
         $t->string('image', 150);
+        $t->text('desc_long');
+        $t->string('desc_short', 250);
         $t->char('stat', 1);
         $t->string('updated_on', 10);
         $t->timestamp('updated_at');
@@ -66,7 +68,9 @@ class ProductTable extends Migration
         'weight_kg'=>1.81,
         'processing_day'=>3,
         'image'=>'addiction-salmon-bleu.jpg',
-        'discount_amt'=>'10',
+        'discount_amt'=>3.91,
+        'discount_percentage'=>10,
+        'discounted_price'=>35.19,
         'discount_type'=>DiscountType::Percentage,
         'stat'=>ProductStat::Hidden,
         'desc_short'=>'Delicious!',

@@ -85,7 +85,7 @@ class Product extends Eloquent
   }
 
   public function getProductAll() {
-    $s = "SELECT product_id, p.name, price, p.slug, p.image, price, discount_amt, discount_type, p.stat, supplier_id, sku,
+    $s = "SELECT product_id, p.name, p.slug, p.image, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat, supplier_id, sku,
     b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight_lb, weight_kg,
     desc_short, desc_long
     from product as p
@@ -101,7 +101,7 @@ class Product extends Eloquent
   }
 
   public function getProduct($intOrSlug) {
-    $s = "SELECT product_id, p.name, price, p.slug, p.image, price, discount_amt, discount_type, p.stat, supplier_id, sku,
+    $s = "SELECT product_id, p.name, p.slug, p.image, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat, supplier_id, sku,
     b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight_lb, weight_kg,
     desc_short, desc_long
     FROM product as p
@@ -130,7 +130,7 @@ class Product extends Eloquent
   }
 
   public function getProductSize($product_id) {
-    $s = "SELECT size_id, name, price, quantity, weight_lb, weight_kg, discount_amt, discount_type from size
+    $s = "SELECT size_id, name, price, quantity, weight_lb, weight_kg, discount_amt, discount_type, discount_percentage, discounted_price from size
     where product_id = :product_id";
     $p['product_id'] = $product_id;
     $data = DB::select($s, $p);

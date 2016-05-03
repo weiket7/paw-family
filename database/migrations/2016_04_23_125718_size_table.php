@@ -13,8 +13,10 @@ class SizeTable extends Migration
         $t->string('name', 10);
         $t->integer('quantity');
         $t->decimal('price', 7, 2);
-        $t->decimal('discount_amt', 7, 2); //10% or $10, detect based on %
+        $t->decimal('discount_amt', 7, 2); //round down
+        $t->decimal('discount_percentage', 5, 2);
         $t->char('discount_type', 1); //A or P
+        $t->decimal('discounted_price', 7, 2);
         $t->decimal('weight_lb', 5, 2);
         $t->decimal('weight_kg', 5, 2);
         $t->string('updated_on', 10);
@@ -23,17 +25,17 @@ class SizeTable extends Migration
 
       DB::table('size')->insert([
         'size_id'=>1, 'product_id'=>1, 'name'=>'Small', 'quantity'=>5, 'weight_lb'=>4, 'price'=>39.1,
-        'discount_amt'=>10, 'discount_type'=>'A',
+        'discount_amt'=>10, 'discount_type'=>'A', 'discounted_price'=>29.1,
         'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
       DB::table('size')->insert([
         'size_id'=>2, 'product_id'=>1, 'name'=>'Medium', 'quantity'=>10, 'weight_lb'=>20, 'price'=>142.9,
-        'discount_amt'=>10, 'discount_type'=>'A',
+        'discount_amt'=>10, 'discount_type'=>'A', 'discounted_price'=>132.9,
         'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
       DB::table('size')->insert([
         'size_id'=>3, 'product_id'=>1, 'name'=>'Large', 'quantity'=>0, 'weight_lb'=>33, 'price'=>195.55,
-        'discount_amt'=>10, 'discount_type'=>'P',
+        'discount_amt'=>19.55, 'discount_type'=>'P', 'discounted_price'=>176, 'discount_percentage'=>10,
         'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
     }

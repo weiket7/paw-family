@@ -24,6 +24,12 @@
       </div>
     </div>
     <div class="form-group">
+      <label class="control-label col-md-2">Discounted Price</label>
+      <div class="col-md-10">
+        {!! Form::text('discounted_price', $size->discounted_price, ['class'=>'form-control']) !!}
+      </div>
+    </div>
+    <div class="form-group">
       <label class="control-label col-md-2">Price</label>
       <div class="col-md-10">
         {!! Form::text('price', $size->price, ['class'=>'form-control']) !!}

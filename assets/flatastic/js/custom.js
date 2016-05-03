@@ -5,3 +5,7 @@ function toTwoDecimal(decimal) {
 function redirect(url) {
   window.location.replace(url);
 }
+
+function getObjectSize(object) {
+  return Object.keys(object).length
+}
