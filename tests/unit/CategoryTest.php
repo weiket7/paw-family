@@ -12,7 +12,7 @@ class CategoryTest extends \Codeception\TestCase\Test
         $category = Category::find(1);
         $input['name'] = "Abc";
         $category->saveCategory($input);
-        $this->tester->seeInDatabase('category', ['name'=>'Abc', 'category_id'=>1]);
+        $this->tester->seeRecord('category', ['category_id'=>1, 'name'=>'Abc']);
     }
 
     public function testGetCategoryAllForMenu() {
@@ -29,7 +29,7 @@ class CategoryTest extends \Codeception\TestCase\Test
 
     public function testGetCategoryBySlug() {
         $category_service = new Category();
-        $category = $category_service->getCategoryBySlug(1);
+        $category = $category_service->getCategoryBySlug('dry-food');
         $this->assertEquals("Dry Food", $category->name);
     }
 }
