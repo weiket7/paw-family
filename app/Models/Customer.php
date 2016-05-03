@@ -77,6 +77,19 @@ class Customer extends Eloquent
     return true;
   }
 
+  public function getCustomer($customer_id) {
+    if ($customer_id == null) {
+      $customer = new Customer();
+      $customer->pets = [];
+      $customer->sales = [];
+    } else {
+      $customer = DB::table("customer")->where("customer_id", $customer_id)->first();
+      $customer->pets = $this->getPet($customer_id);
+      $customer->sales = $this->getSale($customer_id);
+    }
+    return $customer;
+  }
+
   private $rules_register = [
     'name'=>'required',
     'email'=>'required|email',
@@ -118,5 +131,9 @@ class Customer extends Eloquent
 
   public function getValidation() {
     return $this->validation;
+  }
+
+  public function getSale($customer_id) {
+    return DB::table("sale")->where("customer_id", $customer_id)->get();
   }
 }

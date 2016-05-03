@@ -14,7 +14,8 @@ class CustomerController extends Controller
   }
 
   public function save(Request $request, $customer_id = null) {
-    $customer = Customer::findOrNew($customer_id);
+    $customer_service = new Customer();
+    $customer = $customer_service->getCustomer($customer_id);
     $action = $customer_id == null ? 'create' : 'update';
     if($request->isMethod('post')) {
       $input = $request->all();

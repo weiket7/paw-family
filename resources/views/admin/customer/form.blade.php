@@ -10,15 +10,21 @@
   <div class="tabbable">
     <ul class="nav nav-tabs">
       <li class="active">
-        <a href="#tab_general" data-toggle="tab">
+        <a href="#tab-general" data-toggle="tab">
           General </a>
       </li>
       <li>
-        <a href="#tab_sizes" data-toggle="tab">Orders</a>
+        <a href="#tab-pets" data-toggle="tab">Pets</a>
+      </li>
+      <li>
+        <a href="#tab-orders" data-toggle="tab">Orders</a>
+      </li>
+      <li>
+        <a href="#tab-password" data-toggle="tab">Change Password</a>
       </li>
     </ul>
     <div class="tab-content no-space">
-      <div class="tab-pane active" id="tab_general">
+      <div class="tab-pane active" id="tab-general">
         <div class="form-body">
           <div class="row">
             <div class="col-md-6">
@@ -112,10 +118,65 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane" id="tab_sizes">
-
+      <div class="tab-pane" id="tab-pets">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Breed</th>
+            <th>Adopted</th>
+            <th>Birthday</th>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach($customer->pets as $pet)
+            <tr>
+              <td>{{$pet->name}}</td>
+              <td>{{\App\Models\Enums\PetSpecies::$values[$pet->species]}}</td>
+              <td>{{$pet->breed}}</td>
+              <td>@if($pet->adopted == "Y") Yes @else No @endif</td>
+              <td>{{CommonHelper::formatDate($pet->birthday)}}</td>
+            </tr>
+          @endforeach
+          </tbody>
+        </table>
       </div>
-      <div class="tab-pane" id="tab_repacks">
+      <div class="tab-pane" id="tab-orders">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Date</th>
+            <th>Code</th>
+            <th>Status</th>
+            <th>Payment Type</th>
+            <th>Gross</th>
+            <th>Product Discount</th>
+            <th>Promo Discount</th>
+            <th>Flat Discount</th>
+            <th>Delivery Fee</th>
+            <th>Nett</th>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach($customer->sales as $sale)
+            <tr>
+              <td>{{CommonHelper::formatDateTime($sale->sale_on)}}</td>
+              <td><a href="{{url("admin/sale/save")}}">{{$sale->sale_code}}</a></td>
+              <td>{{\App\Models\Enums\SaleStat::$values[$sale->stat]}}</td>
+              <td>{{\App\Models\Enums\PaymentType::$values[$sale->payment_type]}}</td>
+              <td>{{$sale->gross_total}}</td>
+              <td>{{$sale->product_discount}}</td>
+              <td>{{$sale->promo_discount}}</td>
+              <td>{{$sale->flat_discount}}</td>
+              <td>{{$sale->delivery_fee}}</td>
+              <td>{{$sale->nett_total}}</td>
+            </tr>
+          @endforeach
+          </tbody>
+        </table>
+      </div>
+      <div class="tab-pane" id="tab-password">
 
       </div>
     </div>

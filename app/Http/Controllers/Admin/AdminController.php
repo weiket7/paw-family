@@ -13,12 +13,11 @@ class AdminController extends Controller
     $operator = new Operator();
     if ($request->isMethod('post')) {
       $login = $operator->loginOperator($request->input('username'), $request->input('password'));
-      var_dump($login !== false);
       if ( $login !== false ) {
         $request->session()->put('auth_operator', $login->username);
         return redirect('admin/dashboard');
       } else {
-        //return redirect('admin')->with('msg', 'Wrong username and/or password');
+        return redirect('admin')->with('msg', 'Wrong username and/or password');
       }
     }
     return view('admin.login');

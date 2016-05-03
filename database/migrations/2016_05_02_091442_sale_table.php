@@ -9,21 +9,23 @@ class SaleTable extends Migration
 {
   public function up()
   {
-    Schema::create('sale', function (Blueprint $table) {
-      $table->increments('sale_id');
-      $table->string('sale_code', 10);
-      $table->integer('customer_id');
-      $table->char('stat', 1);
-      $table->char('payment_type', 1);
-      $table->decimal('gross_total', 9,2);
-      $table->decimal('product_discount', 9,2);
-      $table->integer('promo_id');
-      $table->decimal('promo_discount', 9,2);
-      $table->decimal('flat_discount', 9,2);
-      $table->decimal('delivery_fee', 9, 2);
-      $table->decimal('nett_total', 9,2); //after subtractions
-      $table->integer('point');
-      $table->dateTime('sale_on');
+    Schema::create('sale', function (Blueprint $t) {
+      $t->increments('sale_id');
+      $t->string('sale_code', 10);
+      $t->integer('customer_id');
+      $t->char('stat', 1);
+      $t->char('payment_type', 1);
+      $t->dateTime('sale_on');
+      $t->decimal('gross_total', 9,2);
+      $t->decimal('product_discount', 9,2);
+      $t->integer('promo_id');
+      $t->decimal('promo_discount', 9,2);
+      $t->decimal('flat_discount', 9,2);
+      $t->decimal('delivery_fee', 9, 2);
+      $t->decimal('nett_total', 9,2); //after subtractions
+      $t->integer('point');
+      $t->string('customer_remark', 200);
+      $t->string('operator_remark', 200);
     });
 
     DB::table('sale')->insert([
