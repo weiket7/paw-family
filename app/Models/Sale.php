@@ -51,20 +51,26 @@ class Sale extends Eloquent
     $sale->sale_on = date("Y-m-d H:i:s");
     $this->save();
 
-    $sale_products = [];
-    foreach($products as $p) {
-      $sale_product = new SaleProduct();
-      $sale_product->product_id = $p->product_id;
-      $sale_product->quantity = $p->quantity;
-      $sale_product->price = $p->price;
-      $sale_product->discounted_price = $p->price;
+    /* @var $product SaleProduct */
+    $gross_total = 0;
+    foreach($products as $product) {
+      $sale_product = [
+          'product_id'=>$product->product_id,
+          'size_id'=>$product->size_id,
+          'option_id'=>$product->option_id,
+          'price'=>$product->price,
+          'discount_amt'=>$product->discount_amt,
+          'discount_percentage'=>$product->discount_percentage,
+          'discounted_price'=>$product->discounted_price,
+          'quantity'=>$product->quantity,
+          'subtotal'=>$product->subtotal,
+      ];
+      DB::table("sale_product")->insert($sale_product);
 
-      /*'name'=>$product->name,
-                'quantity'=>$p['quantity'],
-                'price'=>$product->price,
-                'image'=>$product->image,
-                'discounted_price'=>$product->discounted_price,*/
+      $gross_total += $product->price;
     }
+    $sale->gross_total = $gross_total;
+    $this->save();
   }
 
   public function getSale($sale_id_or_code)

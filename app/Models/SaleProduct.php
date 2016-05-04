@@ -6,9 +6,9 @@ class SaleProduct
     public $size_id;
     public $option_id;
     public $price;
-    public $discounted_price;
     public $discount_amt;
     public $discount_percentage;
+    public $discounted_price;
     public $quantity;
     public $subtotal;
 }
