@@ -11,6 +11,8 @@
 |
 */
 
+use App\Models\Cart;
+
 Route::get('/', 'SiteController@index');
 Route::get('brands', 'SiteController@brand');
 Route::get('contact', 'SiteController@contact');
@@ -81,6 +83,16 @@ Route::group(['middleware'=>'auth_operator'], function() {
 
 Route::get('test2', function() {
   var_dump(Session::get("cart"));
+});
+
+Route::get("cart2", function() {
+  $cart = new Cart();
+  $cart->addToCart(2, 2);
+  $products = $cart->checkOut();
+  $key = $cart->getKey(2, 0);
+  $product = $products[$key];
+
+  var_dump($product);
 });
 
 Route::get('test', function() {

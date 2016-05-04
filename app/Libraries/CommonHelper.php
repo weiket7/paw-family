@@ -15,11 +15,8 @@ class CommonHelper {
     return number_format(round($number, 2), 2);
   }
 
-  public static function getDiscountAmt($price, $discount_amt, $discount_type = null) {
-    if ($discount_type == null || $discount_type == DiscountType::Amount) {
-      return $discount_amt;
-    }
-    return round($discount_amt / 100 * $price, 2);
+  public static function getDiscountAmtPercentage($price, $discount_percentage) {
+    return round($price / 100 * $discount_percentage, 2, PHP_ROUND_HALF_DOWN);
   }
 
   public static function uploadImage($folder, $name, $image) {

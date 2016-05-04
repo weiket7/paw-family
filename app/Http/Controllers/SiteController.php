@@ -79,4 +79,8 @@ class SiteController extends Controller
     //TODO redirect
   }
 
+  public function forgotPassword() {
+    return view('forgot-password');
+  }
+
 }

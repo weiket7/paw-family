@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+use App\Models\Enums\DiscountType;
 use App\Models\Enums\ProductOptionType;
 use CommonHelper;
 use Eloquent, DB, Validator;
@@ -25,7 +26,7 @@ class Product extends Eloquent
     'category_id.required'=>'Category is required',
   ];
 
-  public function saveProduct($input, $image) {
+  public function saveProduct($input, $image = null) {
     $this->validation = Validator::make($input, $this->rules, $this->messages );
     if ( $this->validation->fails() ) {
       return false;
@@ -41,10 +42,16 @@ class Product extends Eloquent
     $this->processing_day = $input['processing_day'];
     $this->weight_lb = $input['weight_lb'];
     $this->weight_kg = $input['weight_kg'];
+    $this->discount_percentage = $input['discount_percentage'];
     $this->discount_type = $input['discount_type'];
-    $this->discount_amt = $input['discount_amt'];
+    if ($this->discount_type == DiscountType::Amount) {
+      $this->discount_amt = $input['discount_amt'];
+    } elseif ($this->discount_type == DiscountType::Percentage) {
+      $this->discount_amt = CommonHelper::getDiscountAmtPercentage($this->price, $this->discount_percentage);
+    }
+    $this->discounted_price = $this->price - $this->discount_amt;
     $this->desc_short = $input['desc_short'];
-    $this->desc_long = $input['desc_long'];
+    //$this->desc_long = $input['desc_long'];
 
     if ($image) {
       $this->image = CommonHelper::uploadImage('products', $input['name'], $image);
