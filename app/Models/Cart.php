@@ -11,9 +11,9 @@ class Cart {
 
         $key = $this->getKey($product_id, $size_id);
         if (array_key_exists($key, $this->products)) {
-            $this->products[$key]['quantity'] += $quantity;
+            $this->products[$key]->quantity += $quantity;
         } else {
-            $this->products[$key] = [
+            $this->products[$key] = (object)[
                 'product_id'=>$product_id,
                 'quantity'=>$quantity,
                 'size_id'=>$size_id,
@@ -38,14 +38,17 @@ class Cart {
         $product_service = new Product();
         $products = [];
         foreach($this->products as $key => $p) {
-            $product = $product_service->getProduct((int)$p['product_id']);
-            $products[$key] = (object)[
-                'name'=>$product->name,
-                'quantity'=>$p['quantity'],
-                'price'=>$product->price,
-                'image'=>$product->image,
-                'discounted_price'=>$product->discounted_price,
-            ];
+            $product = $product_service->getProduct((int)$p->product_id);
+
+            $sale_product = new SaleProduct();
+            $sale_product->product_id = $p->product_id;
+            $sale_product->quantity = $p->quantity;
+            $sale_product->name = $product->name;
+            $sale_product->price = $product->price;
+            $sale_product->image = $product->image;
+            $sale_product->discounted_price = $product->discounted_price;
+
+            $products[$key] = $sale_product;
         }
         return $products;
     }

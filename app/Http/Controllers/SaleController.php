@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\Category;
-use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
 class SaleController extends Controller
 {
   public function checkout() {
-    
+    $cart = $this->getCartFromSession();
+    $data['products'] = $cart->checkOut();
+    return view('cart', $data);
   }
 
   public function cart() {

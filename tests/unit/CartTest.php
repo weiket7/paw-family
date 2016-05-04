@@ -10,9 +10,11 @@ class CartTest extends \Codeception\TestCase\Test
         $cart = new Cart();
         $cart->addToCart(1, 2);
         $products = $cart->getCart();
+        $key = $cart->getKey(1, 0);
+
         $this->assertCount(1, $products);
-        $this->assertEquals(1, $products['1_0']['product_id']);
-        $this->assertEquals(2, $products['1_0']['quantity']);
+        $this->assertEquals(1, $products[$key]->product_id);
+        $this->assertEquals(2, $products[$key]->quantity);
     }
 
     public function testAddToCartProductExistInCartIncreaseQuantity() {
@@ -20,9 +22,11 @@ class CartTest extends \Codeception\TestCase\Test
         $cart->addToCart(1, 2);
         $cart->addToCart(1, 1);
         $products = $cart->getCart();
+        $key = $cart->getKey(1, 0);
+
         $this->assertCount(1, $products);
-        $this->assertEquals(1, $products['1_0']['product_id']);
-        $this->assertEquals(3, $products['1_0']['quantity']);
+        $this->assertEquals(1, $products[$key]->product_id);
+        $this->assertEquals(3, $products[$key]->quantity);
     }
 
     public function testAddToCartCanAcceptSizeAndOption() {
@@ -30,11 +34,12 @@ class CartTest extends \Codeception\TestCase\Test
         $cart->addToCart(1, 2, 2, 2);
         $products = $cart->getCart();
         $key = $cart->getKey(1, 2);
+        $product = $products[$key];
         $this->assertCount(1, $products);
-        $this->assertEquals(1, $products[$key]['product_id']);
-        $this->assertEquals(2, $products[$key]['quantity']);
-        $this->assertEquals(2, $products[$key]['size_id']);
-        $this->assertEquals(2, $products[$key]['option_id']);
+        $this->assertEquals(1, $product->product_id);
+        $this->assertEquals(2, $product->quantity);
+        $this->assertEquals(2, $product->size_id);
+        $this->assertEquals(2, $product->option_id);
     }
 
     public function testGetKey() {
@@ -51,6 +56,7 @@ class CartTest extends \Codeception\TestCase\Test
         $product = $products[$key];
 
         $this->assertEquals("Addiction Salmon Bleu", $product->name);
+        $this->assertEquals(2, $product->product_id);
         $this->assertEquals(2, $product->quantity);
         $this->assertEquals(39.1, $product->price);
         $this->assertEquals("addiction-salmon-bleu.jpg", $product->image);

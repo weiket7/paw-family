@@ -11,9 +11,14 @@ class SaleProductTable extends Migration
         $table->primary(['sale_id', 'product_id']);
         $table->integer('sale_id');
         $table->integer('sale_code');
-        $table->integer('product_id');
+          $table->integer('product_id');
+          $table->integer('size_id');
+          $table->integer('option_id');
         $table->smallInteger('quantity');
-        $table->decimal('price', 9,2);
+          $table->decimal('price', 9,2);
+          $table->decimal('discounted_price', 9,2);
+          $table->decimal('discount_amt', 9,2);
+          $table->decimal('discount_percentage', 9,2);
         $table->decimal('subtotal', 9,2);
       });
 

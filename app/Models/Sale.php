@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+use App\Models\Enums\SaleStat;
 use CommonHelper;
 use Eloquent, DB, Validator, Input;
 
@@ -40,6 +41,30 @@ class Sale extends Eloquent
 
   public function getValidation() {
     return $this->validation;
+  }
+
+  public function saveCheckout($customer_id, $payment_type, $products) {
+    $sale = new Sale();
+    $sale->customer_id = $customer_id;
+    $sale->stat = SaleStat::Submitted;
+    $sale->payment_type = $payment_type;
+    $sale->sale_on = date("Y-m-d H:i:s");
+    $this->save();
+
+    $sale_products = [];
+    foreach($products as $p) {
+      $sale_product = new SaleProduct();
+      $sale_product->product_id = $p->product_id;
+      $sale_product->quantity = $p->quantity;
+      $sale_product->price = $p->price;
+      $sale_product->discounted_price = $p->price;
+
+      /*'name'=>$product->name,
+                'quantity'=>$p['quantity'],
+                'price'=>$product->price,
+                'image'=>$product->image,
+                'discounted_price'=>$product->discounted_price,*/
+    }
   }
 
   public function getSale($sale_id_or_code)
