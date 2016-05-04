@@ -8,5 +8,5 @@ class_name: AcceptanceTester
 modules:
     enabled:
         - PhpBrowser:
-            url: http://localhost:8080/pawfamily
+            url: http://localhost/pawfamily
         - \Helper\Acceptance

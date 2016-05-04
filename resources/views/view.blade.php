@@ -130,6 +130,7 @@
                   <button type="button" class="button_type_12 r_corners bg_scheme_color color_light tr_delay_hover d_inline_b f_size_large m_right_5" id="btn-add-to-cart">Add to Cart</button>
                   <button type="button" class="button_type_12 r_corners bg_color_blue color_light tr_delay_hover d_inline_b f_size_large" onclick="history.go(-1)">Back</button>
                 </div>
+
               </div>
 
             </div>
@@ -380,6 +381,16 @@
 @section('script')
   <script type="text/javascript">
     $(document).ready(function() {
+
+      $('#btn-add-to-cart').data('powertipjq', $('<p>Product has been added to cart</p>'));
+
+      $('#btn-add-to-cart').powerTip({
+        placement: 's',
+        manual: true,
+        mouseOnToPopup: false,
+      });
+
+
       $("#btn-add-to-cart").click(function() {
         var data = {
           quantity: $("#quantity").val(),
@@ -387,12 +398,14 @@
           _token: $("input[name='_token']").val(),
         };
 
+        $('#btn-add-to-cart').powerTip('show');
+
         $.ajax({
           type: "POST",
           url: "{{ url("add-to-cart") }}",
           data: data,
           success: function(response) {
-            console.log(response);
+            //console.log(response);
             if (response === "fail") {
               //$("#div-login-result").slideDown();
             } else if (response === "success") {

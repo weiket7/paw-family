@@ -24,7 +24,7 @@ class Sale extends Eloquent
 
   public function getSalesByCustomer($customer_id)
   {
-    $s = "SELECT sale_id, sale_code, stat, payment_type, discount_total, gross_total, nett_total, point, sale_on
+    $s = "SELECT sale_id, sale_code, stat, payment_type, product_discount, gross_total, nett_total, point, sale_on
     FROM sale where customer_id = :customer_id";
     $p['customer_id'] = $customer_id;
     $data = DB::select($s, $p);

@@ -22,6 +22,7 @@
   <link rel="stylesheet" type="text/css" media="all" href="{{url("assets/flatastic")}}/css/custom.css">
   <!--font include-->
   <link href="{{url("assets/flatastic")}}/css/font-awesome.min.css" rel="stylesheet">
+  <link href="{{url("assets/css/powertip/jquery.powertip-orange.css")}}" rel="stylesheet">
   <script src="{{url("assets/flatastic")}}/js/modernizr.js"></script>
 </head>
 <body>
@@ -666,7 +667,7 @@
 <script src="{{url("assets/flatastic")}}/js/scripts.js"></script>
 <script src="{{url("assets/flatastic")}}/js/custom.js"></script>
 <script src="{{url("assets")}}/js/bootstrap3-typeahead.min.js"></script>
-{{--<script src="{{url("assets")}}/js/typeahead.bundle.js"></script>--}}
+<script src="{{url("assets")}}/js/jquery.powertip.min.js"></script>
 <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5306f8f674bfda4c"></script>
 
 <script type="text/javascript">
@@ -697,6 +698,8 @@
   });
 
   $(document).ready(function() {
+
+
     $('#btn-login').click(function (){
       var data = {
         email: $("#email").val(),
