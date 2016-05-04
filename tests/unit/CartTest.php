@@ -8,13 +8,18 @@ class CartTest extends \Codeception\TestCase\Test
 
     public function testAddToCartProductNotYetInCart() {
         $cart = new Cart();
-        $cart->addToCart(1, 2);
+        $cart->addToCart(2, 1);
         $products = $cart->getCart();
-        $key = $cart->getKey(1, 0);
+        $key = $cart->getKey(2, 0);
+        $product = $products[$key];
 
         $this->assertCount(1, $products);
-        $this->assertEquals(1, $products[$key]->product_id);
-        $this->assertEquals(2, $products[$key]->quantity);
+        $this->assertEquals(2, $product->product_id);
+        $this->assertEquals(1, $product->quantity);
+        $this->assertEquals("Addiction Salmon Bleu", $product->name);
+        $this->assertEquals(39.1, $product->price);
+        $this->assertEquals("addiction-salmon-bleu.jpg", $product->image);
+        $this->assertEquals(35.19, $product->discounted_price);
     }
 
     public function testAddToCartProductExistInCartIncreaseQuantity() {
@@ -23,10 +28,11 @@ class CartTest extends \Codeception\TestCase\Test
         $cart->addToCart(1, 1);
         $products = $cart->getCart();
         $key = $cart->getKey(1, 0);
+        $product = $products[$key];
 
         $this->assertCount(1, $products);
-        $this->assertEquals(1, $products[$key]->product_id);
-        $this->assertEquals(3, $products[$key]->quantity);
+        $this->assertEquals(1, $product->product_id);
+        $this->assertEquals(3, $product->quantity);
     }
 
     public function testAddToCartCanAcceptSizeAndOption() {
@@ -46,20 +52,5 @@ class CartTest extends \Codeception\TestCase\Test
         $cart = new Cart();
         $key = $cart->getKey(1, 2);
         $this->assertEquals('1_2', $key);
-    }
-
-    public function testCheckout() {
-        $cart = new Cart();
-        $cart->addToCart(2, 2);
-        $products = $cart->checkOut();
-        $key = $cart->getKey(2, 0);
-        $product = $products[$key];
-
-        $this->assertEquals("Addiction Salmon Bleu", $product->name);
-        $this->assertEquals(2, $product->product_id);
-        $this->assertEquals(2, $product->quantity);
-        $this->assertEquals(39.1, $product->price);
-        $this->assertEquals("addiction-salmon-bleu.jpg", $product->image);
-        $this->assertEquals(35.19, $product->discounted_price);
     }
 }

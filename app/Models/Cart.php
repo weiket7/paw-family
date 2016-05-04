@@ -11,14 +11,22 @@ class Cart {
 
         $key = $this->getKey($product_id, $size_id);
         if (array_key_exists($key, $this->products)) {
-            $this->products[$key]->quantity += $quantity;
+            $this->products[$key]->quantity += (int)$quantity;
         } else {
-            $this->products[$key] = (object)[
-                'product_id'=>$product_id,
-                'quantity'=>$quantity,
-                'size_id'=>$size_id,
-                'option_id'=>$option_id,
-            ];
+            $product_service = new Product();
+            $product = $product_service->getProduct((int)$product_id);
+
+            $sale_product = new SaleProduct();
+            $sale_product->product_id = $product_id;
+            $sale_product->quantity = (int)$quantity;
+            $sale_product->size_id = $size_id;
+            $sale_product->option_id = $option_id;
+            $sale_product->name = $product->name;
+            $sale_product->price = $product->price;
+            $sale_product->image = $product->image;
+            $sale_product->discounted_price = $product->discounted_price;
+
+            $this->products[$key] = $sale_product;
         }
     }
 
@@ -33,7 +41,7 @@ class Cart {
     public function getCart() {
         return $this->products;
     }
-
+/*
     public function checkOut() {
         $product_service = new Product();
         $products = [];
@@ -51,5 +59,5 @@ class Cart {
             $products[$key] = $sale_product;
         }
         return $products;
-    }
+    }*/
 }

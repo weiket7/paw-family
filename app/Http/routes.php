@@ -35,7 +35,6 @@ Route::group(['middleware'=>'auth'], function() {
   Route::post('order/{sale_no}', 'SiteController@order');
 });
 
-Route::get('cart', 'SaleController@cart');
 Route::post('add-to-cart', 'SaleController@addToCart');
 Route::get('checkout', 'SaleController@checkout');
 
@@ -87,12 +86,13 @@ Route::get('test2', function() {
 
 Route::get("cart2", function() {
   $cart = new Cart();
-  $cart->addToCart(2, 2);
-  $products = $cart->checkOut();
-  $key = $cart->getKey(2, 0);
-  $product = $products[$key];
+  $cart->addToCart(1, 2, null, null);
+  $products = $cart->getCart();
 
-  var_dump($product);
+  $key = $cart->getKey(1, 0);
+  //$product = $products[$key];
+  var_dump($products);
+  //var_dump($product);
 });
 
 Route::get('test', function() {
