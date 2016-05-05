@@ -19,6 +19,7 @@ class CartTest extends \Codeception\TestCase\Test
     $this->assertEquals("Addiction Salmon Bleu", $product->name);
     $this->assertEquals(39.1, $product->price);
     $this->assertEquals("addiction-salmon-bleu.jpg", $product->image);
+    $this->assertEquals(3.91, $product->discount_amt);
     $this->assertEquals(35.19, $product->discounted_price);
     $this->assertEquals(70.38, $product->subtotal);
   }
@@ -56,5 +57,16 @@ class CartTest extends \Codeception\TestCase\Test
     $cart = new Cart();
     $key = $cart->getKey(1, 2);
     $this->assertEquals('1_2', $key);
+  }
+
+  public function testRemoveFromCart() {
+    $cart = new Cart();
+    $cart->addToCart(1, 2);
+    $products = $cart->getCart();
+    $this->assertCount(1, $products);
+
+    $cart->removeFromCart(1, 0);
+    $products = $cart->getCart();
+    $this->assertCount(0, $products);
   }
 }

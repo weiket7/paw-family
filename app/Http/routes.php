@@ -12,6 +12,8 @@
 */
 
 use App\Models\Cart;
+use App\Models\Enums\PaymentType;
+use App\Models\Sale;
 
 Route::get('/', 'SiteController@index');
 Route::get('brands', 'SiteController@brand');
@@ -85,8 +87,17 @@ Route::get('test2', function() {
 });
 
 Route::get("cart2", function() {
-  $products = Session::get("cart");
+  $cart = new Cart();
+  $cart->addToCart(1, 1, 2, 2);
+  $cart->addToCart(2, 2);
+  $products = $cart->getCart();
   var_dump($products);
+
+  $sale_service = new Sale();
+  $customer_id = 1;
+  $payment_type = PaymentType::Bank;
+  $sale = $sale_service->checkoutCart($customer_id, $payment_type, $products);
+  var_dump($sale);
 });
 
 Route::get('test', function() {

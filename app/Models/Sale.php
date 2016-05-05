@@ -32,45 +32,51 @@ class Sale extends Eloquent
   }
 
   private $rules = [
-    'name'=>'required',
+      'name'=>'required',
   ];
 
   private $messages = [
-    'name.required'=>'Name is required',
+      'name.required'=>'Name is required',
   ];
 
   public function getValidation() {
     return $this->validation;
   }
 
-  public function saveCheckout($customer_id, $payment_type, $products) {
-    $sale = new Sale();
-    $sale->customer_id = $customer_id;
-    $sale->stat = SaleStat::Submitted;
-    $sale->payment_type = $payment_type;
-    $sale->sale_on = date("Y-m-d H:i:s");
+  public function checkoutCart($customer_id, $payment_type, $products) {
+    $this->customer_id = $customer_id;
+    $this->stat = SaleStat::Submitted;
+    $this->payment_type = $payment_type;
+    $this->sale_on = date("Y-m-d H:i:s");
     $this->save();
 
-    /* @var $product SaleProduct */
     $gross_total = 0;
+    $product_discount = 0;
+    /* @var $product SaleProduct */
     foreach($products as $product) {
       $sale_product = [
-          'product_id'=>$product->product_id,
-          'size_id'=>$product->size_id,
-          'option_id'=>$product->option_id,
-          'price'=>$product->price,
-          'discount_amt'=>$product->discount_amt,
-          'discount_percentage'=>$product->discount_percentage,
-          'discounted_price'=>$product->discounted_price,
-          'quantity'=>$product->quantity,
-          'subtotal'=>$product->subtotal,
+        'sale_id'=>$this->sale_id,
+        'product_id'=>$product->product_id,
+        'size_id'=>$product->size_id,
+        'option_id'=>$product->option_id,
+        'price'=>$product->price,
+        'discount_amt'=> isset($product->discount_amt) ? $product->discount_amt : 0,
+        'discount_percentage'=>isset($product->discount_percentage) ? $product->discount_percentage : 0,
+        'discounted_price'=>$product->discounted_price,
+        'quantity'=>$product->quantity,
+        'subtotal'=>$product->subtotal,
       ];
       DB::table("sale_product")->insert($sale_product);
 
-      $gross_total += $product->price;
+      $gross_total += $product->price * $product->quantity;
+      $product_discount += $product->discount_amt * $product->quantity;
     }
-    $sale->gross_total = $gross_total;
+    $this->gross_total = $gross_total;
+    $this->product_discount = $product_discount;
+    $this->nett_total = $gross_total - $product_discount;
+    $this->point = round($this->nett_total / 100, PHP_ROUND_HALF_DOWN);
     $this->save();
+    return $this;
   }
 
   public function getSale($sale_id_or_code)

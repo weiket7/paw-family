@@ -12,7 +12,7 @@ class Cart {
     $key = $this->getKey($product_id, $size_id);
     if (array_key_exists($key, $this->products)) {
       $this->products[$key]->quantity += (int)$quantity;
-      $this->products[$key]->subtotal += $this->products[$key]->quantity * $this->products[$key]->discounted_price;
+      $this->products[$key]->subtotal = $this->products[$key]->quantity * $this->products[$key]->discounted_price;
     } else {
       $product_service = new Product();
       $product = $product_service->getProduct((int)$product_id);
@@ -25,11 +25,17 @@ class Cart {
       $sale_product->name = $product->name;
       $sale_product->price = $product->price;
       $sale_product->image = $product->image;
+      $sale_product->discount_amt = $product->discount_amt;
       $sale_product->discounted_price = $product->discounted_price;
       $sale_product->subtotal = $sale_product->quantity * $sale_product->discounted_price;
 
       $this->products[$key] = $sale_product;
     }
+  }
+
+  public function removeFromCart($product_id, $size_id) {
+    $key = $this->getKey($product_id, $size_id);
+    unset($this->products[$key]);
   }
 
   public function getKey($product_id, $size_id) {
@@ -43,23 +49,4 @@ class Cart {
   public function getCart() {
     return $this->products;
   }
-  /*
-      public function checkOut() {
-          $product_service = new Product();
-          $products = [];
-          foreach($this->products as $key => $p) {
-              $product = $product_service->getProduct((int)$p->product_id);
-
-              $sale_product = new SaleProduct();
-              $sale_product->product_id = $p->product_id;
-              $sale_product->quantity = $p->quantity;
-              $sale_product->name = $product->name;
-              $sale_product->price = $product->price;
-              $sale_product->image = $product->image;
-              $sale_product->discounted_price = $product->discounted_price;
-
-              $products[$key] = $sale_product;
-          }
-          return $products;
-      }*/
 }
