@@ -43,6 +43,7 @@
       <th>Brand</th>
       <th>Category</th>
       <th>Supplier</th>
+      <th>Discounted Price</th>
       <th>Price</th>
       <th>Discount</th>
       <th>Size</th>
@@ -55,8 +56,9 @@
         <td>{{ $p->brand_name }}</td>
         <td>{{ $p->category_name }}</td>
         <td>{{ $p->supplier_id }}</td>
+        <td>${{ $p->discounted_price }}</td>
         <td>${{ $p->price }}</td>
-        <td>${{ CommonHelper::getDiscountAmt($p->price, $p->discount_amt, $p->discount_type) }}</td>
+        <td>{{ CommonHelper::showDiscountAmt($p->discount_amt, $p->discount_percentage) }}</td>
         <td>
           <table class="tbl_size">
             @foreach($p->sizes as $size)

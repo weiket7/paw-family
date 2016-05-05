@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductDesc;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
@@ -47,6 +48,31 @@ class ProductController extends Controller
     $brand_service = new Brand();
     $data['brands'] = $brand_service->getBrandForDropdown();
     $data['action'] = ($product_id == null || $product_id == 0) ? "create" : "update";
-      return view("admin.product.form", $data);
+    return view("admin.product.form", $data);
+  }
+
+  public function saveDesc(Request $request, $product_desc_id = null) {
+    $product_desc = ProductDesc::findOrNew($product_desc_id);
+    $action = $product_desc_id == null ? 'create' : 'update';
+
+    if ($action == 'create')
+      $product_desc->product_id = $_GET['product_id'];
+
+    if($request->isMethod('post')) {
+      $input = $request->all();
+      if (isset($input['delete']) && $input['delete'] == 'true') {
+        $product_desc->delete();
+        return redirect('admin/product/save/'.$product_desc->product_id)->with('msg', 'Description deleted');
+      }
+      if (! $product_desc->saveProductDesc($input)) {
+        return redirect()->back()->withErrors($product_desc->getValidation())->withInput($input);
+      }
+      return redirect('admin/product/desc/save/'.$product_desc->product_desc_id)->with('msg', 'Description ' . $action . "d");
+    }
+    $data['action'] = $action;
+    $product_service = new Product();
+    $data['product_name'] = $product_service->getProductName($product_desc->product_id);
+    $data['product_desc'] = $product_desc;
+    return view('admin.product.desc-form', $data);
   }
 }

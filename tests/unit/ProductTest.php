@@ -80,23 +80,30 @@ class ProductTest extends \Codeception\TestCase\Test
         $this->assertGreaterThan(0, count($sizes));
     }
 
-    public function testGetProductByIntSuccess() {
+    public function testGetProductByInt() {
         $product_service = new Product();
         $product = $product_service->getProduct(1);
         $this->assertEquals("Addiction Viva La Venison", $product->name);
     }
 
-    public function testGetProductBySlugSuccess() {
+    public function testGetProductBySlug() {
         $product_service = new Product();
         $product = $product_service->getProduct("addiction-viva-la-venison");
         $this->assertEquals("Addiction Viva La Venison", $product->name);
     }
 
-    public function testGetProductByCategoryIntAndBrandIntSuccess() {
+    public function testGetProductByCategoryIntAndBrandInt() {
         $product_service = new Product();
         $products = $product_service->getProductByCategoryAndBrand(1, 1);
         $this->assertGreaterThan(0, count($products));
     }
+
+  public function testGetProductDesc() {
+    $product_service = new Product();
+    $descs = $product_service->getProductDesc(1);
+    $this->assertCount(1, $descs);
+
+  }
 
 
 }

@@ -1,4 +1,5 @@
 <?php use App\Models\Enums\MainCategory; ?>
+<?php use App\Models\Enums\ProductDescType; ?>
 <?php use App\Models\Enums\ProductStat; ?>
 <?php use App\Models\Enums\DiscountType; ?>
 
@@ -12,18 +13,21 @@
   <div class="tabbable">
     <ul class="nav nav-tabs">
       <li class="active">
-        <a href="#tab_general" data-toggle="tab">
+        <a href="#tab-general" data-toggle="tab">
           General </a>
       </li>
       <li>
-        <a href="#tab_sizes" data-toggle="tab">Sizes</a>
+        <a href="#tab-sizes" data-toggle="tab">Sizes</a>
       </li>
       <li>
-        <a href="#tab_repacks" data-toggle="tab">Repacks</a>
+        <a href="#tab-repacks" data-toggle="tab">Repacks</a>
+      </li>
+      <li>
+        <a href="#tab-descriptions" data-toggle="tab">Descriptions</a>
       </li>
     </ul>
     <div class="tab-content no-space">
-      <div class="tab-pane active" id="tab_general">
+      <div class="tab-pane active" id="tab-general">
         <div class="form-body">
           <div class="row">
             <div class="col-md-6">
@@ -147,26 +151,16 @@
                 <label class="control-label col-md-3">Image</label>
                 <div class="col-md-9">
                   @if(strlen($product->image) > 0)
-                      <img src="{{url("assets/images/products/".$product->image)}}" class='thumbnail' style="max-height:200px;"/>
+                    <img src="{{url("assets/images/products/".$product->image)}}" class='thumbnail' style="max-height:200px;"/>
                   @endif
                   <input type='file' name='image'>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label class="control-label col-md-2">Long Description</label>
-                <div class="col-md-10">
-                  {!! Form::textarea('desc_long', $product->desc_long, ['class'=>'form-control']) !!}
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-      <div class="tab-pane" id="tab_sizes">
+      <div class="tab-pane" id="tab-sizes">
         <a href="{{url("admin/size/save?product_id=".$product->product_id)}}"><button type="button" class="btn blue btn-create">Create Size</button></a>
         <br>
         <table class="table table-bordered">
@@ -189,12 +183,7 @@
               <td>${{$size->discounted_price}}</td>
               <td>${{$size->price}}</td>
               <td>
-                @if($size->discount_percentage > 0)
-                  {{$size->discount_percentage}}%
-                  (${{$size->discount_amt}})
-                @else
-                  ${{$size->discount_amt}}
-                @endif
+                {{ CommonHelper::showDiscountAmt($size->discount_amt, $size->discount_percentage) }}
               </td>
               <td>{{$size->weight_lb}}</td>
               <td>{{$size->weight_kg}}</td>
@@ -203,7 +192,7 @@
           </tbody>
         </table>
       </div>
-      <div class="tab-pane" id="tab_repacks">
+      <div class="tab-pane" id="tab-repacks">
         <a href="{{url("admin/option/save?product_id=".$product->product_id)}}"><button type="button" class="btn blue btn-create">Create Repack</button></a>
         <br>
         <table class="table table-bordered">
@@ -234,6 +223,26 @@
                 </tr>
               @endforeach
             @endif
+          @endforeach
+          </tbody>
+        </table>
+      </div>
+      <div class="tab-pane" id="tab-descriptions">
+        <a href="{{url("admin/product/desc/save?product_id=".$product->product_id)}}"><button type="button" class="btn blue btn-create">Create Description</button></a>
+        <br>
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th width="150px">Type</th>
+            <th>Value</th>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach($product->descs as $desc)
+            <tr>
+              <td><a href="{{url("admin/product/desc/save/".$desc->product_desc_id)}}">{{ProductDescType::$values[$desc->type]}}</a></td>
+              <td>{!! nl2br($desc->value) !!}</td>
+            </tr>
           @endforeach
           </tbody>
         </table>

@@ -11,8 +11,23 @@ class CommonHelper {
     return date('d M Y', strtotime($date));
   }
 
+  public static function showDiscountAmt($discount_amount, $discount_percentage) {
+    if ($discount_percentage > 0) {
+      return $discount_percentage."%"." ($".$discount_amount.")";
+    }
+    return "$".$discount_amount;
+  }
+
   public static function formatNumber($number) {
     return number_format(round($number, 2), 2);
+  }
+
+  public static function arraySetKey($data, $key_name) {
+    $res = [];
+    foreach($data as $d) {
+      $res[$d->$key_name] = $d;
+    }
+    return $res;
   }
 
   public static function getDiscountAmtPercentage($price, $discount_percentage) {

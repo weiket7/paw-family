@@ -51,7 +51,6 @@ class Product extends Eloquent
     }
     $this->discounted_price = $this->price - $this->discount_amt;
     $this->desc_short = $input['desc_short'];
-    //$this->desc_long = $input['desc_long'];
 
     if ($image) {
       $this->image = CommonHelper::uploadImage('products', $input['name'], $image);
@@ -94,7 +93,7 @@ class Product extends Eloquent
   public function getProductAll() {
     $s = "SELECT product_id, p.name, p.slug, p.image, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat, supplier_id, sku,
     b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight_lb, weight_kg,
-    desc_short, desc_long
+    desc_short
     from product as p
     inner join brand as b on p.brand_id = b.brand_id
     inner join category as c on p.category_id = c.category_id";
@@ -103,6 +102,7 @@ class Product extends Eloquent
     foreach($products as $product) {
       $product->sizes = $this->getProductSize($product->product_id);
       $product->repacks = $this->getProductOption($product->product_id, ProductOptionType::Repack);
+      $product->descs = $this->getProductDesc($product->product_id);
     }
     return $products;
   }
@@ -110,7 +110,7 @@ class Product extends Eloquent
   public function getProduct($intOrSlug) {
     $s = "SELECT product_id, p.name, p.slug, p.image, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat, supplier_id, sku,
     b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight_lb, weight_kg,
-    desc_short, desc_long
+    desc_short
     FROM product as p
     inner join brand as b on p.brand_id = b.brand_id
     inner join category as c on p.category_id = c.category_id";
@@ -127,6 +127,7 @@ class Product extends Eloquent
     $product = $data[0];
     $product->sizes = $this->getProductSize($product->product_id);
     $product->repacks = $this->getProductOption($product->product_id, ProductOptionType::Repack);
+    $product->descs = $this->getProductDesc($product->product_id);
 
     return $product;
   }
@@ -134,6 +135,15 @@ class Product extends Eloquent
   public function getProductName($product_id) {
     $product_name = DB::table("product")->where("product_id", $product_id)->value("name");
     return $product_name;
+  }
+
+  public function getProductDesc($product_id) {
+    $s = "SELECT product_desc_id, type, value from product_desc where product_id = :product_id";
+    $p['product_id'] = $product_id;
+    $data = DB::select($s, $p);
+
+    $res = CommonHelper::arraySetKey($data, "product_desc_id");
+    return $res;
   }
 
   public function getProductSize($product_id) {
@@ -172,6 +182,20 @@ class Product extends Eloquent
 
   public function getValidation() {
     return $this->validation;
+  }
+
+  public function saveProductDesc($product_desc_id, $type, $value) {
+    $arr = [
+      'product_desc_id'=>$product_desc_id,
+      'type'=>$type,
+      'value'=>$value,
+    ];
+    if ($product_desc_id == 0) {
+      DB::table("product_desc")->insert($arr);
+    } else {
+      DB::table("product_desc")->update($arr);
+    }
+    return true;
   }
 
 }
