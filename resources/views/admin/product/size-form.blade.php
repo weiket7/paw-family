@@ -5,6 +5,26 @@
   "action"=>$action,
 ])
 
+@section('script')
+  <script type="text/javascript">
+    $("#btn-calculate").click(function() {
+      var price = parseFloat($("input[name='price']").val());
+      var discount_percentage = toFloat($("input[name='discount_percentage']").val());
+      var discounted_price = 0;
+      if (discount_percentage == 0) {
+        var discount_amt = toFloat($("input[name='discount_amt']").val());
+        discounted_price = toTwoDecimalAndRoundDown(price - discount_amt);
+      } else {
+        discount_amt = toTwoDecimalAndRoundDown(price / 100 * discount_percentage);
+        $("input[name='discount_amt']").val(discount_amt);
+        discounted_price = toTwoDecimalAndRoundDown(price - discount_amt);
+      }
+      $("input[name='discounted_price']").val(toTwoDecimalAndRoundDown(discounted_price));
+      console.log('price='+price+' discount_amt='+discount_amt+' discount_percentage='+discount_percentage+' discounted_price='+discounted_price);
+    });
+  </script>
+@endsection
+
 @section("content")
   <div class="form-body">
     <div class="form-group">
@@ -24,27 +44,40 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-md-2">Discounted Price</label>
+      <label class="control-label col-md-2">Price</label>
       <div class="col-md-10">
-        {!! Form::text('discounted_price', $size->discounted_price, ['class'=>'form-control']) !!}
+        <div class="input-icon">
+          <i class="fa fa-dollar"></i>
+          {!! Form::text('price', $size->price, ['class'=>'form-control']) !!}
+        </div>
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-md-2">Price</label>
+      <label class="control-label col-md-2">Discounted Price</label>
       <div class="col-md-10">
-        {!! Form::text('price', $size->price, ['class'=>'form-control']) !!}
+        <div class="input-icon">
+          <i class="fa fa-dollar"></i>
+          {!! Form::text('discounted_price', $size->discounted_price, ['class'=>'form-control']) !!}
+          <button class="btn green" type="button" id="btn-calculate">Calculate</button>
+        </div>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-md-2">Discount Amount</label>
       <div class="col-md-10">
-        {!! Form::text('discount_amt', $size->discount_amt, ['class'=>'form-control']) !!}
+        <div class="input-icon">
+          <i class="fa fa-dollar"></i>
+          {!! Form::text('discount_amt', $size->discount_amt, ['class'=>'form-control']) !!}
+        </div>
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-md-2">Discount Type</label>
+      <label class="control-label col-md-2">Discount Percentage</label>
       <div class="col-md-10">
-        {!! Form::select('discount_type', DiscountType::$values, $size->discount_type, ['class'=>'form-control']) !!}
+        <div class="input-icon">
+          <i class="fa fa-percent"></i>
+          {!! Form::text('discount_percentage', $size->discount_percentage, ['class'=>'form-control']) !!}
+        </div>
       </div>
     </div>
     <div class="form-group">

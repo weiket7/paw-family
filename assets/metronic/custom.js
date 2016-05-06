@@ -13,8 +13,8 @@ function isCheckedByElement(element) {
   return $(element).is(":checked");
 }
 
-function toTwoDecimal(decimal) {
-  return parseFloat(Math.round(decimal * 100) / 100).toFixed(2);
+function toTwoDecimalAndRoundDown(decimal) {
+  return (Math.floor(decimal * 100) / 100).toFixed(2);
 }
 
 function toFloat(decimal) {

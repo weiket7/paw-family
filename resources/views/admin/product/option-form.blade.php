@@ -2,7 +2,8 @@
 @extends("admin.template", [
   "title"=>"Repack",
   "action"=>$action,
-  "controller"=>"option"
+  "controller"=>"option",
+  "back"=>'',
 ])
 
 @section("content")
@@ -13,7 +14,13 @@
     </div>
     <div class="form-group">
       <label class="control-label col-md-2">Size</label>
-      <label class="form-control-static col-md-10">{{ $size_name }}</label>
+      <div class="col-md-10">
+        @if($action=="update")
+          <label class="form-control-static">{{ $size_name }}</label>
+        @else
+          {!! Form::select('size_id', $sizes, $option->name, ['class'=>'form-control']) !!}
+        @endif
+      </div>
     </div>
     <div class="form-group">
       <label class="control-label col-md-2">Name</label>

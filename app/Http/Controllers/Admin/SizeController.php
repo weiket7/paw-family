@@ -23,7 +23,7 @@ class SizeController extends Controller
       if (! $size->saveSize($input)) {
         return redirect()->back()->withErrors($size->getValidation())->withInput($input);
       }
-      return redirect('admin/size/save/'.$size->size_id)->with('msg', 'Size ' . $action . "d");
+      return redirect('admin/product/size/save/'.$size->size_id)->with('msg', 'Size ' . $action . "d");
     }
     $data['action'] = $action;
     $product_service = new Product();

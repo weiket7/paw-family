@@ -29,8 +29,10 @@ class Option extends Eloquent
     }
 
     $this->name = $input['name'];
+    $this->size_id = $input['size_id'];
     $this->price = $input['price'];
     $this->type = ProductOptionType::Repack;
+    $this->updated_on = date("Y-m-d H:i:s");
     $this->save();
     return true;
   }

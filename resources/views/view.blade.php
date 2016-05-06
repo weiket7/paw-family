@@ -104,7 +104,9 @@
                       <td class="v_align_m">
                         <input type="hidden" name="repack" id="repack">
                         <div class="custom_select f_size_medium relative d_inline_middle">
-                          <div class="select_title r_corners relative color_dark" id="repack_options_default">Select Size</div>
+                          <?php $first_size_id = array_first($product->sizes)->size_id; ?>
+                          <?php $first_size_repack = isset($product->repacks[$first_size_id]) ? array_first($product->repacks[$first_size_id])->name : "No repack"; ?>
+                          <div class="select_title r_corners relative color_dark" id="repack_options_default">{{$first_size_repack}}</div>
                           <ul class="select_list d_none" id="repack_options"></ul>
                         </div>
                       </td>

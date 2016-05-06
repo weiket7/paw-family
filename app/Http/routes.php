@@ -80,11 +80,11 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::get('admin/category/save/{category_id}', 'Admin\CategoryController@save');
   Route::post('admin/category/save/{category_id}', 'Admin\CategoryController@save');
 
-  Route::get('admin/option', 'Admin\OptionController@index');
-  Route::get('admin/option/save', 'Admin\OptionController@save');
-  Route::post('admin/option/save', 'Admin\OptionController@save');
-  Route::get('admin/option/save/{option_id}', 'Admin\OptionController@save');
-  Route::post('admin/option/save/{option_id}', 'Admin\OptionController@save');
+  Route::get('admin/product/option', 'Admin\OptionController@index');
+  Route::get('admin/product/option/save', 'Admin\OptionController@save');
+  Route::post('admin/product/option/save', 'Admin\OptionController@save');
+  Route::get('admin/product/option/save/{option_id}', 'Admin\OptionController@save');
+  Route::post('admin/product/option/save/{option_id}', 'Admin\OptionController@save');
 });
 
 Route::get('test2', function() {

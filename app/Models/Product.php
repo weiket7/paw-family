@@ -43,11 +43,13 @@ class Product extends Eloquent
     $this->weight_lb = $input['weight_lb'];
     $this->weight_kg = $input['weight_kg'];
     $this->discount_percentage = $input['discount_percentage'];
-    $this->discount_type = $input['discount_type'];
-    if ($this->discount_type == DiscountType::Amount) {
-      $this->discount_amt = $input['discount_amt'];
-    } elseif ($this->discount_type == DiscountType::Percentage) {
+    //$this->discount_type = $input['discount_type'];
+    if ($this->discount_percentage > 0) {
+      $this->discount_type = DiscountType::Percentage;
       $this->discount_amt = CommonHelper::getDiscountAmtPercentage($this->price, $this->discount_percentage);
+    } else {
+      $this->discount_type = DiscountType::Amount;
+      $this->discount_amt = $input['discount_amt'];
     }
     $this->discounted_price = $this->price - $this->discount_amt;
     $this->desc_short = $input['desc_short'];

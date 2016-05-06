@@ -31,8 +31,20 @@ class CommonHelper {
   }
 
   public static function getDiscountAmtPercentage($price, $discount_percentage) {
-    return round($price / 100 * $discount_percentage, 2, PHP_ROUND_HALF_DOWN);
+    return floor($price / 100 * $discount_percentage * 100) / 100;
   }
+
+  public static function arrayForDropdown($arr, $key_name, $value_name) {
+    $res = [];
+    foreach($arr as $a) {
+      $res[$a->$key_name] = $a->$value_name;
+    }
+    return [''=>'']+$res;
+  }
+
+  /*public static function toTwoDecimalRounddown($decimal) {
+    return round($decimal, 2, PHP_ROUND_HALF_DOWN);
+  }*/
 
   public static function uploadImage($folder, $name, $image) {
     if (App::environment('local')) {

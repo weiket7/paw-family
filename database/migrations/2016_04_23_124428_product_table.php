@@ -19,14 +19,14 @@ class ProductTable extends Migration
         $t->string('sku', 20);
         $t->integer('supplier_id');
         $t->decimal('price', 7, 2);
-        $t->decimal('weight_lb', 7, 2);
-        $t->decimal('weight_kg', 7, 2);
-        $t->tinyInteger('processing_day');
-        $t->decimal('discount_amt', 7, 2); //round down
         $t->decimal('discount_percentage', 5, 2);
         $t->char('discount_type', 1); //A or P
         $t->decimal('discounted_price', 7, 2);
         //$t->string('ingredient', 250);
+        $t->decimal('weight_lb', 7, 2);
+        $t->decimal('weight_kg', 7, 2);
+        $t->tinyInteger('processing_day');
+        $t->decimal('discount_amt', 7, 2); //round down
         $t->string('image', 150);
         $t->string('desc_short', 250);
         $t->char('stat', 1);
