@@ -34,12 +34,15 @@ class CommonHelper {
     return floor($price / 100 * $discount_percentage * 100) / 100;
   }
 
-  public static function arrayForDropdown($arr, $key_name, $value_name) {
+  public static function arrayForDropdown($arr, $key_name, $value_name, $with_empty = true) {
     $res = [];
     foreach($arr as $a) {
       $res[$a->$key_name] = $a->$value_name;
     }
-    return [''=>'']+$res;
+    if ($with_empty) {
+      return [''=>'']+$res;
+    }
+    return $res;
   }
 
   public static function getIdFromArr($arr, $id_name) {

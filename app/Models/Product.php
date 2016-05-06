@@ -199,5 +199,14 @@ class Product extends Eloquent
     }
     return true;
   }
-
+  
+  public function getProductByBrand($brand_ids)
+  {
+    if (is_array($brand_ids)) {
+      return Product::whereIn("brand_id", $brand_ids)->get();
+    } else {
+      return Product::where('brand_id', $brand_ids)->get();
+    }
+  }
+  
 }
