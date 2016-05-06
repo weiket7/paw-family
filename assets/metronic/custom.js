@@ -12,3 +12,11 @@ function checkCheckboxByElement(element, checked) {
 function isCheckedByElement(element) {
   return $(element).is(":checked");
 }
+
+function toTwoDecimal(decimal) {
+  return parseFloat(Math.round(decimal * 100) / 100).toFixed(2);
+}
+
+function toFloat(decimal) {
+  return parseFloat(decimal) | 0;
+}
