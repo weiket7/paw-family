@@ -13,33 +13,33 @@ class BrandTable extends Migration
       $t->string('slug', 50);
       $t->string('image', 50);
       $t->mediumInteger('pos');
-      $t->string('updated_on', 10);
-      $t->timestamp('updated_at');
+      $t->string('updated_by', 10);
+      $t->timestamp('updated_on');
     });
 
     DB::table('brand')->insert([
       'brand_id'=>1, 'name'=>'Addiction', 'slug'=>'addiction', 'image'=>'addiction.jpg', 'pos'=>1,
-      'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+      'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
     DB::table('brand')->insert([
       'brand_id'=>2, 'name'=>'ANF', 'slug'=>'anf', 'image'=>'anf.jpg', 'pos'=>2,
-      'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+      'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
     DB::table('brand')->insert([
       'brand_id'=>3, 'name'=>'Avoderm', 'slug'=>'avoderm', 'image'=>'avoderm.jpg', 'pos'=>3,
-      'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+      'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
     DB::table('brand')->insert([
       'brand_id'=>4, 'name'=>'Barking Heads', 'slug'=>'barking-heads', 'image'=>'barking-heads.jpg', 'pos'=>4,
-      'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+      'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
     DB::table('brand')->insert([
-      'brand_id'=>5, 'name'=>'Bosch', 'slug'=>'bosch', 'image'=>'bosch.jpg', 'pos'=>5,
-      'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+      'brand_id'=>5, 'name'=>'Bosch', 'slug'=>'bosch', 'image'=>'bosch.png', 'pos'=>5,
+      'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
     DB::table('brand')->insert([
       'brand_id'=>6, 'name'=>'Primal', 'slug'=>'primal', 'image'=>'primal.jpg', 'pos'=>6,
-      'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+      'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
   }
 

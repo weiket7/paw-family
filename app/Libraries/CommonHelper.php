@@ -42,6 +42,16 @@ class CommonHelper {
     return [''=>'']+$res;
   }
 
+  public static function getIdFromArr($arr, $id_name) {
+    $data = array();
+    foreach($arr as $a) {
+      if ($a->$id_name != '' && $a->$id_name != null) {
+        $data[] = $a->$id_name;
+      }
+    }
+    return $data;
+  }
+
   /*public static function toTwoDecimalRounddown($decimal) {
     return round($decimal, 2, PHP_ROUND_HALF_DOWN);
   }*/

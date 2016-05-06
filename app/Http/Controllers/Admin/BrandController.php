@@ -19,7 +19,7 @@ class BrandController extends Controller
       $input = $request->all();
       if (isset($input['delete']) && $input['delete'] == 'true') {
         $brand->delete();
-        return redirect('admin/brand/save/'.$brand->product_id)->with('msg', 'Brand deleted');
+        return redirect('admin/brand')->with('msg', 'Brand deleted');
       }
       if (! $brand->saveBrand($input, $request->file('image'))) {
         return redirect()->back()->withErrors($brand->getValidation())->withInput($input);

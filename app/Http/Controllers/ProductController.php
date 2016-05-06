@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use CommonHelper;
 use Illuminate\Support\Facades\Input;
 
 class ProductController extends Controller
@@ -17,8 +18,8 @@ class ProductController extends Controller
     $product_service = new Product();
     if (Input::has("brands")) {
       $selected_brand_slugs = Input::get("brands");
-      $selected_brand_slugs = explode(",", $selected_brand_slugs);
-      $selected_brand_ids = $brand_service->getBrandIdBySlug($selected_brand_slugs);
+      $brands = Brand::whereIn("slug", explode(",", $selected_brand_slugs))->get();
+      $selected_brand_ids = CommonHelper::getIdFromArr($brands, 'brand_id');
       $data['products'] = $product_service->getProductByCategoryAndBrand($category->category_id, $selected_brand_ids);
       $data['selected_brand_ids'] = $selected_brand_ids;
     } else {
@@ -30,18 +31,16 @@ class ProductController extends Controller
     return view("category", $data);
   }
 
+  public function brand($slug) {
+    $brand = Brand::where("slug", $slug)->first();
+    
+  }
+
   public function view($slug) {
     $product_service = new Product();
     $product = $product_service->getProduct($slug);
     $data['product'] = $product;
     return view("view", $data);
-  }
-
-  public function brand($slug) {
-    $brand_service = new Brand();
-    $brand = $brand_service->getBrandIdBySlug($slug);
-    //TODO
-    return view("", $data);
   }
 
   public function autocomplete() {

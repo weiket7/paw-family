@@ -549,31 +549,32 @@ License: You must have a valid license purchased only from themeforest(the above
           </a>
         </li>
         <li class="nav-item  ">
-          <a href="#" class="nav-link nav-toggle">
+          <a href="{{url('admin/brand')}}" class="nav-link nav-toggle">
             <i class="icon-settings"></i>
+            <span class="title">Brands</span>
+            <span class="arrow"></span>
+          </a>
+        </li>
+        <li class="nav-item  ">
+          <a href="{{url('admin/category')}}" class="nav-link nav-toggle">
+            <i class="icon-frame"></i>
+            <span class="title">Categories</span>
+            <span class="arrow"></span>
+          </a>
+        </li>
+        <li class="nav-item  ">
+          <a href="{{url('admin/supplier')}}" class="nav-link nav-toggle">
+            <i class="icon-frame"></i>
+            <span class="title">Suppliers</span>
+            <span class="arrow"></span>
+          </a>
+        </li>
+        <li class="nav-item  ">
+          <a href="{{url('admin/setting')}}" class="nav-link nav-toggle">
+            <i class="icon-frame"></i>
             <span class="title">Settings</span>
             <span class="arrow"></span>
           </a>
-          <ul class="sub-menu">
-            <li class="nav-item">
-              <a href="{{url("admin/brand")}}" class="nav-link ">
-                <i class="icon-bar-chart"></i>
-                <span class="title">Brands</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{url("admin/category")}}" class="nav-link ">
-                <i class="icon-bar-chart"></i>
-                <span class="title">Categories</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link ">
-                <i class="icon-bar-chart"></i>
-                <span class="title">Settings</span>
-              </a>
-            </li>
-          </ul>
         </li>
       </ul>
       <!-- END SIDEBAR MENU -->

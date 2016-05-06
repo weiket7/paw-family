@@ -67,7 +67,7 @@ class SiteController extends Controller
 
   public function brand() {
     $data['brands'] = Brand::all();
-    return view("brand");
+    return view("brand", $data);
   }
 
   public function contact() {
