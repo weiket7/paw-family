@@ -25,7 +25,7 @@ class CategoryTable extends Migration
         'pos'=>1, 'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s'
         )]);
       DB::table('category')->insert([
-        'category_id'=>2, 'main_category'=>MainCategory::Dogs, 'name'=>'Canned Food', 'slug'=>'canned-food',  'product_count'=>4,
+        'category_id'=>2, 'main_category'=>MainCategory::Dogs, 'name'=>'Canned Food', 'slug'=>'canned-food',  'product_count'=>6,
         'pos'=>2, 'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s'
         )]);
       DB::table('category')->insert([

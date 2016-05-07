@@ -452,7 +452,7 @@ class ProductTable extends Migration
       DB::table('product')->insert([
         'product_id'=>24,
         'category_id'=>2,
-        'brand_id'=>1,
+        'brand_id'=>7,
         'name'=>'Nutripe Ambrosia Turkey with Green Tripe Canned Dog Food',
         'slug'=>'nutripe-ambrosia-turkey-with-green-tripe-canned-dog-food',
         'supplier_id'=>1,
@@ -470,7 +470,7 @@ class ProductTable extends Migration
       DB::table('product')->insert([
         'product_id'=>25,
         'category_id'=>2,
-        'brand_id'=>1,
+        'brand_id'=>7,
         'name'=>'Nutripe Ambrosia Chicken with Green Tripe Canned Dog Food',
         'slug'=>'nutripe-ambrosia-chicken-with-green-tripe-canned-dog-food',
         'supplier_id'=>1,

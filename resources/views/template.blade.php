@@ -238,10 +238,10 @@
       @foreach($breadcrumbs as $b)
         <li class="m_right_10">
         @if($b != array_last($breadcrumbs))
-          {{ $b }}
+          {{ ucwords($b) }}
           <i class="fa fa-angle-right d_inline_middle m_left_10"></i>
         @else
-          <a href="#"><b>{{$b}}</b></a>
+          <a href="#"><b>{{ucwords($b)}}</b></a>
         @endif
       @endforeach
     </ul>
@@ -329,26 +329,17 @@
         <div class="row clearfix">
           <div class="col-lg-3 col-md-3 col-sm-3 m_xs_bottom_30">
             <h3 class="color_light_2 m_bottom_20">About</h3>
-            <p class="m_bottom_15">Nam elit agna, endrerit sit amet, tincidunt ac, viverra sed, nulla. Donec porta diam eu massa. Quisque diam lorem.</p>
-            <p>Interdum vitae, dapibus ac, scelerisque.
-              vitae, pede. Donec eget tellus non erat lacinia fermentum. Donec in velit vel ipsum auctor pulvinar. </p>
-          </div>
-          <div class="col-lg-2 col-md-2 col-sm-2 m_xs_bottom_30">
-            <h3 class="color_light_2 m_bottom_20">The Service</h3>
-            <ul class="vertical_list">
-              <li><a class="color_light tr_delay_hover" href="#">My account<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="#">Order history<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="#">Wishlist<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="#">Categories<i class="fa fa-angle-right"></i></a></li>
-            </ul>
+            <p class="m_bottom_15">Paw Family is a one-stop online pet store which offers pet owners incredible savings on top quality pet supplies.<br><br>
+
+              Our mission is to provide fantastic deals to cater the needs for your precious pets. As pet lovers ourselves, we value the quality and reliability of every product.</p>
           </div>
           <div class="col-lg-2 col-md-2 col-sm-2 m_xs_bottom_30">
             <h3 class="color_light_2 m_bottom_20">Information</h3>
             <ul class="vertical_list">
-              <li><a class="color_light tr_delay_hover" href="#">About us<i class="fa fa-angle-right"></i></a></li>
+              <li><a class="color_light tr_delay_hover" href="#">About Us<i class="fa fa-angle-right"></i></a></li>
               <li><a class="color_light tr_delay_hover" href="#">Delivery<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="#">Privacy policy<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="#">Terms &amp; condition<i class="fa fa-angle-right"></i></a></li>
+              <li><a class="color_light tr_delay_hover" href="#">Contact Us<i class="fa fa-angle-right"></i></a></li>
+              <li><a class="color_light tr_delay_hover" href="#">Terms &amp; Conditions<i class="fa fa-angle-right"></i></a></li>
             </ul>
           </div>
           <div class="col-lg-2 col-md-2 col-sm-2 m_xs_bottom_30">
@@ -395,13 +386,9 @@
     <!--copyright part-->
     <div class="footer_bottom_part">
       <div class="container clearfix t_mxs_align_c">
-        <p class="f_left f_mxs_none m_mxs_bottom_10">&copy; 2014 <span class="color_light">Flatastic</span>. All Rights Reserved.</p>
+        <p class="f_left f_mxs_none m_mxs_bottom_10">&copy; 2014 <span class="color_light">Pawfamily</span>. All Rights Reserved.</p>
         <ul class="f_right horizontal_list clearfix f_mxs_none d_mxs_inline_b">
           <li><img src="{{url("assets/flatastic")}}/images/payment_img_1.png" alt=""></li>
-          <li class="m_left_5"><img src="{{url("assets/flatastic")}}/images/payment_img_2.png" alt=""></li>
-          <li class="m_left_5"><img src="{{url("assets/flatastic")}}/images/payment_img_3.png" alt=""></li>
-          <li class="m_left_5"><img src="{{url("assets/flatastic")}}/images/payment_img_4.png" alt=""></li>
-          <li class="m_left_5"><img src="{{url("assets/flatastic")}}/images/payment_img_5.png" alt=""></li>
         </ul>
       </div>
     </div>

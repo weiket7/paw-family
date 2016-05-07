@@ -32,20 +32,27 @@ class Brand extends Eloquent
     return true;
   }
 
+  public function getBrandWithProductCountBySlug($slugs) {
+    //DB::enableQueryLog();
+    $brand_ids = Brand::whereIn("slug", explode(",", $slugs  ))->pluck('brand_id');
+    $brands = Product::whereIn("product.brand_id", $brand_ids)
+      ->join('brand', 'brand.brand_id', '=', 'product.brand_id')
+      ->groupBy('brand_id')
+      ->select(DB::raw('count(*) as product_count, brand.brand_id, brand.name'))->get();
+    return $brands;
+  }
+
+
   public function getDistinctBrandByCategory($category_id) {
-    $s = "SELECT distinct b.brand_id, b.name from product as p
+    $s = "SELECT b.brand_id, b.name, count(1) as product_count from product as p
     inner join category as c on p.category_id = c.category_id
     inner join brand as b on p.brand_id = b.brand_id
-    where p.category_id = :category_id";
+    where p.category_id = :category_id
+    group by brand_id";
     $p['category_id'] = $category_id;
 
     $data = DB::select($s, $p);
-
-    $res = [];
-    foreach($data as $d) {
-      $res[$d->brand_id] = $d->name;
-    }
-    return $res;
+    return $data;
   }
 
   public function getBrandIdBySlug($slugs) {

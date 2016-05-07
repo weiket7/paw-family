@@ -29,27 +29,30 @@ class ProductController extends Controller
     }
     $data['categories'] = $category_service->getCategoryAllForMenu();
     $data['current_main_category'] = $main_category;
-    $data['current_category'] = $category->slug;
-    $data['breadcrumbs'] = ['Categories', $category->main_category, $category->name];
+    $data['current_category'] = $category->slug; //only in category
     $data['brands'] = $brand_service->getDistinctBrandByCategory($category->category_id);
     $data['selected_brand_ids'] = $selected_brand_ids;
+    $data['breadcrumbs'] = ['Categories', $category->main_category, $category->name];
 
-    return view("product-category", $data);
+    return view("grid", $data);
   }
 
   public function brand($slugs) {
-    $product_service = new Product();
-    $brands = Brand::whereIn("slug", explode(",", $slugs  ))->get();
+
+    $brand_service = new Brand();
+    $brands = $brand_service->getBrandWithProductCountBySlug($slugs);
     $selected_brand_ids = CommonHelper::getIdFromArr($brands, 'brand_id');
+    $product_service = new Product();
     $data['products'] = $product_service->getProductByBrand($selected_brand_ids);
-    $data['breadcrumbs'] = ['Brands', '123'];
-    $data['selected_brand_ids'] = $selected_brand_ids;
     $category_service = new Category();
-    $data['current_main_category'] = "";
 
     $data['categories'] = $category_service->getCategoryAllForMenu();
-    $data['brands'] = CommonHelper::arrayForDropdown(Brand::all(), 'brand_id', 'name', false);
-    return view("product-brand", $data);
+    $data['current_main_category'] = "";
+    $data['brands'] = $brands;
+    $data['selected_brand_ids'] = $selected_brand_ids;
+    $breadcrumb2 = implode(", ", array_pluck($brands, 'name'));
+    $data['breadcrumbs'] = ['Brands', $breadcrumb2];
+    return view("grid", $data);
   }
 
   public function view($slug) {
