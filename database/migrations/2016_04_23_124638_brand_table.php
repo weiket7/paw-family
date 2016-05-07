@@ -41,6 +41,10 @@ class BrandTable extends Migration
       'brand_id'=>6, 'name'=>'Primal', 'slug'=>'primal', 'image'=>'primal.jpg', 'pos'=>6,
       'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
+    DB::table('brand')->insert([
+      'brand_id'=>7, 'name'=>'Nutripe', 'slug'=>'nutripe', 'image'=>'nutripe.jpg', 'pos'=>7,
+      'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
+    ]);
   }
 
   public function down()

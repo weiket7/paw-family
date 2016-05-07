@@ -377,6 +377,113 @@ class ProductTable extends Migration
         'stat'=>ProductStat::Available,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
+
+      DB::table('product')->insert([
+        'product_id'=>20,
+        'category_id'=>2,
+        'brand_id'=>1,
+        'name'=>'Addiction NZ Brushtail & Vegetables Entree (Grain Free) Dog Canned Food',
+        'slug'=>'addiction-nz-brushtail-vegetables-entree-grain-free-dog-canned-food',
+        'supplier_id'=>1,
+        'sku'=>'PSU-01',
+        'price'=>5.25,
+        'weight_lb'=>0,
+        'weight_kg'=>0.390,
+        'processing_day'=>3,
+        'image'=>'addiction-nz-brushtail-vegetables-entree-grain-free-dog-canned-food.png',
+        'stat'=>ProductStat::Available,
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>21,
+        'category_id'=>2,
+        'brand_id'=>1,
+        'name'=>'Addiction NZ Venison & Apples Entree (Grain Free) Dog Canned Food',
+        'slug'=>'addiction-nz-venison-apples-entree-grain-free-dog-canned-food',
+        'supplier_id'=>1,
+        'sku'=>'PSU-01',
+        'price'=>5.60,
+        'discounted_price'=>5.25,
+        'weight_lb'=>0,
+        'weight_kg'=>0.390,
+        'processing_day'=>3,
+        'image'=>'addiction-nz-venison-apples-entree-grain-free-dog-canned-food.png',
+        'stat'=>ProductStat::Available,
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>22,
+        'category_id'=>2,
+        'brand_id'=>1,
+        'name'=>'Addiction King Salmon & Potatoes Entree (Grain Free) Dog Canned Food',
+        'slug'=>'addiction-king-salmon-potatoes-entree-grain-free-dog-canned-food',
+        'supplier_id'=>1,
+        'sku'=>'PSU-01',
+        'price'=>5.60,
+        'discounted_price'=>5.25,
+        'weight_lb'=>0,
+        'weight_kg'=>0.390,
+        'processing_day'=>3,
+        'image'=>'addiction-king-salmon-potatoes-entree-grain-free-dog-canned-food.png',
+        'stat'=>ProductStat::Available,
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>23,
+        'category_id'=>2,
+        'brand_id'=>1,
+        'name'=>'Addiction Unagi & Seaweed Entree (Grain Free) Dog Canned Food',
+        'slug'=>'addiction-unagi-seaweed-entree-grain-free-dog-canned-food',
+        'supplier_id'=>1,
+        'sku'=>'PSU-01',
+        'price'=>5.60,
+        'discounted_price'=>5.25,
+        'weight_lb'=>0,
+        'weight_kg'=>0.390,
+        'processing_day'=>3,
+        'image'=>'addiction-unagi-seaweed-entree-grain-free-dog-canned-food.png',
+        'stat'=>ProductStat::Available,
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>24,
+        'category_id'=>2,
+        'brand_id'=>1,
+        'name'=>'Nutripe Ambrosia Turkey with Green Tripe Canned Dog Food',
+        'slug'=>'nutripe-ambrosia-turkey-with-green-tripe-canned-dog-food',
+        'supplier_id'=>1,
+        'sku'=>'PSU-01',
+        'price'=>5.25,
+        'discounted_price'=>5,
+        'weight_lb'=>0,
+        'weight_kg'=>0.390,
+        'processing_day'=>3,
+        'image'=>'nutripe-ambrosia-turkey-with-green-tripe-canned-dog-food.jpg',
+        'stat'=>ProductStat::Available,
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
+      ]);
+
+      DB::table('product')->insert([
+        'product_id'=>25,
+        'category_id'=>2,
+        'brand_id'=>1,
+        'name'=>'Nutripe Ambrosia Chicken with Green Tripe Canned Dog Food',
+        'slug'=>'nutripe-ambrosia-chicken-with-green-tripe-canned-dog-food',
+        'supplier_id'=>1,
+        'sku'=>'PSU-01',
+        'price'=>5.25,
+        'discounted_price'=>5,
+        'weight_lb'=>0,
+        'weight_kg'=>0.390,
+        'processing_day'=>3,
+        'image'=>'addiction-unagi-seaweed-entree-grain-free-dog-canned-food.jpg',
+        'stat'=>ProductStat::Available,
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
+      ]);
     }
 
     public function down()

@@ -89,7 +89,7 @@ Route::group(['middleware'=>'auth_operator'], function() {
 });
 
 Route::get('test2', function() {
-  var_dump(Session::get("cart"));
+  return str_slug('Nutripe Ambrosia Chicken with Green Tripe Canned Dog Food');
 });
 
 Route::get("cart2", function() {
