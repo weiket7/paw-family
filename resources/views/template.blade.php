@@ -1,3 +1,5 @@
+<?php use App\Models\Enums\MainCategory; ?>
+
 <!doctype html>
 <!--[if IE 9 ]><html class="ie9" lang="en"><![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
@@ -89,8 +91,8 @@
               <!--sub menu-->
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
-                  @foreach($categories_cache['D'] as $category)
-                    <li><a class="color_dark tr_delay_hover" href="{{url("product/category/".$category->slug)}}">{{$category->name}}</a></li>
+                  @foreach($categories_cache[MainCategory::Dogs] as $category)
+                    <li><a class="color_dark tr_delay_hover" href="{{url("product/category/".MainCategory::Dogs.'/'.$category->slug)}}">{{$category->name}}</a></li>
                   @endforeach
                 </ul>
               </div>
@@ -99,9 +101,9 @@
               <!--sub menu-->
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
-                  @if(isset($categories_cache['C']))
-                    @foreach($categories_cache['C'] as $category)
-                      <li><a class="color_dark tr_delay_hover" href="{{url("product/category/".$category->slug)}}">{{$category->name}}</a></li>
+                  @if(isset($categories_cache[MainCategory::Cats]))
+                    @foreach($categories_cache[MainCategory::Cats] as $category)
+                      <li><a class="color_dark tr_delay_hover" href="{{url("product/category/".MainCategory::Cats.'/'.$category->slug)}}">{{$category->name}}</a></li>
                     @endforeach
                   @endif
                 </ul>
@@ -111,9 +113,9 @@
               <!--sub menu-->
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
-                  @if(isset($categories_cache['S']))
-                    @foreach($categories_cache['S'] as $category)
-                      <li><a class="color_dark tr_delay_hover" href="{{url("product/category/".$category->slug)}}">{{$category->name}}</a></li>
+                  @if(isset($categories_cache[MainCategory::SmallAnimals]))
+                    @foreach($categories_cache[MainCategory::SmallAnimals] as $category)
+                      <li><a class="color_dark tr_delay_hover" href="{{url("product/category/".MainCategory::SmallAnimals.'/'.$category->slug)}}">{{$category->name}}</a></li>
                     @endforeach
                   @endif
                 </ul>

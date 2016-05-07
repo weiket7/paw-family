@@ -90,7 +90,7 @@
             <!--Categories list-->
             <ul class="categories_list">
               @foreach($categories as $main_category => $categories)
-                <?php $active = $current_main_category == MainCategory::$values[$main_category]; ?>
+                <?php $active = $current_main_category == $main_category; ?>
                 <?php $main_category_class = $active ? "active" : ""; ?>
                 <?php $main_category_color = $active ? "scheme_color" : "color_dark"; ?>
                 <li class="{{$main_category_class}}">
@@ -101,7 +101,7 @@
                   <?php $category_class = $active ? "" : "d_none"; ?>
                   <ul class="{{$category_class}}">
                     @foreach($categories as $category)
-                      <li><a href="#" class="color_dark d_block">{{$category->name}}</a></li>
+                      <li><a href="{{url("product/category/".$main_category.'/'.$category->slug)}}" class="color_dark d_block">{{$category->name}}</a></li>
                     @endforeach
                   </ul>
                 </li>

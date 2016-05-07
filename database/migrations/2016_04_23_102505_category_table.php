@@ -10,7 +10,7 @@ class CategoryTable extends Migration
     {
       Schema::create('category', function(Blueprint $t) {
         $t->increments('category_id');
-        $t->string('main_category', 2);
+        $t->string('main_category', 15);
         $t->string('name', 20);
         $t->string('slug', 30);
         $t->char('stat', 1);
@@ -20,27 +20,27 @@ class CategoryTable extends Migration
       });
 
       DB::table('category')->insert([
-        'category_id'=>1, 'main_category'=>MainCategory::Dogs, 'name'=>'Dry Food', 'slug'=>'dog-dry-food', 'pos'=>1,
+        'category_id'=>1, 'main_category'=>MainCategory::Dogs, 'name'=>'Dry Food', 'slug'=>'dry-food', 'pos'=>1,
         'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s'
         )]);
       DB::table('category')->insert([
-        'category_id'=>2, 'main_category'=>MainCategory::Dogs, 'name'=>'Canned Food', 'slug'=>'dog-canned-food', 'pos'=>2,
+        'category_id'=>2, 'main_category'=>MainCategory::Dogs, 'name'=>'Canned Food', 'slug'=>'canned-food', 'pos'=>2,
         'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s'
         )]);
       DB::table('category')->insert([
-        'category_id'=>3, 'main_category'=>MainCategory::Dogs, 'name'=>'Supplements', 'slug'=>'dog-supplement', 'pos'=>3,
+        'category_id'=>3, 'main_category'=>MainCategory::Dogs, 'name'=>'Supplements', 'slug'=>'supplements', 'pos'=>3,
         'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
       DB::table('category')->insert([
-        'category_id'=>4, 'main_category'=>MainCategory::Dogs, 'name'=>'Treats', 'slug'=>'dog-treat', 'pos'=>4,
+        'category_id'=>4, 'main_category'=>MainCategory::Dogs, 'name'=>'Treats', 'slug'=>'treats', 'pos'=>4,
         'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
       DB::table('category')->insert([
-        'category_id'=>5, 'main_category'=>MainCategory::Dogs, 'name'=>'Grooming', 'slug'=>'dog-grooming', 'pos'=>5,
+        'category_id'=>5, 'main_category'=>MainCategory::Dogs, 'name'=>'Grooming', 'slug'=>'grooming', 'pos'=>5,
         'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
       DB::table('category')->insert([
-        'category_id'=>6, 'main_category'=>MainCategory::Dogs, 'name'=>'Acessories', 'slug'=>'dog-accessory', 'pos'=>6,
+        'category_id'=>6, 'main_category'=>MainCategory::Dogs, 'name'=>'Acessories', 'slug'=>'accessory', 'pos'=>6,
         'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
       ]);
 
@@ -73,6 +73,34 @@ class CategoryTable extends Migration
         'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s'
       )]);
 
+      DB::table('category')->insert([
+        'category_id'=>14, 'main_category'=>MainCategory::SmallAnimals, 'name'=>'Food', 'slug'=>'dry-food','pos'=>1,
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s'
+        )]);
+      DB::table('category')->insert([
+        'category_id'=>15, 'main_category'=>MainCategory::SmallAnimals, 'name'=>'Treats', 'slug'=>'canned-food','pos'=>2,
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s'
+        )]);
+      DB::table('category')->insert([
+        'category_id'=>16, 'main_category'=>MainCategory::SmallAnimals, 'name'=>'Supplements', 'slug'=>'supplements','pos'=>3,
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+      ]);
+      DB::table('category')->insert([
+        'category_id'=>17, 'main_category'=>MainCategory::SmallAnimals, 'name'=>'Grooming', 'slug'=>'treats','pos'=>4,
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+      ]);
+      DB::table('category')->insert([
+        'category_id'=>18, 'main_category'=>MainCategory::SmallAnimals, 'name'=>'Accessories', 'slug'=>'treats','pos'=>4,
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+      ]);
+      DB::table('category')->insert([
+        'category_id'=>19, 'main_category'=>MainCategory::SmallAnimals, 'name'=>'Hay', 'slug'=>'grooming','pos'=>5,
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+      ]);
+      DB::table('category')->insert([
+        'category_id'=>20, 'main_category'=>MainCategory::SmallAnimals, 'name'=>'Bedding', 'slug'=>'accessories','pos'=>6,
+        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')
+      ]);
     }
 
     public function down()

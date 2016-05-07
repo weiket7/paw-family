@@ -18,7 +18,7 @@
         });
         brands = brands.join(",");
         //console.log(brands);
-        redirect("{{url('product/brand?brands=')}}"+brands);
+        redirect("{{url('product/brand')}}/"+brands);
       });
     })
   </script>

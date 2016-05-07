@@ -1,9 +1,9 @@
 <?php namespace App\Models\Enums;
 
 abstract class MainCategory {
-  const Dogs = 'D';
-  const Cats = 'C';
-  const SmallAnimals = 'S';
+  const Dogs = 'dogs';
+  const Cats = 'cats';
+  const SmallAnimals = 'smallanimals';
 
   static $values = [
     ''=>'',
@@ -12,5 +12,3 @@ abstract class MainCategory {
     self::SmallAnimals=>'Small Animals',
   ];
 }
-
-

@@ -15,7 +15,7 @@
         });
         brands = brands.join(",");
         //console.log(brands);
-        redirect("{{url('product/category/dog-dry-food?brands=')}}"+brands);
+        redirect("{{url('product/category/'.$current_main_category.'/'.$current_category.'?brands=')}}"+brands);
       });
     })
   </script>
