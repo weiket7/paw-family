@@ -18,3 +18,7 @@
 #login_popup [role="button"] {
   margin-left: 70px;
 }
+
+.error {
+  color: red;
+}

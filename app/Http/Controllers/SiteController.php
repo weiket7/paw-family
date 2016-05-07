@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App;
+use Auth;
+use Mail;
 use App\Models\Brand;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
-use Auth;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
@@ -70,8 +72,33 @@ class SiteController extends Controller
     return view("brand", $data);
   }
 
-  public function contact() {
+  public function contact(Request $request) {
+    if($request->isMethod('post')) {
+      $input = $request->all();
+
+      $data = [
+        'name'=>$input['name'],
+        'email'=>$input['email'],
+        'mobile'=>$input['mobile'],
+        'content'=>$input['content'],
+        'recipient'=>$this->getRecipient(),
+      ];
+      Mail::send('emails/contact', $data, function ($message) use ($data) {
+        $message->from($data['email'], $data['name'])
+          //->to('admin@pawfamily.sg')
+          ->to($data['recipient'])
+          ->subject("Enquiry from ".$data['name']);
+      });
+      return redirect()->back()->with('msg', 'Thank you for your email, we will get back to you shortly.');
+    }
     return view("contact");
+  }
+
+  private function getRecipient() {
+    if (! App::environment('production')) {
+      return 'wei_ket@hotmail.com';
+    }
+    return 'admin@pawfamily.sg';
   }
 
   public function logout() {

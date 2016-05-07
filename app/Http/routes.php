@@ -18,6 +18,7 @@ use App\Models\Sale;
 Route::get('/', 'SiteController@index');
 Route::get('brands', 'SiteController@brand');
 Route::get('contact', 'SiteController@contact');
+Route::post('contact', 'SiteController@contact');
 
 Route::get('product/category/{main_category}/{slug}', 'ProductController@category');
 Route::get('product/brand/{slug}', 'ProductController@brand');

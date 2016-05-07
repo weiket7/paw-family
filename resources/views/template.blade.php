@@ -1,6 +1,6 @@
 <?php use App\Models\Enums\MainCategory; ?>
 
-<!doctype html>
+  <!doctype html>
 <!--[if IE 9 ]><html class="ie9" lang="en"><![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
 <head>
@@ -49,7 +49,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6  t_xs_align_c m_xs_bottom_15">
               <div class="row">
                 <div class="col-xs-7 t_align_r">
-                  Free delivery for orders ${{$settings_cache["freedeliveryaboveorequalto"]}} and above within 1-3 working days!
+                  Free delivery for orders ${{Cache::get('settings_cache')["freedeliveryaboveorequalto"]}} and above within 1-3 working days!
                 </div>
                 <div class="col-xs-5 t_align_c">
                   <b class="f_size_ex_large color_dark"><i class="fa fa-phone"></i> 9026 4166</b>
@@ -91,7 +91,7 @@
               <!--sub menu-->
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
-                  @foreach($categories_cache[MainCategory::Dogs] as $category)
+                  @foreach(Cache::get('categories_cache')[MainCategory::Dogs] as $category)
                     <li><a class="color_dark tr_delay_hover" href="{{url("product/category/".MainCategory::Dogs.'/'.$category->slug)}}">{{$category->name}}</a></li>
                   @endforeach
                 </ul>
@@ -101,8 +101,8 @@
               <!--sub menu-->
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
-                  @if(isset($categories_cache[MainCategory::Cats]))
-                    @foreach($categories_cache[MainCategory::Cats] as $category)
+                  @if(isset(Cache::get('categories_cache')[MainCategory::Cats]))
+                    @foreach(Cache::get('categories_cache')[MainCategory::Cats] as $category)
                       <li><a class="color_dark tr_delay_hover" href="{{url("product/category/".MainCategory::Cats.'/'.$category->slug)}}">{{$category->name}}</a></li>
                     @endforeach
                   @endif
@@ -113,8 +113,8 @@
               <!--sub menu-->
               <div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
                 <ul class="sub_menu">
-                  @if(isset($categories_cache[MainCategory::SmallAnimals]))
-                    @foreach($categories_cache[MainCategory::SmallAnimals] as $category)
+                  @if(isset(Cache::get('categories_cache')[MainCategory::SmallAnimals]))
+                    @foreach(Cache::get('categories_cache')[MainCategory::SmallAnimals] as $category)
                       <li><a class="color_dark tr_delay_hover" href="{{url("product/category/".MainCategory::SmallAnimals.'/'.$category->slug)}}">{{$category->name}}</a></li>
                     @endforeach
                   @endif
@@ -132,7 +132,7 @@
               </a>
             </li>
             <li class="relative f_xs_none m_xs_bottom_5">
-              @if($auth_check)
+              @if(Auth::check())
                 <a href="{{url("account")}}" class="tr_delay_hover color_light tt_uppercase">
                   <b>Account</b>
                 </a>
@@ -230,169 +230,169 @@
   </header>
 
   @if(isset($breadcrumbs))
-  <div class="container">
-    <ul class="horizontal_list clearfix bc_list f_size_medium"  style="background-color:#f2f4f5; padding: 9px;">
-      <li class="m_right_10 current">
-        Home<i class="fa fa-angle-right d_inline_middle m_left_10"></i>
-      </li>
-      @foreach($breadcrumbs as $b)
-        <li class="m_right_10">
-        @if($b != array_last($breadcrumbs))
-          {{ ucwords($b) }}
-          <i class="fa fa-angle-right d_inline_middle m_left_10"></i>
-        @else
-          <a href="#"><b>{{ucwords($b)}}</b></a>
-        @endif
-      @endforeach
-    </ul>
-  </div>
-  @endif
+    <div class="container">
+      <ul class="horizontal_list clearfix bc_list f_size_medium"  style="background-color:#f2f4f5; padding: 9px;">
+        <li class="m_right_10 current">
+          Home<i class="fa fa-angle-right d_inline_middle m_left_10"></i>
+        </li>
+        @foreach($breadcrumbs as $b)
+          <li class="m_right_10">
+            @if($b != array_last($breadcrumbs))
+              {{ ucwords($b) }}
+              <i class="fa fa-angle-right d_inline_middle m_left_10"></i>
+            @else
+              <a href="#"><b>{{ucwords($b)}}</b></a>
+          @endif
+        @endforeach
+      </ul>
+    </div>
+    @endif
 
-  @yield('content')
+    @yield('content')
 
-    <!--markup footer-->
-  <footer id="footer" class="type_2">
-    <div class="footer_top_part">
-      <div class="container t_align_c m_bottom_20">
-        <!--social icons-->
-        <ul class="clearfix d_inline_b horizontal_list social_icons">
-          <li class="facebook m_bottom_5 relative">
-            <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Facebook</span>
-            <a href="#" class="r_corners t_align_c tr_delay_hover f_size_ex_large">
-              <i class="fa fa-facebook"></i>
-            </a>
-          </li>
-          <li class="twitter m_left_5 m_bottom_5 relative">
-            <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Twitter</span>
-            <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
-              <i class="fa fa-twitter"></i>
-            </a>
-          </li>
-          <li class="google_plus m_left_5 m_bottom_5 relative">
-            <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Google Plus</span>
-            <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
-              <i class="fa fa-google-plus"></i>
-            </a>
-          </li>
-          <li class="rss m_left_5 m_bottom_5 relative">
-            <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Rss</span>
-            <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
-              <i class="fa fa-rss"></i>
-            </a>
-          </li>
-          <li class="pinterest m_left_5 m_bottom_5 relative">
-            <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Pinterest</span>
-            <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
-              <i class="fa fa-pinterest"></i>
-            </a>
-          </li>
-          <li class="instagram m_left_5 m_bottom_5 relative">
-            <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Instagram</span>
-            <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
-              <i class="fa fa-instagram"></i>
-            </a>
-          </li>
-          <li class="linkedin m_left_5 m_bottom_5 m_sm_left_5 relative">
-            <span class="tooltip tr_all_hover r_corners color_dark f_size_small">LinkedIn</span>
-            <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
-              <i class="fa fa-linkedin"></i>
-            </a>
-          </li>
-          <li class="vimeo m_left_5 m_bottom_5 relative">
-            <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Vimeo</span>
-            <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
-              <i class="fa fa-vimeo-square"></i>
-            </a>
-          </li>
-          <li class="youtube m_left_5 m_bottom_5 relative">
-            <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Youtube</span>
-            <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
-              <i class="fa fa-youtube-play"></i>
-            </a>
-          </li>
-          <li class="flickr m_left_5 m_bottom_5 relative">
-            <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Flickr</span>
-            <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
-              <i class="fa fa-flickr"></i>
-            </a>
-          </li>
-          <li class="envelope m_left_5 m_bottom_5 relative">
-            <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Contact Us</span>
-            <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
-              <i class="fa fa-envelope-o"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <hr class="divider_type_4 m_bottom_50">
-      <div class="container">
-        <div class="row clearfix">
-          <div class="col-lg-3 col-md-3 col-sm-3 m_xs_bottom_30">
-            <h3 class="color_light_2 m_bottom_20">About</h3>
-            <p class="m_bottom_15">Paw Family is a one-stop online pet store which offers pet owners incredible savings on top quality pet supplies.<br><br>
+      <!--markup footer-->
+    <footer id="footer" class="type_2">
+      <div class="footer_top_part">
+        <div class="container t_align_c m_bottom_20">
+          <!--social icons-->
+          <ul class="clearfix d_inline_b horizontal_list social_icons">
+            <li class="facebook m_bottom_5 relative">
+              <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Facebook</span>
+              <a href="#" class="r_corners t_align_c tr_delay_hover f_size_ex_large">
+                <i class="fa fa-facebook"></i>
+              </a>
+            </li>
+            <li class="twitter m_left_5 m_bottom_5 relative">
+              <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Twitter</span>
+              <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
+                <i class="fa fa-twitter"></i>
+              </a>
+            </li>
+            <li class="google_plus m_left_5 m_bottom_5 relative">
+              <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Google Plus</span>
+              <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
+                <i class="fa fa-google-plus"></i>
+              </a>
+            </li>
+            <li class="rss m_left_5 m_bottom_5 relative">
+              <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Rss</span>
+              <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
+                <i class="fa fa-rss"></i>
+              </a>
+            </li>
+            <li class="pinterest m_left_5 m_bottom_5 relative">
+              <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Pinterest</span>
+              <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
+                <i class="fa fa-pinterest"></i>
+              </a>
+            </li>
+            <li class="instagram m_left_5 m_bottom_5 relative">
+              <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Instagram</span>
+              <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
+                <i class="fa fa-instagram"></i>
+              </a>
+            </li>
+            <li class="linkedin m_left_5 m_bottom_5 m_sm_left_5 relative">
+              <span class="tooltip tr_all_hover r_corners color_dark f_size_small">LinkedIn</span>
+              <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
+                <i class="fa fa-linkedin"></i>
+              </a>
+            </li>
+            <li class="vimeo m_left_5 m_bottom_5 relative">
+              <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Vimeo</span>
+              <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
+                <i class="fa fa-vimeo-square"></i>
+              </a>
+            </li>
+            <li class="youtube m_left_5 m_bottom_5 relative">
+              <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Youtube</span>
+              <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
+                <i class="fa fa-youtube-play"></i>
+              </a>
+            </li>
+            <li class="flickr m_left_5 m_bottom_5 relative">
+              <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Flickr</span>
+              <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
+                <i class="fa fa-flickr"></i>
+              </a>
+            </li>
+            <li class="envelope m_left_5 m_bottom_5 relative">
+              <span class="tooltip tr_all_hover r_corners color_dark f_size_small">Contact Us</span>
+              <a href="#" class="r_corners f_size_ex_large t_align_c tr_delay_hover">
+                <i class="fa fa-envelope-o"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <hr class="divider_type_4 m_bottom_50">
+        <div class="container">
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-3 m_xs_bottom_30">
+              <h3 class="color_light_2 m_bottom_20">About</h3>
+              <p class="m_bottom_15">Paw Family is a one-stop online pet store which offers pet owners incredible savings on top quality pet supplies.<br><br>
 
-              Our mission is to provide fantastic deals to cater the needs for your precious pets. As pet lovers ourselves, we value the quality and reliability of every product.</p>
-          </div>
-          <div class="col-lg-2 col-md-2 col-sm-2 m_xs_bottom_30">
-            <h3 class="color_light_2 m_bottom_20">Information</h3>
-            <ul class="vertical_list">
-              <li><a class="color_light tr_delay_hover" href="#">About Us<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="#">Delivery<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="#">Contact Us<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="#">Terms &amp; Conditions<i class="fa fa-angle-right"></i></a></li>
-            </ul>
-          </div>
-          <div class="col-lg-2 col-md-2 col-sm-2 m_xs_bottom_30">
-            <h3 class="color_light_2 m_bottom_20">Catalog</h3>
-            <ul class="vertical_list">
-              <li><a class="color_light tr_delay_hover" href="#">New Collection<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="#">Best Sellers<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="#">Specials<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="#">Manufacturers<i class="fa fa-angle-right"></i></a></li>
-            </ul>
-          </div>
-          <div class="col-lg-3 col-md-3 col-sm-3">
-            <h3 class="color_light_2 m_bottom_20">Contact Us</h3>
-            <ul class="c_info_list">
-              <li class="m_bottom_10">
-                <div class="clearfix m_bottom_15">
-                  <i class="fa fa-map-marker f_left"></i>
-                  <p class="contact_e">8901 Marmora Road,<br> Glasgow, D04 89GR.</p>
-                </div>
-              </li>
-              <li class="m_bottom_10">
-                <div class="clearfix m_bottom_10">
-                  <i class="fa fa-phone f_left"></i>
-                  <p class="contact_e">800-559-65-80</p>
-                </div>
-              </li>
-              <li class="m_bottom_10">
-                <div class="clearfix m_bottom_10">
-                  <i class="fa fa-envelope f_left"></i>
-                  <a class="contact_e color_light" href="mailto:#">info@companyname.com</a>
-                </div>
-              </li>
-              <li>
-                <div class="clearfix">
-                  <i class="fa fa-clock-o f_left"></i>
-                  <p class="contact_e">Monday - Friday: 08.00-20.00 <br>Saturday: 09.00-15.00<br> Sunday: closed</p>
-                </div>
-              </li>
-            </ul>
+                Our mission is to provide fantastic deals to cater the needs for your precious pets. As pet lovers ourselves, we value the quality and reliability of every product.</p>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 m_xs_bottom_30">
+              <h3 class="color_light_2 m_bottom_20">Information</h3>
+              <ul class="vertical_list">
+                <li><a class="color_light tr_delay_hover" href="#">About Us<i class="fa fa-angle-right"></i></a></li>
+                <li><a class="color_light tr_delay_hover" href="#">Delivery<i class="fa fa-angle-right"></i></a></li>
+                <li><a class="color_light tr_delay_hover" href="#">Contact Us<i class="fa fa-angle-right"></i></a></li>
+                <li><a class="color_light tr_delay_hover" href="#">Terms &amp; Conditions<i class="fa fa-angle-right"></i></a></li>
+              </ul>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 m_xs_bottom_30">
+              <h3 class="color_light_2 m_bottom_20">Catalog</h3>
+              <ul class="vertical_list">
+                <li><a class="color_light tr_delay_hover" href="#">New Collection<i class="fa fa-angle-right"></i></a></li>
+                <li><a class="color_light tr_delay_hover" href="#">Best Sellers<i class="fa fa-angle-right"></i></a></li>
+                <li><a class="color_light tr_delay_hover" href="#">Specials<i class="fa fa-angle-right"></i></a></li>
+                <li><a class="color_light tr_delay_hover" href="#">Manufacturers<i class="fa fa-angle-right"></i></a></li>
+              </ul>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h3 class="color_light_2 m_bottom_20">Contact Us</h3>
+              <ul class="c_info_list">
+                <li class="m_bottom_10">
+                  <div class="clearfix m_bottom_15">
+                    <i class="fa fa-map-marker f_left"></i>
+                    <p class="contact_e">8901 Marmora Road,<br> Glasgow, D04 89GR.</p>
+                  </div>
+                </li>
+                <li class="m_bottom_10">
+                  <div class="clearfix m_bottom_10">
+                    <i class="fa fa-phone f_left"></i>
+                    <p class="contact_e">800-559-65-80</p>
+                  </div>
+                </li>
+                <li class="m_bottom_10">
+                  <div class="clearfix m_bottom_10">
+                    <i class="fa fa-envelope f_left"></i>
+                    <a class="contact_e color_light" href="mailto:#">info@companyname.com</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="clearfix">
+                    <i class="fa fa-clock-o f_left"></i>
+                    <p class="contact_e">Monday - Friday: 08.00-20.00 <br>Saturday: 09.00-15.00<br> Sunday: closed</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!--copyright part-->
-    <div class="footer_bottom_part">
-      <div class="container clearfix t_mxs_align_c">
-        <p class="f_left f_mxs_none m_mxs_bottom_10">&copy; 2014 <span class="color_light">Pawfamily</span>. All Rights Reserved.</p>
-        <ul class="f_right horizontal_list clearfix f_mxs_none d_mxs_inline_b">
-          <li><img src="{{url("assets/flatastic")}}/images/payment_img_1.png" alt=""></li>
-        </ul>
+      <!--copyright part-->
+      <div class="footer_bottom_part">
+        <div class="container clearfix t_mxs_align_c">
+          <p class="f_left f_mxs_none m_mxs_bottom_10">&copy; 2014 <span class="color_light">Pawfamily</span>. All Rights Reserved.</p>
+          <ul class="f_right horizontal_list clearfix f_mxs_none d_mxs_inline_b">
+            <li><img src="{{url("assets/flatastic")}}/images/payment_img_1.png" alt=""></li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 </div>
 <!--social widgets-->
 <ul class="social_widgets d_xs_none">
@@ -609,32 +609,34 @@
   <section class="popup r_corners shadow">
     <button class="bg_tr color_dark tr_all_hover text_cs_hover close f_size_large"><i class="fa fa-times"></i></button>
     <h3 class="m_bottom_20 color_dark">Log In</h3>
-    {{csrf_field()}}
-    <ul>
-      <li id="div-login-result" class="m_bottom_15" style="display:none">
-        <div class="alert_box r_corners error m_bottom_10">
-          <i class="fa fa-exclamation"></i><p>Wrong username and/or password</p>
-        </div>
-      </li>
-      <li class="m_bottom_15">
-        <label for="email" class="m_bottom_5 d_inline_b">Email</label><br>
-        <input type="text" name="email" id="email" class="r_corners full_width">
-      </li>
-      <li class="m_bottom_25">
-        <label for="password" class="m_bottom_5 d_inline_b">Password</label><br>
-        <input type="password" name="password" id="password" class="r_corners full_width">
-      </li>
-      <li class="clearfix m_bottom_30">
-        <button type="button" id="btn-login" class="button_type_4 tr_all_hover r_corners f_left bg_scheme_color color_light f_mxs_none m_mxs_bottom_15">Log In</button>
-        <div class="f_right f_size_medium f_mxs_none">
-          <a href="{{url("forgot-password")}}" class="color_dark">Forgot your password?</a><br>
-        </div>
-      </li>
-    </ul>
-    <footer class="bg_light_color_1 t_mxs_align_c">
-      <h3 class="color_dark d_inline_middle d_mxs_block m_mxs_bottom_15">New customer?</h3>
-      <a href="{{url("register")}}" role="button" class="tr_all_hover r_corners button_type_4 bg_dark_color bg_cs_hover color_light d_inline_middle m_mxs_left_0">Register here</a>
-    </footer>
+    <form id="form-login">
+      {{csrf_field()}}
+      <ul>
+        <li id="div-login-result" class="m_bottom_15" style="display:none">
+          <div class="alert_box r_corners error m_bottom_10">
+            <i class="fa fa-exclamation"></i><p>Wrong username and/or password</p>
+          </div>
+        </li>
+        <li class="m_bottom_15">
+          <label for="email" class="m_bottom_5 d_inline_b">Email</label><br>
+          <input type="text" name="email" id="email" class="r_corners full_width">
+        </li>
+        <li class="m_bottom_25">
+          <label for="password" class="m_bottom_5 d_inline_b">Password</label><br>
+          <input type="password" name="password" id="password" class="r_corners full_width">
+        </li>
+        <li class="clearfix m_bottom_30">
+          <button type="button" id="btn-login" class="button_type_4 tr_all_hover r_corners f_left bg_scheme_color color_light f_mxs_none m_mxs_bottom_15">Log In</button>
+          <div class="f_right f_size_medium f_mxs_none">
+            <a href="{{url("forgot-password")}}" class="color_dark">Forgot your password?</a><br>
+          </div>
+        </li>
+      </ul>
+      <footer class="bg_light_color_1 t_mxs_align_c">
+        <h3 class="color_dark d_inline_middle d_mxs_block m_mxs_bottom_15">New customer?</h3>
+        <a href="{{url("register")}}" role="button" class="tr_all_hover r_corners button_type_4 bg_dark_color bg_cs_hover color_light d_inline_middle m_mxs_left_0">Register here</a>
+      </footer>
+    </form>
   </section>
 </div>
 <button class="t_align_c r_corners type_2 tr_all_hover animate_ftl" id="go_to_top"><i class="fa fa-angle-up"></i></button>
@@ -657,6 +659,7 @@
 <script src="{{url("assets/flatastic")}}/js/custom.js"></script>
 <script src="{{url("assets")}}/js/bootstrap3-typeahead.min.js"></script>
 <script src="{{url("assets")}}/js/jquery.powertip.min.js"></script>
+<script src="{{url("assets")}}/js/.min.js"></script>
 <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5306f8f674bfda4c"></script>
 
 <script type="text/javascript">
@@ -691,8 +694,8 @@
 
     $('#btn-login').click(function (){
       var data = {
-        email: $("#email").val(),
-        password: $("#password").val(),
+        email: $("#form-login #email").val(),
+        password: $("#form-login #password").val(),
         _token: $("input[name='_token']").val(),
       };
 
