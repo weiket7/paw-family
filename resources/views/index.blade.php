@@ -351,7 +351,7 @@
                     <span class="d_inline_middle">
                       <img class="d_inline_middle m_md_bottom_5" src="{{url("assets/flatastic")}}/images/banner_img_4.png" alt="">
                       <span class="d_inline_middle m_left_10 t_align_l d_md_block t_md_align_c">
-                        <b>Free<br class="d_none d_sm_block"> Delivery</b><br><span class="color_dark">For Orders >= ${{$settings_cache["freedeliveryaboveorequalto"]}}</span>
+                        <b>Free<br class="d_none d_sm_block"> Delivery</b><br><span class="color_dark">For Orders >= ${{Cache::get('settings_cache')["freedeliveryaboveorequalto"]}}</span>
                       </span>
                     </span>
             </a>

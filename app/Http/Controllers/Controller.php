@@ -19,23 +19,23 @@ class Controller extends BaseController
   public function __construct()
   {
     if (Cache::has("categories_cache")) {
-      view()->share("categories_cache", Cache::get("categories_cache"));
+      //view()->share("categories_cache", Cache::get("categories_cache"));
     } else {
       $category_service = new Category();
       $categories = $category_service->getCategoryAllForMenu();
       Cache::put("categories_cache", $categories, 1440);
-      view()->share("categories_cache", $categories);
+      //view()->share("categories_cache", $categories);
     }
 
     if (Cache::has("settings_cache")) {
-      view()->share("settings_cache", Cache::get("settings_cache"));
+      //view()->share("settings_cache", Cache::get("settings_cache"));
     } else {
       $setting_service = new Setting();
       $settings = $setting_service->getSettingAllWithNameKey();
       Cache::put("settings_cache", $settings, 1440);
-      view()->share("settings_cache", $settings);
+      //view()->share("settings_cache", $settings);
     }
 
-    view()->share("auth_check", Auth::check());
+    //view()->share("auth_check", Auth::check());
   }
 }

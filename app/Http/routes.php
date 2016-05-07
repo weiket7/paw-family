@@ -82,6 +82,12 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::get('admin/category/save/{category_id}', 'Admin\CategoryController@save');
   Route::post('admin/category/save/{category_id}', 'Admin\CategoryController@save');
 
+  Route::get('admin/supplier', 'Admin\SupplierController@index');
+  Route::get('admin/supplier/save', 'Admin\SupplierController@save');
+  Route::post('admin/supplier/save', 'Admin\SupplierController@save');
+  Route::get('admin/supplier/save/{supplier_id}', 'Admin\SupplierController@save');
+  Route::post('admin/supplier/save/{supplier_id}', 'Admin\SupplierController@save');
+
   Route::get('admin/product/option', 'Admin\OptionController@index');
   Route::get('admin/product/option/save', 'Admin\OptionController@save');
   Route::post('admin/product/option/save', 'Admin\OptionController@save');
