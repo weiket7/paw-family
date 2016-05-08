@@ -1,4 +1,5 @@
 <?php use App\Models\Enums\MainCategory; ?>
+<?php use App\Models\Enums\ProductDescType; ?>
 
 @extends('template', [
   "breadcrumbs"=>[
@@ -142,17 +143,23 @@
             <!--tabs navigation-->
             <nav>
               <ul class="tabs_nav horizontal_list clearfix">
-                <li class="f_xs_none"><a href="#tab-1" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Description</a></li>
-                {{--<li class="f_xs_none"><a href="#tab-2" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Specifications</a></li>
-                <li class="f_xs_none"><a href="#tab-3" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Reviews</a></li>
-                <li class="f_xs_none"><a href="#tab-4" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Custom Tab</a></li>--}}
+                @foreach($product->descs as $desc)
+                  <li class="f_xs_none"><a href="#tab-desc{{$desc->product_desc_id}}" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">{{ProductDescType::$values[$desc->type]}}</a></li>
+                @endforeach
               </ul>
             </nav>
             <section class="tabs_content shadow r_corners">
-              <div id="tab-1">
-                <p class="m_bottom_10">Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit. Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Donec sit amet eros. Lorem ipsum dolor sit amet, consecvtetuer adipiscing elit. Mauris fermentum dictum magna. Sed laoreet aliquam leo. Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit. Aenean auctor wisi et urna. </p>
-                <p class="m_bottom_15">Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse sollicitudin velit sed leo. Ut pharetra augue nec augue. Nam elit agna,endrerit sit amet, tincidunt ac, viverra sed, nulla. Donec porta diam eu massa. Quisque diam lorem, interdum vitae,dapibus ac, scelerisque vitae, pede. Donec eget tellus non erat lacinia fermentum. </p>
+              @foreach($product->descs as $desc)
+              <div id="tab-desc{{$desc->product_desc_id}}">
+                @if($desc->type == ProductDescType::Description || $desc->type == ProductDescType::Ingredient )
+                  {!! nl2br($desc->value) !!}
+                @elseif($desc->type == ProductDescType::Video)
+                  <div class="iframe_video_wrap">
+                    <iframe src="http://www.youtube.com/embed/{{$desc->value}}?wmode=transparent"></iframe>
+                  </div>
+                @endif
               </div>
+              @endforeach
             </section>
           </div>
           <div class="clearfix">

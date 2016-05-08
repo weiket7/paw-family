@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Enums\ProductDescType;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -19,7 +20,7 @@ class ProductDescTable extends Migration
     DB::table('product_desc')->insert([
       'product_desc_id'=>1,
       'product_id'=>1,
-      'type'=>\App\Models\Enums\ProductDescType::Description,
+      'type'=> ProductDescType::Description,
       'value'=>'Addiction Dry Dog Food Viva La Venison
         
 - New Zealand Venison High in Protein, Low in Fat
@@ -66,6 +67,12 @@ Caloric Content 4286 kcal/kg
 
 
 Product of USA',
+    ]);
+    DB::table('product_desc')->insert([
+      'product_desc_id'=>2,
+      'product_id'=>1,
+      'type'=> ProductDescType::Video,
+      'value'=>'SSkIAMHRWuU'
     ]);
   }
 

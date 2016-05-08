@@ -186,20 +186,6 @@ class Product extends Eloquent
     return $this->validation;
   }
 
-  public function saveProductDesc($product_desc_id, $type, $value) {
-    $arr = [
-      'product_desc_id'=>$product_desc_id,
-      'type'=>$type,
-      'value'=>$value,
-    ];
-    if ($product_desc_id == 0) {
-      DB::table("product_desc")->insert($arr);
-    } else {
-      DB::table("product_desc")->update($arr);
-    }
-    return true;
-  }
-  
   public function getProductByBrand($brand_ids)
   {
     if (is_array($brand_ids)) {
