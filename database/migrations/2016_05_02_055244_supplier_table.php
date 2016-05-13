@@ -10,14 +10,15 @@ class SupplierTable extends Migration
     Schema::create('supplier', function (Blueprint $table) {
       $table->increments('supplier_id');
       $table->char('stat', 1);
+      $table->integer('product_count');
       $table->string('name', 50);
     });
 
     DB::table('supplier')->insert([
-      'supplier_id'=>1, 'stat'=>'', 'name'=>'Addiction Pet Foods'
+      'supplier_id'=>1, 'stat'=>'', 'name'=>'Addiction Pet Foods', 'product_count'=>21,
     ]);
     DB::table('supplier')->insert([
-      'supplier_id'=>2, 'stat'=>'', 'name'=>'Primal Pet Foods'
+      'supplier_id'=>2, 'stat'=>'', 'name'=>'Primal Pet Foods', 'product_count'=>4,
     ]);
   }
 

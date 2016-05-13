@@ -3,7 +3,6 @@
 @extends("admin.template", [
   "title"=>ucfirst($action)." Category",
   "action"=>$action,
-  'hide_delete'=>true,
 ])
 
 @section("content")
