@@ -65,7 +65,7 @@ class Product extends Eloquent
   }
 
   public function getProductFeatured() {
-    $s = "SELECT p.name, p.desc_short, p.stat as product_stat, f.stat as featured_stat
+    $s = "SELECT p.name, p.desc_short, p.slug, p.stat as product_stat, f.stat as featured_stat
       FROM product AS p
       inner join featured as f on f.product_id = p.product_id";
     $products = DB::select($s);

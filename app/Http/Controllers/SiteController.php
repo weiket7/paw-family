@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Models\Banner;
+use App\Models\Enums\FeaturedType;
+use App\Models\Featured;
 use App\Models\Testimonial;
 use Auth;
 use Mail;
@@ -64,10 +66,10 @@ class SiteController extends Controller
   }
 
   public function index() {
-    $product_service = new Product();
+    $featured_service = new Featured();
     $banner_service = new Banner();
     $data['banners'] = $banner_service->getBannerAllForHome();
-    $data['products'] = $product_service->getProductFeatured();
+    $data['products'] = $featured_service->getFeaturedAll();
     $data['brands'] = Brand::all();
     $data['testimonials'] = Testimonial::all();
     return view("index", $data);

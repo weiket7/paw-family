@@ -205,7 +205,10 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Image</label>
+                <label class="control-label col-md-3">
+                  Image<br>
+                  <span class="help-block"> 242px width x 322px height</span>
+                </label>
                 <div class="col-md-9">
                   @if(strlen($product->image) > 0)
                     <img src="{{url("assets/images/products/".$product->image)}}" class='thumbnail' style="max-height:200px;"/>

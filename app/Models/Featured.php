@@ -4,10 +4,10 @@ use App\Models\Enums\DiscountType;
 use CommonHelper;
 use Eloquent, DB, Validator;
 
-class Feature extends Eloquent
+class Featured extends Eloquent
 {
-  public $table = 'feature';
-  protected $primaryKey = 'feature_id';
+  public $table = 'featured';
+  protected $primaryKey = 'featured_id';
   protected $validation;
   public $timestamps = false;
 
@@ -30,6 +30,14 @@ class Feature extends Eloquent
     'weight_lb.numeric' => 'Weight (lbs) must be numeric',
     'weight_kg.numeric' => 'Weight (kbs) must be numeric',
   ];
+
+  public function getFeaturedAll() {
+    $s = "SELECT p.name, p.desc_short, p.stat as product_stat, p.image, f.type as featured_type
+      FROM product AS p
+      inner join featured as f on f.product_id = p.product_id";
+    $products = DB::select($s);
+    return $products;
+  }
 
   public function saveFeature() {
     
