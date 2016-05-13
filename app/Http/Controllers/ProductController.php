@@ -34,11 +34,10 @@ class ProductController extends Controller
     $data['selected_brand_ids'] = $selected_brand_ids;
     $data['breadcrumbs'] = ['Categories', $category->main_category, $category->name];
 
-    return view("grid", $data);
+    return view("grid", $data)->withInput('input', Input::all());
   }
 
   public function brand($slugs) {
-
     $brand_service = new Brand();
     $brands = $brand_service->getBrandWithProductCountBySlug($slugs);
     $selected_brand_ids = CommonHelper::getIdFromArr($brands, 'brand_id');
@@ -65,7 +64,7 @@ class ProductController extends Controller
   public function autocomplete() {
     $term = Input::get("query");
     $product_service = new Product();
-    $data = $product_service->searchProduct($term);
+    $data = $product_service->searchProductByTerm($term);
 
     $res = [];
     foreach($data as $d) {

@@ -87,7 +87,29 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Price</label>
+                <label class="control-label col-md-3">Cost Price</label>
+                <div class="col-md-9">
+                  <div class="input-icon">
+                    <i class="fa fa-dollar"></i>
+                    {!! Form::text('cost_price', $product->cost_price, ['class'=>'form-control']) !!}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Processing Days</label>
+                <div class="col-md-9">
+                  {!! Form::text('processing_day', $product->processing_day, ['class'=>'form-control']) !!}
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Selling Price</label>
                 <div class="col-md-9">
                   <div class="input-icon">
                     <i class="fa fa-dollar"></i>
@@ -96,6 +118,19 @@
                 </div>
               </div>
             </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Discount Amount</label>
+                <div class="col-md-9">
+                  <div class="input-icon">
+                    <i class="fa fa-dollar"></i>
+                    {!! Form::text('discount_amt', $product->discount_amt, ['class'=>'form-control']) !!}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label class="control-label col-md-3">Discounted Price</label>
@@ -108,20 +143,6 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label col-md-3">Discount Amount</label>
-                <div class="col-md-9">
-                  <div class="input-icon">
-                    <i class="fa fa-dollar"></i>
-                    {!! Form::text('discount_amt', $product->discount_amt, ['class'=>'form-control']) !!}
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div class="col-md-6">
               <div class="form-group">
                 <label class="control-label col-md-3">Discount Percentage</label>
@@ -152,21 +173,6 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label col-md-3">Processing Days</label>
-                <div class="col-md-9">
-                  {!! Form::text('processing_day', $product->processing_day, ['class'=>'form-control']) !!}
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-
-            </div>
-
-          </div>
-
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">

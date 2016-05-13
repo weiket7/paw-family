@@ -64,7 +64,7 @@ class ProductTest extends \Codeception\TestCase\Test
 
     public function testSearchProductSuccess() {
         $product_service = new Product();
-        $products = $product_service->searchProduct("venison");
+        $products = $product_service->searchProductByTerm("venison");
         $this->assertGreaterThan(0, count($products));
     }
 

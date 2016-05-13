@@ -2,6 +2,7 @@
 
 use App\Models\Enums\DiscountType;
 use App\Models\Enums\ProductOptionType;
+use App\Models\Enums\ProductStat;
 use CommonHelper;
 use Eloquent, DB, Validator;
 
@@ -11,6 +12,7 @@ class Product extends Eloquent
   protected $primaryKey = 'product_id';
   protected $validation;
   public $timestamps = false;
+  protected $attributes = ['stat'=>ProductStat::Available];
 
   private $rules = [
     'name'=>'required',
@@ -38,6 +40,7 @@ class Product extends Eloquent
     $this->supplier_id = $input['supplier_id'];
     $this->brand_id = $input['brand_id'];
     $this->category_id = $input['category_id'];
+    $this->cost_price = $input['cost_price'];
     $this->price = $input['price'];
     $this->processing_day = $input['processing_day'];
     $this->weight_lb = $input['weight_lb'];
@@ -93,24 +96,22 @@ class Product extends Eloquent
   }
 
   public function getProductAll() {
-    $s = "SELECT product_id, p.name, p.slug, p.image, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat, supplier_id, sku,
-    b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight_lb, weight_kg,
+    $s = "SELECT product_id, p.name, p.slug, p.image, cost_price, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat, supplier_id, sku,
+    brand_id, category_id, processing_day, weight_lb, weight_kg,
     desc_short
-    from product as p
-    inner join brand as b on p.brand_id = b.brand_id
-    inner join category as c on p.category_id = c.category_id";
+    from product as p";
     $products = DB::select($s);
 
     foreach($products as $product) {
       $product->sizes = $this->getProductSize($product->product_id);
       $product->repacks = $this->getProductOption($product->product_id, ProductOptionType::Repack);
-      $product->descs = $this->getProductDesc($product->product_id);
+      //$product->descs = $this->getProductDesc($product->product_id);
     }
     return $products;
   }
 
   public function getProduct($intOrSlug) {
-    $s = "SELECT product_id, p.name, p.slug, p.image, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat, supplier_id, sku,
+    $s = "SELECT product_id, p.name, p.slug, p.image, cost_price, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat, supplier_id, sku,
     b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight_lb, weight_kg,
     desc_short
     FROM product as p
@@ -175,7 +176,32 @@ class Product extends Eloquent
     return $res;
   }
 
-  public function searchProduct($term)
+  public function searchProduct($input) {
+    $s = "SELECT * from product where 1 ";
+      if($input['name'] != '') {
+        $s .= " and name LIKE '%".$input['name']."%'";
+    }
+    if (isset($input['brand_id']) && $input['brand_id'] != '') {
+      $s .= " and brand_id = $input[brand_id]";
+    }
+    if (isset($input['category_id']) && $input['category_id'] != '') {
+      $s .= " and category_id = $input[category_id]";
+    }
+    if (isset($input['stat']) && $input['stat'] != '') {
+      $s .= " and stat = '$input[stat]'";
+    }
+    $products = DB::select($s);
+
+    foreach($products as $product) {
+      $product->sizes = $this->getProductSize($product->product_id);
+      $product->repacks = $this->getProductOption($product->product_id, ProductOptionType::Repack);
+      //$product->descs = $this->getProductDesc($product->product_id);
+    }
+
+    return $products;
+  }
+
+  public function searchProductByTerm($term)
   {
     $s = "SELECT slug, name from product where name like :term";
     $p["term"] = '%'.$term.'%';

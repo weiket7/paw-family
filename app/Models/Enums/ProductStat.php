@@ -6,6 +6,7 @@ abstract class ProductStat {
   const OutOfStock = 'O';
 
   static $values = [
+    ''=>'',
     self::Available=>'Available',
     self::Hidden=>'Hidden',
     self::OutOfStock=>'Out Of Stock',
