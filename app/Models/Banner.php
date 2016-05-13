@@ -20,7 +20,7 @@ class Banner extends Eloquent
     if ($image) {
       $this->image = CommonHelper::uploadImage('banners', $this->attributes['name'], $image);
     }
-    $this->link = $input['link'];
+    $this->link = $input['link'] == '' ? '#' : $input['link'];
     $this->type = $input['type'];
     if (isset($input['stat'])) {
       $this->stat = $input['stat'];
@@ -32,5 +32,15 @@ class Banner extends Eloquent
 
   public function getValidation() {
     return $this->validation;
+  }
+
+  public function getBannerAllForHome()
+  {
+    $data = Banner::all();
+    $res = [];
+    foreach($data as $d) {
+      $res[$d->banner_id] = $d;
+    }
+    return $res;
   }
 }

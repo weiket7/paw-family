@@ -529,7 +529,7 @@ License: You must have a valid license purchased only from themeforest(the above
         </li>
         <li class="nav-item">
           <a href="{{url("admin/product")}}" class="nav-link nav-toggle">
-            <i class="icon-star"></i>
+            <i class="icon-bulb"></i>
             <span class="title">Products</span>
             <span class="arrow"></span>
           </a>
@@ -550,21 +550,21 @@ License: You must have a valid license purchased only from themeforest(the above
         </li>
         <li class="nav-item">
           <a href="{{url('admin/brand')}}" class="nav-link nav-toggle">
-            <i class="icon-settings"></i>
+            <i class="icon-star"></i>
             <span class="title">Brands</span>
             <span class="arrow"></span>
           </a>
         </li>
         <li class="nav-item">
           <a href="{{url('admin/category')}}" class="nav-link nav-toggle">
-            <i class="icon-frame"></i>
+            <i class="icon-grid"></i>
             <span class="title">Categories</span>
             <span class="arrow"></span>
           </a>
         </li>
         <li class="nav-item">
           <a href="{{url('admin/supplier')}}" class="nav-link nav-toggle">
-            <i class="icon-frame"></i>
+            <i class="icon-paper-plane"></i>
             <span class="title">Suppliers</span>
             <span class="arrow"></span>
           </a>

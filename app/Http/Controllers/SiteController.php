@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App;
+use App\Models\Banner;
 use Auth;
 use Mail;
 use App\Models\Brand;
@@ -63,6 +64,8 @@ class SiteController extends Controller
 
   public function index() {
     $product_service = new Product();
+    $banner_service = new Banner();
+    $data['banners'] = $banner_service->getBannerAllForHome();
     $data['products'] = $product_service->getProductFeatured();
     return view("index", $data);
   }
