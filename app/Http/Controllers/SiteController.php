@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Models\Banner;
+use App\Models\Testimonial;
 use Auth;
 use Mail;
 use App\Models\Brand;
@@ -67,6 +68,8 @@ class SiteController extends Controller
     $banner_service = new Banner();
     $data['banners'] = $banner_service->getBannerAllForHome();
     $data['products'] = $product_service->getProductFeatured();
+    $data['brands'] = Brand::all();
+    $data['testimonials'] = Testimonial::all();
     return view("index", $data);
   }
 

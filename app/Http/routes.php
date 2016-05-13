@@ -94,15 +94,13 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::get('admin/product/option/save/{option_id}', 'Admin\OptionController@save');
   Route::post('admin/product/option/save/{option_id}', 'Admin\OptionController@save');
 
+  Route::get('admin/featured', 'Admin\FeaturedController@index');
+
   Route::get('admin/banner', 'Admin\BannerController@index');
-  Route::get('admin/banner/save', 'Admin\BannerController@save');
-  Route::post('admin/banner/save', 'Admin\BannerController@save');
   Route::get('admin/banner/save/{banner_id}', 'Admin\BannerController@save');
   Route::post('admin/banner/save/{banner_id}', 'Admin\BannerController@save');
 
   Route::get('admin/setting', 'Admin\SettingController@index');
-  Route::get('admin/setting/save', 'Admin\SettingController@save');
-  Route::post('admin/setting/save', 'Admin\SettingController@save');
   Route::get('admin/setting/save/{setting_id}', 'Admin\SettingController@save');
   Route::post('admin/setting/save/{setting_id}', 'Admin\SettingController@save');
 });

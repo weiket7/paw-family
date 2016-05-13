@@ -4,7 +4,7 @@
   <div class="page_content_offset">
     <div class="container">
       <div class="row clearfix">
-        <section class="col-lg-9 col-md-9 col-sm-9 m_xs_bottom_30">
+        <section class="col-lg-12 col-md-12 col-sm-12 m_xs_bottom_30">
           <h2 class="tt_uppercase color_dark m_bottom_30">Brands</h2>
           <div class="bg_light_color_3 r_corners shadow manufacturers t_xs_align_c">
             <?php $cur = 1; $count = count($brands); $column_in_row = 4;?>
