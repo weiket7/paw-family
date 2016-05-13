@@ -45,7 +45,7 @@ class FeaturedTable extends Migration
       'featured_id'=>4,
       'product_id'=>5,
       'pos'=>4,
-      'type'=> FeaturedType::Normal,
+      'type'=> FeaturedType::Featured,
       'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
 
@@ -53,7 +53,7 @@ class FeaturedTable extends Migration
       'featured_id'=>5,
       'product_id'=>6,
       'pos'=>5,
-      'type'=> FeaturedType::Normal,
+      'type'=> FeaturedType::Featured,
       'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
 
@@ -61,7 +61,7 @@ class FeaturedTable extends Migration
       'featured_id'=>6,
       'product_id'=>7,
       'pos'=>6,
-      'type'=> FeaturedType::Normal,
+      'type'=> FeaturedType::Featured,
       'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
   }

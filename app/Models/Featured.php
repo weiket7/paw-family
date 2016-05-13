@@ -32,11 +32,16 @@ class Featured extends Eloquent
   ];
 
   public function getFeaturedAll() {
-    $s = "SELECT p.name, p.desc_short, p.stat as product_stat, p.image, f.type as featured_type
+    $s = "SELECT p.name, p.desc_short, p.stat as product_stat, p.image, p.slug, f.type as featured_type
       FROM product AS p
       inner join featured as f on f.product_id = p.product_id";
-    $products = DB::select($s);
-    return $products;
+    $data = DB::select($s);
+
+    $res = [];
+    foreach($data as $d) {
+      $res[$d->featured_type][] = $d;
+    }
+    return $res;
   }
 
   public function saveFeature() {
