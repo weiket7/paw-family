@@ -14,11 +14,13 @@ class ProductTable extends Migration
         $t->increments('product_id');
         $t->integer('category_id');
         $t->integer('brand_id');
+        $t->char('stat', 1);
         $t->string('name', 150);
         $t->string('slug', 150);
         $t->string('sku', 20);
         $t->integer('supplier_id');
-        $t->decimal('price', 7, 2);
+        $t->decimal('cost_price', 7, 2);
+        $t->decimal('price', 7, 2); //selling_price
         $t->decimal('discount_percentage', 5, 2);
         $t->char('discount_type', 1); //A or P
         $t->decimal('discounted_price', 7, 2);
@@ -29,7 +31,10 @@ class ProductTable extends Migration
         $t->decimal('discount_amt', 7, 2); //round down
         $t->string('image', 150);
         $t->string('desc_short', 250);
-        $t->char('stat', 1);
+        $t->string('meta_title', 250);
+        $t->string('meta_keyword', 250);
+        $t->string('meta_desc', 250);
+        $t->integer("view_count");
         $t->string('updated_by', 20);
         $t->dateTime('updated_on');
       });

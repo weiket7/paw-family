@@ -693,6 +693,10 @@
 
 
     $('#btn-login').click(function (){
+      login();
+    });
+
+    function login() {
       var data = {
         email: $("#form-login #email").val(),
         password: $("#form-login #password").val(),
@@ -718,6 +722,12 @@
           alert("An error has occurred, please contact admin@pawfamily.sg");
         }
       });
+    }
+
+    $('#email, #password').keypress(function(event) {
+      if (event.keyCode == 13 || event.which == 13) {
+        login();
+      }
     });
   });
 </script>

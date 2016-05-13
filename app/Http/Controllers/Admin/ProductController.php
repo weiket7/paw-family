@@ -27,27 +27,31 @@ class ProductController extends Controller
   public function save(Request $request, $product_id = null) {
     $product = Product::findOrNew($product_id);
     $action = $product_id == null ? 'create' : 'update';
+    $category_service = new Category();
     if($request->isMethod('post')) {
       $input = $request->all();
       if (isset($input['delete']) && $input['delete'] == 'true') {
         $product->delete();
+        $category_service->updateProductCount($product->category_id);
         return redirect('admin/product')->with('msg', 'Product deleted');
       }
       if (! $product->saveProduct($input, $request->file('image'))) {
         return redirect()->back()->withErrors($product->getValidation())->withInput($input);
+      }
+      if ($action == 'create') {
+        $category_service->updateProductCount($product->category_id);
       }
       return redirect('admin/product/save/'.$product->product_id)->with('msg', 'Product ' . $action . "d");
     }
 
     $product_service = new Product();
     $data['product'] = $product_service->getProduct((int)$product_id);
-    $category_service = new Category();
     $data['categories'] = $category_service->getCategoryForDropdown();
     $supplier_service = new Supplier();
     $data['suppliers'] = $supplier_service->getSupplierForDropdown();
     $brand_service = new Brand();
     $data['brands'] = $brand_service->getBrandForDropdown();
-    $data['action'] = ($product_id == null || $product_id == 0) ? "create" : "update";
+    $data['action'] = $action;
     return view("admin.product.form", $data);
   }
 

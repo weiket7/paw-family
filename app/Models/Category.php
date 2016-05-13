@@ -19,8 +19,20 @@ class Category extends Eloquent {
 
   public function saveCategory($input) {
     $this->name = $input['name'];
+    $this->main_category = $input['main_category'];
     $this->save();
     return true;
+  }
+  
+  public function deleteCategory() {
+    $this->validation = Validator::make($input, $this->rules_register, $this->messages_register );
+  
+    $this->email = $input['email'];
+    $this->validation->after(function($validator) {
+      if(! $this->emailAvailable($this->email)) {
+        $validator->errors()->add("email", "Email has been registered");
+      }
+    });
   }
 
   public function getCategoryAllForMenu() {
@@ -44,6 +56,15 @@ class Category extends Eloquent {
   public function getCategoryBySlug($slug)
   {
     return Category::where('slug', $slug)->firstOrFail();
+  }
+
+  public function updateProductCount($category_id) {
+    $product_count = Product::where("category_id", $category_id)->count();
+
+    $s = "UPDATE category set product_count = :product_count where category_id = :category_id";
+    $p['category_id'] = $category_id;
+    $p['product_count'] = $product_count;
+    return DB::update($s, $p);
   }
 
   public function getValidation() {

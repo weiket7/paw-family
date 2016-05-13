@@ -1,3 +1,4 @@
+<?php use App\Models\Enums\MainCategory; ?>
 
 @extends("admin.template", [
   "title"=>"Categories",
@@ -11,18 +12,18 @@
     <tr>
       <th width="150px">Name</th>
       <th width="100px">Main Category</th>
+      <th width="100px">Product Count</th>
       <th>Order</th>
     </tr>
     </thead>
     <tbody>
-    @foreach($categories as $main_category => $category)
-      @foreach($category as $c)
+    @foreach($categories as $category)
       <tr>
-        <td><a href="{{(url("admin/category/save/".$c->category_id))}}">{{$c->name}}</a></td>
-        <td>{{ \App\Models\Enums\MainCategory::$values[$main_category] }}</td>
-        <td>{{$c->pos}}</td>
+        <td><a href="{{(url("admin/category/save/".$category->category_id))}}">{{$category->name}}</a></td>
+        <td>{{ MainCategory::$values[$category->main_category] }}</td>
+        <td>{{$category->product_count}}</td>
+        <td>{{$category->pos}}</td>
       </tr>
-      @endforeach
     @endforeach
     </tbody>
   </table>

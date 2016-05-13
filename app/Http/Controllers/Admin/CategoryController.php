@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
   public function index(Request $request) {
-    $category_service = new Category();
-    $data['categories'] = $category_service->getCategoryAllForMenu();
+    $data['categories'] = Category::all();
     return view("admin.category.index", $data);
   }
 
@@ -19,8 +18,11 @@ class CategoryController extends Controller
     if($request->isMethod('post')) {
       $input = $request->all();
       if (isset($input['delete']) && $input['delete'] == 'true') {
+        if ($category->product_count > 0) {
+          return redirect()->back()->withErrors(['product_count'=>'Category cannot be deleted because there are products'])->withInput($input);
+        }
         $category->delete();
-        return redirect('admin/category/save/'.$category->product_id)->with('msg', 'Category deleted');
+        return redirect('admin/category')->with('msg', 'Category deleted');
       }
       if (! $category->saveCategory($input, $request->file('image'))) {
         return redirect()->back()->withErrors($category->getValidation())->withInput($input);

@@ -72,7 +72,7 @@ Product of USA',
       'product_desc_id'=>2,
       'product_id'=>1,
       'type'=> ProductDescType::Video,
-      'value'=>'SSkIAMHRWuU'
+      'value'=>'5SXqYtbqhOM'
     ]);
   }
 
