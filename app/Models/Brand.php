@@ -25,6 +25,7 @@ class Brand extends Eloquent
     }
 
     $this->name = $input['name'];
+    $this->slug = str_slug($input['name']);
     if ($image) {
       $this->image = CommonHelper::uploadImage('brands', $input['name'], $image);
     }

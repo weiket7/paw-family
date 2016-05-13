@@ -20,21 +20,11 @@ class Category extends Eloquent {
   public function saveCategory($input) {
     $this->name = $input['name'];
     $this->main_category = $input['main_category'];
+    $this->slug = str_slug($input['name']);
     $this->save();
     return true;
   }
   
-  public function deleteCategory() {
-    $this->validation = Validator::make($input, $this->rules_register, $this->messages_register );
-  
-    $this->email = $input['email'];
-    $this->validation->after(function($validator) {
-      if(! $this->emailAvailable($this->email)) {
-        $validator->errors()->add("email", "Email has been registered");
-      }
-    });
-  }
-
   public function getCategoryAllForMenu() {
     $data = Category::all();
     $res = [];

@@ -1,6 +1,6 @@
 
 @extends("admin.template", [
-  "title"=>"Brand",
+  "title"=>ucfirst($action) . " Brand",
   "form"=>$action,
 ])
 
@@ -20,6 +20,11 @@
         @endif
         {!! Form::file('image') !!}
       </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-md-2">Product Count</label>
+      <label class="form-control-static col-md-10">{{ $brand->product_count }}</label>
     </div>
   </div>
 @endsection

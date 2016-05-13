@@ -18,6 +18,9 @@ class BrandController extends Controller
     if($request->isMethod('post')) {
       $input = $request->all();
       if (isset($input['delete']) && $input['delete'] == 'true') {
+        if ($brand->product_count > 0) {
+          return redirect()->back()->withErrors(['product_count'=>'Brand cannot be deleted because there are products'])->withInput($input);
+        }
         $brand->delete();
         return redirect('admin/brand')->with('msg', 'Brand deleted');
       }
