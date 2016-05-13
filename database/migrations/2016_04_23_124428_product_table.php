@@ -35,6 +35,7 @@ class ProductTable extends Migration
         $t->string('meta_keyword', 250);
         $t->string('meta_desc', 250);
         $t->integer("view_count");
+        $t->integer("size_count");
         $t->string('updated_by', 20);
         $t->dateTime('updated_on');
       });

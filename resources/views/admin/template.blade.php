@@ -542,7 +542,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </a>
         </li>
         <li class="nav-item  ">
-          <a href="#" class="nav-link nav-toggle">
+          <a href="{{url('admin/banner')}}" class="nav-link nav-toggle">
             <i class="icon-frame"></i>
             <span class="title">Banners</span>
             <span class="arrow"></span>
@@ -604,7 +604,9 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class='col-xs-6 text-right'>
                       @if($action == "create" || $action == "update")
                         <button class="btn green-haze" type="submit"><i class="fa fa-check"></i> Save</button>
-                        @if($action == "update")
+                        @if(isset($hide_delete) && $hide_delete == true)
+
+                        @elseif($action == "update")
                           <input type="hidden" name="delete" id="delete">
                           <button id="btn-delete" type="button" class="btn red-sunglo" data-placement="bottom" data-singleton='true' data-toggle='confirmation' data-original-title='Are you sure?'><i class="fa fa-times"></i> Delete</button>
                         @endif

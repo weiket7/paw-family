@@ -14,26 +14,45 @@ class BannerTable extends Migration
         $t->char('type', 1);
         $t->char('stat', 1);
         $t->string('image', 50);
+        $t->string('dimension', 100);
         $t->integer('product_id');
         $t->integer('brand_id');
         $t->integer('category_id');
         $t->integer('promo_id');
         //$t->dateTime('start_on');
         //$t->dateTime('end_on');
-        $t->tinyInteger('pos');
-        $t->string('updated_on', 10);
-        $t->timestamp('updated_at');
+        $t->string('updated_by', 10);
+        $t->dateTime('updated_on');
       });
 
       DB::table('banner')->insert([
-        'banner_id'=>1, 'image'=>'slider_layer_img.png', 'pos'=>1,
-        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')]);
+        'banner_id'=>1, 'name'=>'Main 1', 'image'=>'slide_04.jpg', 'dimension'=>'848px width x 460px height',
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
       DB::table('banner')->insert([
-        'banner_id'=>2, 'image'=>'slide_04.jpg', 'pos'=>2,
-        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')]);
+        'banner_id'=>2, 'name'=>'Main 2', 'image'=>'slide_04.jpg', 'dimension'=>'848px width x 460px height',
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
       DB::table('banner')->insert([
-        'banner_id'=>3, 'image'=>'slide_04.jpg', 'pos'=>3,
-        'updated_on'=>'ruth', 'updated_at'=>date('Y-m-d H:i:s')]);
+        'banner_id'=>3, 'name'=>'Main 3', 'image'=>'slide_04.jpg', 'dimension'=>'848px width x 460px height',
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+      DB::table('banner')->insert([
+        'banner_id'=>5, 'name'=>'Main 4', 'image'=>'', 'dimension'=>'848px width x 460px height',
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+      DB::table('banner')->insert([
+        'banner_id'=>6, 'name'=>'Main 5', 'image'=>'', 'dimension'=>'848px width x 460px height',
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+      DB::table('banner')->insert([
+        'banner_id'=>7, 'name'=>'Right top', 'image'=>'banner_img_7.jpg', 'dimension'=>'262px width x 220px height',
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+      DB::table('banner')->insert([
+        'banner_id'=>8, 'name'=>'Right bottom', 'image'=>'banner_img_8.jpg', 'dimension'=>'262px width x 220px height',
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+      DB::table('banner')->insert([
+        'banner_id'=>9, 'name'=>'Bottom left', 'image'=>'banner_img_1.png', 'dimension'=>'550px width x 220px height',
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+      DB::table('banner')->insert([
+        'banner_id'=>10, 'name'=>'Bottom right', 'image'=>'banner_img_1.png', 'dimension'=>'550px width x 220px height',
+        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+
     }
 
     public function down()

@@ -90,11 +90,6 @@ class Product extends Eloquent
     }
   }
 
-  public function getProducts($product_ids) {
-    $product_ids = implode($product_ids, ',');
-    //TODO
-  }
-
   public function getProductAll() {
     $s = "SELECT product_id, p.name, p.slug, p.image, cost_price, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat, supplier_id, sku,
     brand_id, category_id, processing_day, weight_lb, weight_kg,
@@ -195,7 +190,6 @@ class Product extends Eloquent
     foreach($products as $product) {
       $product->sizes = $this->getProductSize($product->product_id);
       $product->repacks = $this->getProductOption($product->product_id, ProductOptionType::Repack);
-      //$product->descs = $this->getProductDesc($product->product_id);
     }
 
     return $products;

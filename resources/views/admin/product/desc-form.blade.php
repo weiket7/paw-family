@@ -16,7 +16,7 @@
       <div class="col-md-10">
         {!! Form::select('type', ProductDescType::$values, $product_desc->type, ['class'=>'form-control']) !!}
         <p class="help-block" id="div-video">
-          For videos, paste only the part after watch?=v<br>
+          For videos, paste the part after watch?=v<br>
           https://www.youtube.com/watch?v=<b>5SXqYtbqhOM</b>
         </p>
       </div>
