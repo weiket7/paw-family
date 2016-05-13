@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Enums\BannerStat;
+use App\Models\Enums\BannerType;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -26,32 +28,32 @@ class BannerTable extends Migration
       });
 
       DB::table('banner')->insert([
-        'banner_id'=>1, 'name'=>'Main 1', 'image'=>'slide_04.jpg', 'dimension'=>'848px width x 460px height',
-        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+        'banner_id'=>1, 'name'=>'Main 1', 'image'=>'slide_04.jpg', 'dimension'=>'848px width x 460px height', 'link'=>'product/view/addiction-viva-la-venison',
+        'stat'=>BannerStat::Active, 'type'=>BannerType::Product, 'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
       DB::table('banner')->insert([
         'banner_id'=>2, 'name'=>'Main 2', 'image'=>'slide_04.jpg', 'dimension'=>'848px width x 460px height',
-        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+        'stat'=>BannerStat::Active, 'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
       DB::table('banner')->insert([
         'banner_id'=>3, 'name'=>'Main 3', 'image'=>'slide_04.jpg', 'dimension'=>'848px width x 460px height',
-        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+        'stat'=>BannerStat::Hidden, 'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
       DB::table('banner')->insert([
-        'banner_id'=>5, 'name'=>'Main 4', 'image'=>'', 'dimension'=>'848px width x 460px height',
-        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+        'banner_id'=>4, 'name'=>'Main 4', 'image'=>'', 'dimension'=>'848px width x 460px height',
+        'stat'=>BannerStat::Hidden, 'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
       DB::table('banner')->insert([
-        'banner_id'=>6, 'name'=>'Main 5', 'image'=>'', 'dimension'=>'848px width x 460px height',
-        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+        'banner_id'=>5, 'name'=>'Main 5', 'image'=>'', 'dimension'=>'848px width x 460px height',
+        'stat'=>BannerStat::Active, 'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
       DB::table('banner')->insert([
-        'banner_id'=>7, 'name'=>'Right top', 'image'=>'banner_img_7.jpg', 'dimension'=>'262px width x 220px height',
-        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+        'banner_id'=>6, 'name'=>'Right top', 'image'=>'banner_img_7.jpg', 'dimension'=>'262px width x 220px height',
+        'stat'=>BannerStat::Active, 'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
       DB::table('banner')->insert([
-        'banner_id'=>8, 'name'=>'Right bottom', 'image'=>'banner_img_8.jpg', 'dimension'=>'262px width x 220px height',
-        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+        'banner_id'=>7, 'name'=>'Right bottom', 'image'=>'banner_img_8.jpg', 'dimension'=>'262px width x 220px height',
+        'stat'=>BannerStat::Active, 'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
       DB::table('banner')->insert([
-        'banner_id'=>9, 'name'=>'Bottom left', 'image'=>'banner_img_1.png', 'dimension'=>'550px width x 220px height',
-        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+        'banner_id'=>8, 'name'=>'Bottom left', 'image'=>'banner_img_1.png', 'dimension'=>'550px width x 220px height',
+        'stat'=>BannerStat::Active, 'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
       DB::table('banner')->insert([
-        'banner_id'=>10, 'name'=>'Bottom right', 'image'=>'banner_img_1.png', 'dimension'=>'550px width x 220px height',
-        'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
+        'banner_id'=>9, 'name'=>'Bottom right', 'image'=>'banner_img_1.png', 'dimension'=>'550px width x 220px height',
+        'stat'=>BannerStat::Active, 'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')]);
 
     }
 

@@ -527,49 +527,49 @@ License: You must have a valid license purchased only from themeforest(the above
             <span class="arrow"></span>
           </a>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item">
           <a href="{{url("admin/product")}}" class="nav-link nav-toggle">
             <i class="icon-star"></i>
             <span class="title">Products</span>
             <span class="arrow"></span>
           </a>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item">
           <a href="#" class="nav-link nav-toggle">
             <i class="icon-bar-chart"></i>
             <span class="title">Reports</span>
             <span class="arrow"></span>
           </a>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item">
           <a href="{{url('admin/banner')}}" class="nav-link nav-toggle">
             <i class="icon-frame"></i>
             <span class="title">Banners</span>
             <span class="arrow"></span>
           </a>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item">
           <a href="{{url('admin/brand')}}" class="nav-link nav-toggle">
             <i class="icon-settings"></i>
             <span class="title">Brands</span>
             <span class="arrow"></span>
           </a>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item">
           <a href="{{url('admin/category')}}" class="nav-link nav-toggle">
             <i class="icon-frame"></i>
             <span class="title">Categories</span>
             <span class="arrow"></span>
           </a>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item">
           <a href="{{url('admin/supplier')}}" class="nav-link nav-toggle">
             <i class="icon-frame"></i>
             <span class="title">Suppliers</span>
             <span class="arrow"></span>
           </a>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item">
           <a href="{{url('admin/setting')}}" class="nav-link nav-toggle">
             <i class="icon-frame"></i>
             <span class="title">Settings</span>

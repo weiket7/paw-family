@@ -2,13 +2,11 @@
 
 abstract class BannerStat {
     const Active = 'A';
-    const Inactive = 'I';
-    const Expired = 'E';
+    const Hidden = 'I';
 
     static $values = [
         ''=>'',
         self::Active=>'Active',
-        self::Inactive => 'Inactive',
-        self::Expired=>'Expired',
+        self::Hidden => 'Hidden',
     ];
 }

@@ -10,7 +10,11 @@
   <table class="table table-bordered">
     <thead>
     <tr>
-      <th width="200px">Name<br>(Dimensions)</th>
+      <th width="200px">
+        Name<br>
+        (Dimensions)<br>
+        Link
+      </th>
       <th>Image</th>
     </tr>
     </thead>
@@ -19,7 +23,8 @@
       <tr>
         <td>
           <a href="{{(url("admin/banner/save/".$banner->banner_id))}}">{{$banner->name}}</a><br>
-          {{$banner->dimension}}
+          {{$banner->dimension}}<br><br>
+          <a href="{{url($banner->link)}}">{{$banner->link}}</a>
         </td>
         <td><img src="{{url('assets/images/banners/'.$banner->image)}}" style="max-height: 150px"></td>
       </tr>

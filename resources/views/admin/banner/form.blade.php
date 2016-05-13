@@ -1,3 +1,5 @@
+<?php use App\Models\Enums\BannerStat; ?>
+<?php use App\Models\Enums\BannerType; ?>
 
 @extends("admin.template", [
   "title"=>ucfirst($action)." Banner",
@@ -16,6 +18,22 @@
       <label class="control-label col-md-2">Dimensions</label>
       <label class="form-control-static col-md-10">{{ $banner->dimension }}</label>
     </div>
+
+    <div class="form-group">
+      <label class="control-label col-md-2">Type</label>
+      <div class="col-md-10">
+        {!! Form::select('type', BannerType::$values, $banner->type, ['class'=>'form-control']) !!}
+      </div>
+    </div>
+
+    @if(str_contains(strtolower($banner->name), 'main'))
+      <div class="form-group">
+        <label class="control-label col-md-2">Status</label>
+        <div class="col-md-10">
+          {!! Form::select('stat', BannerStat::$values, $banner->stat, ['class'=>'form-control']) !!}
+        </div>
+      </div>
+    @endif
 
     <div class="form-group">
       <label class="control-label col-md-2">Link</label>
