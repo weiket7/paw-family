@@ -7,6 +7,7 @@ use App\Models\Banner;
 use App\Models\Enums\FeaturedType;
 use App\Models\Featured;
 use App\Models\Testimonial;
+use App\User;
 use Auth;
 use Mail;
 use App\Models\Brand;
@@ -57,10 +58,12 @@ class SiteController extends Controller
     if($request->isMethod('post')) {
       $input = $request->all();
       $customer = new Customer();
-      if (! $customer->registerCustomer($input)) {
+      $customer_id = $customer->registerCustomer($input);
+      if ($customer_id == false) {
         return redirect("register")->withErrors($customer->getValidation())->withInput($input);
       }
-      return redirect()->intended("account");
+      Auth::login(User::find($customer_id));
+      return redirect("account");
     }
     return view("register");
   }

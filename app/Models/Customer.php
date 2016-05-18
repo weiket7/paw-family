@@ -1,7 +1,7 @@
 <?php namespace App\Models;
 
 use App\Models\Enums\CustomerStat;
-use App\Models\Enums\SubscribeEmailStat;
+use App\Models\Enums\SubscribeStat;
 use CommonHelper;
 use Eloquent, DB, Validator, Input;
 use Hash;
@@ -29,13 +29,15 @@ class Customer extends Eloquent
     }
 
     $this->name = $input['name'];
-    $this->email = $input['email'];
     $this->password = Hash::make($input['password']);
+    $this->mobile = $input['mobile'];
+    $this->address = $input['address'];
+    $this->postal = $input['postal'];
     $this->joined_on = date("Y-m-d H:i:s");
     $this->stat = CustomerStat::Active;
-    $this->subscribe_email = isset($input['subscribe_email']) ? SubscribeEmailStat::Yes : SubscribeEmailStat::No;
+    $this->subscribe = isset($input['subscribe']) ? SubscribeStat::Yes : SubscribeStat::No;
     $this->save();
-    return true;
+    return $this->customer_id;
   }
 
   public function emailAvailable($email, $customer_id = null) {
@@ -94,6 +96,9 @@ class Customer extends Eloquent
     'name'=>'required',
     'email'=>'required|email',
     'password'=>'required|min:6|confirmed',
+    'mobile'=>'required',
+    'address'=>'required',
+    'postal'=>'required'
     //'password_confirmation'=>'required|min:6',
   ];
 
@@ -104,6 +109,9 @@ class Customer extends Eloquent
     'password.required'=>'Password is required',
     'password.min'=>'Password must be at least 6 characters',
     'password.confirmed'=>'Password must be confirmed',
+    'mobile.required'=>'Mobile is required',
+    'address.required'=>'Address is required',
+    'postal.required'=>'Postal is required'
   ];
 
 

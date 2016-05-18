@@ -1,6 +1,6 @@
 <?php use App\Models\Enums\PaymentType; ?>
 <?php use App\Models\Enums\SaleStat; ?>
-<?php use App\Models\Enums\SubscribeEmailStat; ?>
+<?php use App\Models\Enums\SubscribeStat; ?>
 
 @extends('template')
 

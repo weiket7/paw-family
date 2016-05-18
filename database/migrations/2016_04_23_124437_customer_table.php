@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Enums\CustomerStat;
-use App\Models\Enums\SubscribeEmailStat;
+use App\Models\Enums\SubscribeStat;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -20,7 +20,7 @@ class CustomerTable extends Migration
         $table->string("postal", 10);
         $table->string("address", 200);
         $table->dateTime("birthday");
-        $table->char("subscribe_email", 1);
+        $table->char("subscribe", 1);
         $table->decimal("spent_amt_total", 9, 2);
         $table->integer("order_count");
         $table->dateTime("last_login_on");
@@ -40,7 +40,7 @@ class CustomerTable extends Migration
         'postal'=>'470134',
         'address'=>'Blk 134, Bedok Reservoir Rd',
         'birthday'=>'1989-01-05',
-        'subscribe_email'=> SubscribeEmailStat::Yes,
+        'subscribe'=> SubscribeStat::Yes,
         'spent_amt_total'=>0,
         'order_count'=>0,
         'last_login_on'=>date("Y-m-d H:i:s"),

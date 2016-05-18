@@ -1,6 +1,6 @@
 <?php namespace App\Models\Enums;
 
-abstract class SubscribeEmailStat {
+abstract class SubscribeStat {
   const Yes = 'Y';
   const No = 'N';
   const Unsubscribed = 'U';
