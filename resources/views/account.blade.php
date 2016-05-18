@@ -5,17 +5,19 @@
 @extends('template')
 
 @section('content')
+  @if(Session::has('login'))
+    <div class="container">
+
+      <div class="alert_box r_corners color_green success">
+        <i class="fa fa-smile-o"></i><p>Welcome {{$customer->name}}! </p>
+      </div>
+    </div>
+  @endif
+
   <div class="page_content_offset">
     <div class="container">
       <div class="row clearfix">
         <section class="col-lg-12 col-md-12 col-sm-12 m_xs_bottom_30">
-
-          @if(Session::has('login'))
-            <div class="alert_box r_corners color_green success m_bottom_10">
-              <i class="fa fa-smile-o"></i><p>Welcome {{$customer->name}}! </p>
-            </div>
-          @endif
-
           <div class="tabs m_bottom_45">
             <!--tabs navigation-->
             <nav>
@@ -29,7 +31,7 @@
             <section class="tabs_content shadow r_corners">
               <div id="tab-account">
                 <form method="post" action="">
-                  {{csrf_field()}}
+                  {!! csrf_field() !!}
 
                   @if(Session::has('msg'))
                     <div class="alert_box r_corners color_green success m_bottom_10">
@@ -60,12 +62,13 @@
                           {{Form::text("email", $customer->email, ['id'=>'email', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
                         </li>
                         <li class="m_bottom_15">
-                          <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Address</label>
-                          {{Form::text("address", $customer->address, ['id'=>'address', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                          <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Phone</label>
+                          {{Form::text("phone", $customer->phone, ['id'=>'phone', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
                         </li>
                         <li class="m_bottom_15">
-                          <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Postal</label>
-                          {{Form::text("postal", $customer->postal, ['id'=>'postal', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                          <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Birthday</label>
+                          <?php $birthday = ($customer->birthday == '' || $customer->birthday == null) ? '' : $customer->birthday; ?>
+                          {{Form::text("birthday", $birthday, ['id'=>'birthday', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
                         </li>
                         <li><button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover" tabindex="3">Save</button></li>
                       </ul>
@@ -76,13 +79,19 @@
                           <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Mobile</label>
                           {{Form::text("mobile", $customer->mobile, ['id'=>'mobile', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
                         </li>
+
                         <li class="m_bottom_15">
-                          <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Phone</label>
-                          {{Form::text("phone", $customer->phone, ['id'=>'phone', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                          <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Address</label>
+                          {{Form::text("address", $customer->address, ['id'=>'address', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
                         </li>
                         <li class="m_bottom_15">
-                          <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Birthday</label>
-                          {{Form::text("birthday", $customer->birthday, ['id'=>'birthday', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                          <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Postal</label>
+                          {{Form::text("postal", $customer->postal, ['id'=>'postal', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                        </li>
+                        <li class="m_bottom_15">
+                          <label for="email" class="d_inline_b">Promotions</label><br>
+                          <?php $checked = $customer->subscribe == 'Y' ? "checked" : ''; ?>
+                          <input type="checkbox" class="d_none" name="subscribe" id="subscribe" {{$checked}}><label for="subscribe">Yes, I would like to receive emails about promotions</label>
                         </li>
                       </ul>
                     </div>

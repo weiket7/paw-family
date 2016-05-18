@@ -63,6 +63,7 @@ class SiteController extends Controller
         return redirect("register")->withErrors($customer->getValidation())->withInput($input);
       }
       Auth::login(User::find($customer_id));
+      $request->session()->flash("login", true);
       return redirect("account");
     }
     return view("register");
@@ -114,7 +115,7 @@ class SiteController extends Controller
 
   public function logout() {
     Auth::logout();
-    //TODO redirect
+    return redirect("/")->with('msg', 'You have been logged out');
   }
 
   public function forgotPassword() {

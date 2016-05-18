@@ -16,10 +16,10 @@ class CustomerTable extends Migration
         $table->string('password');
         $table->string('name');
         $table->string("mobile", 20);
-        $table->string("phone", 20);
+        $table->string("phone", 20)->nullable();
         $table->string("postal", 10);
         $table->string("address", 200);
-        $table->dateTime("birthday");
+        $table->dateTime("birthday")->nullable();
         $table->char("subscribe", 1);
         $table->decimal("spent_amt_total", 9, 2);
         $table->integer("order_count");

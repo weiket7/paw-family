@@ -33,6 +33,7 @@ class Customer extends Eloquent
     $this->mobile = $input['mobile'];
     $this->address = $input['address'];
     $this->postal = $input['postal'];
+    $this->last_login_on = date("Y-m-d H:i:s");
     $this->joined_on = date("Y-m-d H:i:s");
     $this->stat = CustomerStat::Active;
     $this->subscribe = isset($input['subscribe']) ? SubscribeStat::Yes : SubscribeStat::No;
@@ -75,6 +76,7 @@ class Customer extends Eloquent
     $this->phone = $input['phone'];
     $this->address = $input['address'];
     $this->postal = $input['postal'];
+    $this->subscribe = isset($input['subscribe']) ? SubscribeStat::Yes : SubscribeStat::No;
     $this->save();
     return true;
   }

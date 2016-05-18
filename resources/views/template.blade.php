@@ -131,17 +131,24 @@
                 <b>Contact</b>
               </a>
             </li>
-            <li class="relative f_xs_none m_xs_bottom_5">
-              @if(Auth::check())
+            @if(auth()->check())
+              <li class="relative f_xs_none m_xs_bottom_5">
                 <a href="{{url("account")}}" class="tr_delay_hover color_light tt_uppercase">
                   <b>Account</b>
                 </a>
-              @else
+              </li>
+              <li class="relative f_xs_none m_xs_bottom_5">
+                <a href="{{url("logout")}}" class="tr_delay_hover color_light tt_uppercase">
+                  <b>Log Out</b>
+                </a>
+              </li>
+            @else
+              <li class="relative f_xs_none m_xs_bottom_5">
                 <a href="#" data-popup="#login_popup" class="tr_delay_hover color_light tt_uppercase">
                   <b>Log In</b>
                 </a>
-              @endif
-            </li>
+              </li>
+            @endif
           </ul>
         </nav>
         <ul class="f_right horizontal_list clearfix t_align_l t_xs_align_c site_settings d_xs_inline_b f_xs_none">
@@ -245,6 +252,14 @@
           @endif
         @endforeach
       </ul>
+    </div>
+  @endif
+
+  @if(Session::has('msg'))
+    <div class="container">
+      <div class="alert_box r_corners info m_bottom_10">
+        <i class="fa fa-info-circle"></i><p>{{ Session::get('msg') }}</p>
+      </div>
     </div>
     @endif
 
