@@ -1,4 +1,5 @@
 <?php use App\Models\Enums\FeaturedType; ?>
+<?php use App\Models\Enums\BannerStat; ?>
 
 @extends('template')
 
@@ -15,11 +16,17 @@
       <div class="flexslider animate_ftr long">
         <ul class="slides">
           @foreach($banners as $banner)
-            @if(str_contains(strtolower($banner->name), 'main'))
-              <li>
-                <img src="{{url("assets/flatastic")}}/images/slide_04.jpg" alt="" data-custom-thumb="{{url("assets/flatastic")}}/images/slide_01.jpg">
-              </li>
-            @endif
+              @if(str_contains(strtolower($banner->identifier), 'main') && $banner->stat == BannerStat::Active)
+                <li>
+                  @if($banner->link)
+                    <a href="{{url($banner->link)}}">
+                      <img src="{{url("assets/images/banners/".$banner->image)}}" alt="{{$banner->slug}}" data-custom-thumb="{{url("assets/images/banners/".$banner->image)}}">
+                    </a>
+                  @else
+                    <img src="{{url("assets/images/banners/".$banner->image)}}" alt="{{$banner->slug}}" data-custom-thumb="{{url("assets/images/banners/".$banner->image)}}">
+                  @endif
+                </li>
+              @endif
           @endforeach
         </ul>
       </div>
@@ -27,20 +34,20 @@
     <div class="col-lg-3 col-md-3 col-sm-3 t_xs_align_c s_banners">
       <?php $banner = $banners[6]; ?>
       @if($banner->link)
-        <a href="#" class="d_block d_xs_inline_b m_bottom_20 animate_ftr">
-          <img src="{{url("assets/images/banners/".$banner->image)}}" alt="">
+        <a href="{{$banner->link}}" class="d_block d_xs_inline_b m_bottom_20 animate_ftr">
+          <img src="{{url("assets/images/banners/".$banner->image)}}" alt="{{$banner->slug}}">
         </a>
       @else
-        <img src="{{url("assets/images/banners/".$banner->image)}}" alt="" class="d_block d_xs_inline_b m_bottom_20 animate_ftr">
+        <img src="{{url("assets/images/banners/".$banner->image)}}" alt="{{$banner->slug}}" class="d_block d_xs_inline_b m_bottom_20 animate_ftr">
       @endif
 
       <?php $banner = $banners[7]; ?>
       @if($banner->link)
-        <a href="#" class="d_block d_xs_inline_b m_xs_left_5 animate_ftr m_mxs_left_0">
-          <img src="{{url("assets/images/banners/".$banner->image)}}" alt="">
+        <a href="{{$banner->link}}" class="d_block d_xs_inline_b m_xs_left_5 animate_ftr m_mxs_left_0">
+          <img src="{{url("assets/images/banners/".$banner->image)}}" alt="{{$banner->slug}}">
         </a>
       @else
-        <img src="{{url("assets/images/banners/".$banner->image)}}" alt="" class="d_block d_xs_inline_b m_xs_left_5 animate_ftr m_mxs_left_0">
+        <img src="{{url("assets/images/banners/".$banner->image)}}" alt="{{$banner->slug}}" class="d_block d_xs_inline_b m_xs_left_5 animate_ftr m_mxs_left_0">
       @endif
     </div>
   </div>

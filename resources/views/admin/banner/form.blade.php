@@ -10,19 +10,17 @@
 @section("content")
   <div class="form-body">
     <div class="form-group">
+      <label class="control-label col-md-2">Identifier</label>
+      <label class="form-control-static col-md-10">{{ $banner->identifier }}</label>
+    </div>
+
+    <div class="form-group">
       <label class="control-label col-md-2">Name</label>
-      <label class="form-control-static col-md-10">{{ $banner->name }}</label>
-    </div>
-
-    <div class="form-group">
-      <label class="control-label col-md-2">Dimensions</label>
-      <label class="form-control-static col-md-10">{{ $banner->dimension }}</label>
-    </div>
-
-    <div class="form-group">
-      <label class="control-label col-md-2">Type</label>
       <div class="col-md-10">
-        {!! Form::select('type', BannerType::$values, $banner->type, ['class'=>'form-control']) !!}
+        {!! Form::text('name', $banner->name, ['class'=>'form-control']) !!}
+        <p class="help-block">
+          Good name will be helpful for SEO
+        </p>
       </div>
     </div>
 
@@ -39,11 +37,16 @@
       <label class="control-label col-md-2">Link</label>
       <div class="col-md-10">
         {!! Form::text('link', $banner->link, ['class'=>'form-control']) !!}
-        <p class="help-block" id="div-video">
+        <p class="help-block">
           Paste the part after pawfamily.sg<br>
           http://pawfamily.sg/<b>product/view/addiction-viva-la-venison</b>
         </p>
       </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-md-2">Dimensions</label>
+      <label class="form-control-static col-md-10">{{ $banner->dimension }}</label>
     </div>
 
     <div class="form-group">

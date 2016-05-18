@@ -20,8 +20,9 @@ class Banner extends Eloquent
     if ($image) {
       $this->image = CommonHelper::uploadImage('banners', $this->attributes['name'], $image);
     }
+    $this->name = $input['name'];
+    $this->slug = str_slug($input['name']);
     $this->link = $input['link'];
-    $this->type = $input['type'];
     if (isset($input['stat'])) {
       $this->stat = $input['stat'];
     }
