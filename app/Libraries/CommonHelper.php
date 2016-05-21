@@ -13,7 +13,7 @@ class CommonHelper {
 
   public static function showDiscountAmt($discount_amount, $discount_percentage) {
     if ($discount_percentage > 0) {
-      return $discount_percentage."%"." ($".$discount_amount.")";
+      return "$".$discount_amount." (".$discount_percentage."%)";
     }
     return "$".$discount_amount;
   }

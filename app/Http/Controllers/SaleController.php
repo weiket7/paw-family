@@ -45,6 +45,11 @@ class SaleController extends Controller
     $this->setCartToSession($cart->getCart());
   }
 
+  public function getCart() {
+    $products = $this->getCartFromSession();
+    return $products;
+  }
+
   private function getCartFromSession() {
     return Session::has('cart') ? Session::get('cart') : [];
   }

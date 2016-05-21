@@ -43,6 +43,7 @@ Route::group(['middleware'=>'auth'], function() {
 
 Route::post('add-to-cart', 'SaleController@addToCart');
 Route::get('checkout', 'SaleController@checkout');
+Route::get('get-cart', 'SaleController@getCart');
 
 Route::get('admin', 'Admin\AdminController@login');
 Route::post('admin', 'Admin\AdminController@login');

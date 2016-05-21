@@ -117,7 +117,9 @@
 
                 <div class="m_bottom_15">
                   @if(count($product->sizes) == 0)
-                    <s id='price-total' class="v_align_b f_size_ex_large">${{$product->price}}</s>
+                    @if($product->price != $product->discounted_price)
+                      <s id='price-total' class="v_align_b f_size_ex_large">${{$product->price}}</s>
+                    @endif
                     <span id="discounted-price-total" data-discounted-price="{{$product->discounted_price}}" data-price="{{$product->price}}"class="v_align_b f_size_big m_left_5 scheme_color fw_medium">
                       ${{$product->discounted_price}}
                     </span>
@@ -184,28 +186,6 @@
                 <div class="clearfix">
                   <p class="scheme_color f_left f_size_large m_bottom_15">$102.00</p>
                   <!--rating-->
-                  <ul class="horizontal_list f_right clearfix rating_list tr_all_hover">
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li>
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                  </ul>
                 </div>
                 <button class="button_type_4 bg_scheme_color r_corners tr_all_hover color_light mw_0">Add to Cart</button>
               </figcaption>
@@ -222,28 +202,6 @@
                 <div class="clearfix">
                   <p class="scheme_color f_left f_size_large m_bottom_15">$99.00</p>
                   <!--rating-->
-                  <ul class="horizontal_list f_right clearfix rating_list tr_all_hover">
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li>
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                  </ul>
                 </div>
                 <button class="button_type_4 bg_scheme_color r_corners tr_all_hover color_light mw_0">Add to Cart</button>
               </figcaption>
@@ -262,28 +220,6 @@
                 <div class="clearfix">
                   <p class="scheme_color f_left f_size_large m_bottom_15">$102.00</p>
                   <!--rating-->
-                  <ul class="horizontal_list f_right clearfix rating_list tr_all_hover">
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li>
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                  </ul>
                 </div>
                 <button class="button_type_4 bg_scheme_color r_corners tr_all_hover color_light mw_0">Add to Cart</button>
               </figcaption>
@@ -300,28 +236,6 @@
                 <div class="clearfix">
                   <p class="scheme_color f_left f_size_large m_bottom_15">$99.00</p>
                   <!--rating-->
-                  <ul class="horizontal_list f_right clearfix rating_list tr_all_hover">
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li>
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                  </ul>
                 </div>
                 <button class="button_type_4 bg_scheme_color r_corners tr_all_hover color_light mw_0">Add to Cart</button>
               </figcaption>
@@ -340,28 +254,6 @@
                 <div class="clearfix">
                   <p class="scheme_color f_left f_size_large m_bottom_15"><s class="default_t_color m_right_5">$79.00</s>$36.00</p>
                   <!--rating-->
-                  <ul class="horizontal_list f_right clearfix rating_list tr_all_hover">
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li class="active">
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                    <li>
-                      <i class="fa fa-star-o empty tr_all_hover"></i>
-                      <i class="fa fa-star active tr_all_hover"></i>
-                    </li>
-                  </ul>
                 </div>
                 <button class="button_type_4 bg_scheme_color r_corners tr_all_hover color_light mw_0">Add to Cart</button>
               </figcaption>
@@ -374,8 +266,13 @@
               <h3 class="color_light">Cart</h3>
             </figcaption>
             <div class="widget_content">
-              <!--Categories list-->
-              Your cart is empty.
+              <div id="div-cart">
+
+              </div>
+
+              <button type="button" id="btn-checkout" class="tr_delay_hover r_corners button_type_15 bg_scheme_color color_light" style="display:none">
+                <i class="fa fa-shopping-cart lh_inherit m_right_10"></i>Checkout
+              </button>
             </div>
           </figure>
         </aside>
@@ -391,6 +288,8 @@
   <script type="text/javascript">
     $(document).ready(function() {
 
+      getCart();
+
       $('#btn-add-to-cart').data('powertipjq', $('<p>Product has been added to cart</p>'));
 
       $('#btn-add-to-cart').powerTip({
@@ -399,7 +298,6 @@
         mouseOnToPopup: false,
       });
 
-
       $("#btn-add-to-cart").click(function() {
         var data = {
           quantity: $("#quantity").val(),
@@ -407,25 +305,23 @@
           _token: $("input[name='_token']").val(),
         };
 
-        $('#btn-add-to-cart').powerTip('show');
-
         $.ajax({
           type: "POST",
           url: "{{ url("add-to-cart") }}",
           data: data,
           success: function(response) {
-            //console.log(response);
-            if (response === "fail") {
-              //$("#div-login-result").slideDown();
-            } else if (response === "success") {
-              //redirect("{{url("account")}}");
-            }
+            getCart();
+            $('#btn-add-to-cart').powerTip('show');
           },
           error: function(  ) {
             alert("An error has occurred, please contact admin@pawfamily.sg");
           }
         });
       });
+
+      $("#btn-checkout").click(function () {
+        redirect('{{url("checkout")}}');
+      })
     });
 
     var repacks_json = '{!! json_encode($product->repacks) !!}';
@@ -433,6 +329,39 @@
     var sizes_json = '{!! json_encode($product->sizes) !!}';
     var sizes_object =  JSON.parse(sizes_json);
 
+    function getCart() {
+      $.ajax({
+        type: "GET",
+        url: "{{ url("get-cart") }}",
+        success: function(response) {
+          var products = response;
+          var html = "";
+          if (products.length === 0) {
+            $("#div-cart").text("Your cart is empty");
+            $("#btn-checkout").hide();
+            return;
+          }
+          for (var key in products) {
+            if (products.hasOwnProperty(key)) {
+              var product = products[key];
+
+              html += '<div class="clearfix m_bottom_15">' +
+                '<img src="{{url("assets/images/products")}}/'+product.image+'" alt="" style="max-width: 80px" class="f_left m_right_15 m_sm_bottom_10 f_sm_none f_xs_left m_xs_bottom_0">' +
+                '<a href="{{url("product/view")}}/"'+product.slug+' class="color_dark d_block bt_link">'+product.name+' x '+product.quantity+'</a>' +
+              '<p class="scheme_color">$'+toTwoDecimal(product.subtotal)+'</p>' +
+              '</div>'
+
+              //console.log(JSON.stringify(product));
+            }
+          }
+          $("#div-cart").html(html);
+          $("#btn-checkout").show();
+        },
+        error: function(  ) {
+          alert("An error has occurred, please contact admin@pawfamily.sg");
+        }
+      });
+    }
 
     function selectSize() {
       var size = $('input[name=size]:checked').val()
