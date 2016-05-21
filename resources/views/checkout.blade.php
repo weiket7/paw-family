@@ -61,37 +61,34 @@
               @endforeach
 
               <tr>
-                <td colspan="3" class="v_align_m d_ib_offset_large t_xs_align_l" style="padding: 10px 20px">
+                <td colspan="3" class="v_align_m">
                   <!--coupon-->
-                  <form class="d_ib_offset_0 d_inline_middle half_column d_xs_block w_xs_full m_xs_bottom_5">
+                  <p class="f_size_large t_align_r">
                     <input type="text" placeholder="Enter your coupon code" name="" class="r_corners f_size_medium">
-                    <button class="button_type_4 r_corners bg_light_color_2 m_left_5 mw_0 tr_all_hover color_dark">Save</button>
-                  </form>
-                  <p class="fw_medium f_size_large t_align_r  p_xs_hr_0 d_inline_middle half_column d_ib_offset_normal d_xs_block w_xs_full t_xs_align_c">Promo Discount:</p>
+                    <button class="button_type_4 r_corners bg_light_color_2 m_left_5 mw_0 tr_all_hover color_dark" style="margin-right: 20px">Save</button>
+                    <span class="fw_medium d_inline_middle">Promo Discount: </span>
+                  </p>
                 </td>
                 <td colspan="1" class="v_align_m">
-                  <p class="fw_medium f_size_large m_xs_bottom_10">$101.05</p>
+                  <?php $promo_total = 0; ?>
+                  <?php $total = $gross_total - 0; ?>
+                  <p class="fw_medium f_size_large m_xs_bottom_10">${{CommonHelper::formatNumber($promo_total)}}</p>
                 </td>
               </tr>
               <tr>
-                <td colspan="3">
-                  <p class="fw_medium f_size_large t_align_r t_xs_align_c">Gross Total:</p>
+                <td colspan="3" class="v_align_m">
+                  <p class="fw_medium f_size_large t_align_r">Gross Total:</p>
                 </td>
-                <td colspan="1">
-                  <p class="fw_medium f_size_large color_dark">${{$gross_total}}</p>
+                <td colspan="1" class="v_align_m">
+                  <p class="fw_medium f_size_large">${{CommonHelper::formatNumber($gross_total)}}</p>
                 </td>
               </tr>
               <tr>
-                <td colspan="3" class="v_align_m d_ib_offset_large t_xs_align_l">
-                  <!--coupon-->
-                  <form class="d_ib_offset_0 d_inline_middle half_column d_xs_block w_xs_full m_xs_bottom_5">
-                    <input type="text" placeholder="Enter your coupon code" name="" class="r_corners f_size_medium">
-                    <button class="button_type_4 r_corners bg_light_color_2 m_left_5 mw_0 tr_all_hover color_dark">Save</button>
-                  </form>
-                  <p class="fw_medium f_size_large t_align_r scheme_color p_xs_hr_0 d_inline_middle half_column d_ib_offset_normal d_xs_block w_xs_full t_xs_align_c">Total:</p>
+                <td colspan="3" class="v_align_m">
+                  <p class="fw_medium f_size_large t_align_r t_xs_align_c scheme_color">Total:</p>
                 </td>
                 <td colspan="1" class="v_align_m">
-                  <p class="fw_medium f_size_large scheme_color m_xs_bottom_10">$101.05</p>
+                  <p class="fw_medium f_size_large scheme_color m_xs_bottom_10">${{CommonHelper::formatNumber($total)}}</p>
                 </td>
               </tr>
               </tbody>
