@@ -27,7 +27,9 @@ Route::get('product/search', 'ProductController@search');
 Route::get('product/autocomplete', 'ProductController@autocomplete');
 
 Route::post('login', 'SiteController@login');
+Route::get('reset-password', 'SiteController@resetPassword');
 Route::get('forgot-password', 'SiteController@forgotPassword');
+Route::post('forgot-password', 'SiteController@forgotPassword');
 Route::get('logout', 'SiteController@logout');
 Route::get('register', 'SiteController@register');
 Route::post('register', 'SiteController@register');

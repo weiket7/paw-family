@@ -176,4 +176,35 @@ class Customer extends Eloquent
   public function getSale($customer_id) {
     return DB::table("sale")->where("customer_id", $customer_id)->get();
   }
+
+  public function resetPassword($input) {
+    $this->validation = Validator::make($input,
+      ['email'=>'required|email'],
+      [
+        'email.required'=>'Email is required',
+        'email.email'=>'Email must be valid email'
+      ]
+    );
+    if ( $this->validation->fails() ) {
+      return false;
+    }
+
+    $email = $input['email'];
+    $customer = Customer::where('email', $email)->first();
+    if ($customer == null) {
+      $this->validation->errors()->add("email", "Email does not exist");
+      return false;
+    }
+
+    $new_password = str_random(8);
+    $customer->password = Hash::make($new_password);
+    $customer->save();
+
+    $res = [
+      'name'=>$customer->name,
+      'email'=>$customer->email,
+      'new_password'=>$new_password,
+    ];
+    return $res;
+  }
 }

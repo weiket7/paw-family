@@ -641,12 +641,12 @@
           </div>
         </li>
         <li class="m_bottom_15">
-          <label for="email" class="m_bottom_5 d_inline_b">Email</label><br>
-          <input type="text" name="email" id="email" class="r_corners full_width">
+          <label for="email_login" class="m_bottom_5 d_inline_b">Email</label><br>
+          <input type="text" name="email_login" id="email_login" class="r_corners full_width">
         </li>
         <li class="m_bottom_25">
-          <label for="password" class="m_bottom_5 d_inline_b">Password</label><br>
-          <input type="password" name="password" id="password" class="r_corners full_width">
+          <label for="password_login" class="m_bottom_5 d_inline_b">Password</label><br>
+          <input type="password" name="password_login" id="password_login" class="r_corners full_width">
         </li>
         <li class="clearfix m_bottom_30">
           <button type="button" id="btn-login" class="button_type_4 tr_all_hover r_corners f_left bg_scheme_color color_light f_mxs_none m_mxs_bottom_15">Log In</button>
@@ -720,8 +720,8 @@
 
     function login() {
       var data = {
-        email: $("#form-login #email").val(),
-        password: $("#form-login #password").val(),
+        email: $("#form-login #email_login").val(),
+        password: $("#form-login #password_login").val(),
         _token: $("input[name='_token']").val(),
       };
 
@@ -746,7 +746,7 @@
       });
     }
 
-    $('#email, #password').keypress(function(event) {
+    $('#email_login, #password_login').keypress(function(event) {
       if (event.keyCode == 13 || event.which == 13) {
         login();
       }

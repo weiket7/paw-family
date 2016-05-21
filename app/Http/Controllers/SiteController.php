@@ -52,7 +52,7 @@ class SiteController extends Controller
   public function login(Request $request) {
     if($request->isMethod('post')) {
       $email = $request->get("email");
-      $password = $request->get("password");
+      $password = trim($request->get("password"));
       if (! Auth::attempt(['email'=>$email, 'password'=>$password])) {
         return "fail";
       }
@@ -123,11 +123,34 @@ class SiteController extends Controller
 
   public function logout() {
     Auth::logout();
-    return redirect("/")->with('msg-logout', 'You have been logged out');
+    return redirect("/")->with('msg-info', 'You have been logged out');
   }
 
-  public function forgotPassword() {
+  public function forgotPassword(Request $request) {
+    if ($request->isMethod('post')) {
+      $customer_service = new Customer();
+      $input = $request->all();
+      $data = $customer_service->resetPassword($input);
+      if ($data == false) {
+        return redirect("forgot-password")->withErrors($customer_service->getValidation())->withInput($input);
+      }
+
+      $data['recipient'] = $this->getRecipient();
+      Mail::send('emails/reset-password', $data, function ($message) use ($data) {
+        $message->from($data['email'], $data['name'])
+          ->to($data['recipient'])
+          ->subject("Enquiry from ".$data['name']);
+      });
+      return redirect('forgot-password')->with('msg', 'A new password has been emailed to you shortly');
+    }
     return view('forgot-password');
+  }
+
+  public function resetPassword() {
+    $data['name'] = 'Wei Ket';
+    $data['email'] = 'wei_ket@hotmail.com';
+    $data['new_password'] = 'test168';
+    return view('emails/reset-password', $data);
   }
 
 }
