@@ -135,9 +135,7 @@
                   <button type="button" class="button_type_12 r_corners bg_scheme_color color_light tr_delay_hover d_inline_b f_size_large m_right_5" id="btn-add-to-cart">Add to Cart</button>
                   <button type="button" class="button_type_12 r_corners bg_color_blue color_light tr_delay_hover d_inline_b f_size_large" onclick="history.go(-1)">Back</button>
                 </div>
-
               </div>
-
             </div>
           </div>
           <!--tabs-->
@@ -185,9 +183,7 @@
                 <h5 class="m_bottom_10"><a href="#" class="color_dark ellipsis">Eget elementum vel</a></h5>
                 <div class="clearfix">
                   <p class="scheme_color f_left f_size_large m_bottom_15">$102.00</p>
-                  <!--rating-->
                 </div>
-                <button class="button_type_4 bg_scheme_color r_corners tr_all_hover color_light mw_0">Add to Cart</button>
               </figcaption>
             </figure>
             <figure class="r_corners photoframe shadow relative d_inline_b d_md_block d_xs_inline_b tr_all_hover">
@@ -201,9 +197,7 @@
                 <h5 class="m_bottom_10"><a href="#" class="color_dark ellipsis">Cursus eleifend elit aenean elit aenean</a></h5>
                 <div class="clearfix">
                   <p class="scheme_color f_left f_size_large m_bottom_15">$99.00</p>
-                  <!--rating-->
                 </div>
-                <button class="button_type_4 bg_scheme_color r_corners tr_all_hover color_light mw_0">Add to Cart</button>
               </figcaption>
             </figure>
             <figure class="r_corners photoframe shadow relative d_inline_b d_md_block d_xs_inline_b tr_all_hover">
@@ -219,9 +213,7 @@
                 <h5 class="m_bottom_10"><a href="#" class="color_dark ellipsis">Eget elementum vel</a></h5>
                 <div class="clearfix">
                   <p class="scheme_color f_left f_size_large m_bottom_15">$102.00</p>
-                  <!--rating-->
                 </div>
-                <button class="button_type_4 bg_scheme_color r_corners tr_all_hover color_light mw_0">Add to Cart</button>
               </figcaption>
             </figure>
             <figure class="r_corners photoframe shadow relative d_inline_b d_md_block d_xs_inline_b tr_all_hover">
@@ -235,9 +227,7 @@
                 <h5 class="m_bottom_10"><a href="#" class="color_dark ellipsis">Cursus eleifend elit aenean...</a></h5>
                 <div class="clearfix">
                   <p class="scheme_color f_left f_size_large m_bottom_15">$99.00</p>
-                  <!--rating-->
                 </div>
-                <button class="button_type_4 bg_scheme_color r_corners tr_all_hover color_light mw_0">Add to Cart</button>
               </figcaption>
             </figure>
             <figure class="r_corners photoframe shadow relative d_inline_b d_md_block d_xs_inline_b tr_all_hover">
@@ -253,9 +243,7 @@
                 <h5 class="m_bottom_10"><a href="#" class="color_dark ellipsis">Aliquam erat volutpat</a></h5>
                 <div class="clearfix">
                   <p class="scheme_color f_left f_size_large m_bottom_15"><s class="default_t_color m_right_5">$79.00</s>$36.00</p>
-                  <!--rating-->
                 </div>
-                <button class="button_type_4 bg_scheme_color r_corners tr_all_hover color_light mw_0">Add to Cart</button>
               </figcaption>
             </figure>
           </div>

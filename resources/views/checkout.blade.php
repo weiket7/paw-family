@@ -36,7 +36,7 @@
                     @if($p->price > $p->discounted_price)
                       <s>${{$p->price}}</s>
                     @endif
-                    <span class="scheme_color fw_medium">${{$p->discounted_price}}</span>
+                    <span class="scheme_color fw_medium" id="product{{$p->product_id}}-discounted-price" data-discounted-price="{{$p->discounted_price}}">${{$p->discounted_price}}</span>
                   </td>
                   <td>
                     <div class="clearfix quantity r_corners d_inline_middle f_size_medium color_dark m_bottom_10">
@@ -48,11 +48,13 @@
                       <a href="#" class="color_dark" onclick="updateCart('{{$p->product_id}}')">
                         <i class="fa fa-check f_size_medium m_right_5"></i>Update
                       </a><br>
-                      <a href="#" class="color_dark"><i class="fa fa-times f_size_medium m_right_5" onclick="updateCart()"></i>Remove</a><br>
+                      <a href="#" class="color_dark" onclick="removeFromCart('{{$p->product_id}}')">
+                        <i class="fa fa-times f_size_medium m_right_5"></i>Remove
+                      </a>
                     </div>
                   </td>
                   <td>
-                    <p id='product{{$p->product_id}}_subtotal' class="f_size_large fw_medium scheme_color">${{CommonHelper::formatNumber($p->subtotal)}}</p>
+                    <p id='product{{$p->product_id}}-subtotal' class="f_size_large fw_medium scheme_color">${{CommonHelper::formatNumber($p->subtotal)}}</p>
                   </td>
                 </tr>
                 <?php $gross_total += $p->subtotal; ?>
@@ -311,12 +313,12 @@
 
     function updateCart(product_id) {
       var data = {
-        quantity: $("#product"+product_id + "-quantity").val(),
+        quantity: getQuantity(product_id),
         product_id: product_id,
         _token: $("input[name='_token']").val(),
       };
 
-      console.log(data);
+      //console.log(data);
 
       $.ajax({
         type: "POST",
@@ -330,7 +332,41 @@
         }
       });
 
+      updateSubtotal(product_id);
       updateTotals();
+    }
+
+    function getQuantity(product_id) {
+      var quantity = parseFloat($("#product"+product_id + "-quantity").val());
+      return quantity;
+    }
+
+    function updateSubtotal(product_id) {
+      var price = parseFloat($("#product"+product_id+"-discounted-price").attr('data-discounted-price'));
+      var quantity = getQuantity(product_id);
+      var subtotal = price * quantity;
+      console.log('price='+price + ' quantity='+quantity + ' subtotal='+subtotal);
+      $("#product"+product_id+"-subtotal").text("$"+toTwoDecimal(subtotal));
+    }
+
+    function removeFromCart(product_id) {
+      var data = {
+        product_id: product_id,
+        size_id: 0, //TODO
+        _token: $("input[name='_token']").val(),
+      };
+
+      $.ajax({
+        type: "POST",
+        url: "{{ url("remove-from-cart") }}",
+        data: data,
+        success: function(response) {
+          $("#product"+product_id+'-discounted-price').closest("tr").remove();
+        },
+        error: function(  ) {
+          alert("An error has occurred, please contact admin@pawfamily.sg");
+        }
+      });
     }
   </script>
 @endsection
