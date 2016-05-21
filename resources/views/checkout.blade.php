@@ -64,7 +64,7 @@
                 <td colspan="3" class="v_align_m">
                   <!--coupon-->
                   <p class="f_size_large t_align_r">
-                    <input type="text" placeholder="Enter your coupon code" name="" class="r_corners f_size_medium">
+                    <input type="text" placeholder="Promo Code" name="" class="r_corners f_size_medium">
                     <button class="button_type_4 r_corners bg_light_color_2 m_left_5 mw_0 tr_all_hover color_dark" style="margin-right: 20px">Save</button>
                     <span class="fw_medium d_inline_middle">Promo Discount: </span>
                   </p>
@@ -93,6 +93,7 @@
               </tr>
               </tbody>
             </table>
+
 
             <div class="tabs m_bottom_45">
               <!--tabs navigation-->
@@ -128,46 +129,8 @@
                   </form>
                 </div>
                 <div id="tab-2">
-                  <form>
-                    <div class="row">
-                      <div class="col-lg-6 col-md-6 col-sm-6 m_xs_bottom_30">
-                        <ul>
-                          <li class="m_bottom_15">
-                            <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Name</label>
-                            {{Form::text("name", '', ['id'=>'name', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>1])}}
-                          </li>
-                          <li class="m_bottom_15">
-                            <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Email</label>
-                            {{Form::text("email", '', ['id'=>'email', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
-                          </li>
-                          <li class="m_bottom_15">
-                            <label for="password" class="d_inline_b m_bottom_5 required">Password</label>
-                            <input type="password" name="password" autocomplete="off" class="r_corners full_width" tabindex="6">
-                          </li>
-                          <li class="m_bottom_25">
-                            <label for="password_confirmation" class="d_inline_b m_bottom_5 required">Confirm Password</label>
-                            <input type="password" id="password_confirmation" autocomplete="off" name="password_confirmation" class="r_corners full_width" tabindex="7">
-                          </li>
-                          <li><button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover" tabindex="3">Save</button></li>
-                        </ul>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6 m_xs_bottom_30">
-                        <ul>
-                          <li class="m_bottom_15">
-                            <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Mobile</label>
-                            {{Form::text("mobile", '', ['id'=>'mobile', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
-                          </li>
-                          <li class="m_bottom_15">
-                            <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Address</label>
-                            {{Form::text("address", '', ['id'=>'address', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
-                          </li>
-                          <li class="m_bottom_15">
-                            <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Postal</label>
-                            {{Form::text("postal", '', ['id'=>'postal', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
+                  <form method="post" action="">
+                    @include('register-form')
                   </form>
                 </div>
               </section>
