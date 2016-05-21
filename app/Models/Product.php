@@ -64,14 +64,6 @@ class Product extends Eloquent
     return true;
   }
 
-  public function getProductFeatured() {
-    $s = "SELECT p.name, p.desc_short, p.slug, p.stat as product_stat, f.stat as featured_stat
-      FROM product AS p
-      inner join featured as f on f.product_id = p.product_id";
-    $products = DB::select($s);
-    return $products;
-  }
-
   public function getProductByCategory($category_id) {
     return Product::where('category_id', $category_id)->get();
   }

@@ -42,6 +42,7 @@ Route::group(['middleware'=>'auth'], function() {
 });
 
 Route::post('add-to-cart', 'SaleController@addToCart');
+Route::post('update-cart', 'SaleController@updateCart');
 Route::get('checkout', 'SaleController@checkout');
 Route::get('get-cart', 'SaleController@getCart');
 

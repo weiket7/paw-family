@@ -19,6 +19,6 @@ class CommonHelperTest extends \Codeception\TestCase\Test
 
   public function testShowDiscountAmtPassInAmtTenPercentReturnTenPercentBracketAmt() {
     $discount_amt = CommonHelper::showDiscountAmt(195.55, 10);
-    $this->assertEquals("10% ($195.55)", $discount_amt);
+    $this->assertEquals("$195.55 (10%)", $discount_amt);
   }
 }

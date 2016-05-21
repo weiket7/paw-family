@@ -69,4 +69,15 @@ class CartTest extends \Codeception\TestCase\Test
     $products = $cart->getCart();
     $this->assertCount(0, $products);
   }
+
+  public function testUpdateCart() {
+    $cart = new Cart();
+    $cart->addToCart(1, 2);
+    $cart->updateCart(1, 5);
+    $products = $cart->getCart();
+    $key = $cart->getKey(1, 0);
+    $this->assertCount(1, $products);
+    $product = $products[$key];
+    $this->assertEquals(5, $product->quantity);
+  }
 }

@@ -25,6 +25,7 @@ class Cart {
       $sale_product->name = $product->name;
       $sale_product->price = $product->price;
       $sale_product->image = $product->image;
+      $sale_product->slug = $product->slug;
       $sale_product->discount_amt = $product->discount_amt;
       $sale_product->discounted_price = $product->discounted_price;
       $sale_product->subtotal = $sale_product->quantity * $sale_product->discounted_price;
@@ -48,5 +49,11 @@ class Cart {
 
   public function getCart() {
     return $this->products;
+  }
+
+  public function updateCart($product_id, $quantity, $size_id = 0, $option_id = 0) {
+    $key = $this->getKey($product_id, $size_id);
+    $this->products[$key]->quantity = (int)$quantity;
+    $this->products[$key]->subtotal = $this->products[$key]->quantity * $this->products[$key]->discounted_price;
   }
 }

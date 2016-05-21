@@ -13,4 +13,5 @@ class SaleProduct
   public $subtotal;
   public $name;
   public $image;
+  public $slug;
 }
