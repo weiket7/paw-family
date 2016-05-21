@@ -23,10 +23,18 @@ class SiteController extends Controller
     $customer = Customer::find($customer_id);
     if($request->isMethod('post')) {
       $input = $request->all();
-      if (! $customer->saveCustomer($input)) {
-        return redirect("account")->withErrors($customer->getValidation())->withInput($input);
+      $action = $input['action'];
+      if ($action == "account") {
+        if (! $customer->saveCustomer($input)) {
+          return redirect("account")->withErrors($customer->getValidation())->withInput($input);
+        }
+        return redirect('account')->with('msg', 'Account updated');
+      } else if ($action == "change_password") {
+        if (! $customer->changePassword($input, $customer_id)) {
+          return redirect("account#tab-password")->withErrors($customer->getValidation())->withInput($input);
+        }
+        return redirect('account#tab-password')->with('msg', 'Password changed');
       }
-      return redirect('account')->with('msg', 'Account updated');
     }
     $sale_service = new Sale();
     $data['sales'] = $sale_service->getSalesByCustomer($customer_id);
@@ -115,7 +123,7 @@ class SiteController extends Controller
 
   public function logout() {
     Auth::logout();
-    return redirect("/")->with('msg', 'You have been logged out');
+    return redirect("/")->with('msg-logout', 'You have been logged out');
   }
 
   public function forgotPassword() {

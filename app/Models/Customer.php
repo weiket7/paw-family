@@ -14,6 +14,111 @@ class Customer extends Eloquent
   protected $validation;
   public $timestamps = false;
 
+
+  public function emailAvailable($email, $customer_id = null) {
+    if ($customer_id != null) {
+      $count = DB::table("customer")->where("email", $email)->whereNotIn("customer_id", $customer_id)->count();
+    }
+    $count = DB::table("customer")->where("email", $email)->count();
+    return $count == 0;
+  }
+
+  public function sendRegisterEmail($data) {
+    //http://forumsarchive.laravel.io/viewtopic.php?id=8264
+    Mail::send('personal/activate-email', $data, function($message) use ($data)
+    {
+      $message->to($data['email'], $data['first_name'])->subject('Activate your United Points account now');
+    });
+  }
+
+  public function getPet($customer_id) {
+    return DB::table("pet")->where("customer_id", $customer_id)->get();
+  }
+
+  public function getCustomer($customer_id) {
+    if ($customer_id == null) {
+      $customer = new Customer();
+      $customer->pets = [];
+      $customer->sales = [];
+    } else {
+      $customer = DB::table("customer")->where("customer_id", $customer_id)->first();
+      $customer->pets = $this->getPet($customer_id);
+      $customer->sales = $this->getSale($customer_id);
+    }
+    return $customer;
+  }
+
+  public function saveCustomer($input) {
+    $this->validation = Validator::make($input, $this->rules, $this->messages );
+    if ( $this->validation->fails() ) {
+      return false;
+    }
+
+    $this->name = $input['name'];
+    if (isset($input['stat']))
+      $this->stat = $input['stat'];
+    $this->email = $input['email'];
+    $this->birthday = empty($input['birthday']) ? null : date('Y-m-d', strtotime($input['birthday']));
+    $this->mobile = $input['mobile'];
+    $this->phone = $input['phone'];
+    $this->address = $input['address'];
+    $this->postal = $input['postal'];
+    $this->subscribe = isset($input['subscribe']) ? SubscribeStat::Yes : SubscribeStat::No;
+    $this->save();
+    return true;
+  }
+
+  public function changePassword($input, $customer_id) {
+    $this->validation = Validator::make($input, $this->rules_change_password, $this->messages_change_password );
+    if ( $this->validation->fails() ) {
+      return false;
+    }
+
+    if (Hash::check($input['current_password'], $this->password)) {
+      $this->validation->errors()->add("current_password", "Current password is wrong");
+      return false;
+    }
+
+    $this->password = Hash::make($input['password']);
+    $this->save();
+    return true;
+  }
+
+  private $rules_change_password = [
+    'current_password'=>'required|min:6',
+    'password'=>'required|min:6|confirmed',
+  ];
+
+  private $messages_change_password = [
+    'current_password.required'=>'Current password is required',
+    'current_password.min'=>'Current password must be at least 6 characters',
+    'password.required'=>'New password is required',
+    'password.min'=>'New password must be at least 6 characters',
+    'password.confirmed'=>'New password must be confirmed',
+  ];
+
+  private $rules = [
+    'stat'=>'sometimes|required',
+    'name'=>'required',
+    'email'=>'required|email',
+    'mobile'=>'required',
+    'address'=>'required',
+    'postal'=>'required|numeric',
+    'birthday'=>'date_format:d-m-Y',
+  ];
+
+  private $messages = [
+    'stat.required'=>'Stat is required',
+    'name.required'=>'Name is required',
+    'email.required'=>'Email is required',
+    'email.email'=>'Email must be valid email',
+    'mobile.required'=>'Mobile is required',
+    'address.required'=>'Address is required',
+    'postal.required'=>'Postal is required',
+    'postal.numeric'=>'Postal must be numeric',
+    'birthday.date_format'=>'Birthday must be valid date DD-MM-YYYY',
+  ];
+
   public function registerCustomer($input) {
     $this->validation = Validator::make($input, $this->rules_register, $this->messages_register );
 
@@ -41,59 +146,6 @@ class Customer extends Eloquent
     return $this->customer_id;
   }
 
-  public function emailAvailable($email, $customer_id = null) {
-    if ($customer_id != null) {
-      $count = DB::table("customer")->where("email", $email)->whereNotIn("customer_id", $customer_id)->count();
-    }
-    $count = DB::table("customer")->where("email", $email)->count();
-    return $count == 0;
-  }
-
-  public function sendRegisterEmail($data) {
-    //http://forumsarchive.laravel.io/viewtopic.php?id=8264
-    Mail::send('personal/activate-email', $data, function($message) use ($data)
-    {
-      $message->to($data['email'], $data['first_name'])->subject('Activate your United Points account now');
-    });
-  }
-
-  public function getPet($customer_id) {
-    return DB::table("pet")->where("customer_id", $customer_id)->get();
-  }
-
-  public function saveCustomer($input) {
-    $this->validation = Validator::make($input, $this->rules, $this->messages );
-    if ( $this->validation->fails() ) {
-      return false;
-    }
-
-    $this->name = $input['name'];
-    if (isset($input['stat']))
-      $this->stat = $input['stat'];
-    $this->email = $input['email'];
-    $this->birthday = $input['birthday'];
-    $this->mobile = $input['mobile'];
-    $this->phone = $input['phone'];
-    $this->address = $input['address'];
-    $this->postal = $input['postal'];
-    $this->subscribe = isset($input['subscribe']) ? SubscribeStat::Yes : SubscribeStat::No;
-    $this->save();
-    return true;
-  }
-
-  public function getCustomer($customer_id) {
-    if ($customer_id == null) {
-      $customer = new Customer();
-      $customer->pets = [];
-      $customer->sales = [];
-    } else {
-      $customer = DB::table("customer")->where("customer_id", $customer_id)->first();
-      $customer->pets = $this->getPet($customer_id);
-      $customer->sales = $this->getSale($customer_id);
-    }
-    return $customer;
-  }
-
   private $rules_register = [
     'name'=>'required',
     'email'=>'required|email',
@@ -116,28 +168,6 @@ class Customer extends Eloquent
     'postal.required'=>'Postal is required'
   ];
 
-
-  private $rules = [
-    'name'=>'required',
-    'stat'=>'sometimes|required',
-    'email'=>'required|email',
-    'birthday'=>'date',
-    'mobile'=>'required',
-    'address'=>'required',
-    'postal'=>'required|numeric',
-  ];
-
-  private $messages = [
-    'name.required'=>'Name is required',
-    'stat.required'=>'Stat is required',
-    'email.required'=>'Email is required',
-    'email.email'=>'Email must be valid email',
-    'birthday.date'=>'Birthday must be valid date',
-    'mobile.required'=>'Mobile is required',
-    'address.required'=>'Address is required',
-    'postal.required'=>'Postal is required',
-    'postal.numeric'=>'Postal must be numeric',
-  ];
 
   public function getValidation() {
     return $this->validation;

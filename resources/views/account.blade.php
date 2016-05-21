@@ -32,12 +32,7 @@
               <div id="tab-account">
                 <form method="post" action="">
                   {!! csrf_field() !!}
-
-                  @if(Session::has('msg'))
-                    <div class="alert_box r_corners color_green success m_bottom_10">
-                      <i class="fa fa-check"></i><p>{{ Session::get('msg') }} </p>
-                    </div>
-                  @endif
+                  <input type="hidden" name="action" value="account">
 
                   @if ($errors->has())
                     <div class="alert_box r_corners error m_bottom_10">
@@ -62,13 +57,13 @@
                           {{Form::text("email", $customer->email, ['id'=>'email', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
                         </li>
                         <li class="m_bottom_15">
-                          <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Phone</label>
+                          <label for="email" class="d_inline_b m_bottom_5" tabindex="1">Phone</label>
                           {{Form::text("phone", $customer->phone, ['id'=>'phone', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
                         </li>
                         <li class="m_bottom_15">
-                          <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Birthday</label>
-                          <?php $birthday = ($customer->birthday == '' || $customer->birthday == null) ? '' : $customer->birthday; ?>
-                          {{Form::text("birthday", $birthday, ['id'=>'birthday', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                          <label for="email" class="d_inline_b m_bottom_5" tabindex="1">Birthday (DD-MM-YYYY)</label>
+                          <?php $birthday = ($customer->birthday == '' || $customer->birthday == null) ? '' : date('d-m-Y', strtotime($customer->birthday)); ?>
+                          {{Form::text("birthday", $birthday , ['class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
                         </li>
                         <li><button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover" tabindex="3">Save</button></li>
                       </ul>
@@ -127,25 +122,41 @@
 
               </div>
               <div id="tab-password">
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 m_xs_bottom_30">
-                    <ul>
+                <form method="post" action="">
+                  {!! csrf_field() !!}
+                  <input type="hidden" name="action" value="change_password">
+
+                  @if ($errors->has())
+                    <div class="alert_box r_corners error m_bottom_10">
+                      <i class="fa fa-exclamation"></i>
+                      <p>
+                        @foreach ($errors->all() as $error)
+                          {{ $error }}<br>
+                        @endforeach
+                      </p>
+                    </div>
+                  @endif
+
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 m_xs_bottom_30">
+                      <ul>
+                        <li class="m_bottom_15">
+                          <label for="current_password" class="d_inline_b m_bottom_5 required" tabindex="1">Current Password</label>
+                          <input type="password" name="current_password" autocomplete="off" class="r_corners full_width" tabindex="30">
+                        </li>
                       <li class="m_bottom_15">
-                        <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Current Password</label>
-                        {{Form::text("password_current", '', ['class'=>'r_corners full_width m_bottom_5', 'tabindex'=>1])}}
+                        <label for="password" class="d_inline_b m_bottom_5 required">Password</label>
+                        <input type="password" name="password" autocomplete="off" class="r_corners full_width" tabindex="31">
                       </li>
                       <li class="m_bottom_15">
-                        <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">New Password</label>
-                        {{Form::text("password_new", '', ['class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
-                      </li>
-                      <li class="m_bottom_15">
-                        <label for="email" class="d_inline_b m_bottom_5 required" tabindex="1">Confirm Password</label>
-                        {{Form::text("password_confirmation", '', ['class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                        <label for="password_confirmation" class="d_inline_b m_bottom_5 required">Confirm Password</label>
+                        <input type="password" id="password_confirmation" autocomplete="off" name="password_confirmation" class="r_corners full_width" tabindex="32">
                       </li>
                       <li><button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover" tabindex="3">Save</button></li>
-                    </ul>
+                      </ul>
+                    </div>
                   </div>
-                </div>
+                </form>
               </div>
             </section>
           </div>

@@ -33,7 +33,7 @@ class CustomerTable extends Migration
         'customer_id'=>1,
         'stat'=>CustomerStat::Active,
         'email'=>'wei_ket@hotmail.com',
-        'password'=>Hash::make("test168"),
+        'password'=>Hash::make("test1234"),
         'name'=>'Ong Wei Ket',
         'mobile'=>'9011 0130',
         'phone'=>'6123 4567',
