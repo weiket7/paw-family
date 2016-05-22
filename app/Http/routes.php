@@ -45,6 +45,7 @@ Route::post('add-to-cart', 'SaleController@addToCart');
 Route::post('update-cart', 'SaleController@updateCart');
 Route::post('remove-from-cart', 'SaleController@removeFromCart');
 Route::get('checkout', 'SaleController@checkout');
+Route::post('checkout', 'SaleController@checkout');
 Route::get('get-cart', 'SaleController@getCart');
 
 Route::get('admin', 'Admin\AdminController@login');
@@ -52,6 +53,11 @@ Route::post('admin', 'Admin\AdminController@login');
 
 Route::group(['middleware'=>'auth_operator'], function() {
   Route::get('admin/dashboard', 'Admin\AdminController@dashboard');
+
+  Route::get('admin/sale', 'Admin\SaleController@index');
+  Route::post('admin/sale', 'Admin\SaleController@index');
+  Route::get('admin/sale/save/{sale_id}', 'Admin\SaleController@save');
+  Route::post('admin/sale/save/{sale_id}', 'Admin\SaleController@save');
 
   Route::get('admin/customer', 'Admin\CustomerController@index');
   Route::post('admin/customer', 'Admin\CustomerController@index');

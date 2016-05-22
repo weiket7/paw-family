@@ -2,13 +2,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
-use App\Models\Size;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {
-    public function save($sale_id = null) {
-
+  public function index(Request $request) {
+    $sale_service = new Sale();
+    if($request->isMethod('post')) {
+      $input = $request->all();
+      $sales = $sale_service->searchSale($input);
+    } else {
+      $sales = $sale_service->getLatest();
     }
+    $data['sales'] = $sales;
+    return view('admin/sale/index', $data);
+  }
+
+  public function save() {
+    return view('admin/sale/form');
+  }
 }

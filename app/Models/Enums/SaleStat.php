@@ -8,6 +8,7 @@ abstract class SaleStat {
   const Void = 'V';
 
   static $values = [
+    ''=>'',
     self::Submitted=>'Submitted',
     self::Paid=>'Paid',
     self::Processing=>'Processing',

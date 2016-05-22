@@ -506,19 +506,11 @@ License: You must have a valid license purchased only from themeforest(the above
           </a>
         </li>
         <li class="nav-item  ">
-          <a href="#" class="nav-link nav-toggle">
+          <a href="{{url("admin/sale")}}" class="nav-link nav-toggle">
             <i class="icon-basket"></i>
             <span class="title">Orders</span>
             <span class="arrow"></span>
           </a>
-          <ul class="sub-menu">
-            <li class="nav-item start ">
-              <a href="#" class="nav-link ">
-                <i class="icon-bar-chart"></i>
-                <span class="title">New Orders</span>
-              </a>
-            </li>
-          </ul>
         </li>
         <li class="nav-item start ">
           <a href="{{url("admin/customer")}}" class="nav-link nav-toggle">

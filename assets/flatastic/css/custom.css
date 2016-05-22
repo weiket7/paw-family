@@ -22,3 +22,9 @@
 .error {
   color: red;
 }
+
+.link:hover {
+  color: #e74c3c;
+  text-decoration: underline;
+  cursor: pointer;
+}

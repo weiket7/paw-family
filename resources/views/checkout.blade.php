@@ -45,12 +45,12 @@
                       <button class="bg_tr d_block f_left" data-direction="up" onclick="updateQuantity(this)">+</button>
                     </div>
                     <div>
-                      <a href="#" class="color_dark" onclick="updateCart('{{$p->product_id}}')">
+                      <span class="link color_dark" onclick="updateCart('{{$p->product_id}}')">
                         <i class="fa fa-check f_size_medium m_right_5"></i>Update
-                      </a><br>
-                      <a href="#" class="color_dark" onclick="removeFromCart('{{$p->product_id}}')">
+                      </span><br>
+                      <span class="link color_dark" onclick="removeFromCart('{{$p->product_id}}')">
                         <i class="fa fa-times f_size_medium m_right_5"></i>Remove
-                      </a>
+                      </span>
                     </div>
                   </td>
                   <td>
@@ -94,7 +94,7 @@
               </tbody>
             </table>
 
-
+            @if(! auth()->check())
             <div class="tabs m_bottom_45">
               <!--tabs navigation-->
               <nav>
@@ -105,7 +105,7 @@
               </nav>
               <section class="tabs_content shadow r_corners">
                 <div id="tab-1">
-                  <form>
+                  <form method="post" action="">
                     <ul>
                       <li class="clearfix m_bottom_15">
                         <div class="half_column type_2 f_left">
@@ -119,7 +119,7 @@
                       </li>
                       <li class="clearfix m_bottom_10">
                         <div class="half_column type_2 f_left">
-                          <button class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover">Log In</button>
+                          <button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover">Log In</button>
                         </div>
                         <div class="half_column type_2 f_left">
                           <a href="#" class="color_dark f_size_medium">Forgot your password?</a>
@@ -135,14 +135,14 @@
                 </div>
               </section>
             </div>
+            @endif
 
             <h2 class="tt_uppercase color_dark m_bottom_30">Delivery Address</h2>
             <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
               <figure class="block_select clearfix relative m_bottom_15">
                 <input type="radio" name="radio_1" class="d_none">
                 <figcaption>
-                  <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Blk 134, Bedok Reservoir Rd, #08-1227</h5>
-                  <p>Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit. Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Donec sit amet eros. Lorem ipsum dolor sit amet, consecvtetuer. </p>
+                  <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">{{$customer->address}}</h5>
                 </figcaption>
               </figure>
               <hr class="m_bottom_20">
@@ -151,7 +151,7 @@
                 <figcaption>
                   <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Another address</h5>
                   <p>
-                    {{Form::text("mobile", '', ['id'=>'mobile', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                    {{Form::text("address_other", '', ['id'=>'address_other', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
                   </p>
                 </figcaption>
               </figure>
@@ -190,39 +190,42 @@
 
             <h2 class="tt_uppercase color_dark m_bottom_30">Payment</h2>
             <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
-              <figure class="block_select clearfix relative m_bottom_15">
-                <input type="radio" name="radio_2" class="d_none">
+              <figure class="block_select clearfix relative m_bottom_15" onclick="selectPayment('bank')">
+                <input type="radio" name="payment" class="d_none">
                 <figcaption>
                   <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Bank transfer through internet or ATM</h5>
-                  <p id="p-cash" style="display:none">Lorem ipsum dolor sit amet, consecvtetuer adipiscing elit. Mauris fermentum dictum magna.
-                    Sed laoreet aliquam leo. Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit.</p>{{--</div>--}}
+                  <p id="p-bank" style="display:none">
+                    DBS Bank - Saving Plus, 017-0-098022<br>
+                    Bank Code:7171 | Branch Code:	017<br>
+                    <br>
+                    OCBC Corporate Current Account, 815529-001<br>
+                    Bank Code: 7339 | Branch Code:	557
+                  </p>
                 </figcaption>
               </figure>
               <hr class="m_bottom_20">
-              <figure class="block_select clearfix relative">
-                <input type="radio" name="radio_2" class="d_none">
+              <figure class="block_select clearfix relative" onclick="selectPayment('cash')">
+                <input type="radio" name="payment" class="d_none">
                 <figcaption>
                   <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Cash on delivery</h5>
-                  <p id="p-cash" style="display:none">Lorem ipsum dolor sit amet, consecvtetuer adipiscing elit. Mauris fermentum dictum magna.
-                    Sed laoreet aliquam leo. Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit.</p>
+                  <p id="p-cash" style="display:none">Please provide exact cash amount</p>
                 </figcaption>
               </figure>
               <hr class="m_bottom_20">
-              <figure class="block_select clearfix relative">
-                <input type="radio" name="radio_2" class="d_none">
+              <figure class="block_select clearfix relative" onclick="selectPayment('cheque')">
+                <input type="radio" name="payment" class="d_none">
                 <figcaption>
                   <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Cheque</h5>
-                  <p id="p-cheque" style="display:none">Lorem ipsum dolor sit amet, consecvtetuer adipiscing elit. Mauris fermentum dictum magna.
-                    Sed laoreet aliquam leo. Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit.</p>
+                  <p id="p-cheque" style="display:none">
+                    Please make cheque payable to: PAW FAMILY and cross 'Bearer'
+                  </p>
                 </figcaption>
               </figure>
               <hr class="m_bottom_20">
               <figure class="block_select clearfix relative">
-                <input type="radio" name="radio_2" class="d_none">
+                <input type="radio" name="payment" class="d_none">
                 <figcaption>
                   <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Paypal</h5>
-                  <p id="p-paypal" style="display:none">Lorem ipsum dolor sit amet, consecvtetuer adipiscing elit. Mauris fermentum dictum magna.
-                    Sed laoreet aliquam leo. Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit.</p>
                 </figcaption>
               </figure>
             </div>
@@ -243,7 +246,10 @@
               </tr>
             </table>
 
-            <button class="button_type_6 bg_scheme_color f_size_large r_corners tr_all_hover color_light m_bottom_20">Confirm Purchase</button>
+            <form method="post" action="">
+              {{ csrf_field() }}
+              <button type="submit" class="button_type_6 bg_scheme_color f_size_large r_corners tr_all_hover color_light m_bottom_20">Confirm Purchase</button>
+            </form>
           @endif
         </section>
       </div>
@@ -327,6 +333,14 @@
           alert("An error has occurred, please contact admin@pawfamily.sg");
         }
       });
+    }
+
+    function selectPayment(method) {
+      console.log(method);
+      $("#p-cash").hide();
+      $("#p-cheque").hide();
+      $("#p-bank").hide();
+      $("#p-"+method).show();
     }
   </script>
 @endsection

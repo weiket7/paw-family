@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Customer;
 use App\Models\Enums\PaymentType;
 use App\Models\Sale;
 use Auth;
@@ -22,6 +23,9 @@ class SaleController extends Controller
       $sale->checkoutCart($customer_id, PaymentType::Cash, $products);
     }
     $data['products'] = $products;
+
+    $customer_id = Auth::id();
+    $data['customer'] = Customer::find($customer_id);
     return view('checkout', $data);
   }
 

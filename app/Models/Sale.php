@@ -74,9 +74,25 @@ class Sale extends Eloquent
     $this->gross_total = $gross_total;
     $this->product_discount = $product_discount;
     $this->nett_total = $gross_total - $product_discount;
-    $this->point = round($this->nett_total / 100, PHP_ROUND_HALF_DOWN);
+    $this->point = round($this->nett_total, PHP_ROUND_HALF_DOWN);
     $this->save();
     return $this;
+  }
+
+  public function searchSale($input)
+  {
+    $s = "SELECT * from sale where 1 ";
+    /*if($input['name'] != '') {
+      $s .= " and name LIKE '%".$input['name']."%'";
+    }*/
+    if (isset($input['stat']) && $input['stat'] != '') {
+      $s .= " and stat = $input[stat]";
+    }
+    if (isset($input['payment_type']) && $input['payment_type'] != '') {
+      $s .= " and payment_type = $input[payment_type]";
+    }
+    $sales = DB::select($s);
+    return $sales;
   }
 
   public function getSale($sale_id_or_code)
@@ -103,6 +119,16 @@ class Sale extends Eloquent
     $sale->products = DB::select($s, $p);
 
     return $sale;
+  }
+
+  public function getLatest()
+  {
+    $s = "SELECT sale_id, s.stat, c.name, s.customer_id, payment_type, product_discount, promo_discount, gross_total, nett_total, sale_on
+    from sale as s 
+    inner join customer as c on s.customer_id = c.customer_id
+    order by sale_on desc limit 100";
+    $data = DB::select($s);
+    return $data;
   }
 
 }
