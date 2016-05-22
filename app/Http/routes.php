@@ -35,10 +35,10 @@ Route::get('register', 'SiteController@register');
 Route::post('register', 'SiteController@register');
 
 Route::group(['middleware'=>'auth'], function() {
-  Route::get('account', 'SiteController@account');
-  Route::post('account', 'SiteController@account');
-  Route::get('order/{sale_no}', 'SiteController@order');
-  Route::post('order/{sale_no}', 'SiteController@order');
+  Route::get('account', 'AccountController@account');
+  Route::post('account', 'AccountController@account');
+  Route::get('order/{sale_no}', 'AccountController@order');
+  Route::post('order/{sale_no}', 'AccountController@order');
 });
 
 Route::post('add-to-cart', 'SaleController@addToCart');

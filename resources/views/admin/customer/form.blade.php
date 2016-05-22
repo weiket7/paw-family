@@ -162,7 +162,7 @@
           @foreach($customer->sales as $sale)
             <tr>
               <td>{{CommonHelper::formatDateTime($sale->sale_on)}}</td>
-              <td><a href="{{url("admin/sale/save")}}">{{$sale->sale_code}}</a></td>
+              <td><a href="{{url("admin/sale/save")}}">{{$sale->sale_no}}</a></td>
               <td>{{\App\Models\Enums\SaleStat::$values[$sale->stat]}}</td>
               <td>{{\App\Models\Enums\PaymentType::$values[$sale->payment_type]}}</td>
               <td>{{$sale->gross_total}}</td>

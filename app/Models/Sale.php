@@ -24,7 +24,7 @@ class Sale extends Eloquent
 
   public function getSalesByCustomer($customer_id)
   {
-    $s = "SELECT sale_id, sale_code, stat, payment_type, product_discount, gross_total, nett_total, point, sale_on
+    $s = "SELECT sale_id, sale_no, stat, payment_type, product_discount, gross_total, nett_total, point, sale_on
     FROM sale where customer_id = :customer_id";
     $p['customer_id'] = $customer_id;
     $data = DB::select($s, $p);
@@ -45,7 +45,7 @@ class Sale extends Eloquent
 
   public function checkoutCart($customer_id, $payment_type, $products) {
     $this->customer_id = $customer_id;
-    $this->stat = SaleStat::Submitted;
+    $this->stat = SaleStat::Pending;
     $this->payment_type = $payment_type;
     $this->sale_on = date("Y-m-d H:i:s");
     $this->save();
@@ -95,27 +95,20 @@ class Sale extends Eloquent
     return $sales;
   }
 
-  public function getSale($sale_id_or_code)
+  public function getSaleIdByNo($sale_no) {
+    return DB::table('sale')->where('sale_no', $sale_no)->value('sale_id');
+  }
+
+  public function getSale($sale_id)
   {
-    $s = "SELECT customer_id, sale_id, sale_code, stat, payment_type, promo_discount, gross_total, nett_total, point, sale_on
-    FROM sale ";
-    if (is_int($sale_id_or_code)) {
-      $s .= " where sale_id = :sale_id";
-      $p['sale_id'] = $sale_id_or_code;
-    } else {
-      $s .= " where sale_code = :sale_code";
-      $p['sale_code'] = $sale_id_or_code;
-    }
+    $s = "SELECT customer_id, sale_id, sale_no, stat, payment_type, promo_discount, gross_total, nett_total, point, sale_on
+    FROM sale where sale_id = :sale_id";
+    $p['sale_id'] = $sale_id;
 
     $sale = DB::select($s, $p)[0];
-    $s = "SELECT product_id, quantity, price, subtotal from sale_product ";
-    if (is_int($sale_id_or_code)) {
-      $s .= " where sale_id = :sale_id";
-      $p['sale_id'] = $sale_id_or_code;
-    } else {
-      $s .= " where sale_code = :sale_code";
-      $p['sale_code'] = $sale_id_or_code;
-    }
+    $s = "SELECT p.name, sp.product_id, quantity, sp.discounted_price, subtotal from sale_product  as sp 
+    inner join product as p on sp.product_id = p.product_id
+    where sale_id = :sale_id";
     $sale->products = DB::select($s, $p);
 
     return $sale;

@@ -49,7 +49,7 @@
   <table class="table table-bordered table-hover">
     <thead>
     <tr>
-      <th width="100px">Status</th>
+      <th width="150px">Status</th>
       <th width="200px">Customer</th>
       <th width="100px">Gross</th>
       <th width="100px">Product Discount</th>

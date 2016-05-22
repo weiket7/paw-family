@@ -18,36 +18,6 @@ use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
-  public function account(Request $request) {
-    $customer_id = Auth::id();
-    $customer = Customer::find($customer_id);
-    if($request->isMethod('post')) {
-      $input = $request->all();
-      $action = $input['action'];
-      if ($action == "account") {
-        if (! $customer->saveCustomer($input)) {
-          return redirect("account")->withErrors($customer->getValidation())->withInput($input);
-        }
-        return redirect('account')->with('msg', 'Account updated');
-      } else if ($action == "change_password") {
-        if (! $customer->changePassword($input, $customer_id)) {
-          return redirect("account#tab-password")->withErrors($customer->getValidation())->withInput($input);
-        }
-        return redirect('account#tab-password')->with('msg', 'Password changed');
-      }
-    }
-    $sale_service = new Sale();
-    $data['sales'] = $sale_service->getSalesByCustomer($customer_id);
-    $data['customer'] = $customer;
-
-    return view('account', $data);
-  }
-
-  public function order(Request $request, $sale_no) {
-    $sale_service = new Sale();
-    $data['sale'] = $sale_service->getSale($sale_no);
-    return view('order', $data);
-  }
 
   public function login(Request $request) {
     if($request->isMethod('post')) {
@@ -146,11 +116,11 @@ class SiteController extends Controller
     return view('forgot-password');
   }
 
-  public function resetPassword() {
+  /*public function resetPassword() {
     $data['name'] = 'Wei Ket';
     $data['email'] = 'wei_ket@hotmail.com';
     $data['new_password'] = 'test168';
     return view('emails/reset-password', $data);
-  }
+  }*/
 
 }

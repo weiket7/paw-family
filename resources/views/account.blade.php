@@ -97,21 +97,21 @@
                 <table class="table_type_3 responsive_table full_width r_corners wrapper shadow bg_light_color_1 m_bottom_30 t_align_l">
                   <thead>
                   <tr class="f_size_large">
-                    <th>Order Number</th>
-                    <th>Order Date</th>
-                    <th>Total</th>
-                    <th>Payment Type</th>
                     <th>Status</th>
+                    <th>Order Number</th>
+                    <th>Total</th>
+                    <th>Payment</th>
+                    <th>Date</th>
                   </tr>
                   </thead>
                   <tbody>
                   @foreach($sales as $sale)
                     <tr>
-                      <td><a href="{{url("order/".$sale->sale_code)}}">{{$sale->sale_code}}</a></td>
-                      <td>{{CommonHelper::formatDateTime($sale->sale_on)}}</td>
+                      <td>{{SaleStat::$values[$sale->stat]}}</td>
+                      <td><a href="{{url("order/".$sale->sale_no)}}">{{$sale->sale_no}}</a></td>
                       <td>${{$sale->nett_total}}</td>
                       <td>{{PaymentType::$values[$sale->payment_type]}}</td>
-                      <td>{{SaleStat::$values[$sale->stat]}}</td>
+                      <td>{{CommonHelper::formatDateTime($sale->sale_on)}}</td>
                     </tr>
                   @endforeach
                   </tbody>

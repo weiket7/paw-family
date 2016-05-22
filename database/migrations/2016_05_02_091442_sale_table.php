@@ -11,7 +11,7 @@ class SaleTable extends Migration
   {
     Schema::create('sale', function (Blueprint $t) {
       $t->increments('sale_id');
-      $t->string('sale_code', 10);
+      $t->string('sale_no', 10);
       $t->integer('customer_id');
       $t->char('stat', 1);
       $t->char('payment_type', 1);
@@ -29,7 +29,7 @@ class SaleTable extends Migration
     });
 
     DB::table('sale')->insert([
-      'sale_id'=>1, 'sale_code'=>'123456', 'customer_id'=>1, 'stat'=> SaleStat::Delivered, 'payment_type'=>PaymentType::Bank,
+      'sale_id'=>1, 'sale_no'=>'123456', 'customer_id'=>1, 'stat'=> SaleStat::Delivered, 'payment_type'=>PaymentType::Bank,
       'gross_total'=>168.05, 'nett_total'=>168.05, 'point'=>168, 'sale_on'=>date('Y-m-d H:i:s'),
     ]);
   }
