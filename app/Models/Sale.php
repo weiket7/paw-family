@@ -1,5 +1,7 @@
 <?php namespace App\Models;
 
+use App\Models\Enums\DeliveryChoice;
+use App\Models\Enums\DeliveryTime;
 use App\Models\Enums\SaleStat;
 use CommonHelper;
 use Eloquent, DB, Validator, Input;
@@ -43,10 +45,14 @@ class Sale extends Eloquent
     return $this->validation;
   }
 
-  public function checkoutCart($customer_id, $payment_type, $products) {
+  public function checkoutCart($customer_id, DeliveryOption $delivery_option, $products) {
     $this->customer_id = $customer_id;
     $this->stat = SaleStat::Pending;
-    $this->payment_type = $payment_type;
+    $this->payment_type = $delivery_option->payment_type;
+    $this->delivery_choice = $delivery_option->delivery_choice;
+    $this->delivery_address = $this->getDeliveryAddress($delivery_option->delivery_choice, $delivery_option->address_other, $customer_id);
+    $this->delivery_time = DeliveryTime::$values[$delivery_option->delivery_time];
+    $this->customer_remark = $delivery_option->customer_remark;
     $this->sale_on = date("Y-m-d H:i:s");
     $this->save();
 
@@ -74,7 +80,7 @@ class Sale extends Eloquent
     $this->gross_total = $gross_total;
     $this->product_discount = $product_discount;
     $this->nett_total = $gross_total - $product_discount;
-    $this->point = round($this->nett_total, PHP_ROUND_HALF_DOWN);
+    $this->point = $this->calculatePoint($this->nett_total);
     $this->save();
     return $this;
   }
@@ -123,5 +129,22 @@ class Sale extends Eloquent
     $data = DB::select($s);
     return $data;
   }
+
+  public function getDeliveryAddress($delivery_choice, $address_other, $customer_id) {
+    if ($delivery_choice == DeliveryChoice::OtherAddress) {
+      return $address_other;
+    } else if ($delivery_choice == DeliveryChoice::CurrentAddress) {
+      $customer = Customer::find($customer_id);
+      return $customer->address;
+    } else if ($delivery_choice == DeliveryChoice::SelfCollect) {
+      return DeliveryChoice::$values[DeliveryChoice::SelfCollect];
+    }
+    return "error";
+  }
+
+  public function calculatePoint($nett_total) {
+    return floor($nett_total);
+  }
+
 
 }

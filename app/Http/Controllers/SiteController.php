@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Models\Banner;
-use App\Models\Enums\FeaturedType;
 use App\Models\Featured;
 use App\Models\Testimonial;
 use App\User;
@@ -12,8 +11,6 @@ use Auth;
 use Mail;
 use App\Models\Brand;
 use App\Models\Customer;
-use App\Models\Product;
-use App\Models\Sale;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
@@ -21,11 +18,17 @@ class SiteController extends Controller
 
   public function login(Request $request) {
     if($request->isMethod('post')) {
+      $referrer = $request->get("referrer");
+
       $email = $request->get("email");
       $password = trim($request->get("password"));
       if (! Auth::attempt(['email'=>$email, 'password'=>$password])) {
         return "fail";
       }
+      if ($referrer == 'checkout') {
+        return redirect('checkout')->with('login', true);
+      }
+
       $request->session()->flash("login", true);
       return "success";
     }
@@ -93,7 +96,7 @@ class SiteController extends Controller
 
   public function logout() {
     Auth::logout();
-    return redirect("/")->with('msg-info', 'You have been logged out');
+    return redirect("/")->with('msg-info', 'You have logged out');
   }
 
   public function forgotPassword(Request $request) {

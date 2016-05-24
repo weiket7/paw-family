@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Customer;
+use App\Models\DeliveryOption;
 use App\Models\Enums\PaymentType;
 use App\Models\Sale;
 use Auth;
@@ -19,14 +20,28 @@ class SaleController extends Controller
     if ($request->isMethod('post')) {
       $sale = new Sale();
       $customer_id = Auth::id();
-
-      $sale->checkoutCart($customer_id, PaymentType::Cash, $products);
+      $input = $request->all();
+      $delivery_option = $this->makeDeliveryOption($input);
+      var_dump($delivery_option);
+      $sale->checkoutCart($customer_id, $delivery_option, $products);
     }
     $data['products'] = $products;
 
     $customer_id = Auth::id();
     $data['customer'] = Customer::find($customer_id);
     return view('checkout', $data);
+  }
+
+  private function makeDeliveryOption($input) {
+    $delivery_option = new DeliveryOption();
+    $delivery_option->payment_type = $input['payment_type'];
+    $delivery_option->delivery_choice = $input['delivery_choice'];
+    $delivery_option->address_other = $input['address_other'];
+    $delivery_option->customer_remark = $input['customer_remark'];
+    $delivery_option->delivery_time = $input['delivery_time'];
+    $delivery_option->gift_wrap = isset($input['gift_wrap']) ? "Y" : "N";
+    $delivery_option->leave_outside_door = isset($input['leave_outside_door']) ? "Y" : "N";
+    return $delivery_option;
   }
 
   public function updateCart(Request $request) {

@@ -1,3 +1,7 @@
+<?php use App\Models\Enums\DeliveryChoice; ?>
+<?php use App\Models\Enums\DeliveryTime; ?>
+<?php use App\Models\Enums\PaymentType; ?>
+
 @extends('template')
 
 @section('content')
@@ -95,161 +99,184 @@
             </table>
 
             @if(! auth()->check())
-            <div class="tabs m_bottom_45">
-              <!--tabs navigation-->
-              <nav>
-                <ul class="tabs_nav horizontal_list clearfix">
-                  <li><a href="#tab-1" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Login</a></li>
-                  <li><a href="#tab-2" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Register</a></li>
-                </ul>
-              </nav>
-              <section class="tabs_content shadow r_corners">
-                <div id="tab-1">
-                  <form method="post" action="">
-                    <ul>
-                      <li class="clearfix m_bottom_15">
-                        <div class="half_column type_2 f_left">
-                          <label for="username" class="m_bottom_5 d_inline_b">Email</label>
-                          <input type="text" id="username" name="" class="r_corners full_width m_bottom_5">
-                        </div>
-                        <div class="half_column type_2 f_left">
-                          <label for="pass" class="m_bottom_5 d_inline_b">Password</label>
-                          <input type="password" id="pass" name="" class="r_corners full_width m_bottom_5">
-                        </div>
-                      </li>
-                      <li class="clearfix m_bottom_10">
-                        <div class="half_column type_2 f_left">
-                          <button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover">Log In</button>
-                        </div>
-                        <div class="half_column type_2 f_left">
-                          <a href="#" class="color_dark f_size_medium">Forgot your password?</a>
-                        </div>
-                      </li>
-                    </ul>
-                  </form>
+              <div class="alert_box r_corners info m_bottom_10">
+                <i class="fa fa-info-circle"></i><p>Please login or register to proceed</p>
+              </div>
+
+              <div class="tabs m_bottom_45">
+                <!--tabs navigation-->
+                <nav>
+                  <ul class="tabs_nav horizontal_list clearfix">
+                    <li><a href="#tab-1" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Login</a></li>
+                    <li><a href="#tab-2" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Register</a></li>
+                  </ul>
+                </nav>
+                <section class="tabs_content shadow r_corners">
+                  <div id="tab-1">
+                    <form method="post" action="login">
+                      {{csrf_field()}}
+                      <input type="hidden" name="referrer" value="checkout">
+                      <ul>
+                        <li class="clearfix m_bottom_15">
+                          <div class="half_column type_2 f_left">
+                            <label for="username" class="m_bottom_5 d_inline_b">Email</label>
+                            <input type="text" name="email" class="r_corners full_width m_bottom_5">
+                          </div>
+                          <div class="half_column type_2 f_left">
+                            <label for="pass" class="m_bottom_5 d_inline_b">Password</label>
+                            <input type="password" name="password" class="r_corners full_width m_bottom_5">
+                          </div>
+                        </li>
+                        <li class="clearfix m_bottom_10">
+                          <div class="half_column type_2 f_left">
+                            <button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover">Log In</button>
+                          </div>
+                          <div class="half_column type_2 f_left">
+                            <a href="#" class="color_dark f_size_medium">Forgot your password?</a>
+                          </div>
+                        </li>
+                      </ul>
+                    </form>
+                  </div>
+                  <div id="tab-2">
+                    <form method="post" action="register">
+                      {{csrf_field()}}
+                      <input type="hidden" name="referrer" value="checkout">
+                      @include('register-form')
+                    </form>
+                  </div>
+                </section>
+              </div>
+
+              <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Delivery Address</h2>
+              <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Delivery Time</h2>
+              <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Payment</h2>
+              <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Remarks</h2>
+            @else
+
+              @if(Session::has('login'))
+                <div class="alert_box r_corners color_green success m_bottom_10">
+                  <i class="fa fa-smile-o"></i><p>Welcome {{$customer->name}}! </p>
                 </div>
-                <div id="tab-2">
-                  <form method="post" action="">
-                    @include('register-form')
-                  </form>
+              @endif
+
+              <form method="post" action="">
+                <h2 class="tt_uppercase color_dark m_bottom_15">Delivery Address</h2>
+                <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
+                  <figure class="block_select clearfix relative m_bottom_15">
+                    <input type="radio" name="delivery_choice" value={{DeliveryChoice::CurrentAddress}} class="d_none">
+                    <figcaption>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">{{$customer->address}}</h5>
+                    </figcaption>
+                  </figure>
+                  <hr class="m_bottom_20">
+                  <figure class="block_select clearfix relative">
+                    <input type="radio" name="delivery_choice" value={{DeliveryChoice::OtherAddress}} class="d_none">
+                    <figcaption>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Another address</h5>
+                      <p>
+                        {{Form::text("address_other", '', ['id'=>'address_other', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                      </p>
+                    </figcaption>
+                  </figure>
+                  <hr class="m_bottom_20">
+                  <figure class="block_select clearfix relative">
+                    <input type="radio" name="delivery_choice" value={{DeliveryChoice::SelfCollect}} class="d_none">
+                    <figcaption>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Self collect at Upper Paya Lebar, between 11am-2pm, Tues to Thurs</h5>
+                    </figcaption>
+                  </figure>
                 </div>
-              </section>
-            </div>
+
+                <h2 class="tt_uppercase color_dark m_bottom_15">Delivery Time</h2>
+                <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
+                  <figure class="block_select clearfix relative">
+                    <input type="radio" name="delivery_time" value="{{DeliveryTime::AnyTime}}" class="d_none">
+                    <figcaption>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Any time</h5>
+                    </figcaption>
+                  </figure>
+                  <hr class="m_bottom_20">
+                  <figure class="block_select clearfix relative">
+                    <input type="radio" name="delivery_time" value="{{DeliveryTime::Oneto430}}" class="d_none">
+                    <figcaption>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">1pm - 4.30pm</h5>
+                    </figcaption>
+                  </figure>
+                  <hr class="m_bottom_20">
+                  <figure class="block_select clearfix relative">
+                    <input type="radio" name="delivery_time" value="{{DeliveryTime::Four30to8}}" class="d_none">
+                    <figcaption>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">4.30pm - 8pm</h5>
+                    </figcaption>
+                  </figure>
+                </div>
+
+                <h2 class="tt_uppercase color_dark m_bottom_15">Payment</h2>
+                <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
+                  <figure class="block_select clearfix relative m_bottom_15" onclick="selectPayment('bank')">
+                    <input type="radio" name="payment_type" value="{{PaymentType::Bank}}" class="d_none">
+                    <figcaption>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Bank transfer through internet or ATM</h5>
+                      <p id="p-bank" style="display:none">
+                        DBS Bank - Saving Plus, 017-0-098022<br>
+                        Bank Code:7171 | Branch Code:	017<br>
+                        <br>
+                        OCBC Corporate Current Account, 815529-001<br>
+                        Bank Code: 7339 | Branch Code:	557
+                      </p>
+                    </figcaption>
+                  </figure>
+                  <hr class="m_bottom_20">
+                  <figure class="block_select clearfix relative" onclick="selectPayment('cash')">
+                    <input type="radio" name="payment_type" value="{{PaymentType::Cash}}" class="d_none">
+                    <figcaption>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Cash on delivery</h5>
+                      <p id="p-cash" style="display:none">Please provide exact cash amount which will be appreciated</p>
+                    </figcaption>
+                  </figure>
+                  <hr class="m_bottom_20">
+                  <figure class="block_select clearfix relative" onclick="selectPayment('cheque')">
+                    <input type="radio" name="payment_type" value="{{PaymentType::Cheque}}" class="d_none">
+                    <figcaption>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Cheque</h5>
+                      <p id="p-cheque" style="display:none">
+                        Please make cheque payable to: PAW FAMILY and cross 'Bearer'
+                      </p>
+                    </figcaption>
+                  </figure>
+                  <hr class="m_bottom_20">
+                  <figure class="block_select clearfix relative">
+                    <input type="radio" name="payment_type" value="{{PaymentType::Paypal}}" class="d_none">
+                    <figcaption>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Paypal</h5>
+                    </figcaption>
+                  </figure>
+                </div>
+
+                <h2 class="tt_uppercase color_dark m_bottom_15">Remarks</h2>
+                <table class="table_type_5 full_width r_corners wraper shadow t_align_l m_bottom_30">
+                  <tr>
+                    <td>
+                      <textarea name="customer_remark" class="r_corners notes full_width"></textarea>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input type="checkbox" class="d_none" name="leave_outside_door" id="leave_outside_door">
+                        <label for="leave_outside_door" class="m_bottom_15">Can leave products in front of the door (A picture of the items placed outside as evidence of delivery will be sent)
+                      </label><br>
+                      <input type="checkbox" class="d_none" name="gift_wrap" id="gift_wrap">
+                        <label for="gift_wrap" class="m_bottom_15">As the items will be a gift, please wrap nicely
+                      </label>
+                    </td>
+                  </tr>
+                </table>
+
+                {{ csrf_field() }}
+                <button type="submit" class="button_type_6 bg_scheme_color f_size_large r_corners tr_all_hover color_light m_bottom_20">Confirm Purchase</button>
+              </form>
             @endif
-
-            <h2 class="tt_uppercase color_dark m_bottom_30">Delivery Address</h2>
-            <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
-              <figure class="block_select clearfix relative m_bottom_15">
-                <input type="radio" name="radio_1" class="d_none">
-                <figcaption>
-                  <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">{{$customer->address}}</h5>
-                </figcaption>
-              </figure>
-              <hr class="m_bottom_20">
-              <figure class="block_select clearfix relative">
-                <input type="radio" name="radio_1" class="d_none">
-                <figcaption>
-                  <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Another address</h5>
-                  <p>
-                    {{Form::text("address_other", '', ['id'=>'address_other', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
-                  </p>
-                </figcaption>
-              </figure>
-              <hr class="m_bottom_20">
-              <figure class="block_select clearfix relative">
-                <input type="radio" name="radio_1" class="d_none">
-                <figcaption>
-                  <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Self collect at Upper Paya Lebar, between 11am-2pm, Tues to Thurs</h5>
-                </figcaption>
-              </figure>
-            </div>
-
-            <h2 class="tt_uppercase color_dark m_bottom_30">Delivery Time</h2>
-            <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
-              <figure class="block_select clearfix relative">
-                <input type="radio" name="radio_1" class="d_none">
-                <figcaption>
-                  <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Any time</h5>
-                </figcaption>
-              </figure>
-              <hr class="m_bottom_20">
-              <figure class="block_select clearfix relative">
-                <input type="radio" name="radio_1" class="d_none">
-                <figcaption>
-                  <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">1pm - 4.30pm</h5>
-                </figcaption>
-              </figure>
-              <hr class="m_bottom_20">
-              <figure class="block_select clearfix relative">
-                <input type="radio" name="radio_1" class="d_none">
-                <figcaption>
-                  <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">4.30pm - 8pm</h5>
-                </figcaption>
-              </figure>
-            </div>
-
-            <h2 class="tt_uppercase color_dark m_bottom_30">Payment</h2>
-            <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
-              <figure class="block_select clearfix relative m_bottom_15" onclick="selectPayment('bank')">
-                <input type="radio" name="payment" class="d_none">
-                <figcaption>
-                  <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Bank transfer through internet or ATM</h5>
-                  <p id="p-bank" style="display:none">
-                    DBS Bank - Saving Plus, 017-0-098022<br>
-                    Bank Code:7171 | Branch Code:	017<br>
-                    <br>
-                    OCBC Corporate Current Account, 815529-001<br>
-                    Bank Code: 7339 | Branch Code:	557
-                  </p>
-                </figcaption>
-              </figure>
-              <hr class="m_bottom_20">
-              <figure class="block_select clearfix relative" onclick="selectPayment('cash')">
-                <input type="radio" name="payment" class="d_none">
-                <figcaption>
-                  <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Cash on delivery</h5>
-                  <p id="p-cash" style="display:none">Please provide exact cash amount</p>
-                </figcaption>
-              </figure>
-              <hr class="m_bottom_20">
-              <figure class="block_select clearfix relative" onclick="selectPayment('cheque')">
-                <input type="radio" name="payment" class="d_none">
-                <figcaption>
-                  <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Cheque</h5>
-                  <p id="p-cheque" style="display:none">
-                    Please make cheque payable to: PAW FAMILY and cross 'Bearer'
-                  </p>
-                </figcaption>
-              </figure>
-              <hr class="m_bottom_20">
-              <figure class="block_select clearfix relative">
-                <input type="radio" name="payment" class="d_none">
-                <figcaption>
-                  <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Paypal</h5>
-                </figcaption>
-              </figure>
-            </div>
-
-            <h2 class="tt_uppercase color_dark m_bottom_30">Remarks</h2>
-            <table class="table_type_5 full_width r_corners wraper shadow t_align_l m_bottom_30">
-              <tr>
-                <td>
-                  <textarea id="notes" class="r_corners notes full_width"></textarea>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input type="checkbox" class="d_none" name="checkbox_9" id="checkbox_9">
-                  <label for="checkbox_9" style="margin-bottom: 15px">Can leave products in front of the door (A picture of the items placed outside as evidence of delivery will be sent)
-                  </label>
-                </td>
-              </tr>
-            </table>
-
-            <form method="post" action="">
-              {{ csrf_field() }}
-              <button type="submit" class="button_type_6 bg_scheme_color f_size_large r_corners tr_all_hover color_light m_bottom_20">Confirm Purchase</button>
-            </form>
           @endif
         </section>
       </div>

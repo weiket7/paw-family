@@ -18,14 +18,17 @@ class SaleTable extends Migration
       $t->dateTime('sale_on');
       $t->decimal('gross_total', 9,2);
       $t->decimal('product_discount', 9,2);
-      $t->integer('promo_id');
+      $t->integer('promo_id')->nullable();
       $t->decimal('promo_discount', 9,2);
       $t->decimal('flat_discount', 9,2);
       $t->decimal('delivery_fee', 9, 2);
       $t->decimal('nett_total', 9,2); //after subtractions
       $t->integer('point');
-      $t->string('customer_remark', 200);
-      $t->string('operator_remark', 200);
+      $t->char('delivery_choice', 1);
+      $t->string('delivery_address', 200);
+      $t->string('delivery_time', 20);
+      $t->string('customer_remark', 200)->nullable();
+      $t->string('operator_remark', 200)->nullable();
     });
 
     DB::table('sale')->insert([
