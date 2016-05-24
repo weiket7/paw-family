@@ -17,12 +17,12 @@
                 @endif
               @endif
 
-              <figure class="col-lg-3 col-md-3 col-sm-3 col-xs-6 m_xs_bottom_15">
+              <figure class="col-lg-3 col-md-3 col-sm-3 col-xs-6 m_xs_bottom_25 t_align_c">
                 <a href="{{url('product/brand/'.$brand->slug)}}" class="m_image_wrap d_block m_bottom_15 d_xs_inline_b d_mxs_block">
                   <img src="{{url("assets/images/brands/".$brand->image)}}" alt="">
                 </a>
                 <figcaption>
-                  <h5><a href="{{url('product/brand/'.$brand->slug)}}" class="color_dark fw_medium">{{$brand->name}}</a></h5>
+                  <h5><a href="{{url('product/brand/'.$brand->slug)}}" class="color_dark fw_medium">{{$brand->name}} ({{$brand->product_count}})</a></h5>
                 </figcaption>
               </figure>
 

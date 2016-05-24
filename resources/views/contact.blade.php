@@ -1,24 +1,5 @@
 @extends('template')
 
-@section("script")
-  <script type="text/javascript">
-    /*$("#form-contact").validate({
-      rules: {
-        name: { required: true },
-        mobile: { required: true },
-        email: { required: true },
-        content: { required: true }
-      },
-      messages: {
-        name: { required: "Required" },
-        mobile: { required: "Required" },
-        email: { required: "Required" },
-        content: { required: "Required" }
-      }
-    });*/
-  </script>
-@endsection
-
 @section('content')
   <div class="page_content_offset">
     <div class="container">
@@ -30,7 +11,7 @@
               <h2 class="tt_uppercase color_dark m_bottom_25">Contact Info</h2>
               <ul class="c_info_list">
                 <li class="m_bottom_10">
-                  <div class="clearfix m_bottom_15">
+                  <div class="clearfix m_bottom_10">
                     <i class="fa fa-map-marker f_left color_dark"></i>
                     <p class="contact_e">Upper Paya Lebar</p>
                   </div>
@@ -44,7 +25,7 @@
                 <li class="m_bottom_10">
                   <div class="clearfix m_bottom_10">
                     <i class="fa fa-envelope f_left color_dark"></i>
-                    <a class="contact_e default_t_color" href="mailto:#">admin@pawfamily.sg</a>
+                    <a class="contact_e" href="mailto:admin@pawfamily.sg">admin@pawfamily.sg</a>
                   </div>
                 </li>
                 <li>
@@ -59,6 +40,17 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 m_xs_bottom_30">
               <h2 class="tt_uppercase color_dark m_bottom_25">Contact Form</h2>
+              @if ($errors->has())
+                <div class="alert_box r_corners error m_bottom_10">
+                  <i class="fa fa-exclamation"></i>
+                  <p>
+                    @foreach ($errors->all() as $error)
+                      {{ $error }}<br>
+                    @endforeach
+                  </p>
+                </div>
+              @endif
+
               <form id="form-contact" method="post" action="">
                 {{ csrf_field() }}
                 <ul>

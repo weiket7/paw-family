@@ -48,10 +48,9 @@ class Sale extends Eloquent
     'payment_type.required'=>'Payment type is required',
   ];
 
-  public function getSalesByCustomer($customer_id)
-  {
+  public function getSalesByCustomer($customer_id) {
     $s = "SELECT sale_id, sale_no, stat, payment_type, product_discount, gross_total, nett_total, point, sale_on
-    FROM sale where customer_id = :customer_id";
+    FROM sale where customer_id = :customer_id order by sale_on desc";
     $p['customer_id'] = $customer_id;
     $data = DB::select($s, $p);
     return $data;
@@ -132,8 +131,7 @@ class Sale extends Eloquent
     return DB::table('sale')->where('sale_no', $sale_no)->value('sale_id');
   }
 
-  public function getSale($sale_id)
-  {
+  public function getSale($sale_id)   {
     $s = "SELECT customer_id, sale_id, sale_no, stat, payment_type, promo_discount, gross_total, nett_total, point, sale_on
     FROM sale where sale_id = :sale_id";
     $p['sale_id'] = $sale_id;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Models\Banner;
+use App\Models\Contact;
 use App\Models\Featured;
 use App\Models\Testimonial;
 use App\User;
@@ -68,6 +69,11 @@ class SiteController extends Controller
   public function contact(Request $request) {
     if($request->isMethod('post')) {
       $input = $request->all();
+
+      $contact = new Contact();
+      if (! $contact->validateContact($input)) {
+        return redirect()->back()->withErrors($contact->getValidation())->withInput($input);
+      }
 
       $data = [
         'name'=>$input['name'],

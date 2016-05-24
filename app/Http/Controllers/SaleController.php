@@ -26,6 +26,7 @@ class SaleController extends Controller
       }
       $delivery_option = $this->makeDeliveryOption($input);
       $sale_no = $sale->checkoutCart($customer_id, $delivery_option, $products);
+      //$this->emptyCart();
       return redirect('checkout-success')->with('sale_no', $sale_no);
     }
     $data['products'] = $products;
@@ -35,8 +36,12 @@ class SaleController extends Controller
     return view('checkout', $data);
   }
 
-  public function checkoutSuccess() {
-    return view("checkout-success");
+  public function checkoutSuccess(Request $request) {
+    $data['sale_no'] = $request->session()->get('sale_no');
+    $customer_id = Auth::id();
+    $customer = Customer::find($customer_id);
+    $data['email'] = $customer->email;
+    return view("checkout-success", $data);
   }
 
   public function updateCart(Request $request) {
@@ -81,6 +86,10 @@ class SaleController extends Controller
 
   private function setCartToSession($products) {
     Session::put('cart', $products);
+  }
+
+  private function emptyCart() {
+    Session::put('cart', []);
   }
 
   private function makeDeliveryOption($input) {

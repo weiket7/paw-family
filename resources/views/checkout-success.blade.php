@@ -8,10 +8,10 @@
 
           <h2 class="tt_uppercase color_dark m_bottom_15">Thank you!</h2>
 
-          Your order #{{session()->get('sale_no')}} has been received.
+          Your order <a href="{{url("order/".$sale_no)}}">#{{$sale_no}}</a> has been received.
           <br><br>
 
-          An order confirmation email has been sent to your email {{session()->get('email')}}.
+          An order confirmation email has been sent to your email {{$email}}.
           <br><br>
 
           After payment, it will be delivered within 1-3 working days.
