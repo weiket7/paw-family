@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\DeliveryOption;
-use App\Models\Enums\PaymentType;
 use App\Models\Sale;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Symfony\Component\Routing\Tests\Fixtures\RedirectableUrlMatcher;
 
 class SaleController extends Controller
 {
@@ -22,7 +20,7 @@ class SaleController extends Controller
       $customer_id = Auth::id();
       $input = $request->all();
       if (! $sale->validateDeliveryOption($input)) {
-        return redirect()->back()->withErrors($sale->getValidation())->withInput($input);
+        return redirect('checkout')->withErrors($sale->getValidation(), 'checkout')->withInput($input);
       }
       $delivery_option = $this->makeDeliveryOption($input);
       $sale_no = $sale->checkoutCart($customer_id, $delivery_option, $products);

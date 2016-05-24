@@ -1,3 +1,14 @@
+@if ($errors->register->has())
+  <div class="alert_box r_corners error m_bottom_10">
+    <i class="fa fa-exclamation"></i>
+    <p>
+      @foreach ($errors->register->all() as $error)
+        {{ $error }}<br>
+      @endforeach
+    </p>
+  </div>
+@endif
+
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-6 m_xs_bottom_30">
     <ul>
@@ -11,11 +22,11 @@
       </li>
       <li class="m_bottom_15">
         <label for="password" class="d_inline_b m_bottom_5 required">Password</label>
-        <input type="password" name="password" autocomplete="off" class="r_corners full_width" tabindex="3">
+        <input type="password" name="password" id="password" autocomplete="off" class="r_corners full_width" tabindex="3">
       </li>
       <li class="m_bottom_25">
         <label for="password_confirmation" class="d_inline_b m_bottom_5 required">Confirm Password</label>
-        <input type="password" id="password_confirmation" autocomplete="off" name="password_confirmation" class="r_corners full_width" tabindex="4">
+        <input type="password" name="password_confirmation" id="password_confirmation" autocomplete="off" class="r_corners full_width" tabindex="4">
       </li>
       <li><button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover">Save</button></li>
     </ul>

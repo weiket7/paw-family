@@ -12,17 +12,6 @@
           <form method="post" action="{{url("register")}}">
             {{csrf_field()}}
 
-            @if ($errors->has())
-              <div class="alert_box r_corners error m_bottom_10">
-                <i class="fa fa-exclamation"></i>
-                <p>
-                  @foreach ($errors->all() as $error)
-                    {{ $error }}<br>
-                  @endforeach
-                </p>
-              </div>
-            @endif
-
             @include('register-form')
           </form>
         </section>

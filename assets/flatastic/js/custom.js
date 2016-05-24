@@ -17,3 +17,8 @@ function removeDollarAndToFloat(string) {
 function isDefined(obj) {
   return typeof obj !== 'undefined';
 }
+
+function scrollToAnchor(aid){
+  var aTag = $("a[name='"+ aid +"']");
+  $('html,body').animate({scrollTop: aTag.offset().top},'slow');
+}

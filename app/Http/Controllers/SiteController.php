@@ -24,6 +24,9 @@ class SiteController extends Controller
       $email = $request->get("email");
       $password = trim($request->get("password"));
       if (! Auth::attempt(['email'=>$email, 'password'=>$password])) {
+        if ($referrer == 'checkout') {
+          return redirect('checkout')->withErrors(['login'=>'Wrong username/password'], 'login');
+        }
         return "fail";
       }
       if ($referrer == 'checkout') {
@@ -41,12 +44,20 @@ class SiteController extends Controller
       $input = $request->all();
       $customer = new Customer();
       $customer_id = $customer->registerCustomer($input);
+
+      $referrer = $request->get("referrer");
       if ($customer_id == false) {
-        return redirect("register")->withErrors($customer->getValidation())->withInput($input);
+        if ($referrer == 'checkout') {
+          return redirect('checkout#tab-register')->withErrors($customer->getValidation(), 'register')->withInput($input);
+        }
+
+        return redirect("register")->withErrors($customer->getValidation(), 'register')->withInput($input);
       }
       Auth::login(User::find($customer_id));
-      $request->session()->flash("login", true);
-      return redirect("account");
+      if ($referrer == 'checkout') {
+        return redirect('checkout')->with('login', true);
+      }
+      return redirect("account")->with('login', true);
     }
     return view("register");
   }

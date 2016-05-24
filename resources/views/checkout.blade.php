@@ -5,23 +5,19 @@
 @extends('template')
 
 @section('content')
+  @if(Session::has('login'))
+    <div class="container">
+      <div class="alert_box r_corners color_green success">
+        <i class="fa fa-smile-o"></i><p>Welcome {{$customer->name}}! </p>
+      </div>
+    </div>
+  @endif
 
   <div class="page_content_offset">
     <div class="container">
-      <div class  ="row clearfix">
+      <div class="row clearfix">
         <section class="col-lg-12 col-md-12 col-sm-12 m_xs_bottom_30">
           <h2 class="tt_uppercase color_dark m_bottom_20">Cart</h2>
-
-          @if ($errors->has())
-            <div class="alert_box r_corners error m_bottom_10">
-              <i class="fa fa-exclamation"></i>
-              <p>
-                @foreach ($errors->all() as $error)
-                  {{ $error }}<br>
-                @endforeach
-              </p>
-            </div>
-          @endif
 
           @if(count($products) == 0)
             <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_30">
@@ -111,14 +107,26 @@
                 <!--tabs navigation-->
                 <nav>
                   <ul class="tabs_nav horizontal_list clearfix">
-                    <li><a href="#tab-1" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Login</a></li>
-                    <li><a href="#tab-2" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Register</a></li>
+                    <li><a href="#tab-login" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Login</a></li>
+                    <li><a href="#tab-register" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Register</a></li>
                   </ul>
                 </nav>
                 <section class="tabs_content shadow r_corners">
-                  <div id="tab-1">
+                  <div id="tab-login">
                     <form method="post" action="login">
                       {{csrf_field()}}
+
+                      @if ($errors->login->has())
+                        <div class="alert_box r_corners error m_bottom_10">
+                          <i class="fa fa-exclamation"></i>
+                          <p>
+                            @foreach ($errors->login->all() as $error)
+                              {{ $error }}<br>
+                            @endforeach
+                          </p>
+                        </div>
+                      @endif
+
                       <input type="hidden" name="referrer" value="checkout">
                       <ul>
                         <li class="clearfix m_bottom_15">
@@ -142,7 +150,7 @@
                       </ul>
                     </form>
                   </div>
-                  <div id="tab-2">
+                  <div id="tab-register">
                     <form method="post" action="register">
                       {{csrf_field()}}
                       <input type="hidden" name="referrer" value="checkout">
@@ -158,9 +166,14 @@
               <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Remarks</h2>
             @else
 
-              @if(Session::has('login'))
-                <div class="alert_box r_corners color_green success m_bottom_10">
-                  <i class="fa fa-smile-o"></i><p>Welcome {{$customer->name}}! </p>
+              @if ($errors->checkout->has())
+                <div class="alert_box r_corners error m_bottom_20">
+                  <i class="fa fa-exclamation"></i>
+                  <p>
+                    @foreach ($errors->checkout->all() as $error)
+                      {{ $error }}<br>
+                    @endforeach
+                  </p>
                 </div>
               @endif
 
@@ -282,10 +295,10 @@
                   <tr>
                     <td>
                       {{Form::checkbox("leave_outside_door", 'Y', '', ['id'=>'leave_outside_door', 'class'=>'d_none'])}}
-                        <label for="leave_outside_door" class="m_bottom_15">Can leave products in front of the door (A picture of the items placed outside as evidence of delivery will be sent)
+                      <label for="leave_outside_door" class="m_bottom_15">Can leave products in front of the door (A picture of the items placed outside as evidence of delivery will be sent)
                       </label><br>
                       {{Form::checkbox("gift_wrap", 'Y', '', ['id'=>'gift_wrap', 'class'=>'d_none'])}}
-                        <label for="gift_wrap" class="m_bottom_15">As the items will be a gift, please wrap nicely
+                      <label for="gift_wrap" class="m_bottom_15">As the items will be a gift, please wrap nicely
                       </label>
                     </td>
                   </tr>

@@ -108,7 +108,6 @@
                   </figcaption>
                 </figure>
               </div>
-
             @endforeach
           @endif
         @endforeach

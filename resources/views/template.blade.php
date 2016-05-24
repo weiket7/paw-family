@@ -263,14 +263,6 @@
     </div>
     @endif
 
-  @if(Session::has('msg'))
-    <div class="container">
-      <div class="alert_box r_corners color_green success m_bottom_10">
-        <i class="fa fa-check"></i><p>{{ Session::get('msg') }} </p>
-      </div>
-    </div>
-  @endif
-
   @yield('content')
 
   <!--markup footer-->
@@ -347,7 +339,7 @@
       {{csrf_field()}}
       <ul>
         <li id="div-login-result" class="m_bottom_15" style="display:none">
-          <div class="alert_box r_corners error m_bottom_10">
+          <div class="alert_box r_corners error">
             <i class="fa fa-exclamation"></i><p>Wrong username and/or password</p>
           </div>
         </li>

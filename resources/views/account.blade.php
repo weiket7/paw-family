@@ -13,6 +13,14 @@
     </div>
   @endif
 
+  @if(Session::has('msg'))
+    <div class="container">
+      <div class="alert_box r_corners color_green success">
+        <i class="fa fa-check"></i><p>{{ Session::get('msg') }} </p>
+      </div>
+    </div>
+  @endif
+
   <div class="page_content_offset">
     <div class="container">
       <div class="row clearfix">

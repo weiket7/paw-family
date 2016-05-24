@@ -23,6 +23,10 @@
   color: #cb2700;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .link:hover {
   color: #e74c3c;
   text-decoration: underline;
