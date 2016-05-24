@@ -24,6 +24,30 @@ class Sale extends Eloquent
     return true;
   }
 
+  private $rules = [
+    'delivery_choice'=>'required',
+    'delivery_time'=>'required',
+    'payment_type'=>'required',
+  ];
+
+  private $messages = [
+    'delivery_choice.required'=>'Required',
+    'delivery_time.required'=>'Required',
+    'payment_type.required'=>'Required',
+  ];
+
+  private $checkout_rules = [
+    'delivery_choice'=>'required',
+    'delivery_time'=>'required',
+    'payment_type'=>'required',
+  ];
+
+  private $checkout_messages = [
+    'delivery_choice.required'=>'Delivery address is required',
+    'delivery_time.required'=>'Delivery time is required',
+    'payment_type.required'=>'Payment type is required',
+  ];
+
   public function getSalesByCustomer($customer_id)
   {
     $s = "SELECT sale_id, sale_no, stat, payment_type, product_discount, gross_total, nett_total, point, sale_on
@@ -33,27 +57,24 @@ class Sale extends Eloquent
     return $data;
   }
 
-  private $rules = [
-      'name'=>'required',
-  ];
-
-  private $messages = [
-      'name.required'=>'Name is required',
-  ];
-
-  public function getValidation() {
-    return $this->validation;
+  public function validateDeliveryOption($input) {
+    $this->validation = Validator::make($input, $this->checkout_rules, $this->checkout_messages );
+    if ( $this->validation->fails() ) {
+      return false;
+    }
+    return true;
   }
 
   public function checkoutCart($customer_id, DeliveryOption $delivery_option, $products) {
     $this->customer_id = $customer_id;
-    $this->stat = SaleStat::Pending;
+    $this->stat = SaleStat::Pending; //TODO
     $this->payment_type = $delivery_option->payment_type;
     $this->delivery_choice = $delivery_option->delivery_choice;
     $this->delivery_address = $this->getDeliveryAddress($delivery_option->delivery_choice, $delivery_option->address_other, $customer_id);
     $this->delivery_time = DeliveryTime::$values[$delivery_option->delivery_time];
     $this->customer_remark = $delivery_option->customer_remark;
     $this->sale_on = date("Y-m-d H:i:s");
+    $this->sale_no = $this->getSaleNoAndIncrement();
     $this->save();
 
     $gross_total = 0;
@@ -82,7 +103,7 @@ class Sale extends Eloquent
     $this->nett_total = $gross_total - $product_discount;
     $this->point = $this->calculatePoint($this->nett_total);
     $this->save();
-    return $this;
+    return $this->sale_no;
   }
 
   public function searchSale($input)
@@ -146,5 +167,15 @@ class Sale extends Eloquent
     return floor($nett_total);
   }
 
+  public function getSaleNoAndIncrement() {
+    $current_sale_no = DB::table('sale_running_no')->value('value');
+    $next_sale_no = $current_sale_no+1;
+    DB::table('sale_running_no')->update(['value'=>$next_sale_no]);
+    return $next_sale_no;
+  }
+
+  public function getValidation() {
+    return $this->validation;
+  }
 
 }

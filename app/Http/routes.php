@@ -19,6 +19,7 @@ Route::get('/', 'SiteController@index');
 Route::get('brands', 'SiteController@brand');
 Route::get('contact', 'SiteController@contact');
 Route::post('contact', 'SiteController@contact');
+Route::get('terms-and-conditions', 'SiteController@termsandconditions');
 
 Route::get('product/category/{main_category}/{slug}', 'ProductController@category');
 Route::get('product/brand/{slug}', 'ProductController@brand');
@@ -41,12 +42,14 @@ Route::group(['middleware'=>'auth'], function() {
   Route::post('order/{sale_no}', 'AccountController@order');
 });
 
+Route::get('get-cart', 'SaleController@getCart');
 Route::post('add-to-cart', 'SaleController@addToCart');
 Route::post('update-cart', 'SaleController@updateCart');
 Route::post('remove-from-cart', 'SaleController@removeFromCart');
+
 Route::get('checkout', 'SaleController@checkout');
 Route::post('checkout', 'SaleController@checkout');
-Route::get('get-cart', 'SaleController@getCart');
+Route::get('checkout-success', 'SaleController@checkoutSuccess');
 
 Route::get('admin', 'Admin\AdminController@login');
 Route::post('admin', 'Admin\AdminController@login');

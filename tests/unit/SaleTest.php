@@ -76,5 +76,17 @@ class SaleTest extends \Codeception\TestCase\Test
     $this->assertEquals(94, $point);
   }
 
+  public function testGetSaleNoAndIncrement() {
+    $sale_service = new Sale();
+    $sale_no = $sale_service->getSaleNoAndIncrement();
+    $this->assertEquals(100018620, $sale_no);
+    $this->tester->seeRecord('sale_running_no', ['value'=>100018620]);
+  }
+
+  public function testGetSaleIdByNo() {
+    $sale_service = new Sale();
+    $sale_id = $sale_service->getSaleIdByNo(123456);
+    $this->assertEquals(1, $sale_id);
+  }
 
 }

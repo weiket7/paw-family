@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Enums\DeliveryChoice;
+use App\Models\Enums\DeliveryTime;
 use App\Models\Enums\PaymentType;
 use App\Models\Enums\SaleStat;
 use Illuminate\Database\Schema\Blueprint;
@@ -33,6 +35,8 @@ class SaleTable extends Migration
 
     DB::table('sale')->insert([
       'sale_id'=>1, 'sale_no'=>'123456', 'customer_id'=>1, 'stat'=> SaleStat::Delivered, 'payment_type'=>PaymentType::Bank,
+      'delivery_choice'=> DeliveryChoice::OtherAddress, 'delivery_address'=>'my other address', 'delivery_time'=> DeliveryTime::$values[DeliveryTime::AnyTime],
+      'customer_remark'=>'customer remark',
       'gross_total'=>168.05, 'nett_total'=>168.05, 'point'=>168, 'sale_on'=>date('Y-m-d H:i:s'),
     ]);
   }

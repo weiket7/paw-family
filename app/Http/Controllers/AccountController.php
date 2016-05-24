@@ -46,7 +46,8 @@ class AccountController extends Controller
 
   public function order(Request $request, $sale_no) {
     $sale_service = new Sale();
-    $data['sale'] = $sale_service->getSale($sale_no);
+    $sale_id = $sale_service->getSaleIdByNo($sale_no);
+    $data['sale'] = $sale_service->getSale($sale_id);
     return view('order', $data);
   }
   

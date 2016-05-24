@@ -119,6 +119,9 @@ class SiteController extends Controller
     return view('forgot-password');
   }
 
+  public function termsAndConditions() {
+    return view('termsandconditions');
+  }
   /*public function resetPassword() {
     $data['name'] = 'Wei Ket';
     $data['email'] = 'wei_ket@hotmail.com';

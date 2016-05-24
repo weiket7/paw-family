@@ -11,6 +11,18 @@
       <div class  ="row clearfix">
         <section class="col-lg-12 col-md-12 col-sm-12 m_xs_bottom_30">
           <h2 class="tt_uppercase color_dark m_bottom_20">Cart</h2>
+
+          @if ($errors->has())
+            <div class="alert_box r_corners error m_bottom_10">
+              <i class="fa fa-exclamation"></i>
+              <p>
+                @foreach ($errors->all() as $error)
+                  {{ $error }}<br>
+                @endforeach
+              </p>
+            </div>
+          @endif
+
           @if(count($products) == 0)
             <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_30">
               Your cart is empty<br>
@@ -150,7 +162,7 @@
 
               <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Delivery Address</h2>
               <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Delivery Time</h2>
-              <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Payment</h2>
+              <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Payment Type</h2>
               <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Remarks</h2>
             @else
 
@@ -161,7 +173,10 @@
               @endif
 
               <form method="post" action="">
-                <h2 class="tt_uppercase color_dark m_bottom_15">Delivery Address</h2>
+                <h2 class="tt_uppercase color_dark m_bottom_15">
+                  Delivery Address
+                  @if($errors->has('delivery_choice')) <span class="error">(Required)</span> @endif
+                </h2>
                 <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
                   <figure class="block_select clearfix relative m_bottom_15">
                     <input type="radio" name="delivery_choice" value={{DeliveryChoice::CurrentAddress}} class="d_none">
@@ -188,7 +203,11 @@
                   </figure>
                 </div>
 
-                <h2 class="tt_uppercase color_dark m_bottom_15">Delivery Time</h2>
+                <h2 class="tt_uppercase color_dark m_bottom_15">
+                  Delivery Time
+                  @if($errors->has('delivery_time')) <span class="error">(Required)</span> @endif
+                </h2>
+
                 <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
                   <figure class="block_select clearfix relative">
                     <input type="radio" name="delivery_time" value="{{DeliveryTime::AnyTime}}" class="d_none">
@@ -212,7 +231,10 @@
                   </figure>
                 </div>
 
-                <h2 class="tt_uppercase color_dark m_bottom_15">Payment</h2>
+                <h2 class="tt_uppercase color_dark m_bottom_15">
+                  Payment Type
+                  @if($errors->has('payment_type')) <span class="error">(Required)</span> @endif
+                </h2>
                 <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
                   <figure class="block_select clearfix relative m_bottom_15" onclick="selectPayment('bank')">
                     <input type="radio" name="payment_type" value="{{PaymentType::Bank}}" class="d_none">

@@ -8,7 +8,7 @@
     <div class="container">
       <div class="row clearfix">
         <div class="col-md-12">
-          <h2 class="tt_uppercase color_dark m_bottom_25">Order Information</h2>
+          <h2 class="tt_uppercase color_dark m_bottom_15">Order Information</h2>
           <table class="table_type_6 responsive_table full_width r_corners shadow m_bottom_45 t_align_l">
             <tbody>
             <tr>
@@ -36,12 +36,12 @@
             </tbody>
           </table>
 
-          <h2 class="tt_uppercase color_dark m_bottom_25">PRODUCTS</h2>
-          <table class="table_type_6 responsive_table full_width r_corners shadow m_bottom_45 t_align_l">
+          <h2 class="tt_uppercase color_dark m_bottom_15">PRODUCTS</h2>
+          <table class="table_type_1 responsive_table full_width r_corners shadow m_bottom_45 t_align_l">
             <tr>
-              <td class="f_size_large">Name</td>
-              <td class="f_size_large">Price</td>
-              <td class="f_size_large">Quantity</td>
+              <td class="f_size_large" width="50%">Name</td>
+              <td class="f_size_large" width="15%">Price</td>
+              <td class="f_size_large" width="15%">Quantity</td>
               <td class="f_size_large">Subtotal</td>
             </tr>
             @foreach($sale->products as $product)
