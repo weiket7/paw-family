@@ -179,14 +179,14 @@
                 </h2>
                 <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
                   <figure class="block_select clearfix relative m_bottom_15">
-                    <input type="radio" name="delivery_choice" value={{DeliveryChoice::CurrentAddress}} class="d_none">
+                    {{Form::radio("delivery_choice", DeliveryChoice::CurrentAddress, '', ['class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">{{$customer->address}}</h5>
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
                   <figure class="block_select clearfix relative">
-                    <input type="radio" name="delivery_choice" value={{DeliveryChoice::OtherAddress}} class="d_none">
+                    {{Form::radio("delivery_choice", DeliveryChoice::OtherAddress, '', ['class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Another address</h5>
                       <p>
@@ -196,7 +196,7 @@
                   </figure>
                   <hr class="m_bottom_20">
                   <figure class="block_select clearfix relative">
-                    <input type="radio" name="delivery_choice" value={{DeliveryChoice::SelfCollect}} class="d_none">
+                    {{Form::radio("delivery_choice", DeliveryChoice::SelfCollect, '', ['class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Self collect at Upper Paya Lebar, between 11am-2pm, Tues to Thurs</h5>
                     </figcaption>
@@ -210,21 +210,21 @@
 
                 <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
                   <figure class="block_select clearfix relative">
-                    <input type="radio" name="delivery_time" value="{{DeliveryTime::AnyTime}}" class="d_none">
+                    {{Form::radio("delivery_time", DeliveryTime::AnyTime, '', ['class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Any time</h5>
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
                   <figure class="block_select clearfix relative">
-                    <input type="radio" name="delivery_time" value="{{DeliveryTime::Oneto430}}" class="d_none">
+                    {{Form::radio("delivery_time", DeliveryTime::Oneto430, '', ['class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">1pm - 4.30pm</h5>
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
                   <figure class="block_select clearfix relative">
-                    <input type="radio" name="delivery_time" value="{{DeliveryTime::Four30to8}}" class="d_none">
+                    {{Form::radio("delivery_time", DeliveryTime::Four30to8, '', ['class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">4.30pm - 8pm</h5>
                     </figcaption>
@@ -236,11 +236,11 @@
                   @if($errors->has('payment_type')) <span class="error">(Required)</span> @endif
                 </h2>
                 <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
-                  <figure class="block_select clearfix relative m_bottom_15" onclick="selectPayment('bank')">
-                    <input type="radio" name="payment_type" value="{{PaymentType::Bank}}" class="d_none">
+                  <figure class="block_select clearfix relative m_bottom_15" onclick="selectPayment('{{PaymentType::Bank}}')">
+                    {{Form::radio("payment_type", PaymentType::Bank, '', ['data-payment'=>PaymentType::Bank, 'class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Bank transfer through internet or ATM</h5>
-                      <p id="p-bank" style="display:none">
+                      <p id="payment-{{PaymentType::Bank}}" style="display:none">
                         DBS Bank - Saving Plus, 017-0-098022<br>
                         Bank Code:7171 | Branch Code:	017<br>
                         <br>
@@ -250,26 +250,26 @@
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
-                  <figure class="block_select clearfix relative" onclick="selectPayment('cash')">
-                    <input type="radio" name="payment_type" value="{{PaymentType::Cash}}" class="d_none">
+                  <figure class="block_select clearfix relative" onclick="selectPayment('{{PaymentType::Cash}}')">
+                    {{Form::radio("payment_type", PaymentType::Cash, '', ['data-payment'=>PaymentType::Cash, 'class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Cash on delivery</h5>
-                      <p id="p-cash" style="display:none">Please provide exact cash amount which will be appreciated</p>
+                      <p id="payment-{{PaymentType::Cash}}" style="display:none">Please provide exact cash amount which will be appreciated</p>
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
-                  <figure class="block_select clearfix relative" onclick="selectPayment('cheque')">
-                    <input type="radio" name="payment_type" value="{{PaymentType::Cheque}}" class="d_none">
+                  <figure class="block_select clearfix relative" onclick="selectPayment('{{PaymentType::Cheque}}')">
+                    {{Form::radio("payment_type", PaymentType::Cheque, '', ['data-payment'=>PaymentType::Cheque, 'class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Cheque</h5>
-                      <p id="p-cheque" style="display:none">
+                      <p id="payment-{{PaymentType::Cheque}}" style="display:none">
                         Please make cheque payable to: PAW FAMILY and cross 'Bearer'
                       </p>
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
                   <figure class="block_select clearfix relative">
-                    <input type="radio" name="payment_type" value="{{PaymentType::Paypal}}" class="d_none">
+                    {{Form::radio("payment_type", PaymentType::Paypal, '', ['data-payment'=>PaymentType::Paypal, 'class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Paypal</h5>
                     </figcaption>
@@ -308,6 +308,11 @@
 
 @section('script')
   <script>
+    $(document).ready(function() {
+      var payment_type = $("input[name='payment_type']:checked").val();
+      selectPayment(payment_type);
+    });
+
     function updateQuantity(element) {
       var data = $(element).data('direction'),
         i = $(element).parent().children('input[type="text"]'),
@@ -384,12 +389,12 @@
       });
     }
 
-    function selectPayment(method) {
-      console.log(method);
-      $("#p-cash").hide();
-      $("#p-cheque").hide();
-      $("#p-bank").hide();
-      $("#p-"+method).show();
+    function selectPayment(type) {
+      console.log(type);
+      $("#payment-{{PaymentType::Bank}}").hide();
+      $("#payment-{{PaymentType::Cheque}}").hide();
+      $("#payment-{{PaymentType::Cash}}").hide();
+      $("#payment-"+type).show();
     }
   </script>
 @endsection
