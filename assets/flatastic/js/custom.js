@@ -9,3 +9,11 @@ function redirect(url) {
 function getObjectSize(object) {
   return Object.keys(object).length
 }
+
+function removeDollarAndToFloat(string) {
+  return parseFloat(string.replace('$', ''));
+}
+
+function isDefined(obj) {
+  return typeof obj !== 'undefined';
+}

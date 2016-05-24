@@ -62,6 +62,12 @@ class Sale extends Eloquent
     if ( $this->validation->fails() ) {
       return false;
     }
+
+    if ($input['delivery_choice'] == DeliveryChoice::OtherAddress && empty($input['address_other'])) {
+      $this->validation->errors()->add("address_other", "Other address is required");
+      return false;
+    }
+
     return true;
   }
 

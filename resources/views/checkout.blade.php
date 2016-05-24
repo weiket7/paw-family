@@ -70,7 +70,7 @@
                     </div>
                   </td>
                   <td>
-                    <p id='product{{$p->product_id}}-subtotal' class="f_size_large fw_medium scheme_color">${{CommonHelper::formatNumber($p->subtotal)}}</p>
+                    <p id='product{{$p->product_id}}-subtotal' class="subtotal f_size_large fw_medium scheme_color">${{CommonHelper::formatNumber($p->subtotal)}}</p>
                   </td>
                 </tr>
                 <?php $gross_total += $p->subtotal; ?>
@@ -93,18 +93,10 @@
               </tr>
               <tr>
                 <td colspan="3" class="v_align_m">
-                  <p class="fw_medium f_size_large t_align_r">Gross Total:</p>
-                </td>
-                <td colspan="1" class="v_align_m">
-                  <p class="fw_medium f_size_large">${{CommonHelper::formatNumber($gross_total)}}</p>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="3" class="v_align_m">
                   <p class="fw_medium f_size_large t_align_r t_xs_align_c scheme_color">Total:</p>
                 </td>
                 <td colspan="1" class="v_align_m">
-                  <p class="fw_medium f_size_large scheme_color m_xs_bottom_10">${{CommonHelper::formatNumber($total)}}</p>
+                  <p class="fw_medium f_size_large scheme_color m_xs_bottom_10" id="p-total">${{CommonHelper::formatNumber($total)}}</p>
                 </td>
               </tr>
               </tbody>
@@ -173,6 +165,7 @@
               @endif
 
               <form method="post" action="">
+                {{ csrf_field() }}
                 <h2 class="tt_uppercase color_dark m_bottom_15">
                   Delivery Address
                   @if($errors->has('delivery_choice')) <span class="error">(Required)</span> @endif
@@ -188,7 +181,10 @@
                   <figure class="block_select clearfix relative">
                     {{Form::radio("delivery_choice", DeliveryChoice::OtherAddress, '', ['class'=>'d_none'])}}
                     <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Another address</h5>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">
+                        Other address
+                        @if($errors->has('address_other')) <span class="error">(Required)</span> @endif
+                      </h5>
                       <p>
                         {{Form::text("address_other", '', ['id'=>'address_other', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
                       </p>
@@ -280,22 +276,21 @@
                 <table class="table_type_5 full_width r_corners wraper shadow t_align_l m_bottom_30">
                   <tr>
                     <td>
-                      <textarea name="customer_remark" class="r_corners notes full_width"></textarea>
+                      {{Form::textarea('customer_remark', '', ['class'=>'r_corners notes full_width'])}}
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <input type="checkbox" class="d_none" name="leave_outside_door" id="leave_outside_door">
+                      {{Form::checkbox("leave_outside_door", 'Y', '', ['id'=>'leave_outside_door', 'class'=>'d_none'])}}
                         <label for="leave_outside_door" class="m_bottom_15">Can leave products in front of the door (A picture of the items placed outside as evidence of delivery will be sent)
                       </label><br>
-                      <input type="checkbox" class="d_none" name="gift_wrap" id="gift_wrap">
+                      {{Form::checkbox("gift_wrap", 'Y', '', ['id'=>'gift_wrap', 'class'=>'d_none'])}}
                         <label for="gift_wrap" class="m_bottom_15">As the items will be a gift, please wrap nicely
                       </label>
                     </td>
                   </tr>
                 </table>
 
-                {{ csrf_field() }}
                 <button type="submit" class="button_type_6 bg_scheme_color f_size_large r_corners tr_all_hover color_light m_bottom_20">Confirm Purchase</button>
               </form>
             @endif
@@ -310,7 +305,9 @@
   <script>
     $(document).ready(function() {
       var payment_type = $("input[name='payment_type']:checked").val();
-      selectPayment(payment_type);
+      if (isDefined(payment_type)) {
+        selectPayment(payment_type);
+      }
     });
 
     function updateQuantity(element) {
@@ -327,8 +324,16 @@
       }
     }
     
-    function updateTotals() {
+    function updateTotal() {
+      var total = 0;
 
+      $(".subtotal").each(function() {
+        var subtotal = removeDollarAndToFloat($(this).text());
+        //console.log('subtotal='+subtotal+' typeof='+typeof subtotal);
+        total += subtotal;
+      });
+      //console.log(total);
+      $("#p-total").text("$" + toTwoDecimal(total));
     }
 
     function updateCart(product_id) {
@@ -353,7 +358,7 @@
       });
 
       updateSubtotal(product_id);
-      updateTotals();
+      updateTotal();
     }
 
     function getQuantity(product_id) {
@@ -365,7 +370,7 @@
       var price = parseFloat($("#product"+product_id+"-discounted-price").attr('data-discounted-price'));
       var quantity = getQuantity(product_id);
       var subtotal = price * quantity;
-      console.log('price='+price + ' quantity='+quantity + ' subtotal='+subtotal);
+      //console.log('price='+price + ' quantity='+quantity + ' subtotal='+subtotal);
       $("#product"+product_id+"-subtotal").text("$"+toTwoDecimal(subtotal));
     }
 
@@ -382,6 +387,7 @@
         data: data,
         success: function(response) {
           $("#product"+product_id+'-discounted-price').closest("tr").remove();
+          updateTotal();
         },
         error: function(  ) {
           alert("An error has occurred, please contact admin@pawfamily.sg");
