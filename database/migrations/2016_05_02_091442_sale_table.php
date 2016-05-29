@@ -18,6 +18,8 @@ class SaleTable extends Migration
       $t->char('stat', 1);
       $t->char('payment_type', 1);
       $t->dateTime('sale_on');
+      $t->dateTime('paid_on')->nullable();
+      $t->dateTime('delivered_on')->nullable();
       $t->decimal('gross_total', 9,2);
       $t->decimal('product_discount', 9,2);
       $t->integer('promo_id')->nullable();

@@ -8,7 +8,25 @@
   "controller"=>"product"
 ])
 
+@section('script')
+  <script>
+    $(document).ready(function() {
+      $('#btn-paid').on('confirmed.bs.confirmation', function () {
+        $("#sale_stat").val("{{SaleStat::Paid}}");
+        $("form").submit();
+      });
+
+      $('#btn-delivered').on('confirmed.bs.confirmation', function () {
+        $("#sale_stat").val("{{SaleStat::Delivered}}");
+        $("form").submit();
+      });
+    });
+  </script>
+@endsection
+
 @section("content")
+  <input type="hidden" name="sale_stat" id="sale_stat">
+
   <div class="row">
     <div class="col-md-6">
       <div class="portlet blue-dark box">
@@ -33,9 +51,27 @@
           </div>
           <div class="row static-info">
             <div class="col-md-5 name"> Status: </div>
-            <div class="col-md-7 value"> {{ Form::select("stat", SaleStat::$values, $sale->stat, ['class'=>'form-control,input-sm']) }}
+            <div class="col-md-7 value">
+              {{SaleStat::$values[$sale->stat]}}
+              @if ($sale->stat == SaleStat::Pending)
+                &nbsp; <button type="button" class="btn btn-sm blue" id='btn-paid' data-placement="bottom" data-singleton='true' data-toggle='confirmation' data-original-title='Are you sure?'>Paid</button>
+              @elseif ($sale->stat == SaleStat::Paid)
+                &nbsp; <button type="button" class="btn btn-sm blue" id='btn-delivered' data-placement="bottom" data-singleton='true' data-toggle='confirmation' data-original-title='Are you sure?'>Delivered</button>
+              @endif
             </div>
           </div>
+          @if($sale->stat == SaleStat::Paid || $sale->stat == SaleStat::Delivered)
+            <div class="row static-info">
+              <div class="col-md-5 name"> Paid On: </div>
+              <div class="col-md-7 value"> {{CommonHelper::formatDateTime($sale->paid_on)}} </div>
+            </div>
+          @endif
+          @if($sale->stat == SaleStat::Delivered)
+            <div class="row static-info">
+              <div class="col-md-5 name"> Delivered On: </div>
+              <div class="col-md-7 value"> {{CommonHelper::formatDateTime($sale->delivered_on)}} </div>
+            </div>
+          @endif
           <div class="row static-info">
             <div class="col-md-5 name"> Payment Type: </div>
             <div class="col-md-7 value"> {{PaymentType::$values[$sale->payment_type]}} </div>

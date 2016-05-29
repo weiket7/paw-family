@@ -3,6 +3,7 @@
 use App\Models\Enums\DeliveryChoice;
 use App\Models\Enums\DeliveryTime;
 use App\Models\Enums\SaleStat;
+use Carbon\Carbon;
 use CommonHelper;
 use Eloquent, DB, Validator, Input;
 
@@ -133,7 +134,7 @@ class Sale extends Eloquent
 
   public function getSale($sale_id)   {
     $s = "SELECT customer_id, sale_id, sale_no, stat, payment_type, product_discount, promo_discount, 
-    delivery_choice, delivery_address, delivery_time, customer_remark, operator_remark, gross_total, nett_total, point, sale_on
+    delivery_choice, delivery_address, delivery_time, customer_remark, operator_remark, gross_total, nett_total, point, sale_on, paid_on, delivered_on
     FROM sale where sale_id = :sale_id";
     $p['sale_id'] = $sale_id;
     $sale = DB::select($s, $p)[0];
@@ -182,6 +183,20 @@ class Sale extends Eloquent
 
   public function getValidation() {
     return $this->validation;
+  }
+
+  public function updateSaleStat($sale_id, $stat)
+  {
+    $sale = Sale::find($sale_id);
+    if ($stat == SaleStat::Paid) {
+      $sale->paid_on = new Carbon();
+      $sale->stat = SaleStat::Paid;
+      $sale->save();
+    } elseif ($stat == SaleStat::Delivered) {
+      $sale->delivered_on = new Carbon();
+      $sale->stat = SaleStat::Delivered;
+      $sale->save();
+    }
   }
 
 }

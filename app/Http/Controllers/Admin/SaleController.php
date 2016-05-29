@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Enums\SaleStat;
 use App\Models\Sale;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,11 @@ class SaleController extends Controller
 
   public function save(Request $request, $sale_id) {
     $sale_service = new Sale();
+
+    if($request->isMethod('post')) {
+      $stat = $request->get('sale_stat');
+      $sale_service->updateSaleStat($sale_id, $stat);
+    }
     $sale = $sale_service->getSale($sale_id);
     $data['customer'] = Customer::find($sale->customer_id);
     $data['sale'] = $sale;
