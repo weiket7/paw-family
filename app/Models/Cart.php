@@ -20,16 +20,22 @@ class Cart {
       $sale_product = new SaleProduct();
       $sale_product->product_id = $product_id;
       $sale_product->quantity = (int)$quantity;
+      $sale_product->name = $product->name;
       $sale_product->size_id = $size_id;
       $sale_product->option_id = $option_id;
-      $sale_product->name = $product->name;
-      $sale_product->price = $product->price;
+      if($size_id > 0) {
+        $sale_product->price = $product->sizes[$size_id]->price;
+        $sale_product->discounted_price = $product->sizes[$size_id]->discounted_price;
+        $sale_product->discount_amt = $product->sizes[$size_id]->discount_amt;
+        $sale_product->size_name = $product->sizes[$size_id]->name;
+      } else {
+        $sale_product->price = $product->price;
+        $sale_product->discounted_price = $product->discounted_price;
+        $sale_product->discount_amt = $product->discount_amt;
+      }
       $sale_product->image = $product->image;
       $sale_product->slug = $product->slug;
-      $sale_product->discount_amt = $product->discount_amt;
-      $sale_product->discounted_price = $product->discounted_price;
       $sale_product->subtotal = $sale_product->quantity * $sale_product->discounted_price;
-
       $this->products[$key] = $sale_product;
     }
   }

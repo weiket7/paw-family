@@ -144,13 +144,13 @@
             <nav>
               <ul class="tabs_nav horizontal_list clearfix">
                 @foreach($product->descs as $desc)
-                  <li class="f_xs_none"><a href="#tab-desc{{$desc->product_desc_id}}" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">{{ProductDescType::$values[$desc->type]}}</a></li>
+                  <li class="f_xs_none"><a href="#tab-desc{{$desc->desc_id}}" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">{{ProductDescType::$values[$desc->type]}}</a></li>
                 @endforeach
               </ul>
             </nav>
             <section class="tabs_content shadow r_corners">
               @foreach($product->descs as $desc)
-              <div id="tab-desc{{$desc->product_desc_id}}">
+              <div id="tab-desc{{$desc->desc_id}}">
                 @if($desc->type == ProductDescType::Description || $desc->type == ProductDescType::Ingredient )
                   {!! nl2br($desc->value) !!}
                 @elseif($desc->type == ProductDescType::Video)

@@ -4,9 +4,9 @@ use App\Models\Enums\ProductOptionType;
 use CommonHelper;
 use Eloquent, DB, Validator, Input;
 
-class Option extends Eloquent
+class ProductOption extends Eloquent
 {
-  public $table = 'option';
+  public $table = 'product_option';
   protected $primaryKey = 'option_id';
   protected $validation;
   public $timestamps = false;
@@ -29,7 +29,9 @@ class Option extends Eloquent
     }
 
     $this->name = $input['name'];
-    $this->size_id = $input['size_id'];
+    if (isset($input['size_id'])) {
+      $this->size_id = $input['size_id'];
+    }
     $this->price = $input['price'];
     $this->type = ProductOptionType::Repack;
     $this->updated_on = date("Y-m-d H:i:s");

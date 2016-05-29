@@ -3,13 +3,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\Size;
+use App\Models\ProductSize;
 use Illuminate\Http\Request;
 
 class SizeController extends Controller
 {
   public function save(Request $request, $size_id = null) {
-    $size = Size::findOrNew($size_id);
+    $size = ProductSize::findOrNew($size_id);
     $action = $size_id == null ? 'create' : 'update';
     if ($action == 'create')
       $size->product_id = $_GET['product_id'];

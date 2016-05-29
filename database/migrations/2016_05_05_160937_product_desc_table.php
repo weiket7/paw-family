@@ -9,7 +9,7 @@ class ProductDescTable extends Migration
   public function up()
   {
     Schema::create('product_desc', function (Blueprint $table) {
-      $table->increments('product_desc_id');
+      $table->increments('desc_id');
       $table->integer('product_id');
       $table->char('type');
       $table->text('value');
@@ -18,7 +18,7 @@ class ProductDescTable extends Migration
     });
 
     DB::table('product_desc')->insert([
-      'product_desc_id'=>1,
+      'desc_id'=>1,
       'product_id'=>1,
       'type'=> ProductDescType::Description,
       'value'=>'Addiction Dry Dog Food Viva La Venison
@@ -69,7 +69,7 @@ Caloric Content 4286 kcal/kg
 Product of USA',
     ]);
     DB::table('product_desc')->insert([
-      'product_desc_id'=>2,
+      'desc_id'=>2,
       'product_id'=>1,
       'type'=> ProductDescType::Video,
       'value'=>'5SXqYtbqhOM'

@@ -2,16 +2,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Option;
+use App\Models\ProductOption;
 use App\Models\Product;
-use App\Models\Size;
+use App\Models\ProductSize;
 use CommonHelper;
 use Illuminate\Http\Request;
 
 class OptionController extends Controller
 {
   public function save(Request $request, $option_id = null) {
-    $option = Option::findOrNew($option_id);
+    $option = ProductOption::findOrNew($option_id);
     $action = $option_id == null ? 'create' : 'update';
     if ($action == 'create') {
       $option->product_id = $_GET['product_id'];
@@ -29,7 +29,7 @@ class OptionController extends Controller
       return redirect('admin/product/option/save/'.$option->option_id)->with('msg', 'Repack ' . $action . "d");
     }
     $data['action'] = $action;
-    $size_service = new Size();
+    $size_service = new ProductSize();
     $data['size_name'] = $size_service->getSizeName($option->size_id);
     //var_dump($option);
     $product_service = new Product();

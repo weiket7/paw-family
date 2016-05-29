@@ -71,9 +71,9 @@ class ProductController extends Controller
     return view("admin.product.form", $data);
   }
 
-  public function saveDesc(Request $request, $product_desc_id = null) {
-    $product_desc = ProductDesc::findOrNew($product_desc_id);
-    $action = $product_desc_id == null ? 'create' : 'update';
+  public function saveDesc(Request $request, $desc_id = null) {
+    $product_desc = ProductDesc::findOrNew($desc_id);
+    $action = $desc_id == null ? 'create' : 'update';
 
     if ($action == 'create')
       $product_desc->product_id = $_GET['product_id'];
@@ -87,7 +87,7 @@ class ProductController extends Controller
       if (! $product_desc->saveProductDesc($input)) {
         return redirect()->back()->withErrors($product_desc->getValidation())->withInput($input);
       }
-      return redirect('admin/product/desc/save/'.$product_desc->product_desc_id)->with('msg', 'Description ' . $action . "d");
+      return redirect('admin/product/desc/save/'.$product_desc->desc_id)->with('msg', 'Description ' . $action . "d");
     }
     $data['action'] = $action;
     $product_service = new Product();

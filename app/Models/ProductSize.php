@@ -4,9 +4,9 @@ use App\Models\Enums\DiscountType;
 use CommonHelper;
 use Eloquent, DB, Validator;
 
-class Size extends Eloquent
+class ProductSize extends Eloquent
 {
-  public $table = 'size';
+  public $table = 'product_size';
   protected $primaryKey = 'size_id';
   protected $validation;
   public $timestamps = false;
@@ -33,7 +33,7 @@ class Size extends Eloquent
 
   public function getSize($size_id) {
     $s = "SELECT size_id, s.name, p.name as product_name, s.price, s.quantity, s.weight_lb, s.weight_kg, s.discount_amt, s.discount_type
-    from size as s
+    from product_size as s
     inner join product as p on s.product_id = p.product_id
     where size_id = :size_id";
     $p['size_id'] = $size_id;
@@ -73,7 +73,7 @@ class Size extends Eloquent
   }
 
   public function getSizeName($size_id)  {
-    $size_name = DB::table("size")->where("size_id", $size_id)->value("name");
+    $size_name = DB::table("product_size")->where("size_id", $size_id)->value("name");
     return $size_name;
   }
 }

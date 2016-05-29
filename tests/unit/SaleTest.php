@@ -6,7 +6,7 @@ use App\Models\Enums\DeliveryChoice;
 use App\Models\Enums\DeliveryTime;
 use App\Models\Enums\PaymentType;
 use App\Models\Sale;
-use App\Models\Size;
+use App\Models\ProductSize;
 
 class SaleTest extends \Codeception\TestCase\Test
 {
@@ -40,12 +40,10 @@ class SaleTest extends \Codeception\TestCase\Test
     $delivery_option->payment_type = PaymentType::Bank;
     $sale_service->checkoutCart($customer_id, $delivery_option, $products);
 
-    $product1_size2_price = 39.10;
-    $product1_size2_discounted_price = 29.10;
+    $product1_size2_price = 142.90;
+    $product1_size2_discounted_price = 132.90;
     $product2_price = 39.10;
     $product2_discounted_price = 35.19;
-    //$product1_subtotal = $product1_size2_discounted_price * 1;
-    //$product2_subtotal = $product2_discounted_price * 2;
     $gross_total = $product1_size2_price * 1 + $product2_price * 2;
     $nett_total = $product1_size2_discounted_price * 1 + $product2_discounted_price * 2;
 

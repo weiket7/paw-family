@@ -128,17 +128,17 @@ class Product extends Eloquent
   }
 
   public function getProductDesc($product_id) {
-    $s = "SELECT product_desc_id, type, value from product_desc where product_id = :product_id";
+    $s = "SELECT desc_id, type, value from product_desc where product_id = :product_id";
     $p['product_id'] = $product_id;
     $data = DB::select($s, $p);
 
-    $res = CommonHelper::arraySetKey($data, "product_desc_id");
+    $res = CommonHelper::arraySetKey($data, "desc_id");
     return $res;
   }
 
   public function getProductSize($product_id) {
-    $s = "SELECT size_id, name, price, quantity, weight_lb, weight_kg, discount_amt, discount_type, discount_percentage, discounted_price from size
-    where product_id = :product_id";
+    $s = "SELECT size_id, name, price, quantity, weight_lb, weight_kg, discount_amt, discount_type, discount_percentage, discounted_price
+    from product_size where product_id = :product_id";
     $p['product_id'] = $product_id;
     $data = DB::select($s, $p);
 
@@ -150,7 +150,7 @@ class Product extends Eloquent
   }
 
   public function getProductOption($product_id, $type) {
-    $s = "SELECT option_id, size_id, name, type, price from `option`
+    $s = "SELECT option_id, size_id, name, type, price from product_option
     where product_id = :product_id and type = :type";
     $p['product_id'] = $product_id;
     $p['type'] = $type;

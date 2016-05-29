@@ -6,7 +6,7 @@ class CartTest extends \Codeception\TestCase\Test
 {
   protected $tester;
 
-  public function testAddToCartProductNotYetInCart() {
+  public function testAddToCart_ProductNoSize_NotYetInCart() {
     $cart = new Cart();
     $cart->addToCart(2, 2);
     $products = $cart->getCart();
@@ -22,6 +22,24 @@ class CartTest extends \Codeception\TestCase\Test
     $this->assertEquals(3.91, $product->discount_amt);
     $this->assertEquals(35.19, $product->discounted_price);
     $this->assertEquals(70.38, $product->subtotal);
+  }
+
+  public function testAddToCart_ProductHasSizeAndOption_NotYetInCart() {
+    $cart = new Cart();
+    $product_id = 1; $quantity = 2; $size_id = 2; $option_id = 2;
+    $cart->addToCart($product_id, $quantity, $size_id, $option_id);
+    $products = $cart->getCart();
+    $key = $cart->getKey($product_id, $size_id);
+    $product = $products[$key];
+
+    $this->assertCount(1, $products);
+    $this->assertEquals($product_id, $product->product_id);
+    $this->assertEquals($quantity, $product->quantity);
+    $this->assertEquals("Addiction Viva La Venison", $product->name);
+    $this->assertEquals(142.90, $product->price);
+    //$this->assertEquals(3.91, $product->discount_amt);
+    $this->assertEquals(132.90, $product->discounted_price);
+    $this->assertEquals(265.80, $product->subtotal);
   }
 
   public function testAddToCartProductExistInCartIncreaseQuantity() {

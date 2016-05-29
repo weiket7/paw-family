@@ -81,8 +81,8 @@ Route::group(['middleware'=>'auth_operator'], function() {
 
   Route::get('admin/product/desc/save', 'Admin\ProductController@saveDesc');
   Route::post('admin/product/desc/save', 'Admin\ProductController@saveDesc');
-  Route::get('admin/product/desc/save/{product_desc_id}', 'Admin\ProductController@saveDesc');
-  Route::post('admin/product/desc/save/{product_desc_id}', 'Admin\ProductController@saveDesc');
+  Route::get('admin/product/desc/save/{desc_id}', 'Admin\ProductController@saveDesc');
+  Route::post('admin/product/desc/save/{desc_id}', 'Admin\ProductController@saveDesc');
 
   Route::get('admin/brand', 'Admin\BrandController@index');
   Route::get('admin/brand/save', 'Admin\BrandController@save');
@@ -125,16 +125,12 @@ Route::get('test2', function() {
 
 Route::get("cart2", function() {
   $cart = new Cart();
-  $cart->addToCart(1, 1, 2, 2);
-  $cart->addToCart(2, 2);
+  $product_id = 1; $quantity = 2; $size_id = 2; $option_id = 2;
+  $cart->addToCart($product_id, $quantity, $size_id, $option_id);
   $products = $cart->getCart();
-  var_dump($products);
-
-  $sale_service = new Sale();
-  $customer_id = 1;
-  $payment_type = PaymentType::Bank;
-  $sale = $sale_service->checkoutCart($customer_id, $payment_type, $products);
-  var_dump($sale);
+  $key = $cart->getKey($product_id, $size_id);
+  $product = $products[$key];
+  var_dump($product);
 });
 
 Route::get('test', function() {

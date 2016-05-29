@@ -8,6 +8,7 @@ class SaleProductTable extends Migration
   public function up()
   {
     Schema::create('sale_product', function (Blueprint $table) {
+      $table->increments('sale_product_id');
       $table->integer('sale_id');
       $table->integer('product_id');
       $table->string('product_name', 150);

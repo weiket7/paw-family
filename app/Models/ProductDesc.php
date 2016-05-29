@@ -8,7 +8,7 @@ use Eloquent, DB, Validator;
 class ProductDesc extends Eloquent
 {
   public $table = 'product_desc';
-  protected $primaryKey = 'product_desc_id';
+  protected $primaryKey = 'desc_id';
   protected $validation;
   public $timestamps = false;
 

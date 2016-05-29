@@ -300,7 +300,7 @@
           <tbody>
           @foreach($product->descs as $desc)
             <tr>
-              <td><a href="{{url("admin/product/desc/save/".$desc->product_desc_id)}}">{{ProductDescType::$values[$desc->type]}}</a></td>
+              <td><a href="{{url("admin/product/desc/save/".$desc->desc_id)}}">{{ProductDescType::$values[$desc->type]}}</a></td>
               <td>{!! nl2br($desc->value) !!}</td>
             </tr>
           @endforeach
