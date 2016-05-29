@@ -46,7 +46,15 @@
             </tr>
             @foreach($sale->products as $product)
               <tr>
-                <td>{{$product->product_name}}</td>
+                <td>
+                  {{$product->name}}
+                  @if($product->size_id > 0)
+                    <br>Size: {{$product->size_name}}
+                  @endif
+                  @if($product->option_id > 0)
+                    <br>Repack: {{$product->option_name}} - ${{CommonHelper::formatNumber($product->option_price)}}
+                  @endif
+                </td>
                 <td>${{$product->discounted_price}}</td>
                 <td>{{$product->quantity}}</td>
                 <td>${{CommonHelper::formatNumber($product->subtotal)}}</td>

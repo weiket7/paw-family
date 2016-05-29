@@ -41,8 +41,20 @@
               @foreach($products as $p)
                 <tr>
                   <td>
-                    <img src="{{url('assets/images/products/'.$p->image)}}" alt="" class="m_md_bottom_5 d_xs_block d_xs_centered" style="max-height: 100px">
-                    <a href="">{{$p->name}}</a>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <a href="{{url("product/view/".$p->slug)}}"><img src="{{url('assets/images/products/'.$p->image)}}" alt="" class="m_md_bottom_5 d_xs_block d_xs_centered" style="max-height: 100px"></a>
+                      </div>
+                      <div class="col-md-9">
+                        <a href="{{url("product/view/".$p->slug)}}">{{$p->name}}</a>
+                        @if($p->size_id > 0)
+                          <br>Size: {{$p->size_name}}
+                        @endif
+                        @if($p->option_id > 0)
+                          <br>Repack: {{$p->option_name}} - ${{CommonHelper::formatNumber($p->option_price)}}
+                        @endif
+                      </div>
+                    </div>
                   </td>
                   <td>
                     @if($p->price > $p->discounted_price)

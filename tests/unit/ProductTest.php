@@ -66,7 +66,11 @@ class ProductTest extends \Codeception\TestCase\Test
   public function testGetProductOptionSuccess() {
     $product_service = new Product();
     $options = $product_service->getProductOption(1, ProductOptionType::Repack);
-    $this->assertGreaterThan(0, count($options));
+    $first_size_id = 2;
+    $second_size_id = 3;
+    $this->assertEquals(2, count($options));
+    $this->assertEquals(2, count($options[$first_size_id]));
+    $this->assertEquals(2, count($options[$second_size_id]));
   }
 
   public function testGetProductSize() {

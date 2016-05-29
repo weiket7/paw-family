@@ -28,6 +28,8 @@ class Cart {
         $sale_product->discounted_price = $product->sizes[$size_id]->discounted_price;
         $sale_product->discount_amt = $product->sizes[$size_id]->discount_amt;
         $sale_product->size_name = $product->sizes[$size_id]->name;
+        $sale_product->option_name = $product->repacks[$size_id][$option_id]->name;
+        $sale_product->option_price = $product->repacks[$size_id][$option_id]->price;
       } else {
         $sale_product->price = $product->price;
         $sale_product->discounted_price = $product->discounted_price;
@@ -35,7 +37,7 @@ class Cart {
       }
       $sale_product->image = $product->image;
       $sale_product->slug = $product->slug;
-      $sale_product->subtotal = $sale_product->quantity * $sale_product->discounted_price;
+      $sale_product->subtotal = ($sale_product->quantity * $sale_product->discounted_price) + ($sale_product->quantity *$sale_product->option_price );
       $this->products[$key] = $sale_product;
     }
   }

@@ -164,7 +164,7 @@
             @foreach($sale->products as $product)
               <tr>
                 <td>
-                  <a href="{{url("admin/product/save/".$product->product_id)}}">{{$product->product_name}}</a>
+                  <a href="{{url("admin/product/save/".$product->product_id)}}">{{$product->name}}</a>
                 </td>
                 <td>{{$product->size_name}}</td>
                 <td>

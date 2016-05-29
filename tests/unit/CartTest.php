@@ -37,9 +37,12 @@ class CartTest extends \Codeception\TestCase\Test
     $this->assertEquals($quantity, $product->quantity);
     $this->assertEquals("Addiction Viva La Venison", $product->name);
     $this->assertEquals(142.90, $product->price);
+    $this->assertEquals("Medium", $product->size_name);
+    $this->assertEquals("3 packs", $product->option_name);
+    $this->assertEquals(1, $product->option_price);
     //$this->assertEquals(3.91, $product->discount_amt);
     $this->assertEquals(132.90, $product->discounted_price);
-    $this->assertEquals(265.80, $product->subtotal);
+    $this->assertEquals(267.80, $product->subtotal);
   }
 
   public function testAddToCartProductExistInCartIncreaseQuantity() {

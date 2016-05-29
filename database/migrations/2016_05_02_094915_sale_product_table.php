@@ -11,7 +11,7 @@ class SaleProductTable extends Migration
       $table->increments('sale_product_id');
       $table->integer('sale_id');
       $table->integer('product_id');
-      $table->string('product_name', 150);
+      $table->string('name', 150);
       $table->integer('size_id')->nullable();
       $table->string('size_name', 20)->nullable();
       $table->integer('option_id')->nullable();

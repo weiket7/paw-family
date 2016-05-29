@@ -27,8 +27,12 @@ class SaleTest extends \Codeception\TestCase\Test
 
   public function testCheckoutCart() {
     $cart = new Cart();
-    $cart->addToCart(1, 1, 2, 2);
-    $cart->addToCart(2, 2);
+    $size_id = 2;
+    $option_id = 2;
+    $product1_quantity = 3;
+    $cart->addToCart(1, $product1_quantity, $size_id, $option_id);
+    $product2_quantity = 2;
+    $cart->addToCart(2, $product2_quantity);
     $products = $cart->getCart();
 
     $sale_service = new Sale();
@@ -38,16 +42,37 @@ class SaleTest extends \Codeception\TestCase\Test
     $delivery_option->address_other = $this->address_other;
     $delivery_option->delivery_time = DeliveryTime::AnyTime;
     $delivery_option->payment_type = PaymentType::Bank;
-    $sale_service->checkoutCart($customer_id, $delivery_option, $products);
+    $sale_no = $sale_service->checkoutCart($customer_id, $delivery_option, $products);
 
     $product1_size2_price = 142.90;
     $product1_size2_discounted_price = 132.90;
+    $product1_size2_option2_price = 1;
+    $product1_subtotal = $product1_size2_discounted_price * $product1_quantity + $product1_size2_option2_price * $product1_quantity;
+
     $product2_price = 39.10;
     $product2_discounted_price = 35.19;
-    $gross_total = $product1_size2_price * 1 + $product2_price * 2;
-    $nett_total = $product1_size2_discounted_price * 1 + $product2_discounted_price * 2;
+    $product2_subtotal = $product2_discounted_price * $product2_quantity;
+
+    $gross_total = $product1_size2_price * $product1_quantity + $product1_size2_option2_price * $product1_quantity + $product2_price * $product2_quantity;
+    $nett_total = $product1_subtotal + $product2_subtotal;
 
     $this->tester->seeRecord('sale', ['gross_total'=>$gross_total, 'nett_total'=>$nett_total]);
+
+    $sale_id = $sale_service->getSaleIdByNo($sale_no);
+    $this->tester->seeRecord('sale_product', [
+      'sale_id'=>$sale_id, 'product_id'=>1, 'name'=>'Addiction Viva La Venison',
+      'size_id'=>$size_id, 'size_name'=>'Medium',
+      'option_id'=>$option_id, 'option_name'=>'3 packs', 'option_price'=>1.00,
+      'price'=>$product1_size2_price, 'discounted_price'=>$product1_size2_discounted_price,
+      'subtotal'=>$product1_subtotal,
+    ]);
+    $this->tester->seeRecord('sale_product', [
+      'sale_id'=>$sale_id, 'product_id'=>2, 'name'=>'Addiction Salmon Bleu',
+      'size_id'=>0, 'size_name'=>null,
+      'option_id'=>0, 'option_name'=>null, 'option_price'=>null,
+      'price'=>$product2_price, 'discounted_price'=>$product2_discounted_price,
+      'subtotal'=>$product2_subtotal,
+    ]);
   }
 
   public function testGetDeliveryAddress_SelfCollect() {
@@ -76,9 +101,13 @@ class SaleTest extends \Codeception\TestCase\Test
 
   public function testGetSaleNoAndIncrement() {
     $sale_service = new Sale();
+    $current_sale_no = DB::table('sale_running_no')->value('value');
+
     $sale_no = $sale_service->getSaleNoAndIncrement();
-    $this->assertEquals(100018620, $sale_no);
-    $this->tester->seeRecord('sale_running_no', ['value'=>100018620]);
+
+    $new_sale_no = $current_sale_no+1;
+    $this->assertEquals($new_sale_no, $sale_no);
+    $this->tester->seeRecord('sale_running_no', ['value'=>$new_sale_no]);
   }
 
   public function testGetSaleIdByNo() {

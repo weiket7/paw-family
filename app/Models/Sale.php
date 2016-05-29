@@ -87,21 +87,13 @@ class Sale extends Eloquent
     $product_discount = 0;
     /* @var $product SaleProduct */
     foreach($products as $product) {
-      $sale_product = [
-        'sale_id'=>$this->sale_id,
-        'product_id'=>$product->product_id,
-        'size_id'=>$product->size_id,
-        'option_id'=>$product->option_id,
-        'price'=>$product->price,
-        'discount_amt'=> isset($product->discount_amt) ? $product->discount_amt : 0,
-        'discount_percentage'=>isset($product->discount_percentage) ? $product->discount_percentage : 0,
-        'discounted_price'=>$product->discounted_price,
-        'quantity'=>$product->quantity,
-        'subtotal'=>$product->subtotal,
-      ];
-      DB::table("sale_product")->insert($sale_product);
+      unset($product->slug);
+      unset($product->image);
+      $product->sale_id = $this->sale_id;
 
-      $gross_total += $product->price * $product->quantity;
+      DB::table("sale_product")->insert((array)$product);
+
+      $gross_total += $product->price * $product->quantity + $product->option_price * $product->quantity;
       $product_discount += $product->discount_amt * $product->quantity;
     }
     $this->gross_total = $gross_total;
@@ -139,9 +131,10 @@ class Sale extends Eloquent
     $p['sale_id'] = $sale_id;
     $sale = DB::select($s, $p)[0];
 
-    $s = "SELECT sp.product_id, p.name as product_name, ifnull(size_name, '') as size_name, ifnull(option_name, '') as option_name, ifnull(option_price, '') as option_price,
-    sp.product_id, sp.quantity, sp.price, sp.discounted_price, subtotal from sale_product as sp 
-    inner join product as p on sp.product_id = p.product_id
+    $s = "SELECT product_id, name, 
+    size_id, ifnull(size_name, '') as size_name,
+    option_id, ifnull(option_name, '') as option_name, ifnull(option_price, '') as option_price,
+    product_id, quantity, price, discounted_price, subtotal from sale_product 
     where sale_id = :sale_id";
     $sale->products = DB::select($s, $p);
 

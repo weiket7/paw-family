@@ -158,7 +158,7 @@ class Product extends Eloquent
 
     $res = [];
     foreach($data as $d) {
-      $res[$d->size_id][] = $d;
+      $res[$d->size_id][$d->option_id] = $d;
     }
     return $res;
   }
