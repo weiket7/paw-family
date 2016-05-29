@@ -132,7 +132,8 @@ class Sale extends Eloquent
   }
 
   public function getSale($sale_id)   {
-    $s = "SELECT customer_id, sale_id, sale_no, stat, payment_type, promo_discount, gross_total, nett_total, point, sale_on
+    $s = "SELECT customer_id, sale_id, sale_no, stat, payment_type, product_discount, promo_discount, 
+    delivery_choice, delivery_address, delivery_time, customer_remark, operator_remark, gross_total, nett_total, point, sale_on
     FROM sale where sale_id = :sale_id";
     $p['sale_id'] = $sale_id;
 

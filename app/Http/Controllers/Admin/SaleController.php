@@ -19,7 +19,9 @@ class SaleController extends Controller
     return view('admin/sale/index', $data);
   }
 
-  public function save() {
-    return view('admin/sale/form');
+  public function save(Request $request, $sale_id) {
+    $sale_service = new Sale();
+    $data['sale'] = $sale_service->getSale($sale_id);
+    return view('admin/sale/form', $data);
   }
 }
