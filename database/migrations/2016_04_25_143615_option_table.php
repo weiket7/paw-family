@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Enums\ProductOptionType;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -19,19 +20,19 @@ class OptionTable extends Migration
     });
 
     DB::table('option')->insert([
-      'option_id'=>1, 'product_id'=>1, 'size_id'=>2, 'name'=>'2 packs', 'type'=>'R', 'price'=>0,
+      'option_id'=>1, 'product_id'=>1, 'size_id'=>2, 'name'=>'2 packs', 'type'=> ProductOptionType::Repack, 'price'=>0,
       'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
     DB::table('option')->insert([
-      'option_id'=>2, 'product_id'=>1, 'size_id'=>2, 'name'=>'3 packs', 'type'=>'R', 'price'=>1,
+      'option_id'=>2, 'product_id'=>1, 'size_id'=>2, 'name'=>'3 packs', 'type'=> ProductOptionType::Repack, 'price'=>1,
       'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
     DB::table('option')->insert([
-      'option_id'=>3, 'product_id'=>1, 'size_id'=>3, 'name'=>'3 packs', 'type'=>'R', 'price'=>0,
+      'option_id'=>3, 'product_id'=>1, 'size_id'=>3, 'name'=>'3 packs', 'type'=> ProductOptionType::Repack, 'price'=>0,
       'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
     DB::table('option')->insert([
-      'option_id'=>4, 'product_id'=>1, 'size_id'=>3, 'name'=>'4 packs', 'type'=>'R', 'price'=>1,
+      'option_id'=>4, 'product_id'=>1, 'size_id'=>3, 'name'=>'4 packs', 'type'=> ProductOptionType::Repack, 'price'=>1,
       'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
   }

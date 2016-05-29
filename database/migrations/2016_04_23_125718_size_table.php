@@ -10,7 +10,7 @@ class SizeTable extends Migration
       Schema::create('size', function(Blueprint $t) {
         $t->increments('size_id');
         $t->integer('product_id');
-        $t->string('name', 10);
+        $t->string('name', 20);
         $t->integer('quantity');
         $t->decimal('price', 7, 2);
         $t->decimal('discount_amt', 7, 2); //round down

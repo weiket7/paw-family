@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Sale;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,9 @@ class SaleController extends Controller
 
   public function save(Request $request, $sale_id) {
     $sale_service = new Sale();
-    $data['sale'] = $sale_service->getSale($sale_id);
+    $sale = $sale_service->getSale($sale_id);
+    $data['customer'] = Customer::find($sale->customer_id);
+    $data['sale'] = $sale;
     return view('admin/sale/form', $data);
   }
 }

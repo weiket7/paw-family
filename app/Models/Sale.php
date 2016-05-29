@@ -136,9 +136,10 @@ class Sale extends Eloquent
     delivery_choice, delivery_address, delivery_time, customer_remark, operator_remark, gross_total, nett_total, point, sale_on
     FROM sale where sale_id = :sale_id";
     $p['sale_id'] = $sale_id;
-
     $sale = DB::select($s, $p)[0];
-    $s = "SELECT p.name, sp.product_id, quantity, sp.discounted_price, subtotal from sale_product  as sp 
+
+    $s = "SELECT sp.product_id, p.name as product_name, ifnull(size_name, '') as size_name, ifnull(option_name, '') as option_name, ifnull(option_price, '') as option_price,
+    sp.product_id, sp.quantity, sp.price, sp.discounted_price, subtotal from sale_product as sp 
     inner join product as p on sp.product_id = p.product_id
     where sale_id = :sale_id";
     $sale->products = DB::select($s, $p);

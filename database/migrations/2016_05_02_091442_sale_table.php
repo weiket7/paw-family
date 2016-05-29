@@ -34,10 +34,10 @@ class SaleTable extends Migration
     });
 
     DB::table('sale')->insert([
-      'sale_id'=>1, 'sale_no'=>'123456', 'customer_id'=>1, 'stat'=> SaleStat::Delivered, 'payment_type'=>PaymentType::Bank,
+      'sale_id'=>1, 'sale_no'=>'123456', 'customer_id'=>1, 'stat'=> SaleStat::Pending, 'payment_type'=>PaymentType::Bank,
       'delivery_choice'=> DeliveryChoice::OtherAddress, 'delivery_address'=>'my other address', 'delivery_time'=> DeliveryTime::$values[DeliveryTime::AnyTime],
-      'customer_remark'=>'customer remark',
-      'gross_total'=>168.05, 'nett_total'=>168.05, 'point'=>168, 'sale_on'=>date('Y-m-d H:i:s'),
+      'customer_remark'=>'customer remark', 'product_discount'=>20,
+      'gross_total'=>377.65, 'nett_total'=>357.65, 'point'=>168, 'sale_on'=>date('Y-m-d H:i:s'),
     ]);
   }
 
