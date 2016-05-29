@@ -4,8 +4,9 @@
 
 @extends("admin.template", [
   "title"=>"Order",
-  "action"=>"index",
-  "controller"=>"product"
+  "action"=>"view",
+  "controller"=>"sale",
+  "hide_delete"=>true,
 ])
 
 @section('script')

@@ -290,6 +290,8 @@
         var data = {
           quantity: $("#quantity").val(),
           product_id: "{{$product->product_id}}",
+          size_id: getSelectedSize(),
+          option_id: getSelectedRepack(),
           _token: $("input[name='_token']").val(),
         };
 
@@ -352,7 +354,7 @@
     }
 
     function selectSize() {
-      var size = $('input[name=size]:checked').val()
+      var size = getSelectedSize();
       var repacks = repacks_object[size];
       //console.log(JSON.stringify(repack_options));
       var html = "";
@@ -412,8 +414,8 @@
         price_total = price * quantity;
         discounted_price_total = discounted_price * quantity;
       } else {
-        var size = $('input[name=size]:checked').val();
-        var repack = $("#repack").val();
+        var size = getSelectedSize();
+        var repack = getSelectedRepack();
         //console.log('quantity='+quantity+' selected_size='+size + ' selected_repack='+repack);
 
         var sizes = sizes_object[size];
@@ -436,6 +438,14 @@
 
       $("#price-total").text("$"+toTwoDecimal(price_total));
       $("#discounted-price-total").text("$"+toTwoDecimal(discounted_price_total));
+    }
+
+    function getSelectedSize() {
+      return $('input[name=size]:checked').val();
+    }
+
+    function getSelectedRepack() {
+      return $("#repack").val()
     }
   </script>
 @endsection
