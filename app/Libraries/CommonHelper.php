@@ -59,15 +59,22 @@ class CommonHelper {
     return $data;
   }
 
-  public static function sumQuantityInCart($products) {
-    if (count($products) == 0) {
-      return 0;
-    }
+  public static function getCartTotal($products) {
     $total = 0;
+    /* @var $product SaleProduct */
     foreach($products as $product) {
-      $total += $product->quantity;
+      $total += $product->subtotal;
     }
-    return $total;
+    return CommonHelper::formatNumber($total);
+  }
+
+  public static function getCartCount($products) {
+    $count = 0;
+    /* @var $product SaleProduct */
+    foreach($products as $product) {
+      $count += $product->quantity;
+    }
+    return $count;
   }
 
   /*public static function toTwoDecimalRounddown($decimal) {

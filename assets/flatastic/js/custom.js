@@ -11,7 +11,9 @@ function getObjectSize(object) {
 }
 
 function removeDollarAndToFloat(string) {
-  return parseFloat(string.replace('$', ''));
+  string = string.replace('$', '')
+  string = string.replace(',', '')
+  return parseFloat(string);
 }
 
 function isDefined(obj) {

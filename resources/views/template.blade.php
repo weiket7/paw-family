@@ -158,10 +158,14 @@
               <span class="d_inline_middle shop_icon">
                 <i class="fa fa-shopping-cart"></i>
                 <span class="count tr_delay_hover type_2 circle t_align_c" id="span-cart-count">
-                  {{CommonHelper::sumQuantityInCart(Session::get("cart"))}}
+                  {{CommonHelper::getCartCount(Session::get("cart"))}}
                 </span>
               </span>
-              <span id="span-cart-total"><b>$355</b></span>
+              <span id="span-cart-total">
+                <b>
+                  ${{CommonHelper::getCartTotal(Session::get("cart"))}}
+                </b>
+              </span>
             </a>
           </li>
         </ul>
@@ -348,8 +352,6 @@
   });
 
   $(document).ready(function() {
-
-
     $('#btn-login').click(function (){
       login();
     });
@@ -388,6 +390,10 @@
       }
     });
   });
+
+  function updateCart() {
+    
+  }
 </script>
 
 @section('script')

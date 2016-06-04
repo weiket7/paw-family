@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\SaleProduct;
+
 class CommonHelperTest extends \Codeception\TestCase\Test
 {
   public function testGetDiscountAmt() {
@@ -30,5 +32,25 @@ class CommonHelperTest extends \Codeception\TestCase\Test
   public function testShowDiscountAmtPassInAmtTenPercentReturnTenPercentBracketAmt() {
     $discount_amt = CommonHelper::showDiscountAmt(195.55, 10);
     $this->assertEquals("$195.55 (10%)", $discount_amt);
+  }
+
+  public function testGetCartCount() {
+    $product1 = new SaleProduct();
+    $product1->quantity = 2;
+    $product2 = new SaleProduct();
+    $product2->quantity = 3;
+    $products = [$product1, $product2];
+    $count = CommonHelper::getCartCount($products);
+    $this->assertEquals(5, $count);
+  }
+
+  public function testGetCartTotal() {
+    $product1 = new SaleProduct();
+    $product1->subtotal = 10.2;
+    $product2 = new SaleProduct();
+    $product2->subtotal = 30.66;
+    $products = [$product1, $product2];
+    $count = CommonHelper::getCartTotal($products);
+    $this->assertEquals(40.86, $count);
   }
 }

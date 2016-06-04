@@ -387,18 +387,28 @@
       updateTotal();
     }
 
-    function getQuantity(product_id, size_id) {
-      //console.log('getQuantity - product_id='+product_id+' size_id='+size_id);
-      var quantity = parseFloat($("#product"+product_id + "-size"+size_id+"-quantity").val());
-      return quantity;
-    }
-
     function updateSubtotal(product_id, size_id) {
-      var price = parseFloat($("#product"+product_id+"-size"+size_id+"-discounted-price").attr('data-discounted-price'));
+      var price = getDiscountedPrice(product_id, size_id);
       var quantity = getQuantity(product_id, size_id);
       var subtotal = price * quantity;
       //console.log('product_id='+product_id+' size_id='+size_id+' price='+price + ' quantity='+quantity + ' subtotal='+subtotal);
-      $("#product"+product_id+"-size"+size_id+"-subtotal").text("$"+toTwoDecimal(subtotal));
+      var prefix = getElementPrefix(product_id, size_id);
+      $(prefix+"subtotal").text("$"+toTwoDecimal(subtotal));
+    }
+
+    function getElementPrefix(product_id, size_id) {
+      return "#product"+product_id+"-size"+size_id+"-";
+    }
+
+    function getDiscountedPrice(product_id, size_id) {
+      var prefix = getElementPrefix(product_id, size_id);
+      return parseFloat($(prefix+"discounted-price").attr('data-discounted-price'));
+    }
+
+    function getQuantity(product_id, size_id) {
+      var prefix = getElementPrefix(product_id, size_id);
+      //console.log('getQuantity - product_id='+product_id+' size_id='+size_id);
+      return parseFloat($(prefix+"quantity").val());
     }
 
     function removeFromCart(product_id, size_id) {
@@ -413,7 +423,8 @@
         url: "{{ url("remove-from-cart") }}",
         data: data,
         success: function(response) {
-          $("#product"+product_id+'-discounted-price').closest("tr").remove();
+          var prefix = getElementPrefix(product_id, size_id);
+          $(prefix+"discounted-price").closest("tr").fadeOut(500);
           updateTotal();
         },
         error: function(  ) {
@@ -423,7 +434,7 @@
     }
 
     function selectPayment(type) {
-      console.log(type);
+      //console.log(type);
       $("#payment-{{PaymentType::Bank}}").hide();
       $("#payment-{{PaymentType::Cheque}}").hide();
       $("#payment-{{PaymentType::Cash}}").hide();
