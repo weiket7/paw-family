@@ -61,6 +61,19 @@ class CartTest extends \Codeception\TestCase\Test
     $this->assertEquals(105.57, $product->subtotal);
   }
 
+  public function testAddToCartCanAcceptSizeWithoutOption() {
+    $cart = new Cart();
+    $cart->addToCart(1, 2, 2, 0);
+    $products = $cart->getCart();
+    $key = $cart->getKey(1, 2);
+    $product = $products[$key];
+    $this->assertCount(1, $products);
+    $this->assertEquals(1, $product->product_id);
+    $this->assertEquals(2, $product->quantity);
+    $this->assertEquals(2, $product->size_id);
+    $this->assertEquals(0, $product->option_id);
+  }
+
   public function testAddToCartCanAcceptSizeAndOption() {
     $cart = new Cart();
     $cart->addToCart(1, 2, 2, 2);
@@ -98,6 +111,20 @@ class CartTest extends \Codeception\TestCase\Test
     $products = $cart->getCart();
     $key = $cart->getKey(1, 0);
     $this->assertCount(1, $products);
+    $product = $products[$key];
+    $this->assertEquals(5, $product->quantity);
+  }
+
+  public function testUpdateCartTwoProductDifferentSize() {
+    $cart = new Cart();
+    $product_id = 1;
+    $cart->addToCart($product_id, 2, 1);
+    $size_id = 2;
+    $cart->addToCart($product_id, 3, $size_id);
+    $cart->updateCart($product_id, 5, $size_id);
+    $products = $cart->getCart();
+    $key = $cart->getKey($product_id, $size_id);
+    $this->assertCount(2, $products);
     $product = $products[$key];
     $this->assertEquals(5, $product->quantity);
   }

@@ -47,8 +47,10 @@ Route::group(['middleware'=>'auth'], function() {
 
 Route::get('get-cart', 'SaleController@getCart');
 Route::post('add-to-cart', 'SaleController@addToCart');
+Route::get('update-cart', 'SaleController@updateCart');
 Route::post('update-cart', 'SaleController@updateCart');
 Route::post('remove-from-cart', 'SaleController@removeFromCart');
+Route::post('test', 'SaleController@test');
 
 Route::get('checkout', 'SaleController@checkout');
 Route::post('checkout', 'SaleController@checkout');
@@ -122,10 +124,6 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::post('admin/setting/save/{setting_id}', 'Admin\SettingController@save');
 });
 
-Route::get('test2', function() {
-  return str_slug('Nutripe Ambrosia Chicken with Green Tripe Canned Dog Food');
-});
-
 Route::get("cart2", function() {
   $cart = new Cart();
   $size_id = 2;
@@ -162,7 +160,7 @@ Route::get("cart2", function() {
   vaR_dump($sale_no);
 });
 
-Route::get('test', function() {
+Route::get('hash', function() {
   $pass = "test168";
   $salt = "Gq";
   $encryptedPass = md5($salt.$pass).":".$salt;
@@ -180,6 +178,9 @@ Route::get('test', function() {
 });
 
 
+Route::get('csrf', function() {
+  return csrf_token();
+});
 
 Route::get('clear-cache', function() {
   Cache::forget("categories_cache");

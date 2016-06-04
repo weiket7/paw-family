@@ -41,18 +41,18 @@
         </div>
         <div class="portlet-body">
           <div class="row static-info">
-            <div class="col-md-5 name"> Order No: </div>
-            <div class="col-md-7 value"> {{$sale->sale_no}}
+            <div class="col-md-3 name"> Order No: </div>
+            <div class="col-md-9 value"> {{$sale->sale_no}}
 
             </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-5 name"> Date: </div>
-            <div class="col-md-7 value"> {{CommonHelper::formatDateTime($sale->sale_on)}} </div>
+            <div class="col-md-3 name"> Date: </div>
+            <div class="col-md-9 value"> {{CommonHelper::formatDateTime($sale->sale_on)}} </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-5 name"> Status: </div>
-            <div class="col-md-7 value">
+            <div class="col-md-3 name"> Status: </div>
+            <div class="col-md-9 value">
               {{SaleStat::$values[$sale->stat]}}
               @if ($sale->stat == SaleStat::Pending)
                 &nbsp; <button type="button" class="btn btn-sm blue" id='btn-paid' data-placement="bottom" data-singleton='true' data-toggle='confirmation' data-original-title='Are you sure?'>Paid</button>
@@ -63,35 +63,35 @@
           </div>
           @if($sale->stat == SaleStat::Paid || $sale->stat == SaleStat::Delivered)
             <div class="row static-info">
-              <div class="col-md-5 name"> Paid On: </div>
-              <div class="col-md-7 value"> {{CommonHelper::formatDateTime($sale->paid_on)}} </div>
+              <div class="col-md-3 name"> Paid On: </div>
+              <div class="col-md-9 value"> {{CommonHelper::formatDateTime($sale->paid_on)}} </div>
             </div>
           @endif
           @if($sale->stat == SaleStat::Delivered)
             <div class="row static-info">
-              <div class="col-md-5 name"> Delivered On: </div>
-              <div class="col-md-7 value"> {{CommonHelper::formatDateTime($sale->delivered_on)}} </div>
+              <div class="col-md-3 name"> Delivered On: </div>
+              <div class="col-md-9 value"> {{CommonHelper::formatDateTime($sale->delivered_on)}} </div>
             </div>
           @endif
           <div class="row static-info">
-            <div class="col-md-5 name"> Payment Type: </div>
-            <div class="col-md-7 value"> {{PaymentType::$values[$sale->payment_type]}} </div>
+            <div class="col-md-3 name"> Payment Type: </div>
+            <div class="col-md-9 value"> {{PaymentType::$values[$sale->payment_type]}} </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-5 name"> Gross Total: </div>
-            <div class="col-md-7 value"> ${{$sale->gross_total}} </div>
+            <div class="col-md-3 name"> Gross Total: </div>
+            <div class="col-md-9 value"> ${{$sale->gross_total}} </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-5 name"> Product Discount: </div>
-            <div class="col-md-7 value"> ${{$sale->product_discount}} </div>
+            <div class="col-md-3 name"> Product Discount: </div>
+            <div class="col-md-9 value"> ${{$sale->product_discount}} </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-5 name"> Promo Discount: </div>
-            <div class="col-md-7 value"> ${{$sale->promo_discount}} </div>
+            <div class="col-md-3 name"> Promo Discount: </div>
+            <div class="col-md-9 value"> ${{$sale->promo_discount}} </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-5 name"> Nett Total: </div>
-            <div class="col-md-7 value"> ${{$sale->nett_total}} </div>
+            <div class="col-md-3 name"> Nett Total: </div>
+            <div class="col-md-9 value"> ${{$sale->nett_total}} </div>
           </div>
         </div>
       </div>
@@ -108,34 +108,34 @@
         </div>
         <div class="portlet-body">
           <div class="row static-info">
-            <div class="col-md-5 name"> Name: </div>
-            <div class="col-md-7 value"> <a href="{{url("admin/customer/save/".$customer->customer_id)}}">{{$customer->name}}</a> </div>
+            <div class="col-md-3 name"> Name: </div>
+            <div class="col-md-9 value"> <a href="{{url("admin/customer/save/".$customer->customer_id)}}">{{$customer->name}}</a> </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-5 name"> Mobile: </div>
-            <div class="col-md-7 value"> {{$customer->mobile }} </div>
+            <div class="col-md-3 name"> Mobile: </div>
+            <div class="col-md-9 value"> {{$customer->mobile }} </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-5 name"> Email: </div>
-            <div class="col-md-7 value"> {{$customer->email }} </div>
+            <div class="col-md-3 name"> Email: </div>
+            <div class="col-md-9 value"> {{$customer->email }} </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-5 name"> Choice: </div>
-            <div class="col-md-7 value"> {{DeliveryChoice::$values[$sale->delivery_choice]}} </div>
+            <div class="col-md-3 name"> Choice: </div>
+            <div class="col-md-9 value"> {{DeliveryChoice::$values[$sale->delivery_choice]}} </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-5 name"> Address: </div>
-            <div class="col-md-7 value"> {{$sale->delivery_address}} </div>
+            <div class="col-md-3 name"> Address: </div>
+            <div class="col-md-9 value"> {{$sale->delivery_address}} </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-5 name"> Time: </div>
-            <div class="col-md-7 value">
+            <div class="col-md-3 name"> Time: </div>
+            <div class="col-md-9 value">
               {{$sale->delivery_time}}
             </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-5 name"> Customer Remark: </div>
-            <div class="col-md-7 value"> {{$sale->customer_remark}} </div>
+            <div class="col-md-3 name"> Customer Remark: </div>
+            <div class="col-md-9 value"> {{$sale->customer_remark}} </div>
           </div>
         </div>
       </div>

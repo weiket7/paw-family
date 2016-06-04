@@ -78,6 +78,10 @@ class SaleController extends Controller
     return $products;
   }
 
+  public function test() {
+    return 'abc';
+  }
+
   private function getCartFromSession() {
     return Session::has('cart') ? Session::get('cart') : [];
   }

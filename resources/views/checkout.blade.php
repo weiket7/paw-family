@@ -60,25 +60,25 @@
                     @if($p->price > $p->discounted_price)
                       <s>${{$p->price}}</s>
                     @endif
-                    <span class="scheme_color fw_medium" id="product{{$p->product_id}}-discounted-price" data-discounted-price="{{$p->discounted_price}}">${{$p->discounted_price}}</span>
+                    <span class="scheme_color fw_medium" id="product{{$p->product_id}}-size{{$p->size_id}}-discounted-price" data-discounted-price="{{$p->discounted_price}}">${{$p->discounted_price}}</span>
                   </td>
                   <td>
                     <div class="clearfix quantity r_corners d_inline_middle f_size_medium color_dark m_bottom_10">
                       <button class="bg_tr d_block f_left" data-direction="down" onclick="updateQuantity(this)">-</button>
-                      <input type="text" id="product{{$p->product_id}}-quantity" value="{{$p->quantity}}" class="f_left">
+                      <input type="text" id="product{{$p->product_id}}-size{{$p->size_id}}-quantity" value="{{$p->quantity}}" class="f_left">
                       <button class="bg_tr d_block f_left" data-direction="up" onclick="updateQuantity(this)">+</button>
                     </div>
                     <div>
-                      <span class="link color_dark" onclick="updateCart('{{$p->product_id}}')">
+                      <span class="link color_dark" onclick="updateCart('{{$p->product_id}}', '{{$p->size_id}}')">
                         <i class="fa fa-check f_size_medium m_right_5"></i>Update
                       </span><br>
-                      <span class="link color_dark" onclick="removeFromCart('{{$p->product_id}}')">
+                      <span class="link color_dark" onclick="removeFromCart('{{$p->product_id}}', '{{$p->size_id}}')">
                         <i class="fa fa-times f_size_medium m_right_5"></i>Remove
                       </span>
                     </div>
                   </td>
                   <td>
-                    <p id='product{{$p->product_id}}-subtotal' class="subtotal f_size_large fw_medium scheme_color">${{CommonHelper::formatNumber($p->subtotal)}}</p>
+                    <p id='product{{$p->product_id}}-size{{$p->size_id}}-subtotal' class="subtotal f_size_large fw_medium scheme_color">${{CommonHelper::formatNumber($p->subtotal)}}</p>
                   </td>
                 </tr>
                 <?php $gross_total += $p->subtotal; ?>
@@ -361,10 +361,11 @@
       $("#p-total").text("$" + toTwoDecimal(total));
     }
 
-    function updateCart(product_id) {
+    function updateCart(product_id, size_id) {
       var data = {
-        quantity: getQuantity(product_id),
+        quantity: getQuantity(product_id, size_id),
         product_id: product_id,
+        size_id: size_id,
         _token: $("input[name='_token']").val(),
       };
 
@@ -382,27 +383,28 @@
         }
       });
 
-      updateSubtotal(product_id);
+      updateSubtotal(product_id, size_id);
       updateTotal();
     }
 
-    function getQuantity(product_id) {
-      var quantity = parseFloat($("#product"+product_id + "-quantity").val());
+    function getQuantity(product_id, size_id) {
+      //console.log('getQuantity - product_id='+product_id+' size_id='+size_id);
+      var quantity = parseFloat($("#product"+product_id + "-size"+size_id+"-quantity").val());
       return quantity;
     }
 
-    function updateSubtotal(product_id) {
-      var price = parseFloat($("#product"+product_id+"-discounted-price").attr('data-discounted-price'));
-      var quantity = getQuantity(product_id);
+    function updateSubtotal(product_id, size_id) {
+      var price = parseFloat($("#product"+product_id+"-size"+size_id+"-discounted-price").attr('data-discounted-price'));
+      var quantity = getQuantity(product_id, size_id);
       var subtotal = price * quantity;
-      //console.log('price='+price + ' quantity='+quantity + ' subtotal='+subtotal);
-      $("#product"+product_id+"-subtotal").text("$"+toTwoDecimal(subtotal));
+      //console.log('product_id='+product_id+' size_id='+size_id+' price='+price + ' quantity='+quantity + ' subtotal='+subtotal);
+      $("#product"+product_id+"-size"+size_id+"-subtotal").text("$"+toTwoDecimal(subtotal));
     }
 
-    function removeFromCart(product_id) {
+    function removeFromCart(product_id, size_id) {
       var data = {
         product_id: product_id,
-        size_id: 0, //TODO
+        size_id: size_id,
         _token: $("input[name='_token']").val(),
       };
 

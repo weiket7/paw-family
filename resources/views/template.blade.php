@@ -157,7 +157,9 @@
             <a role="button" href="{{url('checkout')}}" class="button_type_3 color_light bg_scheme_color d_block r_corners tr_delay_hover box_s_none">
               <span class="d_inline_middle shop_icon">
                 <i class="fa fa-shopping-cart"></i>
-                <span class="count tr_delay_hover type_2 circle t_align_c" id="span-cart-count">3</span>
+                <span class="count tr_delay_hover type_2 circle t_align_c" id="span-cart-count">
+                  {{CommonHelper::sumQuantityInCart(Session::get("cart"))}}
+                </span>
               </span>
               <span id="span-cart-total"><b>$355</b></span>
             </a>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Enums\DiscountType;
+use App\Models\SaleProduct;
 
 class CommonHelper {
   public static function formatDateTime($date) {
@@ -49,13 +50,24 @@ class CommonHelper {
   }
 
   public static function getIdFromArr($arr, $id_name) {
-    $data = array();
+    $data = [];
     foreach($arr as $a) {
       if ($a->$id_name != '' && $a->$id_name != null) {
         $data[] = $a->$id_name;
       }
     }
     return $data;
+  }
+
+  public static function sumQuantityInCart($products) {
+    if (count($products) == 0) {
+      return 0;
+    }
+    $total = 0;
+    foreach($products as $product) {
+      $total += $product->quantity;
+    }
+    return $total;
   }
 
   /*public static function toTwoDecimalRounddown($decimal) {
