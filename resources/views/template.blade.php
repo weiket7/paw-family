@@ -1,6 +1,6 @@
 <?php use App\Models\Enums\MainCategory; ?>
 
-<!doctype html>
+  <!doctype html>
 <!--[if IE 9 ]><html class="ie9" lang="en"><![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
 <head>
@@ -158,14 +158,14 @@
               <span class="d_inline_middle shop_icon">
                 <i class="fa fa-shopping-cart"></i>
                 <span class="count tr_delay_hover type_2 circle t_align_c" id="span-cart-count">
-                  {{CommonHelper::getCartCount(Session::get("cart"))}}
+                  0
                 </span>
               </span>
-              <span id="span-cart-total">
-                <b>
-                  ${{CommonHelper::getCartTotal(Session::get("cart"))}}
-                </b>
-              </span>
+              <b>
+                <span id="span-cart-total">
+                  0
+                </span>
+              </b>
             </a>
           </li>
         </ul>
@@ -200,71 +200,71 @@
     </div>
     @endif
 
-  @yield('content')
+    @yield('content')
 
-  <!--markup footer-->
-  <footer id="footer" class="type_2">
-    <div class="footer_top_part">
-      <div class="container">
-        <div class="row clearfix">
-          <div class="col-lg-4 col-md-4 col-sm-4 m_xs_bottom_30">
-            <h3 class="color_light_2 m_bottom_20">About</h3>
-            <p class="m_bottom_15">Paw Family is a one-stop online pet store which offers pet owners incredible savings on top quality pet supplies.<br><br>
+      <!--markup footer-->
+    <footer id="footer" class="type_2">
+      <div class="footer_top_part">
+        <div class="container">
+          <div class="row clearfix">
+            <div class="col-lg-4 col-md-4 col-sm-4 m_xs_bottom_30">
+              <h3 class="color_light_2 m_bottom_20">About</h3>
+              <p class="m_bottom_15">Paw Family is a one-stop online pet store which offers pet owners incredible savings on top quality pet supplies.<br><br>
 
-              Our mission is to provide fantastic deals to cater the needs for your precious pets. As pet lovers ourselves, we value the quality and reliability of every product.</p>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4 m_xs_bottom_30">
-            <h3 class="color_light_2 m_bottom_20">Information</h3>
-            <ul class="vertical_list">
-              <li><a class="color_light tr_delay_hover" href="#">About Pawfamily<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="{{url('contact')}}">Contact<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="#">Delivery<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="#">Loyalty and Rewards<i class="fa fa-angle-right"></i></a></li>
-              <li><a class="color_light tr_delay_hover" href="{{url('terms-and-conditions')}}">Terms &amp; Conditions<i class="fa fa-angle-right"></i></a></li>
-            </ul>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <h3 class="color_light_2 m_bottom_20">Contact Us</h3>
-            <ul class="c_info_list">
-              <li class="m_bottom_10">
-                <div class="clearfix m_bottom_15">
-                  <i class="fa fa-map-marker f_left"></i>
-                  <p class="contact_e">Upper Paya Lebar</p>
-                </div>
-              </li>
-              <li class="m_bottom_10">
-                <div class="clearfix m_bottom_10">
-                  <i class="fa fa-phone f_left"></i>
-                  <p class="contact_e">9026 4166</p>
-                </div>
-              </li>
-              <li class="m_bottom_10">
-                <div class="clearfix m_bottom_10">
-                  <i class="fa fa-envelope f_left"></i>
-                  <a class="contact_e color_light" href="mailto:admin@pawfamily.sg">admin@pawfamily.sg</a>
-                </div>
-              </li>
-              <li>
-                <div class="clearfix">
-                  <i class="fa fa-clock-o f_left"></i>
-                  <p class="contact_e">Monday - Friday: 10am - 10am</p>
-                </div>
-              </li>
-            </ul>
+                Our mission is to provide fantastic deals to cater the needs for your precious pets. As pet lovers ourselves, we value the quality and reliability of every product.</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 m_xs_bottom_30">
+              <h3 class="color_light_2 m_bottom_20">Information</h3>
+              <ul class="vertical_list">
+                <li><a class="color_light tr_delay_hover" href="#">About Pawfamily<i class="fa fa-angle-right"></i></a></li>
+                <li><a class="color_light tr_delay_hover" href="{{url('contact')}}">Contact<i class="fa fa-angle-right"></i></a></li>
+                <li><a class="color_light tr_delay_hover" href="#">Delivery<i class="fa fa-angle-right"></i></a></li>
+                <li><a class="color_light tr_delay_hover" href="#">Loyalty and Rewards<i class="fa fa-angle-right"></i></a></li>
+                <li><a class="color_light tr_delay_hover" href="{{url('terms-and-conditions')}}">Terms &amp; Conditions<i class="fa fa-angle-right"></i></a></li>
+              </ul>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+              <h3 class="color_light_2 m_bottom_20">Contact Us</h3>
+              <ul class="c_info_list">
+                <li class="m_bottom_10">
+                  <div class="clearfix m_bottom_15">
+                    <i class="fa fa-map-marker f_left"></i>
+                    <p class="contact_e">Upper Paya Lebar</p>
+                  </div>
+                </li>
+                <li class="m_bottom_10">
+                  <div class="clearfix m_bottom_10">
+                    <i class="fa fa-phone f_left"></i>
+                    <p class="contact_e">9026 4166</p>
+                  </div>
+                </li>
+                <li class="m_bottom_10">
+                  <div class="clearfix m_bottom_10">
+                    <i class="fa fa-envelope f_left"></i>
+                    <a class="contact_e color_light" href="mailto:admin@pawfamily.sg">admin@pawfamily.sg</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="clearfix">
+                    <i class="fa fa-clock-o f_left"></i>
+                    <p class="contact_e">Monday - Friday: 10am - 10am</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!--copyright part-->
-    <div class="footer_bottom_part">
-      <div class="container clearfix t_mxs_align_c">
-        <p class="f_left f_mxs_none m_mxs_bottom_10">&copy; 2014 <span class="color_light">Pawfamily</span>. All Rights Reserved.</p>
-        <ul class="f_right horizontal_list clearfix f_mxs_none d_mxs_inline_b">
-          <li><img src="{{url("assets/flatastic")}}/images/payment_img_1.png" alt=""></li>
-        </ul>
+      <!--copyright part-->
+      <div class="footer_bottom_part">
+        <div class="container clearfix t_mxs_align_c">
+          <p class="f_left f_mxs_none m_mxs_bottom_10">&copy; 2014 <span class="color_light">Pawfamily</span>. All Rights Reserved.</p>
+          <ul class="f_right horizontal_list clearfix f_mxs_none d_mxs_inline_b">
+            <li><img src="{{url("assets/flatastic")}}/images/payment_img_1.png" alt=""></li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 </div>
 
 <!--login popup-->
@@ -352,6 +352,8 @@
   });
 
   $(document).ready(function() {
+    refreshCartButton();
+
     $('#btn-login').click(function (){
       login();
     });
@@ -375,11 +377,11 @@
           } else if (response === "success") {
             redirect("{{url("account")}}");
           } else {
-            alert("An error has occurred, please contact admin@pawfamily.sg");
+            popupError();
           }
         },
         error: function(response) {
-          alert("An error has occurred, please contact admin@pawfamily.sg");
+          popupError();
         }
       });
     }
@@ -391,8 +393,31 @@
     });
   });
 
-  function updateCart() {
-    
+  function refreshCartButton() {
+    $.ajax({
+      type: "GET",
+      url: "{{ url("get-cart") }}",
+      success: function(products) {
+        var count = 0; var total = 0;
+        for (var key in products) {
+          if (products.hasOwnProperty(key)) {
+            var product = products[key];
+            count += product.quantity;
+            total += product.subtotal;
+          }
+        }
+        //console.log(JSON.stringify("count="+count+" total="+total))
+        $("#span-cart-count").text(count);
+        $("#span-cart-total").text("$"+toTwoDecimal(total));
+      },
+      error: function(response) {
+        popupError();
+      }
+    });
+  }
+
+  function popupError() {
+    alert("An error has occurred, please contact admin@pawfamily.sg");
   }
 </script>
 

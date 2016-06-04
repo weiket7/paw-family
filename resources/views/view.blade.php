@@ -276,7 +276,7 @@
   <script type="text/javascript">
     $(document).ready(function() {
 
-      getCart();
+      refreshCartSidebar();
 
       $('#btn-add-to-cart').data('powertipjq', $('<p>Product has been added to cart</p>'));
 
@@ -300,11 +300,12 @@
           url: "{{ url("add-to-cart") }}",
           data: data,
           success: function(response) {
-            getCart();
+            refreshCartSidebar();
             $('#btn-add-to-cart').powerTip('show');
+            refreshCartButton();
           },
           error: function(  ) {
-            alert("An error has occurred, please contact admin@pawfamily.sg");
+            popupError();
           }
         });
       });
@@ -319,7 +320,7 @@
     var sizes_json = '{!! json_encode($product->sizes) !!}';
     var sizes_object =  JSON.parse(sizes_json);
 
-    function getCart() {
+    function refreshCartSidebar() {
       $.ajax({
         type: "GET",
         url: "{{ url("get-cart") }}",
@@ -348,7 +349,7 @@
           $("#btn-checkout").show();
         },
         error: function(  ) {
-          alert("An error has occurred, please contact admin@pawfamily.sg");
+          popupError();
         }
       });
     }

@@ -359,6 +359,8 @@
       });
       //console.log(total);
       $("#p-total").text("$" + toTwoDecimal(total));
+
+      refreshCartButton();
     }
 
     function updateCart(product_id, size_id) {
@@ -379,7 +381,7 @@
 
         },
         error: function(  ) {
-          alert("An error has occurred, please contact admin@pawfamily.sg");
+          popupError();
         }
       });
 
@@ -424,11 +426,11 @@
         data: data,
         success: function(response) {
           var prefix = getElementPrefix(product_id, size_id);
-          $(prefix+"discounted-price").closest("tr").fadeOut(500);
+          $(prefix+"discounted-price").closest("tr").remove();
           updateTotal();
         },
         error: function(  ) {
-          alert("An error has occurred, please contact admin@pawfamily.sg");
+          popupError();
         }
       });
     }
