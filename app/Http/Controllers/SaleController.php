@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\DeliveryOption;
+use App\Models\Enums\PaymentType;
 use App\Models\Sale;
 use Auth;
 use Illuminate\Http\Request;
@@ -24,6 +25,12 @@ class SaleController extends Controller
       }
       $delivery_option = $this->makeDeliveryOption($input);
       $sale_no = $sale->checkoutCart($customer_id, $delivery_option, $products);
+      if ($delivery_option->payment_type == PaymentType::Paypal) {
+        $sale_service = new Sale();
+        $data['amount'] = $sale_service->getNettTotalBySaleNo($sale_no);
+        $data['sale_no'] = $sale_no;
+        return view('paypal-process', $data);
+      }
       //$this->emptyCart();
       return redirect('checkout-success')->with('sale_no', $sale_no);
     }
@@ -41,6 +48,8 @@ class SaleController extends Controller
     $data['email'] = $customer->email;
     return view("checkout-success", $data);
   }
+
+
 
   public function updateCart(Request $request) {
     $products = $this->getCartFromSession();
@@ -78,8 +87,16 @@ class SaleController extends Controller
     return $products;
   }
 
-  public function test() {
-    return 'abc';
+  public function paypalProcess() {
+    return view('paypal-process ');
+  }
+
+  public function paypalSuccess() {
+    return view('paypal-success ');
+  }
+
+  public function paypalCancel() {
+    return view('paypal-cancel');
   }
 
   private function getCartFromSession() {

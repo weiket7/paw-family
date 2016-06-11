@@ -40,6 +40,9 @@ Route::post('register', 'SiteController@register');
 
 Route::group(['middleware'=>'auth'], function() {
   Route::get('account', 'AccountController@account');
+  Route::get('paypal-process', 'SaleController@paypalProcess');
+  Route::get('paypal-cancel', 'SaleController@paypalCancel');
+  Route::get('paypal-success', 'SaleController@paypalSuccess');
   Route::post('account', 'AccountController@account');
   Route::get('order/{sale_no}', 'AccountController@order');
   Route::post('order/{sale_no}', 'AccountController@order');
@@ -124,41 +127,6 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::post('admin/setting/save/{setting_id}', 'Admin\SettingController@save');
 });
 
-Route::get("cart2", function() {
-  $cart = new Cart();
-  $size_id = 2;
-  $option_id = 2;
-  $product1_quantity = 3;
-  $cart->addToCart(1, $product1_quantity, $size_id, $option_id);
-  $product2_quantity = 2;
-  $cart->addToCart(2, $product2_quantity);
-  $products = $cart->getCart();
-  var_dump($products);
-
-  $sale_service = new Sale();
-  $customer_id = 1;
-  $delivery_option = new DeliveryOption();
-  $delivery_option->delivery_choice = DeliveryChoice::CurrentAddress;
-  $delivery_option->delivery_time = DeliveryTime::AnyTime;
-  $delivery_option->payment_type = PaymentType::Bank;
-  $sale_no = $sale_service->checkoutCart($customer_id, $delivery_option, $products);
-
-
-  $product1_size2_price = 142.90;
-  $product1_size2_discounted_price = 132.90;
-  $product1_size2_option2_price = 1;
-  $product1_subtotal = $product1_size2_discounted_price * $product1_quantity + $product1_size2_option2_price * $product1_quantity;
-  $product2_price = 39.10;
-  $product2_discounted_price = 35.19;
-  $product2_subtotal = $product2_discounted_price * $product2_quantity;
-
-  $gross_total = $product1_size2_price * $product1_quantity + $product1_size2_option2_price * $product1_quantity + $product2_price * $product2_quantity;
-  $nett_total = $product1_subtotal + $product2_subtotal;
-
-  vaR_dump($gross_total);
-  var_dump($nett_total);
-  vaR_dump($sale_no);
-});
 
 Route::get('hash', function() {
   $pass = "test168";

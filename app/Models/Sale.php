@@ -93,7 +93,7 @@ class Sale extends Eloquent
 
       DB::table("sale_product")->insert((array)$product);
 
-      $gross_total += $product->price * $product->quantity + $product->option_price * $product->quantity;
+      $gross_total += $product->discounted_price * $product->quantity + $product->option_price * $product->quantity;
       $product_discount += $product->discount_amt * $product->quantity;
     }
     $this->gross_total = $gross_total;
@@ -102,6 +102,10 @@ class Sale extends Eloquent
     $this->point = $this->calculatePoint($this->nett_total);
     $this->save();
     return $this->sale_no;
+  }
+
+  public function getNettTotalBySaleNo($sale_no) {
+    return DB::table('sale')->where('sale_no', $sale_no)->value('nett_total');
   }
 
   public function searchSale($input)

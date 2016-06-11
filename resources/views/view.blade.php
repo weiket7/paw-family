@@ -335,14 +335,19 @@
           for (var key in products) {
             if (products.hasOwnProperty(key)) {
               var product = products[key];
+              //console.log(JSON.stringify(product));
 
               html += '<div class="clearfix m_bottom_15">' +
                 '<img src="{{url("assets/images/products")}}/'+product.image+'" alt="" style="max-width: 80px" class="f_left m_right_15 m_sm_bottom_10 f_sm_none f_xs_left m_xs_bottom_0">' +
-                '<a href="{{url("product/view")}}/"'+product.slug+' class="color_dark d_block bt_link">'+product.name+' x '+product.quantity+'</a>' +
-              '<p class="scheme_color">$'+toTwoDecimal(product.subtotal)+'</p>' +
-              '</div>'
-
-              //console.log(JSON.stringify(product));
+                ' <a href="{{url("product/view")}}/'+product.slug+'" class="color_dark">'+product.name+'</a>';
+              if (product.size_id > 0) {
+                html += '<br>Size: '+product.size_name;
+              }
+              if (product.option_id > 0) {
+                html += '<br>Repack: '+product.option_name;
+              }
+              html += '<br>'+product.quantity + ' x $' + toTwoDecimal(product.discounted_price);
+              html += '<p class="scheme_color">$'+toTwoDecimal(product.subtotal)+'</p></div>'
             }
           }
           $("#div-cart").html(html);

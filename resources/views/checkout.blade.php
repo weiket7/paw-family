@@ -378,15 +378,13 @@
         url: "{{ url("update-cart") }}",
         data: data,
         success: function(response) {
-
+          updateSubtotal(product_id, size_id);
+          updateTotal();
         },
         error: function(  ) {
           popupError();
         }
       });
-
-      updateSubtotal(product_id, size_id);
-      updateTotal();
     }
 
     function updateSubtotal(product_id, size_id) {

@@ -62,7 +62,7 @@ License: You must have a valid license purchased only from themeforest(the above
   <!-- BEGIN LOGIN FORM -->
   <form class="login-form" action="" method="POST">
     {{ csrf_field() }}
-    <h3 class="form-title font-green">Sign In</h3>
+    <h3 class="form-title font-green">Paw Family Admin</h3>
 
     @if(Session::has("msg"))
       <div class="alert alert-danger">
