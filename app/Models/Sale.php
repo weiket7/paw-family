@@ -1,5 +1,8 @@
 <?php namespace App\Models;
 
+use App\Models\Entities\DeliveryOption;
+use App\Models\Entities\SaleProduct;
+use App\Models\Entities\SaleTotal;
 use App\Models\Enums\DeliveryChoice;
 use App\Models\Enums\DeliveryTime;
 use App\Models\Enums\SaleStat;
@@ -83,8 +86,6 @@ class Sale extends Eloquent
     $this->sale_no = $this->getSaleNoAndIncrement();
     $this->save();
 
-    $gross_total = 0;
-    $product_discount = 0;
     /* @var $product SaleProduct */
     foreach($products as $product) {
       unset($product->slug);
@@ -92,16 +93,31 @@ class Sale extends Eloquent
       $product->sale_id = $this->sale_id;
 
       DB::table("sale_product")->insert((array)$product);
-
-      $gross_total += $product->discounted_price * $product->quantity + $product->option_price * $product->quantity;
-      $product_discount += $product->discount_amt * $product->quantity;
     }
-    $this->gross_total = $gross_total;
-    $this->product_discount = $product_discount;
-    $this->nett_total = $gross_total - $product_discount;
+
+    $sale_total = $this->calcSaleTotal($products);
+    $this->gross_total = $sale_total->gross_total;
+    $this->product_discount = $sale_total->product_discount;
+    $this->nett_total = $sale_total->nett_total;
     $this->point = $this->calculatePoint($this->nett_total);
     $this->save();
     return $this->sale_no;
+  }
+
+  public function calcSaleTotal($products) {
+    $gross_total = 0;
+    $product_discount = 0;
+    foreach($products as $product) {
+      //echo 'price='.$product->price . ' discounted_price='.$product->discounted_price.' discount_amt='.$product->discount_amt.'<br>';
+      $gross_total += $product->price * $product->quantity + $product->option_price * $product->quantity;
+      $product_discount += $product->discount_amt * $product->quantity;
+    }
+
+    $sale_total = new SaleTotal();
+    $sale_total->gross_total = $gross_total;
+    $sale_total->product_discount = $product_discount;
+    $sale_total->nett_total = $gross_total - $product_discount;
+    return $sale_total;
   }
 
   public function getNettTotalBySaleNo($sale_no) {
@@ -194,6 +210,11 @@ class Sale extends Eloquent
       $sale->stat = SaleStat::Delivered;
       $sale->save();
     }
+  }
+
+  public function paypalSuccess($sale_no)
+  {
+    return DB::table('sale')->where('sale_no', $sale_no)->where('stat', SaleStat::Pending)->update(['stat'=>SaleStat::Paid]);
   }
 
 }

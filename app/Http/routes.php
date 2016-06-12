@@ -12,7 +12,8 @@
 */
 
 use App\Models\Cart;
-use App\Models\DeliveryOption;
+use App\Models\Entities\DeliveryOption;
+use App\Models\Entities\SaleProduct;
 use App\Models\Enums\DeliveryChoice;
 use App\Models\Enums\DeliveryTime;
 use App\Models\Enums\PaymentType;
@@ -146,8 +147,11 @@ Route::get('hash', function() {
 });
 
 
-Route::get('csrf', function() {
-  return csrf_token();
+Route::get('test', function() {
+  $sale_service = new Sale();
+  $result = $sale_service->paypalSuccess('123457');
+
+  var_dump($result);
 });
 
 Route::get('clear-cache', function() {

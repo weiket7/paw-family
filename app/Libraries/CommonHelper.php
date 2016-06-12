@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Enums\DiscountType;
-use App\Models\SaleProduct;
+use App\Models\Entities\SaleProduct;
 
 class CommonHelper {
   public static function formatDateTime($date) {

@@ -1,10 +1,12 @@
 <?php
 
 use App\Models\Cart;
-use App\Models\DeliveryOption;
+use App\Models\Entities\DeliveryOption;
+use App\Models\Entities\SaleProduct;
 use App\Models\Enums\DeliveryChoice;
 use App\Models\Enums\DeliveryTime;
 use App\Models\Enums\PaymentType;
+use App\Models\Enums\SaleStat;
 use App\Models\Sale;
 use App\Models\ProductSize;
 
@@ -46,15 +48,18 @@ class SaleTest extends \Codeception\TestCase\Test
 
     $product1_size2_price = 142.90;
     $product1_size2_discounted_price = 132.90;
+    $product1_size2_discount_amt = 10;
     $product1_size2_option2_price = 1;
     $product1_subtotal = $product1_size2_discounted_price * $product1_quantity + $product1_size2_option2_price * $product1_quantity;
 
     $product2_price = 39.10;
     $product2_discounted_price = 35.19;
+    $product2_discount_amt = 3.91;
     $product2_subtotal = $product2_discounted_price * $product2_quantity;
 
     $gross_total = $product1_size2_price * $product1_quantity + $product1_size2_option2_price * $product1_quantity + $product2_price * $product2_quantity;
-    $nett_total = $product1_subtotal + $product2_subtotal;
+    $product_discount = $product1_size2_discount_amt * $product1_quantity + $product2_discount_amt * $product2_quantity;
+    $nett_total = $gross_total - $product_discount;
 
     $this->tester->seeRecord('sale', ['gross_total'=>$gross_total, 'nett_total'=>$nett_total]);
 
@@ -114,6 +119,44 @@ class SaleTest extends \Codeception\TestCase\Test
     $sale_service = new Sale();
     $sale_id = $sale_service->getSaleIdByNo(123456);
     $this->assertEquals(1, $sale_id);
+  }
+
+  public function testCalcSaleTotal() {
+    $product1 = new SaleProduct();
+    $product1->price = 142.90;
+    $product1->discounted_price = 132.90;
+    $product1->discount_amt = 10;
+    $product1->quantity = 3;
+
+    $product2 = new SaleProduct();
+    $product2->price = 39.10;
+    $product2->discounted_price = 35.19;
+    $product2->discount_amt = 3.91;
+    $product2->quantity = 2;
+
+    $products[] = $product1;
+    $products[] = $product2;
+
+    $sale_service = new Sale();
+    $sale_total = $sale_service->calcSaleTotal($products);
+    $this->assertEquals(506.9, $sale_total->gross_total);
+    $this->assertEquals(37.82, $sale_total->product_discount);
+    $this->assertEquals(469.08, $sale_total->nett_total);
+  }
+
+  public function testSalePaypalSuccess() {
+    $sale_no = '123457';
+    $this->tester->seeRecord('sale', [
+      'sale_no'=>$sale_no, 'stat'=> SaleStat::Pending, 'payment_type'=>PaymentType::Paypal
+    ]);
+
+    $sale_service = new Sale();
+    $result = $sale_service->paypalSuccess($sale_no);
+
+    $this->assertEquals(1, $result);
+    $this->tester->seeRecord('sale', [
+      'sale_no'=>$sale_no, 'stat'=> SaleStat::Paid, 'payment_type'=>PaymentType::Paypal
+    ]);
   }
 
 }

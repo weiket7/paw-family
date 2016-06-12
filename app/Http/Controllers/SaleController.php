@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Customer;
-use App\Models\DeliveryOption;
+use App\Models\Entities\DeliveryOption;
 use App\Models\Enums\PaymentType;
 use App\Models\Sale;
 use Auth;
@@ -91,7 +91,10 @@ class SaleController extends Controller
     return view('paypal-process ');
   }
 
-  public function paypalSuccess() {
+  public function paypalSuccess(Request $request) {
+    $sale_no = $request->get('custom');
+    $sale_service = new Sale();
+    $sale_service->paypalSuccess($sale_no);
     return view('paypal-success ');
   }
 

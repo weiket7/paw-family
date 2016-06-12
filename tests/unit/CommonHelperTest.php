@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\SaleProduct;
+use App\Models\Entities\SaleProduct;
 
 class CommonHelperTest extends \Codeception\TestCase\Test
 {

@@ -1,5 +1,7 @@
 <?php namespace App\Models;
 
+use App\Models\Entities\SaleProduct;
+
 class Cart {
   protected $products;
 

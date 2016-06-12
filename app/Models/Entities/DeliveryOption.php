@@ -1,8 +1,7 @@
-<?php namespace App\Models;
+<?php namespace App\Models\Entities;
 
 class DeliveryOption
 {
-  
   public $payment_type;
   public $delivery_choice;
   public $delivery_time;
