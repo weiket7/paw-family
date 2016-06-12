@@ -90,7 +90,7 @@
       </ul>
       <section class="products_container clearfix m_bottom_25 m_sm_bottom_15">
         @foreach(FeaturedType::$values as $type)
-          <?php $featured_types = ['Hot'=>'H', 'Sale'=>'S', 'New'=>'N', 'Featured'=>'F']; ?>
+          <?php $featured_types = [''=>'', 'Hot'=>'H', 'Sale'=>'S', 'New'=>'N', 'Featured'=>'F']; ?>
           @if(isset($products[$featured_types[$type]]))
             @foreach($products[$featured_types[$type]] as $product)
               <div class="product_item {{$type}}">

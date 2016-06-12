@@ -123,7 +123,6 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::get('admin/featured/save/{featured_id}', 'Admin\FeaturedController@save');
   Route::post('admin/featured/save/{featured_id}', 'Admin\FeaturedController@save');
 
-
   Route::get('admin/banner', 'Admin\BannerController@index');
   Route::get('admin/banner/save/{banner_id}', 'Admin\BannerController@save');
   Route::post('admin/banner/save/{banner_id}', 'Admin\BannerController@save');
@@ -132,6 +131,9 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::get('admin/setting/save/{setting_id}', 'Admin\SettingController@save');
   Route::post('admin/setting/save/{setting_id}', 'Admin\SettingController@save');
   Route::get('admin/setting/config', 'Admin\SettingController@config');
+
+  Route::get('admin/report/sales', 'Admin\ReportController@sales');
+
 });
 
 

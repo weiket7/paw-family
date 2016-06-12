@@ -17,9 +17,8 @@
     <div class="form-group">
       <label class="control-label col-md-2">Type</label>
       <div class="col-md-10">
-p        {{Form::select('type', FeaturedType::$values, $featured->type, ['class'=>'form-control'])}}
+        {{Form::select('type', FeaturedType::$values, $featured->type, ['class'=>'form-control'])}}
       </div>
     </div>
   </div>
-
 @endsection

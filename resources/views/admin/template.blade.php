@@ -519,6 +519,14 @@
             <span class="title">Reports</span>
             <span class="arrow"></span>
           </a>
+          <ul class="sub-menu">
+            <li class="nav-item ">
+              <a href="{{url("admin/report/sales")}}" class="nav-link "> Sales </a>
+            </li>
+            <li class="nav-item ">
+              <a href="{{url("admin/report/most-searched")}}" class="nav-link "> Most Searched </a>
+            </li>
+          </ul>
         </li>
         <li class="nav-item">
           <a href="{{url('admin/banner')}}" class="nav-link nav-toggle">
@@ -596,10 +604,10 @@
                           <input type="hidden" name="delete" id="delete">
                           <button id="btn-delete" type="button" class="btn red-sunglo" data-placement="bottom" data-singleton='true' data-toggle='confirmation' data-original-title='Are you sure?'><i class="fa fa-times"></i> Delete</button>
                         @endif
-                        <button type="button" name="back" class="btn btn-default" onclick="history.go(-1)"><i class="fa fa-angle-left"></i> Back</button>
                       @elseif($action == "index")
-                        <a href="{{url("admin/".$controller."/save")}}"><button type="button" class="btn blue btn-create">Create</button></a>
+                        <a href="{{url("admin/".$controller."/save")}}"><button type="button" class="btn blue">Create</button></a>
                       @endif
+                      <button type="button" name="back" class="btn btn-default" onclick="history.go(-1)"><i class="fa fa-angle-left"></i> Back</button>
                     </div>
                   </div>
 
