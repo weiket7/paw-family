@@ -18,6 +18,7 @@ class Cart {
     } else {
       $product_service = new Product();
       $product = $product_service->getProduct((int)$product_id);
+      //var_dump($product);
 
       $sale_product = new SaleProduct();
       $sale_product->product_id = $product_id;

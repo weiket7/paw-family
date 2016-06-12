@@ -61,7 +61,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $product_discount = $product1_size2_discount_amt * $product1_quantity + $product2_discount_amt * $product2_quantity;
     $nett_total = $gross_total - $product_discount;
 
-    $this->tester->seeRecord('sale', ['gross_total'=>$gross_total, 'nett_total'=>$nett_total]);
+    $this->tester->seeRecord('sale', ['sale_no'=>$sale_no, 'gross_total'=>$gross_total, 'nett_total'=>$nett_total]);
 
     $sale_id = $sale_service->getSaleIdByNo($sale_no);
     $this->tester->seeRecord('sale_product', [
@@ -78,6 +78,24 @@ class SaleTest extends \Codeception\TestCase\Test
       'price'=>$product2_price, 'discounted_price'=>$product2_discounted_price,
       'subtotal'=>$product2_subtotal,
     ]);
+  }
+
+  public function testCheckoutCart2() {
+    $cart = new Cart();
+    $product_id = 24;
+    $cart->addToCart($product_id, 4);
+    $products = $cart->getCart();
+
+    $sale_service = new Sale();
+    $customer_id = 1;
+    $delivery_option = new DeliveryOption();
+    $delivery_option->delivery_choice = DeliveryChoice::OtherAddress;
+    $delivery_option->address_other = $this->address_other;
+    $delivery_option->delivery_time = DeliveryTime::AnyTime;
+    $delivery_option->payment_type = PaymentType::Bank;
+    $sale_no = $sale_service->checkoutCart($customer_id, $delivery_option, $products);
+
+    $this->tester->seeRecord('sale', ['sale_no'=>$sale_no, 'gross_total'=>21, 'nett_total'=>20]);
   }
 
   public function testGetDeliveryAddress_SelfCollect() {
@@ -144,6 +162,22 @@ class SaleTest extends \Codeception\TestCase\Test
     $this->assertEquals(469.08, $sale_total->nett_total);
   }
 
+  public function testCalcSaleTotal2() {
+    $product1 = new SaleProduct();
+    $product1->price = 5.25;
+    $product1->discounted_price = 5;
+    $product1->discount_amt = 0.25;
+    $product1->quantity = 4;
+
+    $products[] = $product1;
+
+    $sale_service = new Sale();
+    $sale_total = $sale_service->calcSaleTotal($products);
+    $this->assertEquals(21, $sale_total->gross_total);
+    $this->assertEquals(1, $sale_total->product_discount);
+    $this->assertEquals(20, $sale_total->nett_total);
+  }
+
   public function testSalePaypalSuccess() {
     $sale_no = '123457';
     $this->tester->seeRecord('sale', [
@@ -151,7 +185,8 @@ class SaleTest extends \Codeception\TestCase\Test
     ]);
 
     $sale_service = new Sale();
-    $result = $sale_service->paypalSuccess($sale_no);
+    $session_customer_id = 1;
+    $result = $sale_service->paypalSuccess($sale_no, $session_customer_id);
 
     $this->assertEquals(1, $result);
     $this->tester->seeRecord('sale', [

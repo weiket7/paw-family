@@ -76,7 +76,7 @@ class Sale extends Eloquent
 
   public function checkoutCart($customer_id, DeliveryOption $delivery_option, $products) {
     $this->customer_id = $customer_id;
-    $this->stat = SaleStat::Pending; //TODO
+    $this->stat = SaleStat::Pending;
     $this->payment_type = $delivery_option->payment_type;
     $this->delivery_choice = $delivery_option->delivery_choice;
     $this->delivery_address = $this->getDeliveryAddress($delivery_option->delivery_choice, $delivery_option->address_other, $customer_id);
@@ -212,9 +212,16 @@ class Sale extends Eloquent
     }
   }
 
-  public function paypalSuccess($sale_no)
+  public function paypalSuccess($sale_no, $session_customer_id)
   {
-    return DB::table('sale')->where('sale_no', $sale_no)->where('stat', SaleStat::Pending)->update(['stat'=>SaleStat::Paid]);
+    return DB::table('sale')
+      ->where('sale_no', $sale_no)
+      ->where('stat', SaleStat::Pending)
+      ->where('customer_id', $session_customer_id)
+      ->update([
+        'stat'=>SaleStat::Paid,
+        'paid_on'=>date('Y-m-d H:i:s'),
+      ]);
   }
 
 }

@@ -148,10 +148,12 @@ Route::get('hash', function() {
 
 
 Route::get('test', function() {
-  $sale_service = new Sale();
-  $result = $sale_service->paypalSuccess('123457');
+  $cart = new Cart();
+  $product_id = 24;
+  $cart->addToCart($product_id, 4);
+  $products = $cart->getCart();
 
-  var_dump($result);
+  var_dump($products);
 });
 
 Route::get('clear-cache', function() {

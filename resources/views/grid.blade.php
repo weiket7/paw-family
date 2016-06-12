@@ -89,7 +89,7 @@
                   </a>
                   <figcaption>
                     <h5 class="m_bottom_10"><a href="#" class="color_dark">{{$product->name}}</a></h5>
-                    <p class="scheme_color f_size_large m_bottom_15">${{$product->price}}</p>
+                    <p class="scheme_color f_size_large m_bottom_15">${{$product->discounted_price}}</p>
                   </figcaption>
                 </figure>
               </div>

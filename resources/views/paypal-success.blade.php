@@ -1,7 +1,11 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: WeiKet
- * Date: 11-Jun-16
- * Time: 10:56 PM
- */
+@extends('template')
+
+@section('content')
+  <div class="page_content_offset">
+    <div class="container">
+      <div class="row clearfix">
+
+      </div>
+    </div>
+  </div>
+@endsection

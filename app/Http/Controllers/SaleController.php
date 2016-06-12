@@ -42,12 +42,31 @@ class SaleController extends Controller
   }
 
   public function checkoutSuccess(Request $request) {
-    $data['sale_no'] = $request->session()->get('sale_no');
     $customer_id = Auth::id();
+    if ($request->session()->has('sale_no')) {
+      $sale_no = $request->session()->get('sale_no');
+    } else { //paypal
+      $sale_no = $request->get('custom');
+      $sale_service = new Sale();
+      $sale_service->paypalSuccess($sale_no, $customer_id);
+    }
+    $data['sale_no'] = $sale_no;
     $customer = Customer::find($customer_id);
     $data['email'] = $customer->email;
+
+    $this->clearCartInSession();
     return view("checkout-success", $data);
   }
+
+  public function paypalProcess() {
+    return view('paypal-process ');
+  }
+
+  public function paypalCancel() {
+    return view('paypal-cancel');
+  }
+
+
 
 
 
@@ -86,24 +105,12 @@ class SaleController extends Controller
     $products = $this->getCartFromSession();
     return $products;
   }
-
-  public function paypalProcess() {
-    return view('paypal-process ');
-  }
-
-  public function paypalSuccess(Request $request) {
-    $sale_no = $request->get('custom');
-    $sale_service = new Sale();
-    $sale_service->paypalSuccess($sale_no);
-    return view('paypal-success ');
-  }
-
-  public function paypalCancel() {
-    return view('paypal-cancel');
-  }
-
   private function getCartFromSession() {
     return Session::has('cart') ? Session::get('cart') : [];
+  }
+
+  private function clearCartInSession() {
+    $this->setCartToSession([]);
   }
 
   private function setCartToSession($products) {

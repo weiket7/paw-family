@@ -14,9 +14,8 @@
   <input type="hidden" name="currency_code" value="SGD">
   <input type="hidden" name="no_note" value="1">
   <input type="hidden" name="no_shipping" value="1">
-  <input type="hidden" name="return" value="http://localhost/pawfamily/paypal-success?sale_no={{$sale_no  }}">
+  <input type="hidden" name="return" value="http://localhost/pawfamily/checkout-success?custom={{$sale_no}}">
   <input type="hidden" name="custom" value="{{$sale_no}}">
-
 </form>
 
 </body>
