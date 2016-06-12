@@ -118,6 +118,11 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::post('admin/product/option/save/{option_id}', 'Admin\OptionController@save');
 
   Route::get('admin/featured', 'Admin\FeaturedController@index');
+  Route::get('admin/featured/save', 'Admin\FeaturedController@save');
+  Route::post('admin/featured/save', 'Admin\FeaturedController@save');
+  Route::get('admin/featured/save/{featured_id}', 'Admin\FeaturedController@save');
+  Route::post('admin/featured/save/{featured_id}', 'Admin\FeaturedController@save');
+
 
   Route::get('admin/banner', 'Admin\BannerController@index');
   Route::get('admin/banner/save/{banner_id}', 'Admin\BannerController@save');

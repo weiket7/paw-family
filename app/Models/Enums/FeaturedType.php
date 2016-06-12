@@ -7,6 +7,7 @@ abstract class FeaturedType {
   const Featured = 'F';
 
   static $values = [
+    ''=>'',
     self::Hot=>'Hot',
     self::New2=>'New',
     self::Sale=>'Sale',

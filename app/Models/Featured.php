@@ -12,29 +12,34 @@ class Featured extends Eloquent
   public $timestamps = false;
 
   private $rules = [
-    'name' => 'required',
-    'quantity' => 'required|numeric',
-    'price' => 'required|numeric',
-    'discount_amt' => 'numeric',
-    'weight_lb' => 'numeric',
-    'weight_kg' => 'numeric',
+    'product_id' => 'required',
+    'type' => 'required',
   ];
 
   private $messages = [
-    'name.required' => 'Name is required',
-    'quantity.required' => 'Quantity is required',
-    'quantity.numeric' => 'Quantity must be numeric',
-    'price.required' => 'Price is required',
-    'price.numeric' => 'Price must be numeric',
-    'discount_amt.numeric' => 'Discount amount must be numeric',
-    'weight_lb.numeric' => 'Weight (lbs) must be numeric',
-    'weight_kg.numeric' => 'Weight (kbs) must be numeric',
+    'product_id.required' => 'Product is required',
+    'type.required' => 'Type is required',
   ];
 
+
+  public function saveFeatured($input) {
+    $this->validation = Validator::make($input, $this->rules, $this->messages );
+    if ( $this->validation->fails() ) {
+      return false;
+    }
+
+    $this->product_id = $input['product_id'];
+    $this->type = $input['type'];
+    $this->save();
+    return true;
+  }
+
+
   public function getFeaturedAll() {
-    $s = "SELECT p.name, p.desc_short, p.stat as product_stat, p.image, p.slug, f.type as featured_type
-      FROM product AS p
-      inner join featured as f on f.product_id = p.product_id";
+    $s = "SELECT f.product_id, f.featured_id, p.name, p.desc_short, p.stat as product_stat, p.image, p.slug, f.type as featured_type, pos
+      FROM featured AS f
+      inner join product as p on f.product_id = p.product_id
+      order by pos";
     $data = DB::select($s);
 
     $res = [];
@@ -42,10 +47,6 @@ class Featured extends Eloquent
       $res[$d->featured_type][] = $d;
     }
     return $res;
-  }
-
-  public function saveFeature() {
-    
   }
 
   public function getValidation()

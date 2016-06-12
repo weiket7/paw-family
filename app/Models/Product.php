@@ -206,5 +206,14 @@ class Product extends Eloquent
       return Product::where('brand_id', $brand_ids)->get();
     }
   }
-  
+
+  public function getProductForDropown() {
+    $data = DB::table('product')->select("product_id", "name")->get();
+    $res = [];
+    foreach($data as $d) {
+      $res[$d->product_id] = $d->name;
+    }
+    return [''=>'']+$res;
+  }
+
 }
