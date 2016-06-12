@@ -1,6 +1,7 @@
 <?php namespace App\Models;
 
 use App\Models\Entities\DeliveryOption;
+use App\Models\Entities\PaypalField;
 use App\Models\Entities\SaleProduct;
 use App\Models\Entities\SaleTotal;
 use App\Models\Enums\DeliveryChoice;
@@ -9,6 +10,7 @@ use App\Models\Enums\SaleStat;
 use Carbon\Carbon;
 use CommonHelper;
 use Eloquent, DB, Validator, Input;
+use Illuminate\Support\Facades\App;
 
 class Sale extends Eloquent
 {
@@ -161,7 +163,24 @@ class Sale extends Eloquent
     return $sale;
   }
 
-  public function getLatest()
+  public function getPaypalField($sale_no, $nett_total) {
+    $paypal_field = new PaypalField();
+    $paypal_field->sale_no = $sale_no;
+    $paypal_field->business = env("APP_PAYPAL_MERCHANT_ID");
+    if (App::environment("production")) {
+      $paypal_field->business = "ACL4RTAUWHR9G";
+      $paypal_field->paypal_url = "https://www.paypal.com/cgi-bin/webscr";
+      $paypal_field->return = "http://pawfamily.sg/checkout-success?custom=".$sale_no;
+    } else { //local
+      $paypal_field->business = "ACL4RTAUWHR9G";
+      $paypal_field->paypal_url = "https://www.sandbox.paypal.com/cgi-bin/webscr";
+      $paypal_field->return = "http://localhost/pawfamily/checkout-success?custom=".$sale_no;
+    }
+    $paypal_field->amount = $nett_total;
+    return $paypal_field;
+  }
+
+  public function getLatestSale()
   {
     $s = "SELECT sale_id, s.stat, c.name, s.customer_id, payment_type, product_discount, promo_discount, gross_total, nett_total, sale_on
     from sale as s 

@@ -15,7 +15,7 @@ class SaleController extends Controller
       $input = $request->all();
       $sales = $sale_service->searchSale($input);
     } else {
-      $sales = $sale_service->getLatest();
+      $sales = $sale_service->getLatestSale();
     }
     $data['sales'] = $sales;
     return view('admin/sale/index', $data);

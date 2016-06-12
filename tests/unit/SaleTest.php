@@ -194,4 +194,17 @@ class SaleTest extends \Codeception\TestCase\Test
     ]);
   }
 
+  public function testGetPaypalField() {
+    $sale_service = new Sale();
+    $sale_no = 45678;
+    $nett_total = 20;
+    $paypal_field = $sale_service->getPaypalField($sale_no, $nett_total);
+    $this->assertEquals($sale_no, $paypal_field->sale_no);
+    $this->assertEquals($nett_total, $paypal_field->amount);
+    $this->assertEquals("http://localhost/pawfamily/checkout-success?custom=".$sale_no, $paypal_field->return);
+    $this->assertEquals("https://www.sandbox.paypal.com/cgi-bin/webscr", $paypal_field->paypal_url);
+    $this->assertEquals("ACL4RTAUWHR9G", $paypal_field->business);
+
+  }
+
 }

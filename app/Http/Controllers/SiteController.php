@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
-
   public function login(Request $request) {
     if($request->isMethod('post')) {
       $referrer = $request->get("referrer");
@@ -91,7 +90,7 @@ class SiteController extends Controller
         'email'=>$input['email'],
         'mobile'=>$input['mobile'],
         'content'=>$input['content'],
-        'recipient'=>$this->getRecipient(),
+        'recipient'=>env("APP_EMAIL"),
       ];
       Mail::send('emails/contact', $data, function ($message) use ($data) {
         $message->from($data['email'], $data['name'])
@@ -102,13 +101,6 @@ class SiteController extends Controller
       return redirect()->back()->with('msg', 'Thank you for your email, we will get back to you shortly.');
     }
     return view("contact");
-  }
-
-  private function getRecipient() {
-    if (! App::environment('production')) {
-      return 'wei_ket@hotmail.com';
-    }
-    return 'admin@pawfamily.sg';
   }
 
   public function logout() {

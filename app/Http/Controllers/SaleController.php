@@ -27,9 +27,9 @@ class SaleController extends Controller
       $sale_no = $sale->checkoutCart($customer_id, $delivery_option, $products);
       if ($delivery_option->payment_type == PaymentType::Paypal) {
         $sale_service = new Sale();
-        $data['amount'] = $sale_service->getNettTotalBySaleNo($sale_no);
-        $data['sale_no'] = $sale_no;
-        return view('paypal-process', $data);
+        $nett_total = $sale_service->getNettTotalBySaleNo($sale_no);
+        $paypal_field = (array)$sale_service->getPaypalField($sale_no, $nett_total);
+        return view('paypal-process', $paypal_field);
       }
       //$this->emptyCart();
       return redirect('checkout-success')->with('sale_no', $sale_no);
