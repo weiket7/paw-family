@@ -31,7 +31,7 @@ class SaleController extends Controller
         $paypal_field = (array)$sale_service->getPaypalField($sale_no, $nett_total);
         return view('paypal-process', $paypal_field);
       }
-      //$this->emptyCart();
+      $this->clearCartInSession();
       return redirect('checkout-success')->with('sale_no', $sale_no);
     }
     $data['products'] = $products;
@@ -54,7 +54,6 @@ class SaleController extends Controller
     $customer = Customer::find($customer_id);
     $data['email'] = $customer->email;
 
-    $this->clearCartInSession();
     return view("checkout-success", $data);
   }
 
