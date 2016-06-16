@@ -12,7 +12,7 @@ class Product extends Eloquent
   protected $primaryKey = 'product_id';
   protected $validation;
   public $timestamps = false;
-  protected $attributes = ['stat'=>ProductStat::Available];
+  protected $attributes = ['stat'=>ProductStat::Available, 'brand_id'=>0, 'category_id'=>0, 'supplier_id'=>0];
 
   private $rules = [
     'name'=>'required',
@@ -216,25 +216,37 @@ class Product extends Eloquent
     return [''=>'']+$res;
   }
 
-  public function updateProductCount($product_id) {
+  public function updateProductCount($product_id, $prev_brand_id = 0, $prev_category_id = 0, $prev_supplier_id = 0) {
     $product = Product::find($product_id);
 
+    $brand_id = $product->brand_id;
+    $this->updateTableProductCount('brand', 'brand_id', $brand_id);
+
+    if ($prev_brand_id > 0) {
+      $this->updateTableProductCount('brand', 'brand_id', $prev_brand_id);
+    }
+
     $category_id = $product->category_id;
-    $s = "UPDATE category set product_count = (select count(1) from product where category_id = $category_id)
-    where category_id = $category_id";
-    DB::statement($s);
+    $this->updateTableProductCount('category', 'category_id', $category_id);
+
+    if ($prev_category_id > 0) {
+      $this->updateTableProductCount('category', 'category_id', $prev_category_id);
+    }
 
     $supplier_id = $product->supplier_id;
-    $s = "UPDATE supplier set product_count = (select count(1) from product where supplier_id = $supplier_id)
-    where supplier_id = $supplier_id";
-    DB::statement($s);
+    $this->updateTableProductCount('supplier', 'supplier_id', $supplier_id);
 
-    $brand_id = $product->brand_id;
-    $s = "UPDATE brand set product_count = (select count(1) from product where brand_id = $brand_id)
-    where brand_id = $brand_id";
-    DB::statement($s);
+    if ($prev_supplier_id > 0) {
+      $this->updateTableProductCount('supplier', 'supplier_id', $prev_supplier_id);
+    }
 
     return true;
+  }
+
+  private function updateTableProductCount($table_name, $id_name, $id) {
+    $s = "UPDATE $table_name set product_count = (select count(1) from product where $id_name = $id)
+      where $id_name = $id";
+    DB::statement($s);
   }
 
 }

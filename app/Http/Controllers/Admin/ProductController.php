@@ -43,10 +43,14 @@ class ProductController extends Controller
         $product->updateProductCount($product->product_id); //delete then update product count
         return redirect('admin/product')->with('msg', 'Product deleted');
       }
+
+      $prev_supplier_id = $product->supplier_id;
+      $prev_category_id = $product->category_id;
+      $prev_brand_id = $product->brand_id;
       if (! $product->saveProduct($input, $request->file('image'))) {
         return redirect()->back()->withErrors($product->getValidation())->withInput($input);
       }
-      $product->updateProductCount($product->product_id); //update then update product count
+      $product->updateProductCount($product->product_id, $prev_brand_id, $prev_category_id, $prev_supplier_id); //update then update product count
 
       return redirect('admin/product/save/'.$product->product_id)->with('msg', 'Product ' . $action . "d");
     }
