@@ -54,7 +54,18 @@ class SiteController extends Controller
 
         return redirect("register")->withErrors($customer->getValidation(), 'register')->withInput($input);
       }
-      Auth::login(User::find($customer_id));
+      $customer = User::find($customer_id);
+      Auth::login($customer);
+      $mail_request = new MailRequest();
+      $mail_request->to_email = $customer->email;
+      $mail_request->subject = "Paw Family - Registration Success";
+      $mail_request->view_name = 'emails/register';
+      $data['name'] = $customer->name;
+      $data['email'] = $customer->email;
+      $mail_request->data = $data;
+      $mail_service = new MailService();
+      $mail_service->sendEmail($mail_request);
+
       if ($referrer == 'checkout') {
         return redirect('checkout')->with('login', true);
       }

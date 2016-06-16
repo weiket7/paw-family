@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\Entities\DeliveryOption;
+use App\Models\Entities\MailRequest;
 use App\Models\Enums\PaymentType;
+use App\Models\MailService;
 use App\Models\Sale;
 use Auth;
 use Illuminate\Http\Request;
@@ -43,18 +45,39 @@ class SaleController extends Controller
 
   public function checkoutSuccess(Request $request) {
     $customer_id = Auth::id();
+    $valid = false;
+    $sale_service = new Sale();
+
     if ($request->session()->has('sale_no')) {
+      $valid = true;
       $sale_no = $request->session()->get('sale_no');
-    } else { //paypal
+    } else if ($request->has('custom')) { //paypal
+      $valid = true;
       $sale_no = $request->get('custom');
-      $sale_service = new Sale();
       $sale_service->paypalSuccess($sale_no, $customer_id);
     }
-    $data['sale_no'] = $sale_no;
-    $customer = Customer::find($customer_id);
-    $data['email'] = $customer->email;
+    if ($valid) {
+      $data['sale_no'] = $sale_no;
+      $customer = Customer::find($customer_id);
+      $data['email'] = $customer->email;
+
+      $mail_request = new MailRequest();
+      $mail_request->to_email = $customer->email;
+      $mail_request->view_name = 'emails/order';
+      $mail_request->subject = 'Paw Family - Order #'.$sale_no;
+      $sale_id = $sale_service->getSaleIdByNo($sale_no);
+      $data['name'] = $customer->name;
+      $data['sale'] = $sale_service->getSale($sale_id);
+      $mail_request->data = $data;
+      $mail_service = new MailService();
+      $mail_service->sendEmail($mail_request);
+    } else {
+      $data['sale_no'] = '';
+      $data['email'] = '';
+    }
 
     return view("checkout-success", $data);
+
   }
 
   public function paypalProcess() {

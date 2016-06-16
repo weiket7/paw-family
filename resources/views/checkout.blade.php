@@ -199,14 +199,14 @@
                   <figure class="block_select clearfix relative m_bottom_15">
                     {{Form::radio("delivery_choice", DeliveryChoice::CurrentAddress, '', ['class'=>'d_none'])}}
                     <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">{{$customer->address}}</h5>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-current-address">Current address: {{$customer->address}}</h5>
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
                   <figure class="block_select clearfix relative">
                     {{Form::radio("delivery_choice", DeliveryChoice::OtherAddress, '', ['class'=>'d_none'])}}
                     <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-other-address">
                         Other address
                         @if($errors->has('address_other')) <span class="error">(Required)</span> @endif
                       </h5>
@@ -219,7 +219,7 @@
                   <figure class="block_select clearfix relative">
                     {{Form::radio("delivery_choice", DeliveryChoice::SelfCollect, '', ['class'=>'d_none'])}}
                     <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Self collect at Upper Paya Lebar, between 11am-2pm, Tues to Thurs</h5>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-self-collect">Self collect at Upper Paya Lebar, between 11am-2pm, Tues to Thurs</h5>
                     </figcaption>
                   </figure>
                 </div>
@@ -233,21 +233,21 @@
                   <figure class="block_select clearfix relative">
                     {{Form::radio("delivery_time", DeliveryTime::AnyTime, '', ['class'=>'d_none'])}}
                     <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Any time</h5>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-any-time">Any time</h5>
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
                   <figure class="block_select clearfix relative">
                     {{Form::radio("delivery_time", DeliveryTime::Oneto430, '', ['class'=>'d_none'])}}
                     <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">1pm - 4.30pm</h5>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-1-430">1pm - 4.30pm</h5>
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
                   <figure class="block_select clearfix relative">
                     {{Form::radio("delivery_time", DeliveryTime::Four30to8, '', ['class'=>'d_none'])}}
                     <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">4.30pm - 8pm</h5>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-430-8">4.30pm - 8pm</h5>
                     </figcaption>
                   </figure>
                 </div>
@@ -260,7 +260,7 @@
                   <figure class="block_select clearfix relative m_bottom_15" onclick="selectPayment('{{PaymentType::Bank}}')">
                     {{Form::radio("payment_type", PaymentType::Bank, '', ['data-payment'=>PaymentType::Bank, 'class'=>'d_none'])}}
                     <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Bank transfer through internet or ATM</h5>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-bank">Bank transfer through internet or ATM</h5>
                       <p id="payment-{{PaymentType::Bank}}" style="display:none">
                         DBS Bank - Saving Plus, 017-0-098022<br>
                         Bank Code:7171 | Branch Code:	017<br>
@@ -274,7 +274,7 @@
                   <figure class="block_select clearfix relative" onclick="selectPayment('{{PaymentType::Cash}}')">
                     {{Form::radio("payment_type", PaymentType::Cash, '', ['data-payment'=>PaymentType::Cash, 'class'=>'d_none'])}}
                     <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Cash on delivery</h5>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-cash">Cash on delivery</h5>
                       <p id="payment-{{PaymentType::Cash}}" style="display:none">Please provide exact cash amount which will be appreciated</p>
                     </figcaption>
                   </figure>
@@ -282,7 +282,7 @@
                   <figure class="block_select clearfix relative" onclick="selectPayment('{{PaymentType::Cheque}}')">
                     {{Form::radio("payment_type", PaymentType::Cheque, '', ['data-payment'=>PaymentType::Cheque, 'class'=>'d_none'])}}
                     <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Cheque</h5>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-cheque">Cheque</h5>
                       <p id="payment-{{PaymentType::Cheque}}" style="display:none">
                         Please make cheque payable to: PAW FAMILY and cross 'Bearer'
                       </p>
@@ -292,7 +292,7 @@
                   <figure class="block_select clearfix relative">
                     {{Form::radio("payment_type", PaymentType::Paypal, '', ['data-payment'=>PaymentType::Paypal, 'class'=>'d_none'])}}
                     <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5">Paypal</h5>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-paypal">Paypal</h5>
                     </figcaption>
                   </figure>
                 </div>

@@ -8,6 +8,12 @@ class MailService {
     if(empty($mail_request->view_name)) {
       $mail_request->view_name = 'email-template';
     }
+    if(empty($mail_request->from_email)) {
+      $mail_request->from_email = env("APP_EMAIL");
+    }
+    if(empty($mail_request->from_name)) {
+      $mail_request->from_name = "Paw Family";
+    }
 
     $mail_request = (array)$mail_request;
     Mail::send($mail_request["view_name"], $mail_request["data"], function ($message) use ($mail_request) {

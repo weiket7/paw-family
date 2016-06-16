@@ -156,12 +156,7 @@ Route::get('hash', function() {
 
 
 Route::get('test', function() {
-  $cart = new Cart();
-  $product_id = 24;
-  $cart->addToCart($product_id, 4);
-  $products = $cart->getCart();
-
-  var_dump($products);
+  return url("");
 });
 
 Route::get('clear-cache', function() {
