@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App;
 use App\Models\Banner;
 use App\Models\Contact;
+use App\Models\Entities\MailRequest;
 use App\Models\Featured;
+use App\Models\MailService;
 use App\Models\Testimonial;
 use App\User;
 use Auth;
@@ -85,19 +87,20 @@ class SiteController extends Controller
         return redirect()->back()->withErrors($contact->getValidation())->withInput($input);
       }
 
-      $data = [
-        'name'=>$input['name'],
-        'email'=>$input['email'],
-        'mobile'=>$input['mobile'],
-        'content'=>$input['content'],
-        'recipient'=>env("APP_EMAIL"),
-      ];
-      Mail::send('emails/contact', $data, function ($message) use ($data) {
-        $message->from($data['email'], $data['name'])
-          //->to('admin@pawfamily.sg')
-          ->to($data['recipient'])
-          ->subject("Enquiry from ".$data['name']);
-      });
+      $mail_request = new MailRequest();
+      $mail_request->from_email = $input['email'];
+      $mail_request->from_name = $input['name'];
+      $mail_request->to_email = env("APP_EMAIL");
+      $mail_request->subject = "Enquiry from " . $input['name'];
+      $mail_request->view_name = 'emails/contact';
+      $data['name'] = $input['name'];
+      $data['email'] = $input['email'];
+      $data['mobile'] = $input['mobile'];
+      $data['content'] = $input['content'];
+      $mail_request->data = $data;
+
+      $mail_service = new MailService();
+      $mail_service->sendEmail($mail_request);
       return redirect()->back()->with('msg', 'Thank you for your email, we will get back to you shortly.');
     }
     return view("contact");
@@ -117,12 +120,16 @@ class SiteController extends Controller
         return redirect("forgot-password")->withErrors($customer_service->getValidation())->withInput($input);
       }
 
-      $data['recipient'] = $this->getRecipient();
-      Mail::send('emails/reset-password', $data, function ($message) use ($data) {
-        $message->from($data['email'], $data['name'])
-          ->to($data['recipient'])
-          ->subject("Enquiry from ".$data['name']);
-      });
+      $mail_request = new MailRequest();
+      $mail_request->from_email = env("APP_EMAIL");
+      $mail_request->from_name = "Paw Family";
+      $mail_request->to_email = $data['email'];
+      $mail_request->view_name = 'emails/reset-password';
+      $mail_request->data = $data;
+      $mail_request->subject = "Paw Family - Forgot Password";
+      $mail_service = new MailService();
+      $mail_service->sendEmail($mail_request);
+
       return redirect('forgot-password')->with('msg', 'A new password has been emailed to you shortly');
     }
     return view('forgot-password');

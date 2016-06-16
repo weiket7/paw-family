@@ -7,9 +7,6 @@
         <section class="col-lg-12 col-md-12 col-sm-12 m_xs_bottom_30">
           <h2 class="tt_uppercase color_dark m_bottom_20">Forgot Password</h2>
 
-          <p class="m_bottom_20">Please enter your email and a new password will be emailed to you.<br>
-          If you still encounter issues, please email admin@pawfamily.sg.</p>
-
           @if ($errors->has())
             <div class="alert_box r_corners error m_bottom_10">
               <i class="fa fa-exclamation"></i>
@@ -20,6 +17,15 @@
               </p>
             </div>
           @endif
+
+          @if(Session::has('msg'))
+            <div class="alert_box r_corners color_green success m_bottom_10">
+              <i class="fa fa-smile-o"></i><p>{{Session::get('msg')}}</p>
+            </div>
+          @endif
+
+          <p class="m_bottom_20">Please enter your email and a new password will be emailed to you.<br>
+          If you still encounter issues, please email admin@pawfamily.sg.</p>
 
           <form method="post" action="">
             {{csrf_field()}}
