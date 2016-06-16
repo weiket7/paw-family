@@ -216,4 +216,25 @@ class Product extends Eloquent
     return [''=>'']+$res;
   }
 
+  public function updateProductCount($product_id) {
+    $product = Product::find($product_id);
+
+    $category_id = $product->category_id;
+    $s = "UPDATE category set product_count = (select count(1) from product where category_id = $category_id)
+    where category_id = $category_id";
+    DB::statement($s);
+
+    $supplier_id = $product->supplier_id;
+    $s = "UPDATE supplier set product_count = (select count(1) from product where supplier_id = $supplier_id)
+    where supplier_id = $supplier_id";
+    DB::statement($s);
+
+    $brand_id = $product->brand_id;
+    $s = "UPDATE brand set product_count = (select count(1) from product where brand_id = $brand_id)
+    where brand_id = $brand_id";
+    DB::statement($s);
+
+    return true;
+  }
+
 }

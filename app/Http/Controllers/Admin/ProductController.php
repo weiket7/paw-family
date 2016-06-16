@@ -34,21 +34,20 @@ class ProductController extends Controller
 
   public function save(Request $request, $product_id = null) {
     $action = $product_id == null ? 'create' : 'update';
-    $category_service = new Category();
     if($request->isMethod('post')) {
       $input = $request->all();
       $product = Product::findOrNew($product_id);
+
       if (isset($input['delete']) && $input['delete'] == 'true') {
         $product->delete();
-        $category_service->updateProductCount($product->category_id);
+        $product->updateProductCount($product->product_id); //delete then update product count
         return redirect('admin/product')->with('msg', 'Product deleted');
       }
       if (! $product->saveProduct($input, $request->file('image'))) {
         return redirect()->back()->withErrors($product->getValidation())->withInput($input);
       }
-      if ($action == 'create') {
-        $category_service->updateProductCount($product->category_id);
-      }
+      $product->updateProductCount($product->product_id); //update then update product count
+
       return redirect('admin/product/save/'.$product->product_id)->with('msg', 'Product ' . $action . "d");
     }
 
@@ -62,6 +61,7 @@ class ProductController extends Controller
       $product = $product_service->getProduct((int)$product_id);
     }
     $data['product'] = $product;
+    $category_service = new Category();
     $data['categories'] = $category_service->getCategoryForDropdown();
     $supplier_service = new Supplier();
     $data['suppliers'] = $supplier_service->getSupplierForDropdown();

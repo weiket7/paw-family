@@ -48,15 +48,6 @@ class Category extends Eloquent {
     return Category::where('slug', $slug)->firstOrFail();
   }
 
-  public function updateProductCount($category_id) {
-    $product_count = Product::where("category_id", $category_id)->count();
-
-    $s = "UPDATE category set product_count = :product_count where category_id = :category_id";
-    $p['category_id'] = $category_id;
-    $p['product_count'] = $product_count;
-    return DB::update($s, $p);
-  }
-
   public function getValidation() {
     return $this->validation;
   }

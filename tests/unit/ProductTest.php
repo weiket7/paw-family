@@ -101,7 +101,12 @@ class ProductTest extends \Codeception\TestCase\Test
     $product_service = new Product();
     $descs = $product_service->getProductDesc(1);
     $this->assertCount(2, $descs);
+  }
 
+  public function testUpdateProductCount() {
+    $product_service = new Product();
+    $result = $product_service->updateProductCount(1);
+    $this->assertTrue($result);
   }
 
 

@@ -201,7 +201,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $paypal_field = $sale_service->getPaypalField($sale_no, $nett_total);
     $this->assertEquals($sale_no, $paypal_field->sale_no);
     $this->assertEquals($nett_total, $paypal_field->amount);
-    $this->assertEquals("http://localhost/pawfamily/checkout-success?custom=".$sale_no, $paypal_field->return);
+    $this->assertEquals(url("checkout-success?custom=".$sale_no), $paypal_field->return);
     $this->assertEquals("https://www.sandbox.paypal.com/cgi-bin/webscr", $paypal_field->paypal_url);
     $this->assertEquals("ACL4RTAUWHR9G", $paypal_field->business);
 

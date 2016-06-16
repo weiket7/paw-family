@@ -165,15 +165,13 @@ class Sale extends Eloquent
 
   public function getPaypalField($sale_no, $nett_total) {
     $paypal_field = new PaypalField();
-    $paypal_field->business = env("APP_PAYPAL_MERCHANT_ID");
+    $paypal_field->sale_no = $sale_no;
+    $paypal_field->amount = $nett_total;
+
     if (App::environment("production")) {
-      $paypal_field->sale_no = $sale_no;
-      $paypal_field->amount = $nett_total;
       $paypal_field->business = "ACL4RTAUWHR9G";
       $paypal_field->paypal_url = "https://www.paypal.com/cgi-bin/webscr";
     } else { //local
-      $paypal_field->sale_no = $sale_no . " (".$nett_total.")";
-      $paypal_field->amount = 2.5;
       $paypal_field->business = "ACL4RTAUWHR9G";
       $paypal_field->paypal_url = "https://www.sandbox.paypal.com/cgi-bin/webscr";
     }
