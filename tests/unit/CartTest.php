@@ -21,6 +21,7 @@ class CartTest extends \Codeception\TestCase\Test
     $this->assertEquals("addiction-salmon-bleu.jpg", $product->image);
     $this->assertEquals(3.91, $product->discount_amt);
     $this->assertEquals(35.19, $product->discounted_price);
+    $this->assertEquals(30.19, $product->cost_price);
     $this->assertEquals(70.38, $product->subtotal);
   }
 

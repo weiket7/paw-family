@@ -44,6 +44,15 @@
       </div>
     </div>
     <div class="form-group">
+      <label class="control-label col-md-2">Cost Price</label>
+      <div class="col-md-10">
+        <div class="input-icon">
+          <i class="fa fa-dollar"></i>
+          {!! Form::text('cost_price', $size->cost_price, ['class'=>'form-control']) !!}
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
       <label class="control-label col-md-2">Price</label>
       <div class="col-md-10">
         <div class="input-icon">

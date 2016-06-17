@@ -25,8 +25,10 @@ class SaleTable extends Migration
       $t->integer('promo_id')->nullable();
       $t->decimal('promo_discount', 9,2);
       $t->decimal('flat_discount', 9,2);
-      $t->decimal('delivery_fee', 9, 2);
+      $t->decimal('delivery_amt', 9, 2);
       $t->decimal('nett_total', 9,2); //after subtractions
+      $t->decimal('cost_total', 9, 2);
+      $t->decimal('profit_total', 9, 2);
       $t->integer('point');
       $t->char('delivery_choice', 1);
       $t->string('delivery_address', 200);

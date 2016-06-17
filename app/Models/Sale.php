@@ -101,6 +101,7 @@ class Sale extends Eloquent
     $this->gross_total = $sale_total->gross_total;
     $this->product_discount = $sale_total->product_discount;
     $this->nett_total = $sale_total->nett_total;
+    $this->cost_total = $sale_total->cost_total;
     $this->point = $this->calculatePoint($this->nett_total);
     $this->save();
     return $this->sale_no;
@@ -109,16 +110,19 @@ class Sale extends Eloquent
   public function calcSaleTotal($products) {
     $gross_total = 0;
     $product_discount = 0;
+    $cost_total = 0;
     foreach($products as $product) {
       //echo 'price='.$product->price . ' discounted_price='.$product->discounted_price.' discount_amt='.$product->discount_amt.'<br>';
       $gross_total += $product->price * $product->quantity + $product->option_price * $product->quantity;
       $product_discount += $product->discount_amt * $product->quantity;
+      $cost_total += $product->cost_price * $product->quantity;
     }
 
     $sale_total = new SaleTotal();
     $sale_total->gross_total = $gross_total;
     $sale_total->product_discount = $product_discount;
     $sale_total->nett_total = $gross_total - $product_discount;
+    $sale_total->cost_total = $cost_total;
     return $sale_total;
   }
 

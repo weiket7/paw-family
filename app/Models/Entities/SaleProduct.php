@@ -17,4 +17,5 @@ class SaleProduct
   public $discounted_price;
   public $quantity;
   public $subtotal;
+  public $cost_price;
 }

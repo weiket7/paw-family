@@ -521,7 +521,13 @@
           </a>
           <ul class="sub-menu">
             <li class="nav-item ">
-              <a href="{{url("admin/report/sales")}}" class="nav-link "> Sales </a>
+              <a href="{{url("admin/report/sales")}}" class="nav-link "> Daily Sales </a>
+            </li>
+            <li class="nav-item ">
+              <a href="{{url("admin/report/profit")}}" class="nav-link "> Profit </a>
+            </li>
+            <li class="nav-item ">
+              <a href="{{url("admin/report/product-views")}}" class="nav-link "> Product Views </a>
             </li>
             <li class="nav-item ">
               <a href="{{url("admin/report/most-searched")}}" class="nav-link "> Most Searched </a>

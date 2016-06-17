@@ -40,18 +40,19 @@ class SaleTest extends \Codeception\TestCase\Test
     $sale_service = new Sale();
     $customer_id = 1;
     $delivery_option = new DeliveryOption();
-    $delivery_option->delivery_choice = DeliveryChoice::OtherAddress;
-    $delivery_option->address_other = $this->address_other;
+    $delivery_option->delivery_choice = DeliveryChoice::CurrentAddress;
     $delivery_option->delivery_time = DeliveryTime::AnyTime;
     $delivery_option->payment_type = PaymentType::Bank;
     $sale_no = $sale_service->checkoutCart($customer_id, $delivery_option, $products);
 
+    $product1_size2_cost_price = 126.90;
     $product1_size2_price = 142.90;
     $product1_size2_discounted_price = 132.90;
     $product1_size2_discount_amt = 10;
     $product1_size2_option2_price = 1;
     $product1_subtotal = $product1_size2_discounted_price * $product1_quantity + $product1_size2_option2_price * $product1_quantity;
 
+    $product2_cost_price = 30.19;
     $product2_price = 39.10;
     $product2_discounted_price = 35.19;
     $product2_discount_amt = 3.91;
@@ -60,8 +61,9 @@ class SaleTest extends \Codeception\TestCase\Test
     $gross_total = $product1_size2_price * $product1_quantity + $product1_size2_option2_price * $product1_quantity + $product2_price * $product2_quantity;
     $product_discount = $product1_size2_discount_amt * $product1_quantity + $product2_discount_amt * $product2_quantity;
     $nett_total = $gross_total - $product_discount;
+    $cost_total = $product1_size2_cost_price * $product1_quantity + $product2_cost_price * $product2_quantity;
 
-    $this->tester->seeRecord('sale', ['sale_no'=>$sale_no, 'gross_total'=>$gross_total, 'nett_total'=>$nett_total]);
+    $this->tester->seeRecord('sale', ['sale_no'=>$sale_no, 'cost_total'=>$cost_total, 'gross_total'=>$gross_total, 'nett_total'=>$nett_total]);
 
     $sale_id = $sale_service->getSaleIdByNo($sale_no);
     $this->tester->seeRecord('sale_product', [
@@ -145,12 +147,14 @@ class SaleTest extends \Codeception\TestCase\Test
     $product1->discounted_price = 132.90;
     $product1->discount_amt = 10;
     $product1->quantity = 3;
+    $product1->cost_price = 126.9;
 
     $product2 = new SaleProduct();
     $product2->price = 39.10;
     $product2->discounted_price = 35.19;
     $product2->discount_amt = 3.91;
     $product2->quantity = 2;
+    $product2->cost_price = 30.19;
 
     $products[] = $product1;
     $products[] = $product2;
@@ -160,22 +164,25 @@ class SaleTest extends \Codeception\TestCase\Test
     $this->assertEquals(506.9, $sale_total->gross_total);
     $this->assertEquals(37.82, $sale_total->product_discount);
     $this->assertEquals(469.08, $sale_total->nett_total);
+    $this->assertEquals(441.08, $sale_total->cost_total);
   }
 
   public function testCalcSaleTotal2() {
-    $product1 = new SaleProduct();
-    $product1->price = 5.25;
-    $product1->discounted_price = 5;
-    $product1->discount_amt = 0.25;
-    $product1->quantity = 4;
+    $product = new SaleProduct();
+    $product->price = 5.25;
+    $product->discounted_price = 5;
+    $product->discount_amt = 0.25;
+    $product->quantity = 4;
+    $product->cost_price = 4;
 
-    $products[] = $product1;
+    $products[] = $product;
 
     $sale_service = new Sale();
     $sale_total = $sale_service->calcSaleTotal($products);
     $this->assertEquals(21, $sale_total->gross_total);
     $this->assertEquals(1, $sale_total->product_discount);
     $this->assertEquals(20, $sale_total->nett_total);
+    $this->assertEquals(16, $sale_total->cost_total);
   }
 
   public function testSalePaypalSuccess() {

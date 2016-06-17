@@ -52,6 +52,7 @@ class ProductSize extends Eloquent
       $this->product_id = $input['product_id'];
     $this->name = $input['name'];
     $this->quantity = $input['quantity'];
+    $this->cost_price = $input['cost_price'];
     $this->price = $input['price'];
     if ($this->discount_percentage > 0) {
       $this->discount_type = DiscountType::Percentage;

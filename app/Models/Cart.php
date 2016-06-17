@@ -28,6 +28,7 @@ class Cart {
       $sale_product->option_id = $option_id;
       if($size_id > 0) {
         $sale_product->price = $product->sizes[$size_id]->price;
+        $sale_product->cost_price = $product->sizes[$size_id]->cost_price;
         $sale_product->discounted_price = $product->sizes[$size_id]->discounted_price;
         $sale_product->discount_amt = $product->sizes[$size_id]->discount_amt;
         $sale_product->size_name = $product->sizes[$size_id]->name;
@@ -37,6 +38,7 @@ class Cart {
         }
       } else {
         $sale_product->price = $product->price;
+        $sale_product->cost_price = $product->cost_price;
         $sale_product->discounted_price = $product->discounted_price;
         $sale_product->discount_amt = $product->discount_amt;
       }

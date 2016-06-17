@@ -137,7 +137,7 @@ class Product extends Eloquent
   }
 
   public function getProductSize($product_id) {
-    $s = "SELECT size_id, name, price, quantity, weight_lb, weight_kg, discount_amt, discount_type, discount_percentage, discounted_price
+    $s = "SELECT size_id, name, cost_price, price, quantity, weight_lb, weight_kg, discount_amt, discount_type, discount_percentage, discounted_price
     from product_size where product_id = :product_id";
     $p['product_id'] = $product_id;
     $data = DB::select($s, $p);
