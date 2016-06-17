@@ -133,7 +133,7 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::get('admin/setting/config', 'Admin\SettingController@config');
 
   Route::get('admin/report/sales', 'Admin\ReportController@sales');
-
+  Route::post('admin/report/sales', 'Admin\ReportController@sales');
 });
 
 
