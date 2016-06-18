@@ -24,6 +24,7 @@ class SettingController extends Controller
     $data['php'] = phpversion();
     $data['env'] = App::environment();
     $data['email'] = env("APP_EMAIL");
+    $data['timezone'] = date_default_timezone_get();
     return view("admin/setting/config", $data);
   }
 }

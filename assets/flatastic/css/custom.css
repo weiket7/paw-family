@@ -36,3 +36,11 @@
 .checkout-header-disabled {
   color: #c8c8c8;
 }
+
+.table_type_6 td {
+  padding: 8px 12px;
+}
+
+hr {
+  margin-top: 15px;
+}

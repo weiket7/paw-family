@@ -29,6 +29,10 @@ class CommonHelper {
     return "$".$discount_amount;
   }
 
+  public static function formatWeight($weight_lb, $weight_kg) {
+    return self::formatNumber($weight_lb) . " lb  / " .self::formatNumber($weight_kg) . " kg";
+  }
+
   public static function formatNumber($number) {
     if (abs($number - round($number)) < 0.0001) { //whole number
       return round($number);

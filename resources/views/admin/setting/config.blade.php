@@ -28,6 +28,10 @@
       <td>{{$env}}</td>
     </tr>
     <tr>
+      <td>Timezone</td>
+      <td>{{$timezone}}</td>
+    </tr>
+    <tr>
       <td>Email</td>
       <td>{{$email}}</td>
     </tr>

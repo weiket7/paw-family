@@ -38,30 +38,27 @@
                 <table class="description_table m_bottom_10">
                   <tr>
                     <td>Brand:</td>
-                    <td><a href="#" class="color_dark">{{ $product->brand_name }}</a></td>
+                    <td>
+                      <a href="{{url("product/brand/".$product->brand_name)}}" class="color_dark">
+                        {{ $product->brand_name }}
+                      </a>
+                    </td>
                   </tr>
                   <tr>
                     <td>Availability:</td>
                     <td><span class="color_green">In stock</span> {{--20 item(s)--}}</td>
                   </tr>
+                  @if(count($product->sizes) == 0)
                   <tr>
-                    <td>Product Code:</td>
-                    <td>PS06</td>
+                    <td>Weight:</td>
+                    <td>{{CommonHelper::formatWeight($product->weight_lb, $product->weight_kg)}}</td>
                   </tr>
+                  @endif
                 </table>
-                {{--<h5 class="fw_medium m_bottom_10">Product Dimensions and Weight</h5>
-                <table class="description_table m_bottom_5">
-                  <tr>
-                    <td>Product Length:</td>
-                    <td><span class="color_dark">10.0000M</span></td>
-                  </tr>
-                  <tr>
-                    <td>Product Weight:</td>
-                    <td>10.0000KG</td>
-                  </tr>
-                </table>--}}
                 <hr class="divider_type_3 m_bottom_10">
-                <p class="m_bottom_10">Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit. Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Donec sit amet eros. Lorem ipsum dolor sit amet, consecvtetuer adipiscing. </p>
+                <p class="m_bottom_10">
+                  {{$product->desc_short}}
+                </p>
                 <hr class="divider_type_3 m_bottom_15">
 
                 <table class="description_table type_2 m_bottom_15">
@@ -74,8 +71,11 @@
                             <?php $checked = $size->size_id == array_first($product->sizes)->size_id ? "checked" : ""; ?>
                             <tr>
                               <td style="padding-right: 10px;">
-                                <input type="radio" name="size" {{$checked}} id="size{{$size->name}}" class="d_none" value="{{$size->size_id}}" onclick="selectSize()">
-                                <label for="size{{$size->name}}">{{$size->name}}</label>
+                                <input type="radio" name="size" {{$checked}} id="size-{{$size->name}}" class="d_none" value="{{$size->size_id}}" onclick="selectSize()">
+                                <label for="size-{{$size->name}}">
+                                  {{$size->name}}
+                                  <span class="f_size_small">({{CommonHelper::formatWeight($size->weight_lb, $size->weight_kg)}})</span>
+                                </label>
                               </td>
                               <td style="padding-right: 10px;">
                                 <s>${{$size->price}}</s>

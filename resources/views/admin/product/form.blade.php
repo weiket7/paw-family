@@ -178,10 +178,7 @@
               <div class="form-group">
                 <label class="control-label col-md-3">Weight (lbs)</label>
                 <div class="col-md-9">
-                  <div class="input-icon right">
-                    <i class="fa fa-dollar"></i>
-                    {!! Form::text('weight_lb', $product->weight_lb, ['class'=>'form-control']) !!}
-                  </div>
+                  {!! Form::text('weight_lb', $product->weight_lb, ['class'=>'form-control']) !!}
                 </div>
               </div>
             </div>
