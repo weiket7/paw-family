@@ -42,8 +42,9 @@
       <th>Name</th>
       <th>Email</th>
       <th>Mobile</th>
-      <th>Num of Orders</th>
-      <th>Total Amt Spent</th>
+      <th>Points</th>
+      <th>Order Count</th>
+      <th>Spent Total</th>
     </tr>
     </thead>
     <tbody>
@@ -53,8 +54,9 @@
         <td width="450px"><a href="{{url("admin/customer/save/".$customer->customer_id)}}">{{ $customer->name }}</a></td>
         <td>{{$customer->email}}</td>
         <td>{{$customer->mobile}}</td>
+        <td>{{$customer->points}}</td>
         <td>{{$customer->order_count}}</td>
-        <td>{{$customer->spent_amt_total}}</td>
+        <td>{{$customer->spent_total}}</td>
       </tr>
     @endforeach
     </tbody>

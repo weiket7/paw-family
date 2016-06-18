@@ -160,19 +160,6 @@ Route::get('hash', function() {
   //return str_slug("Addiction Raw Dehydrated - Figlicious Venison Feast (Grain Free)");
 });
 
-
-Route::get('test', function() {
-  $input['name'] = 'new size name';
-  $input['quantity'] = '6';
-  $input['cost_price'] = 29.1;
-  $input['price'] = 39.1;
-  $input['discount_percentage'] = 10;
-  $input['weight_lb'] = 4;
-  $input['weight_kg'] = 3;
-  $size = ProductSize::find(1);
-  $size->saveSize($input);
-});
-
 Route::get('clear-cache', function() {
   Cache::forget("categories_cache");
   Cache::forget("settings_cache");

@@ -1,6 +1,7 @@
 <?php namespace App\Models;
 
 use App\Models\Enums\CustomerStat;
+use App\Models\Enums\PointType;
 use App\Models\Enums\SubscribeStat;
 use CommonHelper;
 use Eloquent, DB, Validator, Input;
@@ -23,16 +24,30 @@ class Customer extends Eloquent
     return $count == 0;
   }
 
-  public function sendRegisterEmail($data) {
-    //http://forumsarchive.laravel.io/viewtopic.php?id=8264
-    Mail::send('personal/activate-email', $data, function($message) use ($data)
-    {
-      $message->to($data['email'], $data['first_name'])->subject('Activate your United Points account now');
-    });
-  }
-
   public function getPets($customer_id) {
     return DB::table("pet")->where("customer_id", $customer_id)->get();
+  }
+
+  public function addPointAndLog($customer_id, $points, $sale_id, $sale_no) {
+    $customer = Customer::find($customer_id);
+
+    $s = "UPDATE customer set points = points + :points where customer_id = :customer_id";
+    $p['customer_id'] = $customer_id;
+    $p['points'] = $points;
+    DB::statement($s, $p);
+
+    $point_log = [
+      'customer_id'=>1,
+      'sale_id'=>$sale_id,
+      'sale_no'=>$sale_no,
+      'sign'=>'+',
+      'type'=>PointType::Award,
+      'point_change'=>$points,
+      'point_before'=>$customer->points,
+      'point_after'=>$customer->points + $points,
+      'created_on'=>date('Y-m-d H:i:s'),
+    ];
+    DB::table('point_log')->insert($point_log);
   }
 
   public function getCustomer($customer_id) {
@@ -40,10 +55,12 @@ class Customer extends Eloquent
       $customer = new Customer();
       $customer->pets = [];
       $customer->sales = [];
+      $customer->point_logs = [];
     } else {
       $customer = Customer::find($customer_id);
       $customer->pets = $this->getPets($customer_id);
       $customer->sales = $this->getSale($customer_id);
+      $customer->point_logs = $this->getPointLog($customer_id);
     }
     return $customer;
   }
@@ -229,5 +246,12 @@ class Customer extends Eloquent
     $data = DB::select($s);
 
     return $data;
+  }
+
+  public function getPointLog($customer_id)
+  {
+    $s = "SELECT * from point_log where customer_id = :customer_id order by created_on desc";
+    $p['customer_id'] = $customer_id;
+    return DB::select($s, $p);
   }
 }

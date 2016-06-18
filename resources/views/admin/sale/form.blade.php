@@ -79,19 +79,23 @@
           </div>
           <div class="row static-info">
             <div class="col-md-3 name"> Gross Total: </div>
-            <div class="col-md-9 value"> ${{$sale->gross_total}} </div>
+            <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->gross_total)}} </div>
           </div>
           <div class="row static-info">
             <div class="col-md-3 name"> Product Discount: </div>
-            <div class="col-md-9 value"> ${{$sale->product_discount}} </div>
+            <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->product_discount)}} </div>
           </div>
           <div class="row static-info">
             <div class="col-md-3 name"> Promo Discount: </div>
-            <div class="col-md-9 value"> ${{$sale->promo_discount}} </div>
+            <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->promo_discount)}} </div>
           </div>
           <div class="row static-info">
             <div class="col-md-3 name"> Nett Total: </div>
-            <div class="col-md-9 value"> ${{$sale->nett_total}} </div>
+            <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->nett_total)}} </div>
+          </div>
+          <div class="row static-info">
+            <div class="col-md-3 name"> Points: </div>
+            <div class="col-md-9 value"> {{$sale->points}} </div>
           </div>
         </div>
       </div>

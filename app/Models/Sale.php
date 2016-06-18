@@ -56,14 +56,6 @@ class Sale extends Eloquent
     'payment_type.required'=>'Payment type is required',
   ];
 
-  public function getSalesByCustomer($customer_id) {
-    $s = "SELECT sale_id, sale_no, stat, payment_type, product_discount, gross_total, nett_total, point, sale_on
-    FROM sale where customer_id = :customer_id order by sale_on desc";
-    $p['customer_id'] = $customer_id;
-    $data = DB::select($s, $p);
-    return $data;
-  }
-
   public function validateDeliveryOption($input) {
     $this->validation = Validator::make($input, $this->checkout_rules, $this->checkout_messages );
     if ( $this->validation->fails() ) {
@@ -105,9 +97,9 @@ class Sale extends Eloquent
     $this->product_discount = $sale_total->product_discount;
     $this->nett_total = $sale_total->nett_total;
     $this->cost_total = $sale_total->cost_total;
-    $this->point = $this->calculatePoint($this->nett_total);
+    $this->points = $this->calculatePoints($this->nett_total);
     $this->save();
-    return $this->sale_no;
+    return $this;
   }
 
   public function calcSaleTotal($products) {
@@ -155,7 +147,7 @@ class Sale extends Eloquent
 
   public function getSale($sale_id)   {
     $s = "SELECT customer_id, sale_id, sale_no, stat, payment_type, product_discount, promo_discount, 
-    delivery_choice, delivery_address, delivery_time, customer_remark, operator_remark, gross_total, nett_total, point, sale_on, paid_on, delivered_on
+    delivery_choice, delivery_address, delivery_time, customer_remark, operator_remark, gross_total, nett_total, points, sale_on, paid_on, delivered_on
     FROM sale where sale_id = :sale_id";
     $p['sale_id'] = $sale_id;
     $sale = DB::select($s, $p)[0];
@@ -209,7 +201,7 @@ class Sale extends Eloquent
     return "error";
   }
 
-  public function calculatePoint($nett_total) {
+  public function calculatePoints($nett_total) {
     return floor($nett_total);
   }
 

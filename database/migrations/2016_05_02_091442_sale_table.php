@@ -13,7 +13,7 @@ class SaleTable extends Migration
   {
     Schema::create('sale', function (Blueprint $t) {
       $t->increments('sale_id');
-      $t->string('sale_no', 10);
+      $t->string('sale_no', 12);
       $t->integer('customer_id');
       $t->char('stat', 1);
       $t->char('payment_type', 1);
@@ -30,7 +30,7 @@ class SaleTable extends Migration
       $t->decimal('nett_total', 9,2); //after subtractions
       $t->decimal('cost_total', 9, 2);
       $t->decimal('profit_total', 9, 2); //nett_total - cost_total
-      $t->integer('point');
+      $t->integer('points');
       $t->char('delivery_choice', 1);
       $t->string('delivery_address', 200);
       $t->string('delivery_time', 20);
@@ -42,14 +42,14 @@ class SaleTable extends Migration
       'sale_id'=>1, 'sale_no'=>'123456', 'customer_id'=>1, 'stat'=>SaleStat::Paid, 'payment_type'=>PaymentType::Bank,
       'delivery_choice'=> DeliveryChoice::OtherAddress, 'delivery_address'=>'my other address', 'delivery_time'=> DeliveryTime::$values[DeliveryTime::AnyTime],
       'customer_remark'=>'customer remark', 'product_discount'=>20,
-      'gross_total'=>377.65, 'nett_total'=>357.65, 'point'=>168, 'sale_on'=>date('Y-m-d H:i:s'),
+      'gross_total'=>377.65, 'nett_total'=>357.65, 'points'=>357, 'sale_on'=>date('Y-m-d H:i:s'),
     ]);
 
     DB::table('sale')->insert([
       'sale_id'=>2, 'sale_no'=>'123457', 'customer_id'=>1, 'stat'=>SaleStat::Pending, 'payment_type'=>PaymentType::Paypal,
       'delivery_choice'=> DeliveryChoice::CurrentAddress, 'delivery_address'=>'', 'delivery_time'=> DeliveryTime::$values[DeliveryTime::Four30to8],
       'customer_remark'=>'customer remark', 'product_discount'=>1,
-      'gross_total'=>21, 'nett_total'=>20, 'point'=>20, 'sale_on'=>date('Y-m-d H:i:s'),
+      'gross_total'=>21, 'nett_total'=>20, 'points'=>20, 'sale_on'=>date('Y-m-d H:i:s'),
     ]);
   }
 

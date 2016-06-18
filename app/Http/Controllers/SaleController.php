@@ -28,15 +28,16 @@ class SaleController extends Controller
         return redirect('checkout')->withErrors($sale->getValidation(), 'checkout')->withInput($input);
       }
       $delivery_option = $this->makeDeliveryOption($input);
-      $sale_no = $sale->checkoutCart($customer_id, $delivery_option, $products);
+      $sale = $sale->checkoutCart($customer_id, $delivery_option, $products);
+      $customer_service = new Customer();
+      $customer_service->addPointAndLog($customer_id, $sale->points, $sale->sale_id, $sale->sale_no);
       if ($delivery_option->payment_type == PaymentType::Paypal) {
         $sale_service = new Sale();
-        $nett_total = $sale_service->getNettTotalBySaleNo($sale_no);
-        $paypal_field = (array)$sale_service->getPaypalField($sale_no, $nett_total);
+        $paypal_field = (array)$sale_service->getPaypalField($sale->sale_no, $sale->nett_total);
         return view('paypal-process', $paypal_field);
       }
       $this->clearCartInSession();
-      return redirect('checkout-success')->with('sale_no', $sale_no);
+      return redirect('checkout-success')->with('sale_no', $sale->sale_no);
     }
     $data['products'] = $products;
     $delivery_date_service = new DeliveryDate();

@@ -1,4 +1,5 @@
 <?php use App\Models\Enums\CustomerStat; ?>
+<?php use App\Models\Enums\PointType; ?>
 
 @extends("admin.template", [
   "title"=>"Update Customer",
@@ -14,10 +15,13 @@
           General </a>
       </li>
       <li>
-        <a href="#tab-pets" data-toggle="tab">Pets</a>
+        <a href="#tab-orders" data-toggle="tab">Orders</a>
       </li>
       <li>
-        <a href="#tab-orders" data-toggle="tab">Orders</a>
+        <a href="#tab-points" data-toggle="tab">Points</a>
+      </li>
+      <li>
+        <a href="#tab-pets" data-toggle="tab">Pets</a>
       </li>
       <li>
         <a href="#tab-password" data-toggle="tab">Change Password</a>
@@ -42,6 +46,16 @@
                   {!! Form::select('stat', [''=>'']+CustomerStat::$values, $customer->stat, ['class'=>'form-control']) !!}
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Paw Points</label>
+                <label class="form-control-static col-md-9">{{ $customer->points }}</label>
+              </div>
+            </div>
+            <div class="col-md-6">
             </div>
           </div>
           <div class="row">
@@ -199,6 +213,31 @@
       </div>
       <div class="tab-pane" id="tab-password">
 
+      </div>
+      <div class="tab-pane" id="tab-points">
+        <div class="form-group">
+          <label class="control-label col-md-2">Paw Points</label>
+          <label class="form-control-static col-md-10">{{ $customer->points }}</label>
+        </div>
+
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th width="100px">Order No</th>
+              <th width="100px">Type</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody>
+          @foreach($customer->point_logs as $log)
+            <tr>
+              <td><a href="{{url("admin/sale/save/".$log->sale_id)}}">{{$log->sale_no }}</a></td>
+              <td>{{PointType::$values[$log->type] }}</td>
+              <td>{{$log->sign}}{{$log->point_change}}</td>
+            </tr>
+          @endforeach
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

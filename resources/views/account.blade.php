@@ -1,6 +1,7 @@
 <?php use App\Models\Enums\PaymentType; ?>
 <?php use App\Models\Enums\SaleStat; ?>
 <?php use App\Models\Enums\SubscribeStat; ?>
+<?php use App\Models\Enums\PointType; ?>
 
 @extends('template')
 
@@ -30,8 +31,9 @@
             <nav>
               <ul class="tabs_nav horizontal_list clearfix">
                 <li><a href="#tab-account" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Account</a></li>
-                <li><a href="#tab-pets" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Pets</a></li>
                 <li><a href="#tab-orders" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Orders</a></li>
+                <li><a href="#tab-points" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Points</a></li>
+                <li><a href="#tab-pets" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Pets</a></li>
                 <li><a href="#tab-password" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Change Password</a></li>
               </ul>
             </nav>
@@ -121,7 +123,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  @foreach($sales as $sale)
+                  @foreach($customer->sales as $sale)
                     <tr>
                       <td>{{SaleStat::$values[$sale->stat]}}</td>
                       <td><a href="{{url("order/".$sale->sale_no)}}">{{$sale->sale_no}}</a></td>
@@ -135,6 +137,32 @@
               </div>
               <div id="tab-pets">
 
+              </div>
+              <div id="tab-points">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3 class="color_dark m_bottom_20">Paw Points : {{ $customer->points }}</h3>
+                  </div>
+                </div>
+
+                <table class="table_type_3 responsive_table full_width r_corners bg_light_color_1 m_bottom_30 t_align_l">
+                  <thead>
+                  <tr>
+                    <th>Order No</th>
+                    <th>Type</th>
+                    <th>Points</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($customer->point_logs as $log)
+                    <tr>
+                      <td><a href="{{url("order/".$log->sale_no)}}">{{$log->sale_no }}</a></td>
+                      <td>{{PointType::$values[$log->type] }}</td>
+                      <td>{{$log->sign}}{{$log->point_change}}</td>
+                    </tr>
+                  @endforeach
+                  </tbody>
+                </table>
               </div>
               <div id="tab-password">
                 <form method="post" action="">

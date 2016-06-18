@@ -36,9 +36,7 @@ class AccountController extends Controller
         return redirect('account#tab-password')->with('msg', 'Password changed');
       }
     }
-    $sale_service = new Sale();
-    $data['sales'] = $sale_service->getSalesByCustomer($customer_id);
-    $data['customer'] = $customer;
+    $data['customer'] = $customer->getCustomer($customer_id);
 
     return view('account', $data);
   }

@@ -44,7 +44,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $delivery_option->delivery_time = DeliveryTime::AnyTime;
     $delivery_option->payment_type = PaymentType::Bank;
     $delivery_option->delivery_date = date('Y-m-d');
-    $sale_no = $sale_service->checkoutCart($customer_id, $delivery_option, $products);
+    $sale = $sale_service->checkoutCart($customer_id, $delivery_option, $products);
 
     $product1_size2_cost_price = 126.90;
     $product1_size2_price = 142.90;
@@ -65,11 +65,11 @@ class SaleTest extends \Codeception\TestCase\Test
     $cost_total = $product1_size2_cost_price * $product1_quantity + $product2_cost_price * $product2_quantity;
 
     $this->tester->seeRecord('sale', [
-      'sale_no'=>$sale_no, 'cost_total'=>$cost_total, 'gross_total'=>$gross_total, 'nett_total'=>$nett_total,
+      'sale_no'=>$sale->sale_no, 'cost_total'=>$cost_total, 'gross_total'=>$gross_total, 'nett_total'=>$nett_total,
       'delivery_date'=>date('Y-m-d'),
     ]);
 
-    $sale_id = $sale_service->getSaleIdByNo($sale_no);
+    $sale_id = $sale_service->getSaleIdByNo($sale->sale_no);
     $this->tester->seeRecord('sale_product', [
       'sale_id'=>$sale_id, 'product_id'=>1, 'name'=>'Addiction Viva La Venison',
       'size_id'=>$size_id, 'size_name'=>'Medium',
@@ -100,9 +100,9 @@ class SaleTest extends \Codeception\TestCase\Test
     $delivery_option->delivery_time = DeliveryTime::AnyTime;
     $delivery_option->payment_type = PaymentType::Bank;
     $delivery_option->delivery_date = 2;
-    $sale_no = $sale_service->checkoutCart($customer_id, $delivery_option, $products);
+    $sale = $sale_service->checkoutCart($customer_id, $delivery_option, $products);
 
-    $this->tester->seeRecord('sale', ['sale_no'=>$sale_no, 'gross_total'=>21, 'nett_total'=>20]);
+    $this->tester->seeRecord('sale', ['sale_no'=>$sale->sale_no, 'gross_total'=>21, 'nett_total'=>20]);
   }
 
   public function testGetDeliveryAddress_SelfCollect() {
@@ -125,7 +125,7 @@ class SaleTest extends \Codeception\TestCase\Test
 
   public function testCalculatePoint() {
     $sale_service = new Sale();
-    $point = $sale_service->calculatePoint(94.9);
+    $point = $sale_service->calculatePoints(94.9);
     $this->assertEquals(94, $point);
   }
 

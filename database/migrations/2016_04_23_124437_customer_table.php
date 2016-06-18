@@ -23,7 +23,7 @@ class CustomerTable extends Migration
         $table->string("lift_lobby", 10)->nullable();
         $table->date("birthday")->nullable();
         $table->char("subscribe", 1);
-        $table->decimal("spent_amt_total", 9, 2);
+        $table->decimal("spent_total", 9, 2);
         $table->integer("order_count");
         $table->integer("points");
         $table->dateTime("last_login_on");
@@ -44,8 +44,9 @@ class CustomerTable extends Migration
         'address'=>'Blk 134, Bedok Reservoir Rd',
         'birthday'=>'1989-01-05',
         'subscribe'=> SubscribeStat::Yes,
-        'spent_amt_total'=>0,
+        'spent_total'=>0,
         'order_count'=>0,
+        'points'=>377,
         'last_login_on'=>date("Y-m-d H:i:s"),
         'joined_on'=>'2016-05-01',
       ]);
