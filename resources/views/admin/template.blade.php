@@ -570,6 +570,13 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="{{url('admin/delivery')}}" class="nav-link nav-toggle">
+            <i class="icon-frame"></i>
+            <span class="title">Delivery Dates</span>
+            <span class="arrow"></span>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="{{url('admin/setting')}}" class="nav-link nav-toggle">
             <i class="icon-frame"></i>
             <span class="title">Settings</span>

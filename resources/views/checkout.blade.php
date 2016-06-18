@@ -173,6 +173,7 @@
               </div>
 
               <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Delivery Address</h2>
+              <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Delivery Date</h2>
               <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Delivery Time</h2>
               <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Payment Type</h2>
               <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Remarks</h2>
@@ -225,8 +226,29 @@
                 </div>
 
                 <h2 class="tt_uppercase color_dark m_bottom_15">
+                  Delivery Date
+                  @if($errors->has('delivery_date')) <span class="error">(Required)</span> @endif
+                </h2>
+
+                <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
+                  <?php $count = 1; ?>
+                  @foreach($delivery_dates as $date)
+                    <figure class="block_select clearfix relative">
+                      {{Form::radio("delivery_date", $date->date_value, '', ['class'=>'d_none'])}}
+                      <figcaption>
+                        <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-delivery-day-{{$date->date_value}}">
+                          {{CommonHelper::formatDateDay($date->date_value)}} &nbsp;-&nbsp; {{$date->area}}
+                        </h5>
+                      </figcaption>
+                    </figure>
+                    @if($count < count($delivery_dates)) <hr class="m_bottom_20"> @endif
+                    <?php $count++; ?>
+                  @endforeach
+                </div>
+
+                <h2 class="tt_uppercase color_dark m_bottom_15">
                   Delivery Time
-                  @if($errors->has('delivery_time')) <span class="error">(Required)</span> @endif
+                  @if($errors->has('delivery_day')) <span class="error">(Required)</span> @endif
                 </h2>
 
                 <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">

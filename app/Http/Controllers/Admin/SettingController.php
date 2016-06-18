@@ -11,8 +11,6 @@ class SettingController extends Controller
 {
   public function index(Request $request) {
     $data['settings'] = Setting::all();
-    $setting_service = new Setting();
-    $data['delivery_days'] = $setting_service->getDeliveryDayAll();
     return view("admin.setting.index", $data);
   }
 

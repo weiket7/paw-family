@@ -44,12 +44,14 @@ class Sale extends Eloquent
 
   private $checkout_rules = [
     'delivery_choice'=>'required',
+    'delivery_date'=>'required',
     'delivery_time'=>'required',
     'payment_type'=>'required',
   ];
 
   private $checkout_messages = [
     'delivery_choice.required'=>'Delivery address is required',
+    'delivery_date.required'=>'Delivery date is required',
     'delivery_time.required'=>'Delivery time is required',
     'payment_type.required'=>'Payment type is required',
   ];
@@ -81,6 +83,7 @@ class Sale extends Eloquent
     $this->stat = SaleStat::Pending;
     $this->payment_type = $delivery_option->payment_type;
     $this->delivery_choice = $delivery_option->delivery_choice;
+    $this->delivery_date = $delivery_option->delivery_date;
     $this->delivery_address = $this->getDeliveryAddress($delivery_option->delivery_choice, $delivery_option->address_other, $customer_id);
     $this->delivery_time = DeliveryTime::$values[$delivery_option->delivery_time];
     $this->customer_remark = $delivery_option->customer_remark;

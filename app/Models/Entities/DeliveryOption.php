@@ -9,4 +9,5 @@ class DeliveryOption
   public $gift_wrap;
   public $leave_outside_door;
   public $address_other;
+  public $delivery_date;
 }

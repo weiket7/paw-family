@@ -12,6 +12,10 @@ class CommonHelper {
     return date('d M Y', strtotime($date));
   }
 
+  public static function formatDateDay($date) {
+    return date('d M Y, l', strtotime($date));
+  }
+
   public static function showDiscountAmt($discount_amount, $discount_percentage) {
     if ($discount_percentage > 0) {
       return "$".$discount_amount." (".$discount_percentage."%)";

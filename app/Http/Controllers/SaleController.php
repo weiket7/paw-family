@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Customer;
+use App\Models\DeliveryDate;
 use App\Models\Entities\DeliveryOption;
 use App\Models\Entities\MailRequest;
 use App\Models\Enums\PaymentType;
 use App\Models\MailService;
 use App\Models\Sale;
+use App\Models\Setting;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -37,7 +39,8 @@ class SaleController extends Controller
       return redirect('checkout-success')->with('sale_no', $sale_no);
     }
     $data['products'] = $products;
-
+    $delivery_date_service = new DeliveryDate();
+    $data['delivery_dates'] = $delivery_date_service->getAvailableDeliveryDate();
     $customer_id = Auth::id();
     $data['customer'] = Customer::find($customer_id);
     return view('checkout', $data);
@@ -150,6 +153,7 @@ class SaleController extends Controller
     $delivery_option->address_other = $input['address_other'];
     $delivery_option->customer_remark = $input['customer_remark'];
     $delivery_option->delivery_time = $input['delivery_time'];
+    $delivery_option->delivery_date = $input['delivery_date'];
     $delivery_option->gift_wrap = isset($input['gift_wrap']) ? "Y" : "N";
     $delivery_option->leave_outside_door = isset($input['leave_outside_door']) ? "Y" : "N";
     return $delivery_option;

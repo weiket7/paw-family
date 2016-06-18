@@ -43,6 +43,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $delivery_option->delivery_choice = DeliveryChoice::CurrentAddress;
     $delivery_option->delivery_time = DeliveryTime::AnyTime;
     $delivery_option->payment_type = PaymentType::Bank;
+    $delivery_option->delivery_date = 2;
     $sale_no = $sale_service->checkoutCart($customer_id, $delivery_option, $products);
 
     $product1_size2_cost_price = 126.90;
@@ -63,7 +64,10 @@ class SaleTest extends \Codeception\TestCase\Test
     $nett_total = $gross_total - $product_discount;
     $cost_total = $product1_size2_cost_price * $product1_quantity + $product2_cost_price * $product2_quantity;
 
-    $this->tester->seeRecord('sale', ['sale_no'=>$sale_no, 'cost_total'=>$cost_total, 'gross_total'=>$gross_total, 'nett_total'=>$nett_total]);
+    $this->tester->seeRecord('sale', [
+      'sale_no'=>$sale_no, 'cost_total'=>$cost_total, 'gross_total'=>$gross_total, 'nett_total'=>$nett_total,
+      'delivery_date'=>2,
+    ]);
 
     $sale_id = $sale_service->getSaleIdByNo($sale_no);
     $this->tester->seeRecord('sale_product', [
@@ -95,6 +99,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $delivery_option->address_other = $this->address_other;
     $delivery_option->delivery_time = DeliveryTime::AnyTime;
     $delivery_option->payment_type = PaymentType::Bank;
+    $delivery_option->delivery_date = 2;
     $sale_no = $sale_service->checkoutCart($customer_id, $delivery_option, $products);
 
     $this->tester->seeRecord('sale', ['sale_no'=>$sale_no, 'gross_total'=>21, 'nett_total'=>20]);

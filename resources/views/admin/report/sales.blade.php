@@ -37,7 +37,7 @@
     <tfoot>
     <td colspan="4" class="text-center">
       <button type="submit" class="btn blue">Search</button>
-      <button type="button" class="btn green" onclick="clearSearchProduct()">Clear</button>
+      <button type="button" class="btn green" onclick="clearSearchProduct()">Clear</button> {{--TODO--}}
     </td>
     </tfoot>
   </table>
