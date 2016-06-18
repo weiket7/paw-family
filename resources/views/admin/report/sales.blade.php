@@ -1,9 +1,8 @@
 <?php use App\Models\Enums\SaleStat; ?>
 
 @extends("admin.template", [
-  "title"=>"Products",
-  "action"=>"index",
-  "controller"=>"product"
+  "title"=>"Daily Sales",
+  "action"=>"view",
 ])
 
 @section('script')
@@ -54,7 +53,7 @@
     <table class="table table-bordered table-hover">
       <thead>
       <tr>
-        <th>Status</th>
+        <th>Date</th>
         <th>Gross Total</th>
         <th>Product Discount</th>
         <th>Promo Discount</th>

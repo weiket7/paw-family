@@ -15,4 +15,19 @@ class Setting extends Eloquent {
     }
     return $res;
   }
+  
+  public function getDeliveryDayAll()
+  {
+    $s = "SELECT * from delivery_day";
+    $data = DB::select($s);
+    $res = [];
+    foreach($data as $d) {
+      $res[$d->day] = $d->area;
+    }
+    return $res;
+  }
+  
+  public function saveDeliveryDay() {
+
+  }
 }
