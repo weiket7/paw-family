@@ -72,6 +72,11 @@
                           <?php $birthday = ($customer->birthday == '' || $customer->birthday == null) ? '' : date('d-m-Y', strtotime($customer->birthday)); ?>
                           {{Form::text("birthday", $birthday , ['class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
                         </li>
+                        <li class="m_bottom_30">
+                          <label for="email" class="d_inline_b">Promotions</label><br>
+                          <?php $checked = $customer->subscribe == 'Y' ? "checked" : ''; ?>
+                          <input type="checkbox" class="d_none" name="subscribe" id="subscribe" {{$checked}}><label for="subscribe">Yes, I would like to receive emails about promotions</label>
+                        </li>
                         <li><button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover" tabindex="3">Save</button></li>
                       </ul>
                     </div>
@@ -91,9 +96,12 @@
                           {{Form::text("postal", $customer->postal, ['id'=>'postal', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
                         </li>
                         <li class="m_bottom_15">
-                          <label for="email" class="d_inline_b">Promotions</label><br>
-                          <?php $checked = $customer->subscribe == 'Y' ? "checked" : ''; ?>
-                          <input type="checkbox" class="d_none" name="subscribe" id="subscribe" {{$checked}}><label for="subscribe">Yes, I would like to receive emails about promotions</label>
+                          <label for="address" class="d_inline_b m_bottom_5">Building</label>
+                          {{Form::text("building", $customer->building, ['id'=>'building', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>6])}}
+                        </li>
+                        <li class="m_bottom_15">
+                          <label for="postal" class="d_inline_b m_bottom_5">Lift Lobby</label>
+                          {{Form::text("lift_lobby", $customer->lift_lobby, ['id'=>'lift_lobby', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>7])}}
                         </li>
                       </ul>
                     </div>

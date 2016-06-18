@@ -216,11 +216,11 @@
             <div class="col-lg-4 col-md-4 col-sm-4 m_xs_bottom_30">
               <h3 class="color_light_2 m_bottom_20">Information</h3>
               <ul class="vertical_list">
-                <li><a class="color_light tr_delay_hover" href="#">About Pawfamily<i class="fa fa-angle-right"></i></a></li>
-                <li><a class="color_light tr_delay_hover" href="{{url('contact')}}">Contact<i class="fa fa-angle-right"></i></a></li>
-                <li><a class="color_light tr_delay_hover" href="#">Delivery<i class="fa fa-angle-right"></i></a></li>
-                <li><a class="color_light tr_delay_hover" href="#">Loyalty and Rewards<i class="fa fa-angle-right"></i></a></li>
-                <li><a class="color_light tr_delay_hover" href="{{url('terms-and-conditions')}}">Terms &amp; Conditions<i class="fa fa-angle-right"></i></a></li>
+                <li><a class="color_light tr_delay_hover" href="#">About Pawfamily</a></li>
+                <li><a class="color_light tr_delay_hover" href="{{url('contact')}}">Contact</a></li>
+                <li><a class="color_light tr_delay_hover" href="#">Delivery</a></li>
+                <li><a class="color_light tr_delay_hover" href="#">Loyalty and Rewards</a></li>
+                <li><a class="color_light tr_delay_hover" href="{{url('terms-and-conditions')}}">Terms &amp; Conditions</a></li>
               </ul>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4">

@@ -57,7 +57,10 @@
               <div class="form-group">
                 <label class="control-label col-md-3">Birthday</label>
                 <div class="col-md-9">
-                  {!! Form::text('birthday', CommonHelper::formatDate($customer->birthday), ['class'=>'form-control']) !!}
+                  {!! Form::text('birthday', CommonHelper::formatDate($customer->birthday, true), ['class'=>'form-control']) !!}
+                  <p class="help-block">
+                    DD-MM-YYYY<br>
+                  </p>
                 </div>
               </div>
             </div>
@@ -94,6 +97,24 @@
                 <label class="control-label col-md-3">Postal</label>
                 <div class="col-md-9">
                   {!! Form::text('postal', $customer->postal, ['class'=>'form-control']) !!}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Building</label>
+                <div class="col-md-9">
+                  {!! Form::text('building', $customer->building, ['class'=>'form-control', 'rows'=>2]) !!}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Lift Lobby</label>
+                <div class="col-md-9">
+                  {!! Form::text('lift_lobby', $customer->lift_lobby, ['class'=>'form-control']) !!}
                 </div>
               </div>
             </div>
@@ -154,7 +175,7 @@
             <th>Product Discount</th>
             <th>Promo Discount</th>
             <th>Flat Discount</th>
-            <th>Delivery Fee</th>
+            <th>Delivery Amt</th>
             <th>Nett</th>
           </tr>
           </thead>
@@ -169,7 +190,7 @@
               <td>{{$sale->product_discount}}</td>
               <td>{{$sale->promo_discount}}</td>
               <td>{{$sale->flat_discount}}</td>
-              <td>{{$sale->delivery_fee}}</td>
+              <td>{{$sale->delivery_amt}}</td>
               <td>{{$sale->nett_total}}</td>
             </tr>
           @endforeach

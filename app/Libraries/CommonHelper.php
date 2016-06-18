@@ -8,7 +8,13 @@ class CommonHelper {
     return date('d M Y, h:i a', strtotime($date));
   }
 
-  public static function formatDate($date) {
+  public static function formatDate($date, $birthday = false) {
+    if ($date == '') {
+      return '';
+    }
+    if ($birthday) {
+      return date('d-m-Y', strtotime($date));
+    }
     return date('d M Y', strtotime($date));
   }
 

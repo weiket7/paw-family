@@ -17,12 +17,15 @@ class CustomerTable extends Migration
         $table->string('name');
         $table->string("mobile", 20);
         $table->string("phone", 20)->nullable();
-        $table->string("postal", 10);
         $table->string("address", 200);
-        $table->dateTime("birthday")->nullable();
+        $table->string("postal", 10);
+        $table->string("building", 10)->nullable();
+        $table->string("lift_lobby", 10)->nullable();
+        $table->date("birthday")->nullable();
         $table->char("subscribe", 1);
         $table->decimal("spent_amt_total", 9, 2);
         $table->integer("order_count");
+        $table->integer("points");
         $table->dateTime("last_login_on");
         $table->dateTime("joined_on");
         $table->dateTime("updated_at");

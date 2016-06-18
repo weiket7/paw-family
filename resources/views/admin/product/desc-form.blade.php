@@ -24,7 +24,7 @@
     <div class="form-group">
       <label class="control-label col-md-2">Value</label>
       <div class="col-md-10">
-        {!! Form::textarea('value', $product_desc->value, ['class'=>'form-control']) !!}
+        {!! Form::textarea('value', $product_desc->value, ['class'=>'form-control', 'rows'=>20]) !!}
       </div>
     </div>
   </div>

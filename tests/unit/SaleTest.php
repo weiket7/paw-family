@@ -43,7 +43,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $delivery_option->delivery_choice = DeliveryChoice::CurrentAddress;
     $delivery_option->delivery_time = DeliveryTime::AnyTime;
     $delivery_option->payment_type = PaymentType::Bank;
-    $delivery_option->delivery_date = 2;
+    $delivery_option->delivery_date = date('Y-m-d');
     $sale_no = $sale_service->checkoutCart($customer_id, $delivery_option, $products);
 
     $product1_size2_cost_price = 126.90;
@@ -66,7 +66,7 @@ class SaleTest extends \Codeception\TestCase\Test
 
     $this->tester->seeRecord('sale', [
       'sale_no'=>$sale_no, 'cost_total'=>$cost_total, 'gross_total'=>$gross_total, 'nett_total'=>$nett_total,
-      'delivery_date'=>2,
+      'delivery_date'=>date('Y-m-d'),
     ]);
 
     $sale_id = $sale_service->getSaleIdByNo($sale_no);

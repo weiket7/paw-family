@@ -31,7 +31,7 @@ class Customer extends Eloquent
     });
   }
 
-  public function getPet($customer_id) {
+  public function getPets($customer_id) {
     return DB::table("pet")->where("customer_id", $customer_id)->get();
   }
 
@@ -41,8 +41,8 @@ class Customer extends Eloquent
       $customer->pets = [];
       $customer->sales = [];
     } else {
-      $customer = DB::table("customer")->where("customer_id", $customer_id)->first();
-      $customer->pets = $this->getPet($customer_id);
+      $customer = Customer::find($customer_id);
+      $customer->pets = $this->getPets($customer_id);
       $customer->sales = $this->getSale($customer_id);
     }
     return $customer;
@@ -63,6 +63,8 @@ class Customer extends Eloquent
     $this->phone = $input['phone'];
     $this->address = $input['address'];
     $this->postal = $input['postal'];
+    $this->building = $input['building'];
+    $this->lift_lobby = $input['lift_lobby'];
     $this->subscribe = isset($input['subscribe']) ? SubscribeStat::Yes : SubscribeStat::No;
     $this->save();
     return true;
@@ -138,6 +140,8 @@ class Customer extends Eloquent
     $this->mobile = $input['mobile'];
     $this->address = $input['address'];
     $this->postal = $input['postal'];
+    $this->building = $input['building'];
+    $this->lift_lobby = $input['lift_lobby'];
     $this->last_login_on = date("Y-m-d H:i:s");
     $this->joined_on = date("Y-m-d H:i:s");
     $this->stat = CustomerStat::Active;
@@ -153,7 +157,6 @@ class Customer extends Eloquent
     'mobile'=>'required',
     'address'=>'required',
     'postal'=>'required'
-    //'password_confirmation'=>'required|min:6',
   ];
 
   private $messages_register = [
@@ -206,5 +209,25 @@ class Customer extends Eloquent
       'new_password'=>$new_password,
     ];
     return $res;
+  }
+
+  public function searchCustomer($input)
+  {
+    $s = "SELECT * from customer where 1 ";
+    if($input['name'] != '') {
+      $s .= " and name LIKE '%".$input['name']."%'";
+    }
+    if($input['email'] != '') {
+      $s .= " and email LIKE '%".$input['email']."%'";
+    }
+    if($input['mobile'] != '') {
+      $s .= " and mobile LIKE '%".$input['mobile']."%'";
+    }
+    if (isset($input['stat']) && $input['stat'] != '') {
+      $s .= " and stat = '$input[stat]'";
+    }
+    $data = DB::select($s);
+
+    return $data;
   }
 }

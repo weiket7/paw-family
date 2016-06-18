@@ -12,8 +12,10 @@
 */
 
 use App\Models\Cart;
+use App\Models\Customer;
 use App\Models\Entities\DeliveryOption;
 use App\Models\Entities\SaleProduct;
+use App\Models\Enums\CustomerStat;
 use App\Models\Enums\DeliveryChoice;
 use App\Models\Enums\DeliveryTime;
 use App\Models\Enums\PaymentType;
@@ -159,7 +161,21 @@ Route::get('hash', function() {
 
 
 Route::get('test', function() {
-  return url("");
+  $input['name'] = 'new name';
+  $input['email'] = 'weiket8@gmail.com';
+  $input['password'] = '123456';
+  $input['password_confirmation'] = '123456';
+
+  $input['mobile'] = '91234567';
+  $input['address'] = 'Blk 123, Bedok Reservoir Rd';
+  $input['postal'] = '470123';
+  $input['building'] = 'Block A';
+  $input['lift_lobby'] = 'B';
+  $input['subscribe'] = 'Y';
+  $customer = new Customer();
+  $customer_id = $customer->registerCustomer($input);
+  var_dump($customer->getValidation()->errors());
+  var_dump($customer_id);
 });
 
 Route::get('clear-cache', function() {

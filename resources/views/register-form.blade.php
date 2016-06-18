@@ -28,6 +28,10 @@
         <label for="password_confirmation" class="d_inline_b m_bottom_5 required">Confirm Password</label>
         <input type="password" name="password_confirmation" id="password_confirmation" autocomplete="off" class="r_corners full_width" tabindex="4">
       </li>
+      <li class="m_bottom_30">
+        <label for="email" class="d_inline_b">Promotions</label><br>
+        <input type="checkbox" class="d_none" name="subscribe" id="subscribe"><label for="subscribe">Yes, I would like to receive emails about promotions</label>
+      </li>
       <li><button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover">Save</button></li>
     </ul>
   </div>
@@ -46,8 +50,12 @@
         {{Form::text("postal", '', ['id'=>'postal', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>7])}}
       </li>
       <li class="m_bottom_15">
-        <label for="email" class="d_inline_b">Promotions</label><br>
-        <input type="checkbox" class="d_none" name="subscribe" id="subscribe"><label for="subscribe">Yes, I would like to receive emails about promotions</label>
+        <label for="address" class="d_inline_b m_bottom_5">Building</label>
+        {{Form::text("building", '', ['id'=>'building', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>6])}}
+      </li>
+      <li class="m_bottom_15">
+        <label for="postal" class="d_inline_b m_bottom_5">Lift Lobby</label>
+        {{Form::text("lift_lobby", '', ['id'=>'lift_lobby', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>7])}}
       </li>
     </ul>
   </div>

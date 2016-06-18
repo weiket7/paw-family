@@ -20,8 +20,8 @@
     <tr>
       <td>{!! Form::select('stat', CustomerStat::$values, '', ['class'=>'form-control']) !!}</td>
       <td><input type="text" name="name" class="form-control"></td>
-      <td><input type="text" name="name" class="form-control"></td>
-      <td><input type="text" name="name" class="form-control"></td>
+      <td><input type="text" name="email" class="form-control"></td>
+      <td><input type="text" name="mobile" class="form-control"></td>
     </tr>
     </tbody>
     <tfoot>
@@ -29,7 +29,11 @@
     </tfoot>
   </table>
 
-  <hr>
+  @if(Session::has('search_result'))
+    <div class="alert alert-success ">
+      {{ Session::get('search_result') }}
+    </div>
+  @endif
 
   <table class="table table-bordered table-hover">
     <thead>
