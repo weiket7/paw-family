@@ -19,6 +19,7 @@ use App\Models\Enums\CustomerStat;
 use App\Models\Enums\DeliveryChoice;
 use App\Models\Enums\DeliveryTime;
 use App\Models\Enums\PaymentType;
+use App\Models\ProductSize;
 use App\Models\Sale;
 
 Route::get('/', 'SiteController@index');
@@ -161,21 +162,15 @@ Route::get('hash', function() {
 
 
 Route::get('test', function() {
-  $input['name'] = 'new name';
-  $input['email'] = 'weiket8@gmail.com';
-  $input['password'] = '123456';
-  $input['password_confirmation'] = '123456';
-
-  $input['mobile'] = '91234567';
-  $input['address'] = 'Blk 123, Bedok Reservoir Rd';
-  $input['postal'] = '470123';
-  $input['building'] = 'Block A';
-  $input['lift_lobby'] = 'B';
-  $input['subscribe'] = 'Y';
-  $customer = new Customer();
-  $customer_id = $customer->registerCustomer($input);
-  var_dump($customer->getValidation()->errors());
-  var_dump($customer_id);
+  $input['name'] = 'new size name';
+  $input['quantity'] = '6';
+  $input['cost_price'] = 29.1;
+  $input['price'] = 39.1;
+  $input['discount_percentage'] = 10;
+  $input['weight_lb'] = 4;
+  $input['weight_kg'] = 3;
+  $size = ProductSize::find(1);
+  $size->saveSize($input);
 });
 
 Route::get('clear-cache', function() {

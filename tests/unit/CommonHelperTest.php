@@ -4,14 +4,29 @@ use App\Models\Entities\SaleProduct;
 
 class CommonHelperTest extends \Codeception\TestCase\Test
 {
-  public function testGetDiscountAmt() {
-    $discount_amt = CommonHelper::getDiscountAmtPercentage(195.55, 10);
+  public function testCalcDiscountAmtByPercentage() {
+    $discount_amt = CommonHelper::calcDiscountAmtByPercentage(195.55, 10);
     $this->assertEquals(19.55, $discount_amt);
+
+    $discount_amt = CommonHelper::calcDiscountAmtByPercentage(35.19, 10);
+    $this->assertEquals(3.51, $discount_amt);
   }
 
-  public function testGetDiscountAmt2() {
-    $discount_amt = CommonHelper::getDiscountAmtPercentage(35.19, 10);
-    $this->assertEquals(3.51, $discount_amt);
+  public function testRoundUpToFirstDecimal() {
+    $res = CommonHelper::roundUpToFirstDecimal(35.19);
+    $this->assertEquals(35.2, $res);
+
+    $res = CommonHelper::roundUpToFirstDecimal(35.20);
+    $this->assertEquals(35.2, $res);
+
+    $res = CommonHelper::roundUpToFirstDecimal(155.44);
+    $this->assertEquals(155.5, $res);
+
+    $res = CommonHelper::roundUpToFirstDecimal(126.55);
+    $this->assertEquals(126.6, $res);
+
+    $res = CommonHelper::roundUpToFirstDecimal(27.93);
+    $this->assertEquals(28, $res);
   }
 
   public function testFormatNumber_WholeNumber() {

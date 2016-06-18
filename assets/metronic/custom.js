@@ -9,14 +9,17 @@ function checkCheckboxByElement(element, checked) {
   }
 }
 
-function isCheckedByElement(element) {
-  return $(element).is(":checked");
+function isCheckedById(id) {
+  return $("#"+id).is(":checked");
 }
 
 function toTwoDecimalAndRoundDown(decimal) {
   return (Math.floor(decimal * 100) / 100).toFixed(2);
 }
 
+function roundUpToFirstDecimal(decimal) {
+  return (Math.round(decimal * 10) / 10).toFixed(2);
+}
 
 function toTwoDecimal(decimal) {
   return decimal.toFixed(2);

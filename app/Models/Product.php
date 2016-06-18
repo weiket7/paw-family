@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+use App\Models\Entities\ProductDiscount;
 use App\Models\Enums\DiscountType;
 use App\Models\Enums\ProductOptionType;
 use App\Models\Enums\ProductStat;
@@ -45,17 +46,14 @@ class Product extends Eloquent
     $this->processing_day = $input['processing_day'];
     $this->weight_lb = $input['weight_lb'];
     $this->weight_kg = $input['weight_kg'];
-    $this->discount_percentage = $input['discount_percentage'];
-    //$this->discount_type = $input['discount_type'];
-    if ($this->discount_percentage > 0) {
-      $this->discount_type = DiscountType::Percentage;
-      $this->discount_amt = CommonHelper::getDiscountAmtPercentage($this->price, $this->discount_percentage);
-    } else {
-      $this->discount_type = DiscountType::Amount;
-      $this->discount_amt = $input['discount_amt'];
-    }
-    $this->discounted_price = $this->price - $this->discount_amt;
     $this->desc_short = $input['desc_short'];
+
+    $round_up_to_first_decimal = isset($input['round-up-to-first-decimal']);
+    $product_discount = new ProductDiscount($input['price'], $input['discount_percentage'], $input['discount_amt'], $round_up_to_first_decimal);
+    $this->discount_percentage = $product_discount->discount_percentage;
+    $this->discount_type = $product_discount->discount_type;
+    $this->discount_amt = $product_discount->discount_amt;
+    $this->discounted_price = $product_discount->discounted_price;
 
     if ($image) {
       $this->image = CommonHelper::uploadImage('products', $input['name'], $image);
@@ -165,8 +163,8 @@ class Product extends Eloquent
 
   public function searchProduct($input) {
     $s = "SELECT * from product where 1 ";
-      if($input['name'] != '') {
-        $s .= " and name LIKE '%".$input['name']."%'";
+    if($input['name'] != '') {
+      $s .= " and name LIKE '%".$input['name']."%'";
     }
     if (isset($input['brand_id']) && $input['brand_id'] != '') {
       $s .= " and brand_id = $input[brand_id]";

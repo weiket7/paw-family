@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+use App\Models\Entities\ProductDiscount;
 use App\Models\Enums\DiscountType;
 use CommonHelper;
 use Eloquent, DB, Validator;
@@ -54,17 +55,17 @@ class ProductSize extends Eloquent
     $this->quantity = $input['quantity'];
     $this->cost_price = $input['cost_price'];
     $this->price = $input['price'];
-    if ($this->discount_percentage > 0) {
-      $this->discount_type = DiscountType::Percentage;
-      $this->discount_amt = CommonHelper::getDiscountAmtPercentage($this->price, $this->discount_percentage);
-    } else {
-      $this->discount_type = DiscountType::Amount;
-      $this->discount_amt = $input['discount_amt'];
-    }
-    $this->discounted_price = $this->price - $this->discount_amt;
     $this->weight_lb = $input['weight_lb'];
     $this->weight_kg = $input['weight_kg'];
     $this->updated_on= date('Y-m-d H:i:s');
+
+    $round_up_to_first_decimal = isset($input['round-up-to-first-decimal']);
+    $product_discount = new ProductDiscount($input['price'], $input['discount_percentage'], $input['discount_amt'], $round_up_to_first_decimal);
+    $this->discount_percentage = $product_discount->discount_percentage;
+    $this->discount_type = $product_discount->discount_type;
+    $this->discount_amt = $product_discount->discount_amt;
+    $this->discounted_price = $product_discount->discounted_price;
+
     $this->save();
     return true;
   }

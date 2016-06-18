@@ -14,6 +14,7 @@
       var price = parseFloat($("input[name='price']").val());
       var discount_percentage = toFloat($("input[name='discount_percentage']").val());
       var discounted_price = 0;
+      var round_up_to_first_decimal = isCheckedById('round-up-to-first-decimal');
       if (discount_percentage == 0) {
         var discount_amt = toFloat($("input[name='discount_amt']").val());
         discounted_price = toTwoDecimalAndRoundDown(price - discount_amt);
@@ -22,8 +23,16 @@
         $("input[name='discount_amt']").val(discount_amt);
         discounted_price = toTwoDecimalAndRoundDown(price - discount_amt);
       }
-      $("input[name='discounted_price']").val(toTwoDecimalAndRoundDown(discounted_price));
-      console.log('price='+price+' discount_amt='+discount_amt+' discount_percentage='+discount_percentage+' discounted_price='+discounted_price);
+      if (round_up_to_first_decimal) {
+        discounted_price = roundUpToFirstDecimal(discounted_price);
+        discount_amt = toTwoDecimal(price - discounted_price);
+        //console.log('price=' + price + ' discounted_price=' + discounted_price + 'discount_amt=' + discount_amt);
+        $("input[name='discount_amt']").val(discount_amt);
+      }
+
+      //console.log('round_up_to_ten_cent=' + round_up_to_ten_cent);
+      //console.log('price='+price+' discount_amt='+discount_amt+' discount_percentage='+discount_percentage+' discounted_price='+discounted_price);
+      $("input[name='discounted_price']").val(discounted_price);
     });
   </script>
 @endsection
@@ -139,6 +148,7 @@
                     <i class="fa fa-dollar"></i>
                     {!! Form::text('discounted_price', $product->discounted_price, ['class'=>'form-control']) !!}
                     <button class="btn green" type="button" id="btn-calculate">Calculate</button>
+                    &nbsp;&nbsp;&nbsp;<label><input type="checkbox" id='round-up-to-first-decimal' name="round-up-to-first-decimal" class="form-control"> Round up to nearest 10 cents</label>
                   </div>
                 </div>
               </div>

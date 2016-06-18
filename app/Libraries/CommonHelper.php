@@ -48,9 +48,11 @@ class CommonHelper {
     return $res;
   }
 
-  public static function getDiscountAmtPercentage($price, $discount_percentage) {
+  public static function calcDiscountAmtByPercentage($price, $discount_percentage) {
     return floor($price / 100 * $discount_percentage * 100) / 100;
   }
+  
+  
 
   public static function arrayForDropdown($arr, $key_name, $value_name, $with_empty = true) {
     $res = [];
@@ -106,5 +108,10 @@ class CommonHelper {
     $file_name = str_slug($name).'.'.$image->getClientOriginalExtension();
     $image->move($destination_path, $file_name);
     return $file_name;
+  }
+
+  public static function roundUpToFirstDecimal($decimal)
+  {
+    return ceil($decimal * 10) / 10;
   }
 }
