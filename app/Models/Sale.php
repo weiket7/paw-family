@@ -97,7 +97,7 @@ class Sale extends Eloquent
     $this->product_discount = $sale_total->product_discount;
     $this->nett_total = $sale_total->nett_total;
     $this->cost_total = $sale_total->cost_total;
-    $this->points = $this->calculatePoints($this->nett_total);
+    $this->points = $this->calcPoints($this->nett_total);
     $this->save();
     return $this;
   }
@@ -201,7 +201,7 @@ class Sale extends Eloquent
     return "error";
   }
 
-  public function calculatePoints($nett_total) {
+  public function calcPoints($nett_total) {
     return floor($nett_total);
   }
 

@@ -142,8 +142,18 @@
                 <div class="row">
                   <div class="col-md-12">
                     <h3 class="color_dark m_bottom_20">Paw Points : {{ $customer->points }}</h3>
+
+                    <p>
+                      Paw Points can be used as cash discounts during checkout:
+                      <ul>
+                        <li>1200 paw points = $10 discount</li>
+                        <li>3000 paw points = $25 discount</li>
+                        <li>5000 paw points = $50 discount</li>
+                      </ul>
+                    </p>
                   </div>
                 </div>
+                <br>
 
                 <table class="table_type_3 responsive_table full_width r_corners bg_light_color_1 m_bottom_30 t_align_l">
                   <thead>
@@ -187,15 +197,15 @@
                           <label for="current_password" class="d_inline_b m_bottom_5 required" tabindex="1">Current Password</label>
                           <input type="password" name="current_password" autocomplete="off" class="r_corners full_width" tabindex="30">
                         </li>
-                      <li class="m_bottom_15">
-                        <label for="password" class="d_inline_b m_bottom_5 required">Password</label>
-                        <input type="password" name="password" autocomplete="off" class="r_corners full_width" tabindex="31">
-                      </li>
-                      <li class="m_bottom_15">
-                        <label for="password_confirmation" class="d_inline_b m_bottom_5 required">Confirm Password</label>
-                        <input type="password" id="password_confirmation" autocomplete="off" name="password_confirmation" class="r_corners full_width" tabindex="32">
-                      </li>
-                      <li><button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover" tabindex="3">Save</button></li>
+                        <li class="m_bottom_15">
+                          <label for="password" class="d_inline_b m_bottom_5 required">Password</label>
+                          <input type="password" name="password" autocomplete="off" class="r_corners full_width" tabindex="31">
+                        </li>
+                        <li class="m_bottom_15">
+                          <label for="password_confirmation" class="d_inline_b m_bottom_5 required">Confirm Password</label>
+                          <input type="password" id="password_confirmation" autocomplete="off" name="password_confirmation" class="r_corners full_width" tabindex="32">
+                        </li>
+                        <li><button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover" tabindex="3">Save</button></li>
                       </ul>
                     </div>
                   </div>

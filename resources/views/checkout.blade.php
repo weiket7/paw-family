@@ -13,6 +13,8 @@
     </div>
   @endif
 
+  <?php $logged_in = auth()->check(); ?>
+
   <div class="page_content_offset">
     <div class="container">
       <div class="row clearfix">
@@ -84,18 +86,55 @@
                 <?php $gross_total += $p->subtotal; ?>
               @endforeach
 
+              @if($logged_in)
+                <?php $can_redeem_points = $customer->points >= 1200; ?>
+                <?php $points_colspan = $can_redeem_points ? 1 : 3; ?>
+                <tr>
+                  <td colspan="{{$points_colspan}}" class="v_align_m t_align_r">
+                    <p class="f_size_large">
+                      <span class="d_inline_middle">
+                        You have: <span id="current-points">{{$customer->points}}</span> Paw Points<br>
+                        You will earn: <span id="earn-points">{{$points}}</span> Paw Points<br>
+                        <span id="spend-points"></span>
+                        You will have: <span id="result-points">{{$customer->points + $points}}</span> Paw Points
+                      </span>
+                    </p>
+                  </td>
+                  @if($can_redeem_points)
+                  <td colspan="2" class="v_align_m t_align_r">
+                    <input type="radio" id="points-1200" name="redeem-points" data-redeem-amt='10' class="d_none" value="1200" onclick="redeemPoints()">
+                    <label for="points-1200">1200 Paw Points = $10 discount</label><br>
+                    <input type="radio" id="points-3000" name="redeem-points" data-redeem-amt='25' class="d_none" value="3000" onclick="redeemPoints()">
+                    <label for="points-3000">3000 Paw Points = $25 discount</label><br>
+                    <input type="radio" id="points-5000" name="redeem-points" data-redeem-amt='50' class="d_none" value="5000" onclick="redeemPoints()">
+                    <label for="points-5000">5000 Paw Points = $50 discount</label>
+                  </td>
+                  @endif
+                  <td colspan="1" class="v_align_m">
+                    <p id='redeem-amt' class="fw_medium f_size_large m_xs_bottom_10">$0</p>
+                  </td>
+                </tr>
+              @else
+                <tr>
+                  <td colspan="3" class="v_align_m t_align_r">
+                    <p class="f_size_large">You will earn: {{$points}} Paw Points</p>
+                  </td>
+                  <td colspan="1" class="v_align_m t_align_r">
+
+                  </td>
+                </tr>
+              @endif
+              <?php $promo_total = 0; ?>
+              <?php $total = $gross_total - 0; ?>
               <tr>
                 <td colspan="3" class="v_align_m">
-                  <!--coupon-->
                   <p class="f_size_large t_align_r">
                     <input type="text" placeholder="Promo Code" name="" class="r_corners f_size_medium">
                     <button class="button_type_4 r_corners bg_light_color_2 m_left_5 mw_0 tr_all_hover color_dark" style="margin-right: 20px">Save</button>
                     <span class="fw_medium d_inline_middle">Promo Discount: </span>
                   </p>
-                </td>
                 <td colspan="1" class="v_align_m">
-                  <?php $promo_total = 0; ?>
-                  <?php $total = $gross_total - 0; ?>
+
                   <p class="fw_medium f_size_large m_xs_bottom_10">${{CommonHelper::formatNumber($promo_total)}}</p>
                 </td>
               </tr>
@@ -110,7 +149,7 @@
               </tbody>
             </table>
 
-            @if(! auth()->check())
+            @if(! $logged_in)
               <div class="alert_box r_corners info m_bottom_10">
                 <i class="fa fa-info-circle"></i><p>Please login or register to proceed</p>
               </div>
@@ -379,7 +418,8 @@
         //console.log('subtotal='+subtotal+' typeof='+typeof subtotal);
         total += subtotal;
       });
-      //console.log(total);
+      total = total - getRedeemAmt();
+      //console.log('total='+total+' redeem_amt='+redeem_amt);
       $("#p-total").text("$" + toTwoDecimal(total));
 
       refreshCartButton();
@@ -426,6 +466,13 @@
       var prefix = getElementPrefix(product_id, size_id);
       return parseFloat($(prefix+"discounted-price").attr('data-discounted-price'));
     }
+    
+    function getRedeemAmt() {
+      return parseFloat($("input[name='redeem-points']:checked").attr('data-redeem-amt'));
+    }
+    function getRedeemPoints() {
+      return parseFloat($("input[name='redeem-points']:checked").val());
+    }
 
     function getQuantity(product_id, size_id) {
       var prefix = getElementPrefix(product_id, size_id);
@@ -461,6 +508,19 @@
       $("#payment-{{PaymentType::Cheque}}").hide();
       $("#payment-{{PaymentType::Cash}}").hide();
       $("#payment-"+type).show();
+    }
+
+    function redeemPoints() {
+      var redeem_amt = getRedeemAmt();
+      $("#redeem-amt").text('-$'+redeem_amt);
+      var redeem_points = getRedeemPoints();
+      $("#spend-points").html("<b>You will spend " + redeem_points + " Paw Points</b><br>");
+      var current_points = parseFloat($("#current-points").text());
+      var earn_points = parseFloat($("#earn-points").text());
+      var result_points = current_points + earn_points - redeem_points;
+      //console.log('current='+current_points+' earn='+earn_points + ' redeem='+redeem_points+' result='+result_points);
+      $("#result-points").html("<b>"+result_points+"</b>");
+      updateTotal();
     }
   </script>
 @endsection

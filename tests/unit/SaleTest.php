@@ -125,7 +125,7 @@ class SaleTest extends \Codeception\TestCase\Test
 
   public function testCalculatePoint() {
     $sale_service = new Sale();
-    $point = $sale_service->calculatePoints(94.9);
+    $point = $sale_service->calcPoints(94.9);
     $this->assertEquals(94, $point);
   }
 

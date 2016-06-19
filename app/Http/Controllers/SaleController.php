@@ -44,6 +44,9 @@ class SaleController extends Controller
     $data['delivery_dates'] = $delivery_date_service->getAvailableDeliveryDate();
     $customer_id = Auth::id();
     $data['customer'] = Customer::find($customer_id);
+    $sale_service = new Sale();
+    $sale_total = $sale_service->calcSaleTotal($products);
+    $data['points'] = $sale_service->calcPoints($sale_total->nett_total);
     return view('checkout', $data);
   }
 
