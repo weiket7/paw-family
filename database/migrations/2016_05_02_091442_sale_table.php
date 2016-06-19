@@ -24,7 +24,9 @@ class SaleTable extends Migration
       $t->decimal('product_discount', 9,2);
       $t->integer('promo_id')->nullable();
       $t->decimal('promo_discount', 9,2);
-      $t->decimal('flat_discount', 9,2);
+      $t->decimal('redeem_amt', 9,2)->nullable();
+      $t->integer('redeem_points')->nullable();
+      $t->decimal('bulk_discount', 9,2);
       $t->decimal('delivery_amt', 9, 2);
       $t->date('delivery_date');
       $t->decimal('nett_total', 9,2); //after subtractions

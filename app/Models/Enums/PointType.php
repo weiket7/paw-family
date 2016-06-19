@@ -1,11 +1,13 @@
 <?php namespace App\Models\Enums;
 
 abstract class PointType {
-  const Award = 'A';
+  const Earn = 'E';
   const Spend = 'S';
+  const Redeem = 'R';
 
   static $values = [
-    self::Award=>'Award',
+    self::Earn=>'Earn',
+    self::Redeem=>'Redeem',
     self::Spend=>'Spend',
   ];
 }

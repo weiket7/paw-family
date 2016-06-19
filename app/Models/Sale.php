@@ -1,12 +1,13 @@
 <?php namespace App\Models;
 
-use App\Models\Entities\DeliveryOption;
+use App\Models\Entities\CheckoutOption;
 use App\Models\Entities\PaypalField;
 use App\Models\Entities\SaleProduct;
 use App\Models\Entities\SaleTotal;
 use App\Models\Enums\DeliveryChoice;
 use App\Models\Enums\DeliveryTime;
 use App\Models\Enums\SaleStat;
+use Cache;
 use Carbon\Carbon;
 use CommonHelper;
 use Eloquent, DB, Validator, Input;
@@ -70,15 +71,18 @@ class Sale extends Eloquent
     return true;
   }
 
-  public function checkoutCart($customer_id, DeliveryOption $delivery_option, $products) {
+  public function checkoutCart($customer_id, CheckoutOption $checkout_option, $products) {
     $this->customer_id = $customer_id;
     $this->stat = SaleStat::Pending;
-    $this->payment_type = $delivery_option->payment_type;
-    $this->delivery_choice = $delivery_option->delivery_choice;
-    $this->delivery_date = $delivery_option->delivery_date;
-    $this->delivery_address = $this->getDeliveryAddress($delivery_option->delivery_choice, $delivery_option->address_other, $customer_id);
-    $this->delivery_time = DeliveryTime::$values[$delivery_option->delivery_time];
-    $this->customer_remark = $delivery_option->customer_remark;
+    $this->redeem_points = $checkout_option->redeem_points;
+    $redeem_point_to_amt = $this->getRedeemPointToAmt();
+    $this->redeem_amt = $redeem_point_to_amt[$checkout_option->redeem_points];
+    $this->payment_type = $checkout_option->payment_type;
+    $this->delivery_choice = $checkout_option->delivery_choice;
+    $this->delivery_date = $checkout_option->delivery_date;
+    $this->delivery_address = $this->getDeliveryAddress($checkout_option->delivery_choice, $checkout_option->address_other, $customer_id);
+    $this->delivery_time = DeliveryTime::$values[$checkout_option->delivery_time];
+    $this->customer_remark = $checkout_option->customer_remark;
     $this->sale_on = date("Y-m-d H:i:s");
     $this->sale_no = $this->getSaleNoAndIncrement();
     $this->save();
@@ -240,6 +244,13 @@ class Sale extends Eloquent
         'stat'=>SaleStat::Paid,
         'paid_on'=>date('Y-m-d H:i:s'),
       ]);
+  }
+
+  public function getRedeemPointToAmt() {
+    $data[Cache::get("settings_cache")['redeemfirstpoint']] = Cache::get("settings_cache")['redeemfirstamt'];
+    $data[Cache::get("settings_cache")['redeemsecondpoint']] = Cache::get("settings_cache")['redeemsecondamt'];
+    $data[Cache::get("settings_cache")['redeemthirdpoint']] = Cache::get("settings_cache")['redeemthirdamt'];
+    return $data;
   }
 
 }

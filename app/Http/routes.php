@@ -13,7 +13,7 @@
 
 use App\Models\Cart;
 use App\Models\Customer;
-use App\Models\Entities\DeliveryOption;
+use App\Models\Entities\CheckoutOption;
 use App\Models\Entities\SaleProduct;
 use App\Models\Enums\CustomerStat;
 use App\Models\Enums\DeliveryChoice;
@@ -142,6 +142,12 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::post('admin/report/sales', 'Admin\ReportController@sales');
 });
 
+Route::get('test', function() {
+  $sale_service = new Sale();
+  $arr = $sale_service->getRedeemPointToAmt();
+
+  var_dump($arr);
+});
 
 Route::get('hash', function() {
   $pass = "test168";

@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Cart;
-use App\Models\Entities\DeliveryOption;
+use App\Models\Entities\CheckoutOption;
 use App\Models\Entities\SaleProduct;
 use App\Models\Enums\DeliveryChoice;
 use App\Models\Enums\DeliveryTime;
@@ -39,7 +39,7 @@ class SaleTest extends \Codeception\TestCase\Test
 
     $sale_service = new Sale();
     $customer_id = 1;
-    $delivery_option = new DeliveryOption();
+    $delivery_option = new CheckoutOption();
     $delivery_option->delivery_choice = DeliveryChoice::CurrentAddress;
     $delivery_option->delivery_time = DeliveryTime::AnyTime;
     $delivery_option->payment_type = PaymentType::Bank;
@@ -66,6 +66,7 @@ class SaleTest extends \Codeception\TestCase\Test
 
     $this->tester->seeRecord('sale', [
       'sale_no'=>$sale->sale_no, 'cost_total'=>$cost_total, 'gross_total'=>$gross_total, 'nett_total'=>$nett_total,
+      'redeem_points'=>1200, 'redeem_amt'=>10,
       'delivery_date'=>date('Y-m-d'),
     ]);
 
@@ -94,7 +95,7 @@ class SaleTest extends \Codeception\TestCase\Test
 
     $sale_service = new Sale();
     $customer_id = 1;
-    $delivery_option = new DeliveryOption();
+    $delivery_option = new CheckoutOption();
     $delivery_option->delivery_choice = DeliveryChoice::OtherAddress;
     $delivery_option->address_other = $this->address_other;
     $delivery_option->delivery_time = DeliveryTime::AnyTime;

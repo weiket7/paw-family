@@ -26,211 +26,216 @@
               Your cart is empty<br>
             </div>
           @else
-            {{ csrf_field() }}
+            <form method="post" action="">
+              {{ csrf_field() }}
 
-            <table class="table_type_4 responsive_table full_width r_corners wraper shadow t_align_l t_xs_align_c m_bottom_30">
-              <thead>
-              <tr class="f_size_large">
-                <th>Product </th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-              </tr>
-              </thead>
-              <tbody>
-              <?php $gross_total = 0; ?>
+              <table class="table_type_4 responsive_table full_width r_corners wraper shadow t_align_l t_xs_align_c m_bottom_30">
+                <thead>
+                <tr class="f_size_large">
+                  <th>Product </th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Subtotal</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php $gross_total = 0; ?>
 
-              @foreach($products as $p)
-                <tr>
-                  <td>
-                    <div class="row">
-                      <div class="col-md-3">
-                        <a href="{{url("product/view/".$p->slug)}}"><img src="{{url('assets/images/products/'.$p->image)}}" alt="" class="m_md_bottom_5 d_xs_block d_xs_centered" style="max-height: 100px"></a>
+                @foreach($products as $p)
+                  <tr>
+                    <td>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <a href="{{url("product/view/".$p->slug)}}"><img src="{{url('assets/images/products/'.$p->image)}}" alt="" class="m_md_bottom_5 d_xs_block d_xs_centered" style="max-height: 100px"></a>
+                        </div>
+                        <div class="col-md-9">
+                          <a href="{{url("product/view/".$p->slug)}}">{{$p->name}}</a>
+                          @if($p->size_id > 0)
+                            <br>Size: {{$p->size_name}}
+                          @endif
+                          @if($p->option_id > 0)
+                            <br>Repack: {{$p->option_name}} - ${{CommonHelper::formatNumber($p->option_price)}}
+                          @endif
+                        </div>
                       </div>
-                      <div class="col-md-9">
-                        <a href="{{url("product/view/".$p->slug)}}">{{$p->name}}</a>
-                        @if($p->size_id > 0)
-                          <br>Size: {{$p->size_name}}
-                        @endif
-                        @if($p->option_id > 0)
-                          <br>Repack: {{$p->option_name}} - ${{CommonHelper::formatNumber($p->option_price)}}
-                        @endif
+                    </td>
+                    <td>
+                      @if($p->price > $p->discounted_price)
+                        <s>${{$p->price}}</s>
+                      @endif
+                      <span class="scheme_color fw_medium" id="product{{$p->product_id}}-size{{$p->size_id}}-discounted-price" data-discounted-price="{{$p->discounted_price}}">${{$p->discounted_price}}</span>
+                    </td>
+                    <td>
+                      <div class="clearfix quantity r_corners d_inline_middle f_size_medium color_dark m_bottom_10">
+                        <button class="bg_tr d_block f_left" data-direction="down" onclick="updateQuantity(this)">-</button>
+                        <input type="text" id="product{{$p->product_id}}-size{{$p->size_id}}-quantity" value="{{$p->quantity}}" class="f_left">
+                        <button class="bg_tr d_block f_left" data-direction="up" onclick="updateQuantity(this)">+</button>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    @if($p->price > $p->discounted_price)
-                      <s>${{$p->price}}</s>
-                    @endif
-                    <span class="scheme_color fw_medium" id="product{{$p->product_id}}-size{{$p->size_id}}-discounted-price" data-discounted-price="{{$p->discounted_price}}">${{$p->discounted_price}}</span>
-                  </td>
-                  <td>
-                    <div class="clearfix quantity r_corners d_inline_middle f_size_medium color_dark m_bottom_10">
-                      <button class="bg_tr d_block f_left" data-direction="down" onclick="updateQuantity(this)">-</button>
-                      <input type="text" id="product{{$p->product_id}}-size{{$p->size_id}}-quantity" value="{{$p->quantity}}" class="f_left">
-                      <button class="bg_tr d_block f_left" data-direction="up" onclick="updateQuantity(this)">+</button>
-                    </div>
-                    <div>
+                      <div>
                       <span class="link color_dark" onclick="updateCart('{{$p->product_id}}', '{{$p->size_id}}')">
                         <i class="fa fa-check f_size_medium m_right_5"></i>Update
                       </span><br>
                       <span class="link color_dark" onclick="removeFromCart('{{$p->product_id}}', '{{$p->size_id}}')">
                         <i class="fa fa-times f_size_medium m_right_5"></i>Remove
                       </span>
-                    </div>
-                  </td>
-                  <td>
-                    <p id='product{{$p->product_id}}-size{{$p->size_id}}-subtotal' class="subtotal f_size_large fw_medium scheme_color">${{CommonHelper::formatNumber($p->subtotal)}}</p>
-                  </td>
-                </tr>
-                <?php $gross_total += $p->subtotal; ?>
-              @endforeach
+                      </div>
+                    </td>
+                    <td>
+                      <p id='product{{$p->product_id}}-size{{$p->size_id}}-subtotal' class="subtotal f_size_large fw_medium scheme_color">${{CommonHelper::formatNumber($p->subtotal)}}</p>
+                    </td>
+                  </tr>
+                  <?php $gross_total += $p->subtotal; ?>
+                @endforeach
 
-              @if($logged_in)
-                <?php $can_redeem_points = $customer->points >= 1200; ?>
-                <?php $points_colspan = $can_redeem_points ? 1 : 3; ?>
-                <tr>
-                  <td colspan="{{$points_colspan}}" class="v_align_m t_align_r">
-                    <p class="f_size_large">
+                @if($logged_in)
+                  <?php $can_redeem_points = $customer->points >= 1200; ?>
+                  <?php $points_colspan = $can_redeem_points ? 1 : 3; ?>
+                  <tr>
+                    <td colspan="{{$points_colspan}}" class="v_align_m t_align_r">
+                      <p class="f_size_large">
                       <span class="d_inline_middle">
                         You have: <span id="current-points">{{$customer->points}}</span> Paw Points<br>
                         You will earn: <span id="earn-points">{{$points}}</span> Paw Points<br>
                         <span id="spend-points"></span>
                         You will have: <span id="result-points">{{$customer->points + $points}}</span> Paw Points
                       </span>
-                    </p>
-                  </td>
-                  @if($can_redeem_points)
-                  <td colspan="2" class="v_align_m t_align_r">
-                    <input type="radio" id="points-1200" name="redeem-points" data-redeem-amt='10' class="d_none" value="1200" onclick="redeemPoints()">
-                    <label for="points-1200">1200 Paw Points = $10 discount</label><br>
-                    <input type="radio" id="points-3000" name="redeem-points" data-redeem-amt='25' class="d_none" value="3000" onclick="redeemPoints()">
-                    <label for="points-3000">3000 Paw Points = $25 discount</label><br>
-                    <input type="radio" id="points-5000" name="redeem-points" data-redeem-amt='50' class="d_none" value="5000" onclick="redeemPoints()">
-                    <label for="points-5000">5000 Paw Points = $50 discount</label>
-                  </td>
-                  @endif
-                  <td colspan="1" class="v_align_m">
-                    <p id='redeem-amt' class="fw_medium f_size_large m_xs_bottom_10">$0</p>
-                  </td>
-                </tr>
-              @else
+                      </p>
+                    </td>
+                    @if($can_redeem_points)
+                      <td colspan="2" class="v_align_m t_align_r">
+                        <input type="radio" id="points-1200" name="redeem_points" data-redeem-amt='10' class="d_none" value="1200" onclick="redeemPoints()">
+                        <label for="points-1200">1200 Paw Points = $10 discount</label><br>
+                        @if($customer->points >= 3000)
+                          <input type="radio" id="points-3000" name="redeem_points" data-redeem-amt='25' class="d_none" value="3000" onclick="redeemPoints()">
+                          <label for="points-3000">3000 Paw Points = $25 discount</label><br>
+                        @endif
+                        @if($customer->points >= 5000)
+                          <input type="radio" id="points-5000" name="redeem_points" data-redeem-amt='50' class="d_none" value="5000" onclick="redeemPoints()">
+                          <label for="points-5000">5000 Paw Points = $50 discount</label>
+                        @endif
+                      </td>
+                      <td colspan="1" class="v_align_m">
+                        <p id='redeem-amt' class="fw_medium f_size_large m_xs_bottom_10">$0</p>
+                      </td>
+                    @else
+                      <td colspan="1" class="v_align_m"></td>
+                    @endif
+                  </tr>
+                @else
+                  <tr>
+                    <td colspan="3" class="v_align_m t_align_r">
+                      <p class="f_size_large">You will earn: {{$points}} Paw Points</p>
+                    </td>
+                    <td colspan="1" class="v_align_m t_align_r">
+
+                    </td>
+                  </tr>
+                @endif
+                <?php $promo_total = 0; ?>
+                <?php $total = $gross_total - 0; ?>
                 <tr>
-                  <td colspan="3" class="v_align_m t_align_r">
-                    <p class="f_size_large">You will earn: {{$points}} Paw Points</p>
-                  </td>
-                  <td colspan="1" class="v_align_m t_align_r">
+                  <td colspan="3" class="v_align_m">
+                    <p class="f_size_large t_align_r">
+                      <input type="text" placeholder="Promo Code" name="" class="r_corners f_size_medium">
+                      <button class="button_type_4 r_corners bg_light_color_2 m_left_5 mw_0 tr_all_hover color_dark" style="margin-right: 20px">Save</button>
+                      <span class="fw_medium d_inline_middle">Promo Discount: </span>
+                    </p>
+                  <td colspan="1" class="v_align_m">
 
+                    <p class="fw_medium f_size_large m_xs_bottom_10">${{CommonHelper::formatNumber($promo_total)}}</p>
                   </td>
                 </tr>
-              @endif
-              <?php $promo_total = 0; ?>
-              <?php $total = $gross_total - 0; ?>
-              <tr>
-                <td colspan="3" class="v_align_m">
-                  <p class="f_size_large t_align_r">
-                    <input type="text" placeholder="Promo Code" name="" class="r_corners f_size_medium">
-                    <button class="button_type_4 r_corners bg_light_color_2 m_left_5 mw_0 tr_all_hover color_dark" style="margin-right: 20px">Save</button>
-                    <span class="fw_medium d_inline_middle">Promo Discount: </span>
-                  </p>
-                <td colspan="1" class="v_align_m">
+                <tr>
+                  <td colspan="3" class="v_align_m">
+                    <p class="fw_medium f_size_large t_align_r t_xs_align_c scheme_color">Total:</p>
+                  </td>
+                  <td colspan="1" class="v_align_m">
+                    <p class="fw_medium f_size_large scheme_color m_xs_bottom_10" id="p-total">${{CommonHelper::formatNumber($total)}}</p>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
 
-                  <p class="fw_medium f_size_large m_xs_bottom_10">${{CommonHelper::formatNumber($promo_total)}}</p>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="3" class="v_align_m">
-                  <p class="fw_medium f_size_large t_align_r t_xs_align_c scheme_color">Total:</p>
-                </td>
-                <td colspan="1" class="v_align_m">
-                  <p class="fw_medium f_size_large scheme_color m_xs_bottom_10" id="p-total">${{CommonHelper::formatNumber($total)}}</p>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-
-            @if(! $logged_in)
-              <div class="alert_box r_corners info m_bottom_10">
-                <i class="fa fa-info-circle"></i><p>Please login or register to proceed</p>
-              </div>
-
-              <div class="tabs m_bottom_45">
-                <!--tabs navigation-->
-                <nav>
-                  <ul class="tabs_nav horizontal_list clearfix">
-                    <li><a href="#tab-login" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Login</a></li>
-                    <li><a href="#tab-register" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Register</a></li>
-                  </ul>
-                </nav>
-                <section class="tabs_content shadow r_corners">
-                  <div id="tab-login">
-                    <form method="post" action="login">
-                      {{csrf_field()}}
-
-                      @if ($errors->login->has())
-                        <div class="alert_box r_corners error m_bottom_10">
-                          <i class="fa fa-exclamation"></i>
-                          <p>
-                            @foreach ($errors->login->all() as $error)
-                              {{ $error }}<br>
-                            @endforeach
-                          </p>
-                        </div>
-                      @endif
-
-                      <input type="hidden" name="referrer" value="checkout">
-                      <ul>
-                        <li class="clearfix m_bottom_15">
-                          <div class="half_column type_2 f_left">
-                            <label for="username" class="m_bottom_5 d_inline_b">Email</label>
-                            <input type="text" name="email" class="r_corners full_width m_bottom_5">
-                          </div>
-                          <div class="half_column type_2 f_left">
-                            <label for="pass" class="m_bottom_5 d_inline_b">Password</label>
-                            <input type="password" name="password" class="r_corners full_width m_bottom_5">
-                          </div>
-                        </li>
-                        <li class="clearfix m_bottom_10">
-                          <div class="half_column type_2 f_left">
-                            <button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover">Log In</button>
-                          </div>
-                          <div class="half_column type_2 f_left">
-                            <a href="#" class="color_dark f_size_medium">Forgot your password?</a>
-                          </div>
-                        </li>
-                      </ul>
-                    </form>
-                  </div>
-                  <div id="tab-register">
-                    <form method="post" action="register">
-                      {{csrf_field()}}
-                      <input type="hidden" name="referrer" value="checkout">
-                      @include('register-form')
-                    </form>
-                  </div>
-                </section>
-              </div>
-
-              <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Delivery Address</h2>
-              <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Delivery Date</h2>
-              <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Delivery Time</h2>
-              <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Payment Type</h2>
-              <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Remarks</h2>
-            @else
-
-              @if ($errors->checkout->has())
-                <div class="alert_box r_corners error m_bottom_20">
-                  <i class="fa fa-exclamation"></i>
-                  <p>
-                    @foreach ($errors->checkout->all() as $error)
-                      {{ $error }}<br>
-                    @endforeach
-                  </p>
+              @if(! $logged_in)
+                <div class="alert_box r_corners info m_bottom_10">
+                  <i class="fa fa-info-circle"></i><p>Please login or register to proceed</p>
                 </div>
-              @endif
 
-              <form method="post" action="">
-                {{ csrf_field() }}
+                <div class="tabs m_bottom_45">
+                  <!--tabs navigation-->
+                  <nav>
+                    <ul class="tabs_nav horizontal_list clearfix">
+                      <li><a href="#tab-login" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Login</a></li>
+                      <li><a href="#tab-register" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Register</a></li>
+                    </ul>
+                  </nav>
+                  <section class="tabs_content shadow r_corners">
+                    <div id="tab-login">
+                      <form method="post" action="login">
+                        {{csrf_field()}}
+
+                        @if ($errors->login->has())
+                          <div class="alert_box r_corners error m_bottom_10">
+                            <i class="fa fa-exclamation"></i>
+                            <p>
+                              @foreach ($errors->login->all() as $error)
+                                {{ $error }}<br>
+                              @endforeach
+                            </p>
+                          </div>
+                        @endif
+
+                        <input type="hidden" name="referrer" value="checkout">
+                        <ul>
+                          <li class="clearfix m_bottom_15">
+                            <div class="half_column type_2 f_left">
+                              <label for="username" class="m_bottom_5 d_inline_b">Email</label>
+                              <input type="text" name="email" class="r_corners full_width m_bottom_5">
+                            </div>
+                            <div class="half_column type_2 f_left">
+                              <label for="pass" class="m_bottom_5 d_inline_b">Password</label>
+                              <input type="password" name="password" class="r_corners full_width m_bottom_5">
+                            </div>
+                          </li>
+                          <li class="clearfix m_bottom_10">
+                            <div class="half_column type_2 f_left">
+                              <button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover">Log In</button>
+                            </div>
+                            <div class="half_column type_2 f_left">
+                              <a href="#" class="color_dark f_size_medium">Forgot your password?</a>
+                            </div>
+                          </li>
+                        </ul>
+                      </form>
+                    </div>
+                    <div id="tab-register">
+                      <form method="post" action="register">
+                        {{csrf_field()}}
+                        <input type="hidden" name="referrer" value="checkout">
+                        @include('register-form')
+                      </form>
+                    </div>
+                  </section>
+                </div>
+
+                <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Delivery Address</h2>
+                <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Delivery Date</h2>
+                <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Delivery Time</h2>
+                <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Payment Type</h2>
+                <h2 class="tt_uppercase color_dark m_bottom_15 checkout-header-disabled">Remarks</h2>
+              @else
+
+                @if ($errors->checkout->has())
+                  <div class="alert_box r_corners error m_bottom_20">
+                    <i class="fa fa-exclamation"></i>
+                    <p>
+                      @foreach ($errors->checkout->all() as $error)
+                        {{ $error }}<br>
+                      @endforeach
+                    </p>
+                  </div>
+                @endif
+
                 <h2 class="tt_uppercase color_dark m_bottom_15">
                   Delivery Address
                   @if($errors->has('delivery_choice')) <span class="error">(Required)</span> @endif
@@ -378,8 +383,8 @@
                 </table>
 
                 <button type="submit" class="button_type_6 bg_scheme_color f_size_large r_corners tr_all_hover color_light m_bottom_20">Confirm Purchase</button>
-              </form>
-            @endif
+              @endif
+            </form>
           @endif
         </section>
       </div>
@@ -466,12 +471,12 @@
       var prefix = getElementPrefix(product_id, size_id);
       return parseFloat($(prefix+"discounted-price").attr('data-discounted-price'));
     }
-    
+
     function getRedeemAmt() {
-      return parseFloat($("input[name='redeem-points']:checked").attr('data-redeem-amt'));
+      return parseFloat($("input[name='redeem_points']:checked").attr('data-redeem-amt'));
     }
     function getRedeemPoints() {
-      return parseFloat($("input[name='redeem-points']:checked").val());
+      return parseFloat($("input[name='redeem_points']:checked").val());
     }
 
     function getQuantity(product_id, size_id) {
@@ -518,7 +523,7 @@
       var current_points = parseFloat($("#current-points").text());
       var earn_points = parseFloat($("#earn-points").text());
       var result_points = current_points + earn_points - redeem_points;
-      //console.log('current='+current_points+' earn='+earn_points + ' redeem='+redeem_points+' result='+result_points);
+      console.log('current='+current_points+' earn='+earn_points + ' redeem='+redeem_points+' result='+result_points);
       $("#result-points").html("<b>"+result_points+"</b>");
       updateTotal();
     }

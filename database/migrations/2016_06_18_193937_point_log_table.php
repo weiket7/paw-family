@@ -26,7 +26,7 @@ class PointLogTable extends Migration
       'customer_id'=>1,
       'sale_id'=>1,
       'sign'=>'+',
-      'type'=> PointType::Award,
+      'type'=> PointType::Earn,
       'sale_no'=>'123456',
       'point_change'=>357,
       'point_before'=>0,

@@ -28,26 +28,24 @@ class Customer extends Eloquent
     return DB::table("pet")->where("customer_id", $customer_id)->get();
   }
 
-  public function addPointAndLog($customer_id, $points, $sale_id, $sale_no) {
-    $customer = Customer::find($customer_id);
-
-    $s = "UPDATE customer set points = points + :points where customer_id = :customer_id";
-    $p['customer_id'] = $customer_id;
+  public function redeemPointAndLog($points, $sale_id, $sale_no) {
+    $s = "UPDATE customer set points = points - :points where customer_id = :customer_id";
+    $p['customer_id'] = $this->customer_id;
     $p['points'] = $points;
     DB::statement($s, $p);
 
-    $point_log = [
-      'customer_id'=>1,
-      'sale_id'=>$sale_id,
-      'sale_no'=>$sale_no,
-      'sign'=>'+',
-      'type'=>PointType::Award,
-      'point_change'=>$points,
-      'point_before'=>$customer->points,
-      'point_after'=>$customer->points + $points,
-      'created_on'=>date('Y-m-d H:i:s'),
-    ];
-    DB::table('point_log')->insert($point_log);
+    $point_log_service = new PointLog();
+    $point_log_service->savePointLog($this->customer_id, $this->points, $points, PointType::Redeem, $sale_id, $sale_no);
+  }
+
+  public function earnPointAndLog($points, $sale_id, $sale_no) {
+    $s = "UPDATE customer set points = points + :points where customer_id = :customer_id";
+    $p['customer_id'] = $this->customer_id;
+    $p['points'] = $points;
+    DB::statement($s, $p);
+
+    $point_log_service = new PointLog();
+    $point_log_service->savePointLog($this->customer_id, $this->points, $points, PointType::Earn, $sale_id, $sale_no);
   }
 
   public function getCustomer($customer_id) {

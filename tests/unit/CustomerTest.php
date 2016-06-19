@@ -82,9 +82,8 @@ class CustomerTest extends \Codeception\TestCase\Test
     $customer = Customer::find($customer_id);
     $current_points = $customer->points;
 
-    $customer_service = new Customer();
     $points = 120;
-    $customer_service->addPointAndLog($customer_id, $points, 1, '123456');
+    $customer->earnPointAndLog($points, 1, '123456');
 
     $customer = Customer::find($customer_id);
     $this->assertEquals($current_points + $points, $customer->points);

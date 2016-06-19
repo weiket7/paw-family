@@ -1,6 +1,6 @@
 <?php namespace App\Models\Entities;
 
-class DeliveryOption
+class CheckoutOption
 {
   public $payment_type;
   public $delivery_choice;
@@ -10,4 +10,6 @@ class DeliveryOption
   public $leave_outside_door;
   public $address_other;
   public $delivery_date;
+  public $redeem_points;
+  public $redeem_amt;
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\DeliveryDate;
-use App\Models\Entities\DeliveryOption;
+use App\Models\Entities\CheckoutOption;
 use App\Models\Entities\MailRequest;
 use App\Models\Enums\PaymentType;
 use App\Models\MailService;
@@ -19,19 +19,24 @@ class SaleController extends Controller
 {
   public function checkout(Request $request) {
     $products = $this->getCartFromSession();
+    $customer_id = Auth::id();
+    $customer = Customer::find($customer_id);
 
     if ($request->isMethod('post')) {
-      $sale = new Sale();
-      $customer_id = Auth::id();
       $input = $request->all();
+      $sale = new Sale();
       if (! $sale->validateDeliveryOption($input)) {
         return redirect('checkout')->withErrors($sale->getValidation(), 'checkout')->withInput($input);
       }
-      $delivery_option = $this->makeDeliveryOption($input);
-      $sale = $sale->checkoutCart($customer_id, $delivery_option, $products);
-      $customer_service = new Customer();
-      $customer_service->addPointAndLog($customer_id, $sale->points, $sale->sale_id, $sale->sale_no);
-      if ($delivery_option->payment_type == PaymentType::Paypal) {
+
+      $checkout_option = $this->makeCheckoutOption($input);
+      $sale = $sale->checkoutCart($customer_id, $checkout_option, $products);
+      $customer->earnPointAndLog($sale->points, $sale->sale_id, $sale->sale_no);
+      if ($checkout_option->redeem_points > 0) {
+        $customer->redeemPointAndLog($checkout_option->redeem_points, $sale->sale_id, $sale->sale_no);
+      }
+
+      if ($checkout_option->payment_type == PaymentType::Paypal) {
         $sale_service = new Sale();
         $paypal_field = (array)$sale_service->getPaypalField($sale->sale_no, $sale->nett_total);
         return view('paypal-process', $paypal_field);
@@ -42,8 +47,7 @@ class SaleController extends Controller
     $data['products'] = $products;
     $delivery_date_service = new DeliveryDate();
     $data['delivery_dates'] = $delivery_date_service->getAvailableDeliveryDate();
-    $customer_id = Auth::id();
-    $data['customer'] = Customer::find($customer_id);
+    $data['customer'] = $customer;
     $sale_service = new Sale();
     $sale_total = $sale_service->calcSaleTotal($products);
     $data['points'] = $sale_service->calcPoints($sale_total->nett_total);
@@ -150,17 +154,18 @@ class SaleController extends Controller
     Session::put('cart', []);
   }
 
-  private function makeDeliveryOption($input) {
-    $delivery_option = new DeliveryOption();
-    $delivery_option->payment_type = $input['payment_type'];
-    $delivery_option->delivery_choice = $input['delivery_choice'];
-    $delivery_option->address_other = $input['address_other'];
-    $delivery_option->customer_remark = $input['customer_remark'];
-    $delivery_option->delivery_time = $input['delivery_time'];
-    $delivery_option->delivery_date = $input['delivery_date'];
-    $delivery_option->gift_wrap = isset($input['gift_wrap']) ? "Y" : "N";
-    $delivery_option->leave_outside_door = isset($input['leave_outside_door']) ? "Y" : "N";
-    return $delivery_option;
+  private function makeCheckoutOption($input) {
+    $checkout_option = new CheckoutOption();
+    $checkout_option->payment_type = $input['payment_type'];
+    $checkout_option->redeem_points = isset($input['redeem_points']) ? $input['redeem_points'] : false;
+    $checkout_option->delivery_choice = $input['delivery_choice'];
+    $checkout_option->address_other = $input['address_other'];
+    $checkout_option->customer_remark = $input['customer_remark'];
+    $checkout_option->delivery_time = $input['delivery_time'];
+    $checkout_option->delivery_date = $input['delivery_date'];
+    $checkout_option->gift_wrap = isset($input['gift_wrap']) ? "Y" : "N";
+    $checkout_option->leave_outside_door = isset($input['leave_outside_door']) ? "Y" : "N";
+    return $checkout_option;
   }
 
 
