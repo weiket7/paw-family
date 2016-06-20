@@ -39,12 +39,13 @@ class SaleTest extends \Codeception\TestCase\Test
 
     $sale_service = new Sale();
     $customer_id = 1;
-    $delivery_option = new CheckoutOption();
-    $delivery_option->delivery_choice = DeliveryChoice::CurrentAddress;
-    $delivery_option->delivery_time = DeliveryTime::AnyTime;
-    $delivery_option->payment_type = PaymentType::Bank;
-    $delivery_option->delivery_date = date('Y-m-d');
-    $sale = $sale_service->checkoutCart($customer_id, $delivery_option, $products);
+    $checkout_option = new CheckoutOption();
+    $checkout_option->delivery_choice = DeliveryChoice::CurrentAddress;
+    $checkout_option->delivery_time = DeliveryTime::AnyTime;
+    $checkout_option->payment_type = PaymentType::Bank;
+    $checkout_option->delivery_date = date('Y-m-d');
+    $checkout_option->redeem_points = 1200;
+    $sale = $sale_service->checkoutCart($customer_id, $checkout_option, $products);
 
     $product1_size2_cost_price = 126.90;
     $product1_size2_price = 142.90;
@@ -61,7 +62,8 @@ class SaleTest extends \Codeception\TestCase\Test
 
     $gross_total = $product1_size2_price * $product1_quantity + $product1_size2_option2_price * $product1_quantity + $product2_price * $product2_quantity;
     $product_discount = $product1_size2_discount_amt * $product1_quantity + $product2_discount_amt * $product2_quantity;
-    $nett_total = $gross_total - $product_discount;
+    $redeem_amt = 10;
+    $nett_total = $gross_total - $product_discount - $redeem_amt;
     $cost_total = $product1_size2_cost_price * $product1_quantity + $product2_cost_price * $product2_quantity;
 
     $this->tester->seeRecord('sale', [
@@ -95,13 +97,13 @@ class SaleTest extends \Codeception\TestCase\Test
 
     $sale_service = new Sale();
     $customer_id = 1;
-    $delivery_option = new CheckoutOption();
-    $delivery_option->delivery_choice = DeliveryChoice::OtherAddress;
-    $delivery_option->address_other = $this->address_other;
-    $delivery_option->delivery_time = DeliveryTime::AnyTime;
-    $delivery_option->payment_type = PaymentType::Bank;
-    $delivery_option->delivery_date = 2;
-    $sale = $sale_service->checkoutCart($customer_id, $delivery_option, $products);
+    $checkout_option = new CheckoutOption();
+    $checkout_option->delivery_choice = DeliveryChoice::OtherAddress;
+    $checkout_option->address_other = $this->address_other;
+    $checkout_option->delivery_time = DeliveryTime::AnyTime;
+    $checkout_option->payment_type = PaymentType::Bank;
+    $checkout_option->delivery_date = 2;
+    $sale = $sale_service->checkoutCart($customer_id, $checkout_option, $products);
 
     $this->tester->seeRecord('sale', ['sale_no'=>$sale->sale_no, 'gross_total'=>21, 'nett_total'=>20]);
   }
@@ -173,7 +175,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $this->assertEquals(441.08, $sale_total->cost_total);
   }
 
-  public function testCalcSaleTotal2() {
+  public function testCalcSaleTotalWithRedeemAmt() {
     $product = new SaleProduct();
     $product->price = 5.25;
     $product->discounted_price = 5;
@@ -184,10 +186,10 @@ class SaleTest extends \Codeception\TestCase\Test
     $products[] = $product;
 
     $sale_service = new Sale();
-    $sale_total = $sale_service->calcSaleTotal($products);
+    $sale_total = $sale_service->calcSaleTotal($products, 10);
     $this->assertEquals(21, $sale_total->gross_total);
     $this->assertEquals(1, $sale_total->product_discount);
-    $this->assertEquals(20, $sale_total->nett_total);
+    $this->assertEquals(10, $sale_total->nett_total);
     $this->assertEquals(16, $sale_total->cost_total);
   }
 

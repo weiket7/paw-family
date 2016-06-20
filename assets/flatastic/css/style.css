@@ -1949,7 +1949,7 @@ blockquote:after{
 .table_type_3 tr:first-child th:first-child,
 .table_type_4 tr:first-child th:nth-child(4),
 .table_type_6 tr:first-child td:first-child,
-.table_type_8 tr:first-child th:first-child{width:150px;}
+.table_type_8 tr:first-child th:first-child{width:180px;}
 .table_type_1 tr:first-child th:nth-child(2),
 .table_type_3 tr:first-child th:nth-child(2),
 .table_type_3 tr:first-child th:nth-child(3){width:262px;}

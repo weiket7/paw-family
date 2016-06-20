@@ -76,7 +76,7 @@ class Sale extends Eloquent
     $this->stat = SaleStat::Pending;
     $this->redeem_points = $checkout_option->redeem_points;
     $redeem_point_to_amt = $this->getRedeemPointToAmt();
-    $this->redeem_amt = $redeem_point_to_amt[$checkout_option->redeem_points];
+    $this->redeem_amt = $checkout_option->redeem_points ? $redeem_point_to_amt[$checkout_option->redeem_points] : 0;
     $this->payment_type = $checkout_option->payment_type;
     $this->delivery_choice = $checkout_option->delivery_choice;
     $this->delivery_date = $checkout_option->delivery_date;
@@ -96,7 +96,7 @@ class Sale extends Eloquent
       DB::table("sale_product")->insert((array)$product);
     }
 
-    $sale_total = $this->calcSaleTotal($products);
+    $sale_total = $this->calcSaleTotal($products, $this->redeem_amt);
     $this->gross_total = $sale_total->gross_total;
     $this->product_discount = $sale_total->product_discount;
     $this->nett_total = $sale_total->nett_total;
@@ -106,7 +106,7 @@ class Sale extends Eloquent
     return $this;
   }
 
-  public function calcSaleTotal($products) {
+  public function calcSaleTotal($products, $redeem_amt = 0) {
     $gross_total = 0;
     $product_discount = 0;
     $cost_total = 0;
@@ -120,7 +120,7 @@ class Sale extends Eloquent
     $sale_total = new SaleTotal();
     $sale_total->gross_total = $gross_total;
     $sale_total->product_discount = $product_discount;
-    $sale_total->nett_total = $gross_total - $product_discount;
+    $sale_total->nett_total = $gross_total - $product_discount - $redeem_amt;
     $sale_total->cost_total = $cost_total;
     return $sale_total;
   }
@@ -150,7 +150,7 @@ class Sale extends Eloquent
   }
 
   public function getSale($sale_id)   {
-    $s = "SELECT customer_id, sale_id, sale_no, stat, payment_type, product_discount, promo_discount, 
+    $s = "SELECT customer_id, sale_id, sale_no, stat, payment_type, product_discount, promo_discount, redeem_points, redeem_amt,
     delivery_choice, delivery_address, delivery_time, customer_remark, operator_remark, gross_total, nett_total, points, sale_on, paid_on, delivered_on
     FROM sale where sale_id = :sale_id";
     $p['sale_id'] = $sale_id;
@@ -247,9 +247,13 @@ class Sale extends Eloquent
   }
 
   public function getRedeemPointToAmt() {
-    $data[Cache::get("settings_cache")['redeemfirstpoint']] = Cache::get("settings_cache")['redeemfirstamt'];
-    $data[Cache::get("settings_cache")['redeemsecondpoint']] = Cache::get("settings_cache")['redeemsecondamt'];
-    $data[Cache::get("settings_cache")['redeemthirdpoint']] = Cache::get("settings_cache")['redeemthirdamt'];
+    $setting_service = new Setting();
+    $settings = $setting_service->getSettingAllWithNameKey();
+
+    $data[$settings['redeemfirstpoint']] = $settings['redeemfirstamt'];
+    $data[$settings['redeemsecondpoint']] = $settings['redeemsecondamt'];
+    $data[$settings['redeemthirdpoint']] = $settings['redeemthirdamt'];
+
     return $data;
   }
 

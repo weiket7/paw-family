@@ -19,6 +19,12 @@
               <td class="d_xs_none">Order Number</td>
               <td data-title="Order Number">{{$sale->sale_no}}</td>
             </tr>
+            @if($sale->redeem_points)
+            <tr>
+              <td class="d_xs_none">Paw Points Redeemed</td>
+              <td data-title="Paw Points">{{$sale->redeem_points}}</td>
+            </tr>
+            @endif
             <tr>
               <td class="d_xs_none">Total</td>
               <td data-title="Total">
@@ -60,6 +66,12 @@
                 <td>${{CommonHelper::formatNumber($product->subtotal)}}</td>
               </tr>
             @endforeach
+            @if($sale->redeem_points)
+              <tr>
+                <td colspan="3" class="t_align_r"></td>
+                <td>-${{CommonHelper::formatNumber($sale->redeem_amt)}}</td>
+              </tr>
+            @endif
             <tr>
               <td colspan="3" class="t_align_r">Total</td>
               <td>${{CommonHelper::formatNumber($sale->nett_total)}}</td>

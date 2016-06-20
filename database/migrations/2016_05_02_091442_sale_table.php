@@ -26,15 +26,17 @@ class SaleTable extends Migration
       $t->decimal('promo_discount', 9,2);
       $t->decimal('redeem_amt', 9,2)->nullable();
       $t->integer('redeem_points')->nullable();
-      $t->decimal('bulk_discount', 9,2);
+      $t->decimal('bulk_discount', 9,2)->nullable();
       $t->decimal('delivery_amt', 9, 2);
       $t->date('delivery_date');
       $t->decimal('nett_total', 9,2); //after subtractions
       $t->decimal('cost_total', 9, 2);
       $t->decimal('profit_total', 9, 2); //nett_total - cost_total
-      $t->integer('points');
       $t->char('delivery_choice', 1);
-      $t->string('delivery_address', 200);
+      $t->string('address', 100);
+      $t->string('postal', 10);
+      $t->string('building', 20)->nullable();
+      $t->string('lift lobby', 10)->nullable();
       $t->string('delivery_time', 20);
       $t->string('customer_remark', 200)->nullable();
       $t->string('operator_remark', 200)->nullable();

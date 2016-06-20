@@ -322,7 +322,6 @@
 <script src="{{url("assets/flatastic")}}/js/custom.js"></script>
 <script src="{{url("assets")}}/js/bootstrap3-typeahead.min.js"></script>
 <script src="{{url("assets")}}/js/jquery.powertip.min.js"></script>
-<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5306f8f674bfda4c"></script>
 
 <script type="text/javascript">
   var objects;

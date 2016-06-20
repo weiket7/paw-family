@@ -192,7 +192,7 @@ class Customer extends Eloquent
   }
 
   public function getSale($customer_id) {
-    return DB::table("sale")->where("customer_id", $customer_id)->get();
+    return DB::table("sale")->where("customer_id", $customer_id)->orderBy("sale_on", "desc")->get();
   }
 
   public function resetPassword($input) {
