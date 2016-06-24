@@ -101,19 +101,19 @@
                   </td>
                   @if($can_redeem_points)
                     <td colspan="2" class="v_align_m t_align_r">
-                      <input type="radio" id="points-1200" name="redeem_points" data-redeem-amt='10' class="d_none" value="1200" onclick="redeemPoints()">
+                      <input type="radio" id="points-1200" name="redeem_points" data-redeemed-amt='10' class="d_none" value="1200" onclick="redeemPoints()">
                       <label for="points-1200">1200 Paw Points = $10 discount</label><br>
                       @if($customer->points >= 3000)
-                        <input type="radio" id="points-3000" name="redeem_points" data-redeem-amt='25' class="d_none" value="3000" onclick="redeemPoints()">
+                        <input type="radio" id="points-3000" name="redeem_points" data-redeemed-amt='25' class="d_none" value="3000" onclick="redeemPoints()">
                         <label for="points-3000">3000 Paw Points = $25 discount</label><br>
                       @endif
                       @if($customer->points >= 5000)
-                        <input type="radio" id="points-5000" name="redeem_points" data-redeem-amt='50' class="d_none" value="5000" onclick="redeemPoints()">
+                        <input type="radio" id="points-5000" name="redeem_points" data-redeemed-amt='50' class="d_none" value="5000" onclick="redeemPoints()">
                         <label for="points-5000">5000 Paw Points = $50 discount</label>
                       @endif
                     </td>
                     <td colspan="1" class="v_align_m">
-                      <p id='redeem-amt' class="fw_medium f_size_large m_xs_bottom_10">$0</p>
+                      <p id='redeemed-amt' class="fw_medium f_size_large m_xs_bottom_10">$0</p>
                     </td>
                   @else
                     <td colspan="1" class="v_align_m"></td>
@@ -414,8 +414,9 @@
         //console.log('subtotal='+subtotal+' typeof='+typeof subtotal);
         total += subtotal;
       });
-      total = total - getRedeemAmt();
-      //console.log('total='+total+' redeem_amt='+redeem_amt);
+      var redeemed_amt = getRedeemAmt();
+      total = total - redeemed_amt();
+      //console.log('total='+total+' redeemed_amt='+redeemed_amt);
       $("#p-total").text("$" + toTwoDecimal(total));
 
       refreshCartButton();
@@ -464,7 +465,7 @@
     }
 
     function getRedeemAmt() {
-      return parseFloat($("input[name='redeem_points']:checked").attr('data-redeem-amt'));
+      return parseFloat($("input[name='redeem_points']:checked").attr('data-redeemed-amt'));
     }
     function getRedeemPoints() {
       return parseFloat($("input[name='redeem_points']:checked").val());
@@ -507,8 +508,8 @@
     }
 
     function redeemPoints() {
-      var redeem_amt = getRedeemAmt();
-      $("#redeem-amt").text('-$'+redeem_amt);
+      var redeemed_amt = getRedeemAmt();
+      $("#redeemed-amt").text('-$'+redeemed_amt);
       var redeem_points = getRedeemPoints();
       $("#spend-points").html("<b>You will spend " + redeem_points + " Paw Points</b><br>");
       var current_points = parseFloat($("#current-points").text());

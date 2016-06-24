@@ -203,7 +203,7 @@
               <td>{{$sale->gross_total}}</td>
               <td>{{$sale->product_discount}}</td>
               <td>{{$sale->promo_discount}}</td>
-              <td>{{$sale->flat_discount}}</td>
+              <td>{{$sale->bulk_discount}}</td>
               <td>{{$sale->delivery_amt}}</td>
               <td>{{$sale->nett_total}}</td>
             </tr>

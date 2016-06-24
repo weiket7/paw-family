@@ -69,7 +69,7 @@
             @if($sale->redeem_points)
               <tr>
                 <td colspan="3" class="t_align_r"></td>
-                <td>-${{CommonHelper::formatNumber($sale->redeem_amt)}}</td>
+                <td>-${{CommonHelper::formatNumber($sale->redeemed_amt)}}</td>
               </tr>
             @endif
             <tr>

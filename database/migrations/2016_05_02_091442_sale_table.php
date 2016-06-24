@@ -24,8 +24,9 @@ class SaleTable extends Migration
       $t->decimal('product_discount', 9,2);
       $t->integer('promo_id')->nullable();
       $t->decimal('promo_discount', 9,2);
-      $t->decimal('redeem_amt', 9,2)->nullable();
-      $t->integer('redeem_points')->nullable();
+      $t->decimal('redeemed_amt', 9,2)->nullable();
+      $t->integer('redeemed_points')->nullable();
+      $t->integer('earned_points')->nullable();
       $t->decimal('bulk_discount', 9,2)->nullable();
       $t->decimal('delivery_amt', 9, 2);
       $t->date('delivery_date');
@@ -44,16 +45,16 @@ class SaleTable extends Migration
 
     DB::table('sale')->insert([
       'sale_id'=>1, 'sale_no'=>'123456', 'customer_id'=>1, 'stat'=>SaleStat::Paid, 'payment_type'=>PaymentType::Bank,
-      'delivery_choice'=> DeliveryChoice::OtherAddress, 'delivery_address'=>'my other address', 'delivery_time'=> DeliveryTime::$values[DeliveryTime::AnyTime],
+      'delivery_choice'=> DeliveryChoice::OtherAddress, 'address'=>'my other address', 'delivery_time'=> DeliveryTime::$values[DeliveryTime::AnyTime],
       'customer_remark'=>'customer remark', 'product_discount'=>20,
-      'gross_total'=>377.65, 'nett_total'=>357.65, 'points'=>357, 'sale_on'=>date('Y-m-d H:i:s'),
+      'gross_total'=>377.65, 'nett_total'=>357.65, 'earned_points'=>357, 'sale_on'=>date('Y-m-d H:i:s'),
     ]);
 
     DB::table('sale')->insert([
       'sale_id'=>2, 'sale_no'=>'123457', 'customer_id'=>1, 'stat'=>SaleStat::Pending, 'payment_type'=>PaymentType::Paypal,
-      'delivery_choice'=> DeliveryChoice::CurrentAddress, 'delivery_address'=>'', 'delivery_time'=> DeliveryTime::$values[DeliveryTime::Four30to8],
+      'delivery_choice'=> DeliveryChoice::CurrentAddress, 'address'=>'', 'delivery_time'=> DeliveryTime::$values[DeliveryTime::Four30to8],
       'customer_remark'=>'customer remark', 'product_discount'=>1,
-      'gross_total'=>21, 'nett_total'=>20, 'points'=>20, 'sale_on'=>date('Y-m-d H:i:s'),
+      'gross_total'=>21, 'nett_total'=>20, 'earned_points'=>20, 'sale_on'=>date('Y-m-d H:i:s'),
     ]);
   }
 

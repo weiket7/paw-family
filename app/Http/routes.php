@@ -159,7 +159,7 @@ Route::get('test', function() {
   $checkout_option->delivery_time = DeliveryTime::AnyTime;
   $checkout_option->payment_type = PaymentType::Bank;
   $checkout_option->delivery_date = date('Y-m-d');
-  $checkout_option->redeem_points = 1200;
+  $checkout_option->redeemed_points = 1200;
 
   $sale = $sale_service->checkoutCart($customer_id, $checkout_option, $products);
 

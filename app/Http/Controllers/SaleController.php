@@ -31,9 +31,9 @@ class SaleController extends Controller
 
       $checkout_option = $this->makeCheckoutOption($input);
       $sale = $sale->checkoutCart($customer_id, $checkout_option, $products);
-      $customer->earnPointAndLog($sale->points, $sale->sale_id, $sale->sale_no);
-      if ($checkout_option->redeem_points > 0) {
-        $customer->redeemPointAndLog($checkout_option->redeem_points, $sale->sale_id, $sale->sale_no);
+      $customer->earnPointAndLog($sale->earned_points, $sale->sale_id, $sale->sale_no);
+      if ($checkout_option->redeemed_points > 0) {
+        $customer->redeemPointAndLog($checkout_option->redeemed_points, $sale->sale_id, $sale->sale_no);
       }
 
       if ($checkout_option->payment_type == PaymentType::Paypal) {
@@ -157,7 +157,7 @@ class SaleController extends Controller
   private function makeCheckoutOption($input) {
     $checkout_option = new CheckoutOption();
     $checkout_option->payment_type = $input['payment_type'];
-    $checkout_option->redeem_points = isset($input['redeem_points']) ? $input['redeem_points'] : 0;
+    $checkout_option->redeemed_points = isset($input['redeem_points']) ? $input['redeem_points'] : 0;
     $checkout_option->delivery_choice = $input['delivery_choice'];
     $checkout_option->address_other = $input['address_other'];
     $checkout_option->customer_remark = $input['customer_remark'];

@@ -10,6 +10,6 @@ class CheckoutOption
   public $leave_outside_door;
   public $address_other;
   public $delivery_date;
-  public $redeem_points;
-  public $redeem_amt;
+  public $redeemed_points;
+  public $redeemed_amt;
 }

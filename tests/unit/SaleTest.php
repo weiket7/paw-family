@@ -44,7 +44,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $checkout_option->delivery_time = DeliveryTime::AnyTime;
     $checkout_option->payment_type = PaymentType::Bank;
     $checkout_option->delivery_date = date('Y-m-d');
-    $checkout_option->redeem_points = 1200;
+    $checkout_option->redeemed_points = 1200;
     $sale = $sale_service->checkoutCart($customer_id, $checkout_option, $products);
 
     $product1_size2_cost_price = 126.90;
@@ -62,13 +62,13 @@ class SaleTest extends \Codeception\TestCase\Test
 
     $gross_total = $product1_size2_price * $product1_quantity + $product1_size2_option2_price * $product1_quantity + $product2_price * $product2_quantity;
     $product_discount = $product1_size2_discount_amt * $product1_quantity + $product2_discount_amt * $product2_quantity;
-    $redeem_amt = 10;
-    $nett_total = $gross_total - $product_discount - $redeem_amt;
+    $redeemed_amt = 10;
+    $nett_total = $gross_total - $product_discount - $redeemed_amt;
     $cost_total = $product1_size2_cost_price * $product1_quantity + $product2_cost_price * $product2_quantity;
 
     $this->tester->seeRecord('sale', [
       'sale_no'=>$sale->sale_no, 'cost_total'=>$cost_total, 'gross_total'=>$gross_total, 'nett_total'=>$nett_total,
-      'redeem_points'=>1200, 'redeem_amt'=>10,
+      'redeemed_points'=>1200, 'redeemed_amt'=>10,
       'delivery_date'=>date('Y-m-d'),
     ]);
 
@@ -110,20 +110,20 @@ class SaleTest extends \Codeception\TestCase\Test
 
   public function testGetDeliveryAddress_SelfCollect() {
     $sale_service = new Sale();
-    $delivery_address = $sale_service->getDeliveryAddress(DeliveryChoice::SelfCollect, $this->address_other, 1);
-    $this->assertEquals(DeliveryChoice::$values[DeliveryChoice::SelfCollect], $delivery_address);
+    $address = $sale_service->getDeliveryAddress(DeliveryChoice::SelfCollect, $this->address_other, 1);
+    $this->assertEquals(DeliveryChoice::$values[DeliveryChoice::SelfCollect], $address);
   }
 
   public function testGetDeliveryAddress_OtherAddress() {
     $sale_service = new Sale();
-    $delivery_address = $sale_service->getDeliveryAddress(DeliveryChoice::OtherAddress, $this->address_other, 1);
-    $this->assertEquals($this->address_other, $delivery_address);
+    $address = $sale_service->getDeliveryAddress(DeliveryChoice::OtherAddress, $this->address_other, 1);
+    $this->assertEquals($this->address_other, $address);
   }
 
   public function testGetDeliveryAddress_CurrentAddress() {
     $sale_service = new Sale();
-    $delivery_address = $sale_service->getDeliveryAddress(DeliveryChoice::CurrentAddress, $this->address_other, 1);
-    $this->assertEquals("Blk 134, Bedok Reservoir Rd", $delivery_address);
+    $address = $sale_service->getDeliveryAddress(DeliveryChoice::CurrentAddress, $this->address_other, 1);
+    $this->assertEquals("Blk 134, Bedok Reservoir Rd", $address);
   }
 
   public function testCalculatePoint() {

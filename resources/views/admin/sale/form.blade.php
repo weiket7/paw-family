@@ -94,8 +94,8 @@
             <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->nett_total)}} </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-3 name"> Points: </div>
-            <div class="col-md-9 value"> {{$sale->points}} </div>
+            <div class="col-md-3 name"> Earned Points: </div>
+            <div class="col-md-9 value"> {{$sale->earned_points}} </div>
           </div>
         </div>
       </div>
@@ -129,7 +129,7 @@
           </div>
           <div class="row static-info">
             <div class="col-md-3 name"> Address: </div>
-            <div class="col-md-9 value"> {{$sale->delivery_address}} </div>
+            <div class="col-md-9 value"> {{$sale->address}} </div>
           </div>
           <div class="row static-info">
             <div class="col-md-3 name"> Time: </div>
