@@ -44,3 +44,7 @@
 hr {
   margin-top: 15px;
 }
+
+.txt-border-red {
+  border: 2px solid #cb2700;
+}

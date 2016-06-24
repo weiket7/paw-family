@@ -6,6 +6,7 @@ use App\Models\Entities\SaleProduct;
 use App\Models\Entities\SaleTotal;
 use App\Models\Enums\DeliveryChoice;
 use App\Models\Enums\DeliveryTime;
+use App\Models\Enums\PaymentType;
 use App\Models\Enums\SaleStat;
 use Cache;
 use Carbon\Carbon;
@@ -68,6 +69,11 @@ class Sale extends Eloquent
       return false;
     }
 
+    if ($input['payment_type'] == PaymentType::Bank && empty($input['bank_ref'])) {
+      $this->validation->errors()->add("bank_ref", "Bank reference number required");
+      return false;
+    }
+
     return true;
   }
 
@@ -83,6 +89,7 @@ class Sale extends Eloquent
     $this->address = $this->getDeliveryAddress($checkout_option->delivery_choice, $checkout_option->address_other, $customer_id);
     $this->delivery_time = DeliveryTime::$values[$checkout_option->delivery_time];
     $this->customer_remark = $checkout_option->customer_remark;
+    $this->bank_ref = $checkout_option->bank_ref;
     $this->sale_on = date("Y-m-d H:i:s");
     $this->sale_no = $this->getSaleNoAndIncrement();
     $this->save();
@@ -151,7 +158,8 @@ class Sale extends Eloquent
 
   public function getSale($sale_id)   {
     $s = "SELECT customer_id, sale_id, sale_no, stat, payment_type, product_discount, promo_discount, redeemed_points, redeemed_amt, earned_points,
-    delivery_choice, address, delivery_time, customer_remark, operator_remark, gross_total, nett_total, sale_on, paid_on, delivered_on
+    delivery_choice, address, postal, building, lift_lobby, delivery_time, customer_remark, operator_remark, bank_ref,
+    gross_total, nett_total, sale_on, paid_on, delivered_on
     FROM sale where sale_id = :sale_id";
     $p['sale_id'] = $sale_id;
     $sale = DB::select($s, $p)[0];

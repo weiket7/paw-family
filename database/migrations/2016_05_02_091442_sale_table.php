@@ -37,8 +37,9 @@ class SaleTable extends Migration
       $t->string('address', 100);
       $t->string('postal', 10);
       $t->string('building', 20)->nullable();
-      $t->string('lift lobby', 10)->nullable();
+      $t->string('lift_lobby', 10)->nullable();
       $t->string('delivery_time', 20);
+      $t->string('bank_ref', 20)->nullable();
       $t->string('customer_remark', 200)->nullable();
       $t->string('operator_remark', 200)->nullable();
     });
@@ -46,8 +47,8 @@ class SaleTable extends Migration
     DB::table('sale')->insert([
       'sale_id'=>1, 'sale_no'=>'123456', 'customer_id'=>1, 'stat'=>SaleStat::Paid, 'payment_type'=>PaymentType::Bank,
       'delivery_choice'=> DeliveryChoice::OtherAddress, 'address'=>'my other address', 'delivery_time'=> DeliveryTime::$values[DeliveryTime::AnyTime],
-      'customer_remark'=>'customer remark', 'product_discount'=>20,
-      'gross_total'=>377.65, 'nett_total'=>357.65, 'earned_points'=>357, 'sale_on'=>date('Y-m-d H:i:s'),
+      'customer_remark'=>'customer remark', 'product_discount'=>20, 'redeemed_amt'=>10, 'redeemed_points'=>1200,
+      'gross_total'=>377.65, 'nett_total'=>347.65, 'earned_points'=>357, 'sale_on'=>date('Y-m-d H:i:s'), 'bank_ref'=>'1234-5678-1234'
     ]);
 
     DB::table('sale')->insert([

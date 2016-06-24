@@ -43,6 +43,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $checkout_option->delivery_choice = DeliveryChoice::CurrentAddress;
     $checkout_option->delivery_time = DeliveryTime::AnyTime;
     $checkout_option->payment_type = PaymentType::Bank;
+    $checkout_option->bank_ref = "1234-5678";
     $checkout_option->delivery_date = date('Y-m-d');
     $checkout_option->redeemed_points = 1200;
     $sale = $sale_service->checkoutCart($customer_id, $checkout_option, $products);
@@ -68,8 +69,7 @@ class SaleTest extends \Codeception\TestCase\Test
 
     $this->tester->seeRecord('sale', [
       'sale_no'=>$sale->sale_no, 'cost_total'=>$cost_total, 'gross_total'=>$gross_total, 'nett_total'=>$nett_total,
-      'redeemed_points'=>1200, 'redeemed_amt'=>10,
-      'delivery_date'=>date('Y-m-d'),
+      'redeemed_points'=>1200, 'redeemed_amt'=>10, 'delivery_date'=>date('Y-m-d'), 'bank_ref'=>'1234-5678'
     ]);
 
     $sale_id = $sale_service->getSaleIdByNo($sale->sale_no);
@@ -102,6 +102,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $checkout_option->address_other = $this->address_other;
     $checkout_option->delivery_time = DeliveryTime::AnyTime;
     $checkout_option->payment_type = PaymentType::Bank;
+    $checkout_option->bank_ref = "1234-5678";
     $checkout_option->delivery_date = 2;
     $sale = $sale_service->checkoutCart($customer_id, $checkout_option, $products);
 

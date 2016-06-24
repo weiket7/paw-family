@@ -12,4 +12,5 @@ class CheckoutOption
   public $delivery_date;
   public $redeemed_points;
   public $redeemed_amt;
+  public $bank_ref;
 }

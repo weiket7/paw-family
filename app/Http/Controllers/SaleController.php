@@ -157,12 +157,13 @@ class SaleController extends Controller
   private function makeCheckoutOption($input) {
     $checkout_option = new CheckoutOption();
     $checkout_option->payment_type = $input['payment_type'];
-    $checkout_option->redeemed_points = isset($input['redeem_points']) ? $input['redeem_points'] : 0;
+    $checkout_option->redeemed_points = isset($input['redeemed_points']) ? $input['redeemed_points'] : 0;
     $checkout_option->delivery_choice = $input['delivery_choice'];
     $checkout_option->address_other = $input['address_other'];
     $checkout_option->customer_remark = $input['customer_remark'];
     $checkout_option->delivery_time = $input['delivery_time'];
     $checkout_option->delivery_date = $input['delivery_date'];
+    $checkout_option->bank_ref = $input['bank_ref'];
     $checkout_option->gift_wrap = isset($input['gift_wrap']) ? "Y" : "N";
     $checkout_option->leave_outside_door = isset($input['leave_outside_door']) ? "Y" : "N";
     return $checkout_option;

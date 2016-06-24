@@ -101,14 +101,14 @@
                   </td>
                   @if($can_redeem_points)
                     <td colspan="2" class="v_align_m t_align_r">
-                      <input type="radio" id="points-1200" name="redeem_points" data-redeemed-amt='10' class="d_none" value="1200" onclick="redeemPoints()">
+                      <input type="radio" id="points-1200" name="radio-redeemed-points" data-redeemed-amt='10' class="d_none" value="1200" onclick="redeemPoints()">
                       <label for="points-1200">1200 Paw Points = $10 discount</label><br>
                       @if($customer->points >= 3000)
-                        <input type="radio" id="points-3000" name="redeem_points" data-redeemed-amt='25' class="d_none" value="3000" onclick="redeemPoints()">
+                        <input type="radio" id="points-3000" name="radio-redeemed-points" data-redeemed-amt='25' class="d_none" value="3000" onclick="redeemPoints()">
                         <label for="points-3000">3000 Paw Points = $25 discount</label><br>
                       @endif
                       @if($customer->points >= 5000)
-                        <input type="radio" id="points-5000" name="redeem_points" data-redeemed-amt='50' class="d_none" value="5000" onclick="redeemPoints()">
+                        <input type="radio" id="points-5000" name="radio-redeemed-points" data-redeemed-amt='50' class="d_none" value="5000" onclick="redeemPoints()">
                         <label for="points-5000">5000 Paw Points = $50 discount</label>
                       @endif
                     </td>
@@ -171,7 +171,6 @@
                   <div id="tab-login">
                     <form method="post" action="login">
                       {{csrf_field()}}
-
                       @if ($errors->login->has())
                         <div class="alert_box r_corners error m_bottom_10">
                           <i class="fa fa-exclamation"></i>
@@ -225,6 +224,7 @@
 
               <form method="post" action="">
                 {{ csrf_field() }}
+                <input type="hidden" id='redeemed_points' name="redeemed_points">
 
                 <h2 class="tt_uppercase color_dark m_bottom_15">
                   Delivery Address
@@ -322,7 +322,11 @@
                         Bank Code:7171 | Branch Code:	017<br>
                         <br>
                         OCBC Corporate Current Account, 815529-001<br>
-                        Bank Code: 7339 | Branch Code:	557
+                        Bank Code: 7339 | Branch Code:	557<br><br>
+                        <b>Bank Reference Number</b> @if($errors->checkout->has('bank_ref')) <span class="error">(Required)</span> @endif
+                        <?php $bank_ref_style = $errors->checkout->has('bank_ref') ? 'border-color: #cb2700' : ''; ?>
+                        {{Form::text("bank_ref", '', ['class'=>"r_corners full_width m_bottom_5", 'tabindex'=>2, 'style'=>$bank_ref_style])}}
+
                       </p>
                     </figcaption>
                   </figure>
@@ -415,7 +419,7 @@
         total += subtotal;
       });
       var redeemed_amt = getRedeemAmt();
-      total = total - redeemed_amt();
+      total = total - redeemed_amt;
       //console.log('total='+total+' redeemed_amt='+redeemed_amt);
       $("#p-total").text("$" + toTwoDecimal(total));
 
@@ -465,10 +469,10 @@
     }
 
     function getRedeemAmt() {
-      return parseFloat($("input[name='redeem_points']:checked").attr('data-redeemed-amt'));
+      return parseFloat($("input[name='radio-redeemed-points']:checked").attr('data-redeemed-amt'));
     }
     function getRedeemPoints() {
-      return parseFloat($("input[name='redeem_points']:checked").val());
+      return parseFloat($("input[name='radio-redeemed-points']:checked").val());
     }
 
     function getQuantity(product_id, size_id) {
@@ -505,17 +509,22 @@
       $("#payment-{{PaymentType::Cheque}}").hide();
       $("#payment-{{PaymentType::Cash}}").hide();
       $("#payment-"+type).show();
+      if(type == "{{PaymentType::Bank}}") {
+        $("input[name='bank_ref']").focus();
+      }
+      $("#payment-"+type).show();
     }
 
     function redeemPoints() {
       var redeemed_amt = getRedeemAmt();
       $("#redeemed-amt").text('-$'+redeemed_amt);
-      var redeem_points = getRedeemPoints();
-      $("#spend-points").html("<b>You will spend " + redeem_points + " Paw Points</b><br>");
+      var redeemed_points = getRedeemPoints();
+      $("#spend-points").html("<b>You will spend " + redeemed_points + " Paw Points</b><br>");
       var current_points = parseFloat($("#current-points").text());
-      var earn_points = parseFloat($("#earn-points").text());
-      var result_points = current_points + earn_points - redeem_points;
-      console.log('current='+current_points+' earn='+earn_points + ' redeem='+redeem_points+' result='+result_points);
+      var earned_points = parseFloat($("#earn-points").text());
+      var result_points = current_points + earned_points - redeemed_points;
+      $("#redeemed_points").val(redeemed_points);
+      console.log('current='+current_points+' earn='+earned_points + ' redeem='+redeemed_points+' result='+result_points);
       $("#result-points").html("<b>"+result_points+"</b>");
       updateTotal();
     }

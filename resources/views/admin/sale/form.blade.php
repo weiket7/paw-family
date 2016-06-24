@@ -77,6 +77,22 @@
             <div class="col-md-3 name"> Payment Type: </div>
             <div class="col-md-9 value"> {{PaymentType::$values[$sale->payment_type]}} </div>
           </div>
+          @if($sale->payment_type == PaymentType::Bank)
+            <div class="row static-info">
+              <div class="col-md-3 name"> Bank Ref: </div>
+              <div class="col-md-9 value"> {{$sale->bank_ref}} </div>
+            </div>
+          @endif
+          <div class="row static-info">
+            <div class="col-md-3 name"> Earned Points: </div>
+            <div class="col-md-9 value"> {{$sale->earned_points}} </div>
+          </div>
+          @if($sale->redeemed_points)
+            <div class="row static-info">
+              <div class="col-md-3 name"> Redeemed Points: </div>
+              <div class="col-md-9 value"> {{$sale->redeemed_points}} </div>
+            </div>
+          @endif
           <div class="row static-info">
             <div class="col-md-3 name"> Gross Total: </div>
             <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->gross_total)}} </div>
@@ -85,17 +101,19 @@
             <div class="col-md-3 name"> Product Discount: </div>
             <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->product_discount)}} </div>
           </div>
-          <div class="row static-info">
+          @if($sale->redeemed_points)
+            <div class="row static-info">
+              <div class="col-md-3 name"> Redeemed Amount: </div>
+              <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->redeemed_amt)}} </div>
+            </div>
+          @endif
+          {{--<div class="row static-info">
             <div class="col-md-3 name"> Promo Discount: </div>
             <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->promo_discount)}} </div>
-          </div>
+          </div>--}}
           <div class="row static-info">
             <div class="col-md-3 name"> Nett Total: </div>
             <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->nett_total)}} </div>
-          </div>
-          <div class="row static-info">
-            <div class="col-md-3 name"> Earned Points: </div>
-            <div class="col-md-9 value"> {{$sale->earned_points}} </div>
           </div>
         </div>
       </div>
@@ -116,6 +134,10 @@
             <div class="col-md-9 value"> <a href="{{url("admin/customer/save/".$customer->customer_id)}}">{{$customer->name}}</a> </div>
           </div>
           <div class="row static-info">
+            <div class="col-md-3 name"> Points: </div>
+            <div class="col-md-9 value"> {{$customer->points }} </div>
+          </div>
+          <div class="row static-info">
             <div class="col-md-3 name"> Mobile: </div>
             <div class="col-md-9 value"> {{$customer->mobile }} </div>
           </div>
@@ -131,6 +153,24 @@
             <div class="col-md-3 name"> Address: </div>
             <div class="col-md-9 value"> {{$sale->address}} </div>
           </div>
+          @if($sale->postal)
+            <div class="row static-info">
+              <div class="col-md-3 name"> Postal: </div>
+              <div class="col-md-9 value"> {{$sale->postal}} </div>
+            </div>
+          @endif
+          @if($sale->building)
+            <div class="row static-info">
+              <div class="col-md-3 name"> Building: </div>
+              <div class="col-md-9 value"> {{$sale->building}} </div>
+            </div>
+          @endif
+          @if($sale->lift_lobby)
+            <div class="row static-info">
+              <div class="col-md-3 name"> Lift Lobby: </div>
+              <div class="col-md-9 value"> {{$sale->lift_lobby}} </div>
+            </div>
+          @endif
           <div class="row static-info">
             <div class="col-md-3 name"> Time: </div>
             <div class="col-md-9 value">
