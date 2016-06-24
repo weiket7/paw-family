@@ -35,10 +35,10 @@ class SaleController extends Controller
       if ($checkout_option->redeemed_points > 0) {
         $customer->redeemPointAndLog($checkout_option->redeemed_points, $sale->sale_id, $sale->sale_no);
       }
+      $customer->updateSpentTotalOrderCountSpentAvg($sale);
 
       if ($checkout_option->payment_type == PaymentType::Paypal) {
-        $sale_service = new Sale();
-        $paypal_field = (array)$sale_service->getPaypalField($sale->sale_no, $sale->nett_total);
+        $paypal_field = (array)$sale->getPaypalField($sale->sale_no, $sale->nett_total);
         return view('paypal-process', $paypal_field);
       }
       $this->clearCartInSession();

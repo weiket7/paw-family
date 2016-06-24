@@ -43,8 +43,9 @@
       <th>Email</th>
       <th>Mobile</th>
       <th>Points</th>
-      <th>Order Count</th>
       <th>Spent Total</th>
+      <th>Order Count</th>
+      <th>Spent Average</th>
     </tr>
     </thead>
     <tbody>
@@ -55,8 +56,9 @@
         <td>{{$customer->email}}</td>
         <td>{{$customer->mobile}}</td>
         <td>{{$customer->points}}</td>
+        <td>${{CommonHelper::formatNumber($customer->spent_total)}}</td>
         <td>{{$customer->order_count}}</td>
-        <td>{{$customer->spent_total}}</td>
+        <td>${{CommonHelper::formatNumber($customer->spent_avg)}}</td>
       </tr>
     @endforeach
     </tbody>

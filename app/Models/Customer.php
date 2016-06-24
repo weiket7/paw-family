@@ -252,4 +252,11 @@ class Customer extends Eloquent
     $p['customer_id'] = $customer_id;
     return DB::select($s, $p);
   }
+
+  public function updateSpentTotalOrderCountSpentAvg($sale) {
+    $this->spent_total = $this->spent_total + $sale->nett_total;
+    $this->order_count = $this->order_count + 1;
+    $this->spent_avg = $this->spent_total / $this->order_count;
+    $this->save();
+  }
 }
