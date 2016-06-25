@@ -101,6 +101,12 @@
             <div class="col-md-3 name"> Product Discount: </div>
             <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->product_discount)}} </div>
           </div>
+          @if($sale->erp_surcharge)
+            <div class="row static-info">
+              <div class="col-md-3 name"> ERP surcharge: </div>
+              <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->erp_surcharge)}} </div>
+            </div>
+          @endif
           @if($sale->redeemed_points)
             <div class="row static-info">
               <div class="col-md-3 name"> Redeemed Amount: </div>

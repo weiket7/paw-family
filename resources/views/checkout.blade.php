@@ -93,9 +93,9 @@
                     <p class="f_size_large">
                       <span class="d_inline_middle">
                         You have: <span id="current-points">{{$customer->points}}</span> Paw Points<br>
-                        You will earn: <span id="earn-points">{{$points}}</span> Paw Points<br>
+                        You will earn: <span id="earned-points"></span> Paw Points<br>
                         <span id="spend-points"></span>
-                        You will have: <span id="result-points">{{$customer->points + $points}}</span> Paw Points
+                        You will have: <span id="result-points"></span> Paw Points
                       </span>
                     </p>
                   </td>
@@ -415,6 +415,7 @@
       if (isDefined(payment_type)) {
         selectPayment(payment_type);
       }
+      updatePoints();
     });
 
     function updateQuantity(element) {
@@ -442,12 +443,12 @@
       var redeemed_amt = getRedeemAmt();
       var postal = getCurrentAddressPostal();
       var postal_is_cbd = postalIsCbd(postal);
-      var cbd_surcharge = 0;
+      var erp_surcharge = 0;
       if (postal_is_cbd) {
-        cbd_surcharge = 5;
+        erp_surcharge = 5;
       }
-      total = total - redeemed_amt + cbd_surcharge;
-      console.log('total='+total+' redeemed_amt='+redeemed_amt+ 'cbd_surcharge='+cbd_surcharge);
+      total = total - redeemed_amt + erp_surcharge;
+      //console.log('total='+total+' redeemed_amt='+redeemed_amt+ ' erp_surcharge='+erp_surcharge);
       $("#p-total").text("$" + toTwoDecimal(total));
 
       refreshCartButton();
@@ -546,8 +547,8 @@
       $("#redeemed-amt").text('-$'+redeemed_amt);
       var redeemed_points = getRedeemPoints();
       $("#spend-points").html("<b>You will spend " + redeemed_points + " Paw Points</b><br>");
-      var current_points = parseFloat($("#current-points").text());
-      var earned_points = parseFloat($("#earn-points").text());
+      var current_points = getCurrentPoints();
+      var earned_points = getEarnedPoints();
       var result_points = current_points + earned_points - redeemed_points;
       $("#redeemed_points").val(redeemed_points);
       //console.log('current='+current_points+' earn='+earned_points + ' redeem='+redeemed_points+' result='+result_points);
@@ -555,6 +556,14 @@
       updateTotal();
     }
 
+    function updatePoints() {
+      var total = getTotal();
+      console.log('total=' + total);
+      var earned_points = Math.floor(total);
+      $("#earned-points").text(earned_points);
+      var result_points = getCurrentPoints() + earned_points;
+      $("#result-points").text(result_points);
+    }
 
     function getElementPrefix(product_id, size_id) {
       return "#product"+product_id+"-size"+size_id+"-";
@@ -569,8 +578,18 @@
     function getRedeemPoints() {
       return parseFloat($("input[name='radio-redeemed-points']:checked").val());
     }
+    function getEarnedPoints() {
+      return parseFloat($("#earned-points").text());
+    }
+    function getCurrentPoints() {
+      return parseFloat($("#current-points").text());
+    }
     function getCurrentAddressPostal() {
       return $("#current-address-postal").text();
+    }
+    function getTotal() {
+      var total = $("#p-total").text();
+      return removeDollarAndToFloat(total);
     }
     function getQuantity(product_id, size_id) {
       var prefix = getElementPrefix(product_id, size_id);

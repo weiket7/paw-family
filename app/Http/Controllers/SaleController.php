@@ -50,8 +50,6 @@ class SaleController extends Controller
     $data['customer'] = $customer;
     $sale_service = new Sale();
     $data['postal_cbd'] = $sale_service->getPostalCBD();
-    $sale_total = $sale_service->calcSaleTotal($products);
-    $data['points'] = $sale_service->calcPoints($sale_total->nett_total);
     return view('checkout', $data);
   }
 

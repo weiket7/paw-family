@@ -22,11 +22,11 @@ class CustomerTable extends Migration
         $table->string("building", 10)->nullable();
         $table->string("lift_lobby", 10)->nullable();
         $table->date("birthday")->nullable();
+        $table->integer("points");
         $table->char("subscribe", 1);
         $table->decimal("spent_total", 9, 2);
         $table->integer("order_count");
         $table->decimal("spent_avg", 9, 2);
-        $table->integer("points");
         $table->dateTime("last_login_on");
         $table->dateTime("joined_on");
         $table->dateTime("updated_at");

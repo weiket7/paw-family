@@ -87,12 +87,13 @@ class Sale extends Eloquent
     $this->payment_type = $checkout_option->payment_type;
     $this->delivery_choice = $checkout_option->delivery_choice;
     $this->delivery_date = $checkout_option->delivery_date;
-    $this->setDeliveryAddress($checkout_option, $customer_id);
     $this->delivery_time = DeliveryTime::$values[$checkout_option->delivery_time];
     $this->customer_remark = $checkout_option->customer_remark;
     $this->bank_ref = $checkout_option->bank_ref;
     $this->sale_on = date("Y-m-d H:i:s");
     $this->sale_no = $this->getSaleNoAndIncrement();
+    $this->setDeliveryAddress($checkout_option, $customer_id);
+    $this->setErpSurcharge();
     $this->save();
 
     /* @var $product SaleProduct */
@@ -104,17 +105,13 @@ class Sale extends Eloquent
       DB::table("sale_product")->insert((array)$product);
     }
 
-    $sale_total = $this->calcSaleTotal($products, $this->redeemed_amt);
-    $this->gross_total = $sale_total->gross_total;
-    $this->product_discount = $sale_total->product_discount;
-    $this->nett_total = $sale_total->nett_total;
-    $this->cost_total = $sale_total->cost_total;
+    $this->setSaleTotal($products, $this->redeemed_amt, $this->erp_surcharge);
     $this->earned_points = $this->calcPoints($this->nett_total);
     $this->save();
     return $this;
   }
 
-  public function calcSaleTotal($products, $redeemed_amt = 0) {
+  public function setSaleTotal($products, $redeemed_amt = 0, $erp_surcharge = 0) {
     $gross_total = 0;
     $product_discount = 0;
     $cost_total = 0;
@@ -125,12 +122,10 @@ class Sale extends Eloquent
       $cost_total += $product->cost_price * $product->quantity;
     }
 
-    $sale_total = new SaleTotal();
-    $sale_total->gross_total = $gross_total;
-    $sale_total->product_discount = $product_discount;
-    $sale_total->nett_total = $gross_total - $product_discount - $redeemed_amt;
-    $sale_total->cost_total = $cost_total;
-    return $sale_total;
+    $this->gross_total = $gross_total;
+    $this->product_discount = $product_discount;
+    $this->nett_total = $gross_total - $product_discount - $redeemed_amt + $erp_surcharge;
+    $this->cost_total = $cost_total;
   }
 
   public function getNettTotalBySaleNo($sale_no) {
@@ -159,7 +154,7 @@ class Sale extends Eloquent
 
   public function getSale($sale_id)   {
     $s = "SELECT customer_id, sale_id, sale_no, stat, payment_type, product_discount, promo_discount, redeemed_points, redeemed_amt, earned_points,
-    delivery_choice, address, postal, building, lift_lobby, delivery_time, customer_remark, operator_remark, bank_ref,
+    delivery_choice, address, postal, building, lift_lobby, erp_surcharge, delivery_time, customer_remark, operator_remark, bank_ref,
     gross_total, nett_total, sale_on, paid_on, delivered_on
     FROM sale where sale_id = :sale_id";
     $p['sale_id'] = $sale_id;
@@ -279,5 +274,15 @@ class Sale extends Eloquent
     }
     return $res;
   }
-
+  
+  public function setErpSurcharge()
+  {
+    $postal = substr($this->postal, 0, 2);
+    $postal_cbd = $this->getPostalCBD();
+    $postal_is_cbd = in_array($postal, $postal_cbd);
+    if ($postal_is_cbd) {
+      $this->erp_surcharge = 5;
+    }
+  }
+  
 }
