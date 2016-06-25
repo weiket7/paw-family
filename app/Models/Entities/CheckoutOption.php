@@ -13,4 +13,7 @@ class CheckoutOption
   public $redeemed_points;
   public $redeemed_amt;
   public $bank_ref;
+  public $postal_other;
+  public $building_other;
+  public $lift_lobby_other;
 }

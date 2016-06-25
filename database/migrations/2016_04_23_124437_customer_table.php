@@ -42,6 +42,7 @@ class CustomerTable extends Migration
         'mobile'=>'9011 0130',
         'phone'=>'6123 4567',
         'postal'=>'470134',
+        'lift_lobby'=>'A',
         'address'=>'Blk 134, Bedok Reservoir Rd',
         'birthday'=>'1989-01-05',
         'subscribe'=> SubscribeStat::Yes,

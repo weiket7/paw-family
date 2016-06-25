@@ -363,11 +363,11 @@
       var size = getSelectedSize();
       var repacks = repacks_object[size];
       //console.log(JSON.stringify(repack_options));
-      var html = "";
       if (typeof repacks === 'undefined' || repacks.length === 0) {
         $("#repack_options_default").text("No Repack")
         $("#repack_options").html("");
       } else {
+        var html = "<li class='tr_delay_hover' onclick='selectRepack(0)'>No Repack</li>";
         for (var key in repacks) {
           if (repacks.hasOwnProperty(key)) {
             html += "<li class='tr_delay_hover' onclick='selectRepack("+repacks[key].option_id+")'>"+repacks[key].name+" - $"+repacks[key].price+"</li>";
@@ -409,7 +409,6 @@
       var quantity = $("#quantity").val();
 
       var discounted_price = 0;
-      var final_price = 0;
       var price = 0;
       var price_total = 0, discounted_price_total = 0;
       if (! productHasSizes) {

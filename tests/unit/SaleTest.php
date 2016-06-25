@@ -69,7 +69,8 @@ class SaleTest extends \Codeception\TestCase\Test
 
     $this->tester->seeRecord('sale', [
       'sale_no'=>$sale->sale_no, 'cost_total'=>$cost_total, 'gross_total'=>$gross_total, 'nett_total'=>$nett_total,
-      'redeemed_points'=>1200, 'redeemed_amt'=>10, 'delivery_date'=>date('Y-m-d'), 'bank_ref'=>'1234-5678'
+      'redeemed_points'=>1200, 'redeemed_amt'=>10, 'delivery_date'=>date('Y-m-d'), 'bank_ref'=>'1234-5678',
+      'address'=>'Blk 134, Bedok Reservoir Rd', 'postal'=>'470134',
     ]);
 
     $sale_id = $sale_service->getSaleIdByNo($sale->sale_no);
@@ -99,7 +100,10 @@ class SaleTest extends \Codeception\TestCase\Test
     $customer_id = 1;
     $checkout_option = new CheckoutOption();
     $checkout_option->delivery_choice = DeliveryChoice::OtherAddress;
-    $checkout_option->address_other = $this->address_other;
+    $checkout_option->address_other = 'my other address';
+    $checkout_option->postal_other = '';
+    $checkout_option->building_other = '';
+    $checkout_option->lift_lobby_other = '';
     $checkout_option->delivery_time = DeliveryTime::AnyTime;
     $checkout_option->payment_type = PaymentType::Bank;
     $checkout_option->bank_ref = "1234-5678";
@@ -109,22 +113,40 @@ class SaleTest extends \Codeception\TestCase\Test
     $this->tester->seeRecord('sale', ['sale_no'=>$sale->sale_no, 'gross_total'=>21, 'nett_total'=>20]);
   }
 
-  public function testGetDeliveryAddress_SelfCollect() {
-    $sale_service = new Sale();
-    $address = $sale_service->getDeliveryAddress(DeliveryChoice::SelfCollect, $this->address_other, 1);
-    $this->assertEquals(DeliveryChoice::$values[DeliveryChoice::SelfCollect], $address);
+  public function testGetDeliveryAddress_CurrentAddress() {
+    $checkout_option = new CheckoutOption();
+    $checkout_option->delivery_choice = DeliveryChoice::CurrentAddress;
+
+    $sale = new Sale();
+    $sale->setDeliveryAddress($checkout_option, 1);
+    $this->assertEquals("Blk 134, Bedok Reservoir Rd", $sale->address);
+    $this->assertEquals("470134", $sale->postal);
+    $this->assertEquals("A", $sale->lift_lobby);
   }
 
   public function testGetDeliveryAddress_OtherAddress() {
-    $sale_service = new Sale();
-    $address = $sale_service->getDeliveryAddress(DeliveryChoice::OtherAddress, $this->address_other, 1);
-    $this->assertEquals($this->address_other, $address);
+    $checkout_option = new CheckoutOption();
+    $checkout_option->address_other = "Blk 134";
+    $checkout_option->postal_other = "250134";
+    $checkout_option->lift_lobby_other = "A";
+    $checkout_option->delivery_choice = DeliveryChoice::OtherAddress;
+
+    $sale = new Sale();
+    $sale->setDeliveryAddress($checkout_option, 1);
+    $this->assertEquals("Blk 134", $sale->address);
+    $this->assertEquals("250134", $sale->postal);
+    $this->assertEquals("A", $sale->lift_lobby);
   }
 
-  public function testGetDeliveryAddress_CurrentAddress() {
-    $sale_service = new Sale();
-    $address = $sale_service->getDeliveryAddress(DeliveryChoice::CurrentAddress, $this->address_other, 1);
-    $this->assertEquals("Blk 134, Bedok Reservoir Rd", $address);
+  public function testGetDeliveryAddress_SelfCollect() {
+    $checkout_option = new CheckoutOption();
+    $checkout_option->delivery_choice = DeliveryChoice::SelfCollect;
+
+    $sale = new Sale();
+    $sale->setDeliveryAddress($checkout_option, 1);
+    $this->assertEquals("", $sale->address);
+    $this->assertEquals("", $sale->postal);
+    $this->assertEquals("", $sale->lift_lobby);
   }
 
   public function testCalculatePoint() {

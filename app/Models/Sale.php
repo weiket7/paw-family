@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+use App\Models\Entities\Address;
 use App\Models\Entities\CheckoutOption;
 use App\Models\Entities\PaypalField;
 use App\Models\Entities\SaleProduct;
@@ -86,7 +87,7 @@ class Sale extends Eloquent
     $this->payment_type = $checkout_option->payment_type;
     $this->delivery_choice = $checkout_option->delivery_choice;
     $this->delivery_date = $checkout_option->delivery_date;
-    $this->address = $this->getDeliveryAddress($checkout_option->delivery_choice, $checkout_option->address_other, $customer_id);
+    $this->setDeliveryAddress($checkout_option, $customer_id);
     $this->delivery_time = DeliveryTime::$values[$checkout_option->delivery_time];
     $this->customer_remark = $checkout_option->customer_remark;
     $this->bank_ref = $checkout_option->bank_ref;
@@ -201,16 +202,19 @@ class Sale extends Eloquent
     return $data;
   }
 
-  public function getDeliveryAddress($delivery_choice, $address_other, $customer_id) {
-    if ($delivery_choice == DeliveryChoice::OtherAddress) {
-      return $address_other;
-    } else if ($delivery_choice == DeliveryChoice::CurrentAddress) {
+  public function setDeliveryAddress(CheckoutOption $checkout_option, $customer_id) {
+    if ($checkout_option->delivery_choice == DeliveryChoice::OtherAddress) {
+      $this->address = $checkout_option->address_other;
+      $this->postal = $checkout_option->postal_other;
+      $this->building = $checkout_option->building_other;
+      $this->lift_lobby = $checkout_option->lift_lobby_other;
+    } else if ($checkout_option->delivery_choice == DeliveryChoice::CurrentAddress) {
       $customer = Customer::find($customer_id);
-      return $customer->address;
-    } else if ($delivery_choice == DeliveryChoice::SelfCollect) {
-      return DeliveryChoice::$values[DeliveryChoice::SelfCollect];
+      $this->address = $customer->address;
+      $this->postal = $customer->postal;
+      $this->building = $customer->building;
+      $this->lift_lobby = $customer->lift_lobby;
     }
-    return "error";
   }
 
   public function calcPoints($nett_total) {
@@ -263,6 +267,17 @@ class Sale extends Eloquent
     $data[$settings['redeemthirdpoint']] = $settings['redeemthirdamt'];
 
     return $data;
+  }
+
+  public function getPostalCBD() {
+    $s = "SELECT postal from district_postal where CBD = 1";
+    $data = DB::select($s);
+
+    $res = [];
+    foreach($data as $d) {
+      $res[] = $d->postal;
+    }
+    return $res;
   }
 
 }

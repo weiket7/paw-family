@@ -41,7 +41,7 @@
 
               @foreach($products as $p)
                 <tr>
-                  <td>
+                  <td data-title="Product">
                     <div class="row">
                       <div class="col-md-3">
                         <a href="{{url("product/view/".$p->slug)}}"><img src="{{url('assets/images/products/'.$p->image)}}" alt="" class="m_md_bottom_5 d_xs_block d_xs_centered" style="max-height: 100px"></a>
@@ -57,13 +57,13 @@
                       </div>
                     </div>
                   </td>
-                  <td>
+                  <td data-title="Price">
                     @if($p->price > $p->discounted_price)
                       <s>${{$p->price}}</s>
                     @endif
                     <span class="scheme_color fw_medium" id="product{{$p->product_id}}-size{{$p->size_id}}-discounted-price" data-discounted-price="{{$p->discounted_price}}">${{$p->discounted_price}}</span>
                   </td>
-                  <td>
+                  <td data-title="Quantity">
                     <div class="clearfix quantity r_corners d_inline_middle f_size_medium color_dark m_bottom_10">
                       <button class="bg_tr d_block f_left" data-direction="down" onclick="updateQuantity(this)">-</button>
                       <input type="text" id="product{{$p->product_id}}-size{{$p->size_id}}-quantity" value="{{$p->quantity}}" class="f_left">
@@ -78,7 +78,7 @@
                       </span>
                     </div>
                   </td>
-                  <td>
+                  <td data-title="Subtotal">
                     <p id='product{{$p->product_id}}-size{{$p->size_id}}-subtotal' class="subtotal f_size_large fw_medium scheme_color">${{CommonHelper::formatNumber($p->subtotal)}}</p>
                   </td>
                 </tr>
@@ -131,7 +131,7 @@
               @endif
               <?php $promo_total = 0; ?>
               <?php $total = $gross_total - 0; ?>
-              <tr>
+              {{--<tr>
                 <td colspan="3" class="v_align_m">
                   <p class="f_size_large t_align_r">
                     <input type="text" placeholder="Promo Code" name="" class="r_corners f_size_medium">
@@ -141,6 +141,14 @@
                 <td colspan="1" class="v_align_m">
 
                   <p class="fw_medium f_size_large m_xs_bottom_10">${{CommonHelper::formatNumber($promo_total)}}</p>
+                </td>
+              </tr>--}}
+              <tr id='tr-cbd-surcharge' style="display:none">
+                <td colspan="3" class="v_align_m">
+                  <p class="f_size_large t_align_r t_xs_align_c">CBD ERP surcharge:</p>
+                </td>
+                <td colspan="1" class="v_align_m">
+                  <p class="f_size_large m_xs_bottom_10">$5</p>
                 </td>
               </tr>
               <tr>
@@ -231,10 +239,21 @@
                   @if($errors->checkout->has('delivery_choice')) <span class="error">(Required)</span> @endif
                 </h2>
                 <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
-                  <figure class="block_select clearfix relative m_bottom_15">
+                  <figure class="block_select clearfix relative m_bottom_15" onclick="selectCurrentAddress()">
                     {{Form::radio("delivery_choice", DeliveryChoice::CurrentAddress, '', ['class'=>'d_none'])}}
                     <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-current-address">Current address: {{$customer->address}}</h5>
+                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-current-address">
+                        Current address: {{$customer->address}}, <span id="current-address-postal">{{$customer->postal}}</span>
+                        @if($customer->building)
+                          , Building {{$customer->building}}
+                        @endif
+                        @if($customer->lift_lobby)
+                          , Lift Lobby {{$customer->lift_lobby}}
+                        @endif
+                      </h5>
+                      <p id="current-address-delivery-amt" style="display:none">
+                        As this postal code is in <a href="#">CBD area</a>, there will be $5 ERP surcharge which has been included above.
+                      </p>
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
@@ -389,6 +408,8 @@
 
 @section('script')
   <script>
+    var postal_cbd = {{json_encode($postal_cbd)}}
+
     $(document).ready(function() {
       var payment_type = $("input[name='payment_type']:checked").val();
       if (isDefined(payment_type)) {
@@ -419,8 +440,14 @@
         total += subtotal;
       });
       var redeemed_amt = getRedeemAmt();
-      total = total - redeemed_amt;
-      //console.log('total='+total+' redeemed_amt='+redeemed_amt);
+      var postal = getCurrentAddressPostal();
+      var postal_is_cbd = postalIsCbd(postal);
+      var cbd_surcharge = 0;
+      if (postal_is_cbd) {
+        cbd_surcharge = 5;
+      }
+      total = total - redeemed_amt + cbd_surcharge;
+      console.log('total='+total+' redeemed_amt='+redeemed_amt+ 'cbd_surcharge='+cbd_surcharge);
       $("#p-total").text("$" + toTwoDecimal(total));
 
       refreshCartButton();
@@ -459,28 +486,6 @@
       $(prefix+"subtotal").text("$"+toTwoDecimal(subtotal));
     }
 
-    function getElementPrefix(product_id, size_id) {
-      return "#product"+product_id+"-size"+size_id+"-";
-    }
-
-    function getDiscountedPrice(product_id, size_id) {
-      var prefix = getElementPrefix(product_id, size_id);
-      return parseFloat($(prefix+"discounted-price").attr('data-discounted-price'));
-    }
-
-    function getRedeemAmt() {
-      return parseFloat($("input[name='radio-redeemed-points']:checked").attr('data-redeemed-amt'));
-    }
-    function getRedeemPoints() {
-      return parseFloat($("input[name='radio-redeemed-points']:checked").val());
-    }
-
-    function getQuantity(product_id, size_id) {
-      var prefix = getElementPrefix(product_id, size_id);
-      //console.log('getQuantity - product_id='+product_id+' size_id='+size_id);
-      return parseFloat($(prefix+"quantity").val());
-    }
-
     function removeFromCart(product_id, size_id) {
       var data = {
         product_id: product_id,
@@ -501,6 +506,27 @@
           popupError();
         }
       });
+    }
+    
+    function selectCurrentAddress() {
+      var postal = getCurrentAddressPostal();
+      var postal_is_cbd = postalIsCbd(postal);
+      //console.log('postal_is_cbd='+postal_is_cbd);
+      if (postal_is_cbd) {
+        $("#tr-cbd-surcharge").show();
+        $("#current-address-delivery-amt").show();
+      }
+      updateTotal();
+    }
+
+    function postalIsCbd(postal) {
+      var postal = postal.substring(0,2);
+      postal = parseFloat(postal);
+      //console.log('postal='+postal);
+      if (postal_cbd.indexOf(postal) === -1) {
+        return false;
+      }
+      return true;
     }
 
     function selectPayment(type) {
@@ -524,9 +550,32 @@
       var earned_points = parseFloat($("#earn-points").text());
       var result_points = current_points + earned_points - redeemed_points;
       $("#redeemed_points").val(redeemed_points);
-      console.log('current='+current_points+' earn='+earned_points + ' redeem='+redeemed_points+' result='+result_points);
+      //console.log('current='+current_points+' earn='+earned_points + ' redeem='+redeemed_points+' result='+result_points);
       $("#result-points").html("<b>"+result_points+"</b>");
       updateTotal();
+    }
+
+
+    function getElementPrefix(product_id, size_id) {
+      return "#product"+product_id+"-size"+size_id+"-";
+    }
+    function getDiscountedPrice(product_id, size_id) {
+      var prefix = getElementPrefix(product_id, size_id);
+      return parseFloat($(prefix+"discounted-price").attr('data-discounted-price'));
+    }
+    function getRedeemAmt() {
+      return parseFloat($("input[name='radio-redeemed-points']:checked").attr('data-redeemed-amt')) | 0;
+    }
+    function getRedeemPoints() {
+      return parseFloat($("input[name='radio-redeemed-points']:checked").val());
+    }
+    function getCurrentAddressPostal() {
+      return $("#current-address-postal").text();
+    }
+    function getQuantity(product_id, size_id) {
+      var prefix = getElementPrefix(product_id, size_id);
+      //console.log('getQuantity - product_id='+product_id+' size_id='+size_id);
+      return parseFloat($(prefix+"quantity").val());
     }
   </script>
 @endsection

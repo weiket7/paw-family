@@ -49,6 +49,7 @@ class SaleController extends Controller
     $data['delivery_dates'] = $delivery_date_service->getAvailableDeliveryDate();
     $data['customer'] = $customer;
     $sale_service = new Sale();
+    $data['postal_cbd'] = $sale_service->getPostalCBD();
     $sale_total = $sale_service->calcSaleTotal($products);
     $data['points'] = $sale_service->calcPoints($sale_total->nett_total);
     return view('checkout', $data);
@@ -159,7 +160,10 @@ class SaleController extends Controller
     $checkout_option->payment_type = $input['payment_type'];
     $checkout_option->redeemed_points = isset($input['redeemed_points']) ? $input['redeemed_points'] : 0;
     $checkout_option->delivery_choice = $input['delivery_choice'];
-    $checkout_option->address_other = $input['address_other'];
+    $checkout_option->address_other = isset($input['address_other']) ? $input['address_other'] : '';
+    $checkout_option->postal_other = isset($input['postal_other']) ? $input['postal_other'] : '';
+    $checkout_option->building_other = isset($input['building_other']) ? $input['building_other'] : '';
+    $checkout_option->lift_lobby_other = isset($input['lift_lobby_other']) ? $input['lift_lobby_other'] : '';
     $checkout_option->customer_remark = $input['customer_remark'];
     $checkout_option->delivery_time = $input['delivery_time'];
     $checkout_option->delivery_date = $input['delivery_date'];
