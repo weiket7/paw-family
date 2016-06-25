@@ -138,13 +138,13 @@
                 </a>
               </li>
               <li class="relative f_xs_none m_xs_bottom_5">
-                <a href="{{url("logout")}}" class="tr_delay_hover color_light tt_uppercase">
+                <a href="{{url("logout")}}" class="tr_delay_hover color_light tt_uppercase" id="link-logout">
                   <b>Log Out</b>
                 </a>
               </li>
             @else
               <li class="relative f_xs_none m_xs_bottom_5">
-                <a href="#" data-popup="#login_popup" class="tr_delay_hover color_light tt_uppercase">
+                <a href="#" data-popup="#login_popup" class="tr_delay_hover color_light tt_uppercase" id="link-login">
                   <b>Log In</b>
                 </a>
               </li>

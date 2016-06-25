@@ -8,7 +8,7 @@
 @section('content')
   @if(Session::has('login'))
     <div class="container">
-      <div class="alert_box r_corners color_green success">
+      <div class="alert_box r_corners color_green success" id="div-welcome">
         <i class="fa fa-smile-o"></i><p>Welcome {{$customer->name}}! </p>
       </div>
     </div>

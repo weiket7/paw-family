@@ -122,7 +122,7 @@
               @else
                 <tr>
                   <td colspan="3" class="v_align_m t_align_r">
-                    <p class="f_size_large">You will earn: {{$points}} Paw Points</p>
+                    <p class="f_size_large">You will earn: <span id="earned-points-not-logged-in"></span> Paw Points</p>
                   </td>
                   <td colspan="1" class="v_align_m t_align_r">
 
@@ -633,6 +633,7 @@
       var total = getRawTotal();
       var earned_points = Math.floor(total);
       $("#earned-points").text(earned_points);
+      $("#earned-points-not-logged-in").text(earned_points);
       //console.log('total=' + total + ' earned_points=' + earned_points);
       var result_points = getCurrentPoints() + earned_points;
       $("#result-points").text(result_points);
