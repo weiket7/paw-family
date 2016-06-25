@@ -60,22 +60,29 @@ class Sale extends Eloquent
   ];
 
   public function validateDeliveryOption($input) {
+    $result = true;
     $this->validation = Validator::make($input, $this->checkout_rules, $this->checkout_messages );
     if ( $this->validation->fails() ) {
       return false;
     }
 
-    if ($input['delivery_choice'] == DeliveryChoice::OtherAddress && empty($input['address_other'])) {
-      $this->validation->errors()->add("address_other", "Other address is required");
-      return false;
+    if ($input['delivery_choice'] == DeliveryChoice::OtherAddress) {
+      if (empty($input['address_other'])) {
+        $this->validation->errors()->add("address_other", "Address is required");
+        $result = false;
+      }
+      if (empty($input['postal_other'])) {
+        $this->validation->errors()->add("postal_other", "Postal is required");
+        $result = false;
+      }
     }
 
     if ($input['payment_type'] == PaymentType::Bank && empty($input['bank_ref'])) {
       $this->validation->errors()->add("bank_ref", "Bank reference number required");
-      return false;
+      $result = false;
     }
 
-    return true;
+    return $result;
   }
 
   public function checkoutCart($customer_id, CheckoutOption $checkout_option, $products) {

@@ -148,7 +148,7 @@
                   <p class="f_size_large t_align_r t_xs_align_c">CBD ERP surcharge:</p>
                 </td>
                 <td colspan="1" class="v_align_m">
-                  <p class="f_size_large m_xs_bottom_10">$5</p>
+                  <p class="f_size_large m_xs_bottom_10">+$5</p>
                 </td>
               </tr>
               <tr id='tr-delivery-fee'>
@@ -265,16 +265,42 @@
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
-                  <figure class="block_select clearfix relative">
-                    {{Form::radio("delivery_choice", DeliveryChoice::OtherAddress, '', ['id'=>'radio-current-address', 'class'=>'d_none'])}}
+                  <figure class="block_select clearfix relative" onclick="selectOtherAddress()">
+                    {{Form::radio("delivery_choice", DeliveryChoice::OtherAddress, '', ['id'=>'radio-other-address', 'class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-other-address">
                         Other address
-                        @if($errors->checkout->has('address_other')) <span class="error">(Required)</span> @endif
                       </h5>
-                      <p>
-                        {{Form::text("address_other", '', ['id'=>'address_other', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
-                      </p>
+                      <div class="row">
+                        <div class="col-md-1">
+                          <label class='required'>Address</label> @if($errors->checkout->has('address_other')) <span class="error">(Required)</span> @endif
+                        </div>
+                        <div class="col-md-5">
+                          <?php $bank_ref_style = $errors->checkout->has('address_other') ? 'border-color: #cb2700' : ''; ?>
+                          {{Form::text("address_other", '', ['id'=>'address_other', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                        </div>
+                        <div class="col-md-1">
+                          <label class="'required">Postal</label> @if($errors->checkout->has('postal_other')) <span class="error">(Required)</span> @endif
+                        </div>
+                        <div class="col-md-5">
+                          <?php $bank_ref_style = $errors->checkout->has('postal_other') ? 'border-color: #cb2700' : ''; ?>
+                          {{Form::text("postal_other", '', ['id'=>'postal_other', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-1">
+                          Building
+                        </div>
+                        <div class="col-md-5">
+                          {{Form::text("building_other", '', ['id'=>'building_other', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                        </div>
+                        <div class="col-md-1">
+                          Lift Lobby
+                        </div>
+                        <div class="col-md-5">
+                          {{Form::text("lift_lobby_other", '', ['id'=>'lift_lobby_other', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                        </div>
+                      </div>
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
@@ -424,6 +450,12 @@
         selectPayment(payment_type);
       }
       updateTotal();
+
+      $("input[name='postal_other']").keyup(function (){
+        if ($(this).val().length == 6) {
+          alert('6');
+        }
+      });
     });
 
     function updateQuantity(element) {
@@ -481,6 +513,11 @@
 
     function selectCurrentAddress() {
       setRadioCheckedById('radio-current-address', true);
+      updateTotal();
+    }
+
+    function selectOtherAddress() {
+      setRadioCheckedById('radio-other-address', true);
       updateTotal();
     }
 
@@ -629,7 +666,7 @@
       return $("#current-address-postal").text();
     }
     function getOtherAddressPostal() {
-      return $("#other-address-postal").text();
+      return $("input[name='postal_other']").text();
     }
     function getDeliveryFee() {
       var delivery_fee = $("#delivery-fee").text();

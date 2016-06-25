@@ -347,7 +347,9 @@
                 html += '<br>Repack: '+product.option_name;
               }
               html += '<br>'+product.quantity + ' x $' + toTwoDecimal(product.discounted_price);
-              html += '<p class="scheme_color">$'+toTwoDecimal(product.subtotal)+'</p></div>'
+              html += '<p class="scheme_color">$'+toTwoDecimal(product.subtotal)+
+                ' <span class="link color_dark" onclick="removeFromCart('+product.product_id+', ' +  product.size_id+', this)"><i class="fa fa-times f_size_medium"></i> Remove' +
+                '</span></p></div>'
             }
           }
           $("#div-cart").html(html);
@@ -401,6 +403,27 @@
       //console.log(option_id);
       $("#repack").val(option_id);
       updatePrice();
+    }
+
+    function removeFromCart(product_id, size_id, ele) {
+      var data = {
+        product_id: product_id,
+        size_id: size_id,
+        _token: $("input[name='_token']").val(),
+      };
+
+      $.ajax({
+        type: "POST",
+        url: "{{ url("remove-from-cart") }}",
+        data: data,
+        success: function(response) {
+          $(ele).closest("div").remove();
+          refreshCartButton();
+        },
+        error: function(  ) {
+          popupError();
+        }
+      });
     }
 
     function updatePrice() {
