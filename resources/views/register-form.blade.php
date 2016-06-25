@@ -13,7 +13,7 @@
   <div class="col-lg-6 col-md-6 col-sm-6 m_xs_bottom_30">
     <ul>
       <li class="m_bottom_15">
-        <label for="name" class="d_inline_b m_bottom_5 required">Name</label>
+        <label for="name" class="d_inline_b m_bottom_5 required">Full Name</label>
         {{Form::text("name", '', ['id'=>'name', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>1])}}
       </li>
       <li class="m_bottom_15">
