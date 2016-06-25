@@ -28,7 +28,7 @@ class SaleTable extends Migration
       $t->integer('redeemed_points')->nullable();
       $t->integer('earned_points')->nullable();
       $t->decimal('bulk_discount', 9,2)->nullable();
-      $t->decimal('delivery_amt', 9, 2);
+      $t->decimal('delivery_fee', 9, 2);
       $t->decimal('erp_surcharge', 9, 2);
       $t->date('delivery_date');
       $t->decimal('nett_total', 9,2); //after subtractions

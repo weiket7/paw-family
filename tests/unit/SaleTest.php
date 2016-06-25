@@ -90,30 +90,7 @@ class SaleTest extends \Codeception\TestCase\Test
     ]);
   }
 
-  public function testCheckoutCart2() {
-    $cart = new Cart();
-    $product_id = 24;
-    $cart->addToCart($product_id, 4);
-    $products = $cart->getCart();
-
-    $sale_service = new Sale();
-    $customer_id = 1;
-    $checkout_option = new CheckoutOption();
-    $checkout_option->delivery_choice = DeliveryChoice::OtherAddress;
-    $checkout_option->address_other = 'my other address';
-    $checkout_option->postal_other = '';
-    $checkout_option->building_other = '';
-    $checkout_option->lift_lobby_other = '';
-    $checkout_option->delivery_time = DeliveryTime::AnyTime;
-    $checkout_option->payment_type = PaymentType::Bank;
-    $checkout_option->bank_ref = "1234-5678";
-    $checkout_option->delivery_date = 2;
-    $sale = $sale_service->checkoutCart($customer_id, $checkout_option, $products);
-
-    $this->tester->seeRecord('sale', ['sale_no'=>$sale->sale_no, 'gross_total'=>21, 'nett_total'=>20]);
-  }
-
-  public function testCheckoutCart_OtherAddress_PostalIsCbd() {
+  public function testCheckoutCart_OtherAddress_PostalIsCbd_WithDeliveryFee() {
     $cart = new Cart();
     $product_id = 24;
     $cart->addToCart($product_id, 4);
@@ -132,7 +109,9 @@ class SaleTest extends \Codeception\TestCase\Test
     $checkout_option->delivery_date = 2;
     $sale = $sale_service->checkoutCart($customer_id, $checkout_option, $products);
 
-    $this->tester->seeRecord('sale', ['sale_no'=>$sale->sale_no, 'gross_total'=>21, 'nett_total'=>25, 'erp_surcharge'=>5]);
+    $this->tester->seeRecord('sale', [
+      'sale_no'=>$sale->sale_no, 'gross_total'=>21, 'nett_total'=>35, 'erp_surcharge'=>5, 'delivery_fee'=>'10',
+    ]);
   }
 
   public function testGetDeliveryAddress_CurrentAddress() {
@@ -220,7 +199,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $this->assertEquals(441.08, $sale->cost_total);
   }
 
-  public function testSetSaleTotalWithRedeemAmt() {
+  public function testSetSaleTotal_RedeemAmt_ErpSurcharge_DeliveryFee() {
     $product = new SaleProduct();
     $product->price = 5.25;
     $product->discounted_price = 5;
@@ -234,26 +213,8 @@ class SaleTest extends \Codeception\TestCase\Test
     $sale->setSaleTotal($products, 10);
     $this->assertEquals(21, $sale->gross_total);
     $this->assertEquals(1, $sale->product_discount);
-    $this->assertEquals(10, $sale->nett_total);
-    $this->assertEquals(16, $sale->cost_total);
-  }
-
-
-  public function testSetSaleTotalWithRedeemAmtAndErpSurcharge() {
-    $product = new SaleProduct();
-    $product->price = 5.25;
-    $product->discounted_price = 5;
-    $product->discount_amt = 0.25;
-    $product->quantity = 4;
-    $product->cost_price = 4;
-
-    $products[] = $product;
-
-    $sale = new Sale();
-    $sale->setSaleTotal($products, 10);
-    $this->assertEquals(21, $sale->gross_total);
-    $this->assertEquals(1, $sale->product_discount);
-    $this->assertEquals(10, $sale->nett_total);
+    $this->assertEquals(10, $sale->delivery_fee);
+    $this->assertEquals(20, $sale->nett_total);
     $this->assertEquals(16, $sale->cost_total);
   }
 
@@ -297,6 +258,18 @@ class SaleTest extends \Codeception\TestCase\Test
     $sale->postal = '470134';
     $sale->setErpSurcharge();
     $this->assertEquals(0, $sale->erp_surcharge);
+  }
+
+  public function testGetDeliveryFee_80AndAbove_NoDeliveryFee() {
+    $sale = new Sale();
+    $delivery_fee = $sale->getDeliveryFee(100, 10, 10);
+    $this->assertEquals(0, $delivery_fee);
+  }
+
+  public function testGetDeliveryFee_Below80_DeliveryFeeIs10() {
+    $sale = new Sale();
+    $delivery_fee = $sale->getDeliveryFee(90, 12, 0);
+    $this->assertEquals(10, $delivery_fee);
   }
 
 }

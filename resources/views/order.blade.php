@@ -46,33 +46,34 @@
                   <td class="d_xs_none">Earned Points</td>
                   <td data-title="Total">{{$sale->earned_points}}</td>
                 </tr>
-                @if($sale->redeemed_points)
+                @if($sale->redeemed_points > 0)
                   <tr>
                     <td class="d_xs_none">Redeemed Points</td>
                     <td data-title="Paw Points">{{$sale->redeemed_points}}</td>
                   </tr>
                   <tr>
-                    <td class="d_xs_none">Gross Total</td>
-                    <td data-title="Total">${{CommonHelper::formatNumber($sale->nett_total + $sale->redeemed_amt)}}</td>
-                  </tr>
-                  <tr>
                     <td class="d_xs_none">Redeemed Amount</td>
                     <td data-title="Paw Points">${{CommonHelper::formatNumber($sale->redeemed_amt)}}</td>
                   </tr>
+                @endif
+                @if($sale->delivery_fee > 0)
                   <tr>
-                    <td class="d_xs_none">Nett Total</td>
-                    <td data-title="Total">
-                      <p class="fw_medium scheme_color">${{CommonHelper::formatNumber($sale->nett_total)}}</p>
-                    </td>
-                  </tr>
-                @else
-                  <tr>
-                    <td class="d_xs_none">Total</td>
-                    <td data-title="Total">
-                      <p class="fw_medium scheme_color">${{CommonHelper::formatNumber($sale->nett_total)}}</p>
-                    </td>
+                    <td class="d_xs_none">Delivery Fee</td>
+                    <td data-title="Paw Points">${{CommonHelper::formatNumber($sale->delivery_fee)}}</td>
                   </tr>
                 @endif
+                @if($sale->erp_surcharge > 0)
+                  <tr>
+                    <td class="d_xs_none">ERP Surcharge</td>
+                    <td data-title="Paw Points">${{CommonHelper::formatNumber($sale->erp_surcharge)}}</td>
+                  </tr>
+                @endif
+                <tr>
+                  <td class="d_xs_none"> Total</td>
+                  <td data-title="Total">
+                    <p class="fw_medium scheme_color">${{CommonHelper::formatNumber($sale->nett_total)}}</p>
+                  </td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -131,12 +132,6 @@
               </tr>
               <?php $total += $product->subtotal; ?>
             @endforeach
-            @if($sale->redeemed_points)
-              <tr>
-                <td colspan="3" class="t_align_r"></td>
-                <td>-${{CommonHelper::formatNumber($sale->redeemed_amt)}}</td>
-              </tr>
-            @endif
             <tr>
               <td colspan="3" class="t_align_r">Total</td>
               <td>${{CommonHelper::formatNumber($total)}}</td>
