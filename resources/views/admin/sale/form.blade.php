@@ -102,18 +102,18 @@
           <div class="row static-info">
             <div class="col-xs-3 name"> Product Discount: </div>
             <div class="col-xs-3 value"> ${{CommonHelper::formatNumber($sale->product_discount)}} </div>
-            <div class="col-xs-6 value font-grey-cascade"> ${{$running_total}} </div>
+            <div class="col-xs-6 value font-grey-cascade"> ${{CommonHelper::formatNumber($running_total)}} </div>
           </div>
           {{--<div class="row static-info">
             <div class="col-xs-3 name"> Promo Discount: </div>
             <div class="col-xs-9 value"> ${{CommonHelper::formatNumber($sale->promo_discount)}} </div>
           </div>--}}
           @if($sale->redeemed_points > 0)
-            <?php $running_total -= $sale->redeem_amt; ?>
+            <?php $running_total -= $sale->redeemed_amt; ?>
             <div class="row static-info">
               <div class="col-xs-3 name"> Redeemed Amount: </div>
               <div class="col-xs-3 value"> ${{CommonHelper::formatNumber($sale->redeemed_amt)}} </div>
-              <div class="col-xs-6 value font-grey-cascade"> ${{$running_total}} </div>
+              <div class="col-xs-6 value font-grey-cascade"> ${{CommonHelper::formatNumber($running_total)}} </div>
             </div>
           @endif
           @if($sale->delivery_fee > 0)
@@ -121,7 +121,7 @@
             <div class="row static-info">
               <div class="col-xs-3 name"> Delivery Fee: </div>
               <div class="col-xs-3 value"> ${{CommonHelper::formatNumber($sale->delivery_fee)}} </div>
-              <div class="col-xs-6 value font-grey-cascade"> ${{$running_total}} </div>
+              <div class="col-xs-6 value font-grey-cascade"> ${{CommonHelper::formatNumber($running_total)}} </div>
             </div>
           @endif
           @if($sale->erp_surcharge > 0)
@@ -129,7 +129,7 @@
             <div class="row static-info">
               <div class="col-xs-3 name"> ERP surcharge: </div>
               <div class="col-xs-3 value"> ${{CommonHelper::formatNumber($sale->erp_surcharge)}} </div>
-              <div class="col-xs-6 value font-grey-cascade"> ${{$running_total}} </div>
+              <div class="col-xs-6 value font-grey-cascade"> ${{CommonHelper::formatNumber($running_total)}} </div>
             </div>
           @endif
           <div class="row static-info">

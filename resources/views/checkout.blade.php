@@ -248,7 +248,7 @@
                 </h2>
                 <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
                   <figure class="block_select clearfix relative m_bottom_15" onclick="selectCurrentAddress()">
-                    {{Form::radio("delivery_choice", DeliveryChoice::CurrentAddress, '', ['class'=>'d_none'])}}
+                    {{Form::radio("delivery_choice", DeliveryChoice::CurrentAddress, '', ['id'=>'radio-current-address', 'class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-current-address">
                         Current address: {{$customer->address}}, <span id="current-address-postal">{{$customer->postal}}</span>
@@ -266,7 +266,7 @@
                   </figure>
                   <hr class="m_bottom_20">
                   <figure class="block_select clearfix relative">
-                    {{Form::radio("delivery_choice", DeliveryChoice::OtherAddress, '', ['class'=>'d_none'])}}
+                    {{Form::radio("delivery_choice", DeliveryChoice::OtherAddress, '', ['id'=>'radio-current-address', 'class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-other-address">
                         Other address
@@ -279,7 +279,7 @@
                   </figure>
                   <hr class="m_bottom_20">
                   <figure class="block_select clearfix relative">
-                    {{Form::radio("delivery_choice", DeliveryChoice::SelfCollect, '', ['class'=>'d_none'])}}
+                    {{Form::radio("delivery_choice", DeliveryChoice::SelfCollect, '', ['id'=>'radio-self-collect', 'class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-self-collect">Self collect at Upper Paya Lebar, between 11am-2pm, Tues to Thurs</h5>
                     </figcaption>
@@ -423,8 +423,6 @@
       if (isDefined(payment_type)) {
         selectPayment(payment_type);
       }
-      updatePoints();
-      updateDeliveryFee();
       updateTotal();
     });
 
@@ -443,20 +441,47 @@
     }
     
     function updateTotal() {
+      updatePoints();
+      updateDeliveryFee();
+      var erp_surcharge = updateErpSurcharge();
+
       var raw_total = getRawTotal();
       var redeemed_amt = getRedeemedAmt();
       var delivery_fee = getDeliveryFee();
-      var postal = getCurrentAddressPostal();
-      var postal_is_cbd = postalIsCbd(postal);
-      var erp_surcharge = 0;
-      if (postal_is_cbd) {
-        erp_surcharge = 5;
-      }
       var total = raw_total - redeemed_amt + erp_surcharge + delivery_fee;
       //console.log('total='+total+' redeemed_amt='+redeemed_amt+ ' erp_surcharge='+erp_surcharge + ' delivery_fee=' + delivery_fee);
       $("#p-total").text("$" + toTwoDecimal(total));
 
       refreshCartButton();
+    }
+
+    function updateErpSurcharge() {
+      var delivery_choice = getRadioValueByName('delivery_choice');
+      var postal = 0;
+      if (delivery_choice == '{{DeliveryChoice::CurrentAddress}}') {
+        postal = getCurrentAddressPostal();
+      } else if (delivery_choice == '{{DeliveryChoice::OtherAddress}}') {
+        postal = getOtherAddressPostal();
+      }
+      //console.log('delivery_choice=' + delivery_choice + ' postal=' + postal);
+
+      if (postal.length > 0) {
+        var postal_is_cbd = postalIsCbd(postal);
+        //console.log('postal_is_cbd='+postal_is_cbd);
+        if (postal_is_cbd) {
+          $("#tr-cbd-surcharge").show();
+          $("#current-address-delivery-amt").show();
+          return 5;
+        }
+      }
+      $("#tr-cbd-surcharge").hide();
+      $("#current-address-delivery-amt").hide();
+      return 0;
+    }
+
+    function selectCurrentAddress() {
+      setRadioCheckedById('radio-current-address', true);
+      updateTotal();
     }
 
     function getRawTotal() {
@@ -485,8 +510,6 @@
         data: data,
         success: function(response) {
           updateSubtotal(product_id, size_id);
-          updatePoints();
-          updateDeliveryFee();
           updateTotal();
         },
         error: function(  ) {
@@ -524,17 +547,6 @@
           popupError();
         }
       });
-    }
-    
-    function selectCurrentAddress() {
-      var postal = getCurrentAddressPostal();
-      var postal_is_cbd = postalIsCbd(postal);
-      //console.log('postal_is_cbd='+postal_is_cbd);
-      if (postal_is_cbd) {
-        $("#tr-cbd-surcharge").show();
-        $("#current-address-delivery-amt").show();
-      }
-      updateTotal();
     }
 
     function postalIsCbd(postal) {
@@ -586,10 +598,12 @@
       raw_total = raw_total - redeem_amt;
       var delivery_fee = 0;
       if (raw_total < 80) {
-        delivery_fee = 10;
+        delivery_fee = '+$10';
+      } else {
+        delivery_fee = '$0';
       }
-      console.log('total=' + raw_total + ' delivery_fee=' + delivery_fee);
-      $("#delivery-fee").text('$'+delivery_fee);
+      //console.log('total=' + raw_total + ' delivery_fee=' + delivery_fee);
+      $("#delivery-fee").text(delivery_fee);
     }
 
     function getElementPrefix(product_id, size_id) {
@@ -613,6 +627,9 @@
     }
     function getCurrentAddressPostal() {
       return $("#current-address-postal").text();
+    }
+    function getOtherAddressPostal() {
+      return $("#other-address-postal").text();
     }
     function getDeliveryFee() {
       var delivery_fee = $("#delivery-fee").text();

@@ -16,6 +16,18 @@ function removeDollarAndToFloat(string) {
   return parseFloat(string);
 }
 
+function getRadioValueByName(name) {
+  return $("input[name='"+name+"']:checked").val();
+}
+
+function setRadioCheckedById(id, checked) {
+  $("#"+id).prop('checked', checked);
+}
+
+function isCheckedById(id) {
+  return $("#"+id).is(":checked");
+}
+
 function isDefined(obj) {
   return typeof obj !== 'undefined';
 }
