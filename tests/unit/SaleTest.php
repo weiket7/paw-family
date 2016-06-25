@@ -272,4 +272,16 @@ class SaleTest extends \Codeception\TestCase\Test
     $this->assertEquals(10, $delivery_fee);
   }
 
+  public function testPostalIsCbdTrue() {
+    $sale = new Sale();
+    $postal_is_cbd = $sale->postalIsCbd("23000");
+    $this->assertTrue($postal_is_cbd);
+  }
+
+  public function testPostalIsCbdFalse() {
+    $sale = new Sale();
+    $postal_is_cbd = $sale->postalIsCbd("470134");
+    $this->assertFalse($postal_is_cbd);
+  }
+
 }

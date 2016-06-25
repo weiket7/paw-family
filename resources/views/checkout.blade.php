@@ -259,9 +259,11 @@
                           , Lift Lobby {{$customer->lift_lobby}}
                         @endif
                       </h5>
-                      <p id="current-address-delivery-amt" style="display:none">
-                        As this postal code is in <a href="#">CBD area</a>, there will be $5 ERP surcharge which has been included above.
-                      </p>
+                      @if($postal_is_cbd)
+                        <p>
+                          As this postal code is in <a href="#">CBD area</a>, there will be $5 ERP surcharge which has been included above.
+                        </p>
+                      @endif
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
@@ -301,6 +303,9 @@
                           {{Form::text("lift_lobby_other", '', ['id'=>'lift_lobby_other', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
                         </div>
                       </div>
+                      <p id="p-postal-other-cbd" style="display:none">
+                        As this postal code is in <a href="#">CBD area</a>, there will be $5 ERP surcharge which has been included above.
+                      </p>
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
@@ -452,8 +457,8 @@
       updateTotal();
 
       $("input[name='postal_other']").keyup(function (){
-        if ($(this).val().length == 6) {
-          alert('6');
+        if ($(this).val().length >= 6) {
+          updateErpSurcharge();
         }
       });
     });
@@ -490,24 +495,28 @@
     function updateErpSurcharge() {
       var delivery_choice = getRadioValueByName('delivery_choice');
       var postal = 0;
+      var other_address = false;
       if (delivery_choice == '{{DeliveryChoice::CurrentAddress}}') {
         postal = getCurrentAddressPostal();
       } else if (delivery_choice == '{{DeliveryChoice::OtherAddress}}') {
         postal = getOtherAddressPostal();
+        other_address = true;
       }
       //console.log('delivery_choice=' + delivery_choice + ' postal=' + postal);
 
+      $("#p-postal-other-cbd").hide();
+      $("#tr-cbd-surcharge").hide();
       if (postal.length > 0) {
         var postal_is_cbd = postalIsCbd(postal);
         //console.log('postal_is_cbd='+postal_is_cbd);
         if (postal_is_cbd) {
           $("#tr-cbd-surcharge").show();
-          $("#current-address-delivery-amt").show();
+          if (other_address) {
+            $("#p-postal-other-cbd").show();
+          }
           return 5;
         }
       }
-      $("#tr-cbd-surcharge").hide();
-      $("#current-address-delivery-amt").hide();
       return 0;
     }
 
@@ -666,7 +675,7 @@
       return $("#current-address-postal").text();
     }
     function getOtherAddressPostal() {
-      return $("input[name='postal_other']").text();
+      return $("input[name='postal_other']").val();
     }
     function getDeliveryFee() {
       var delivery_fee = $("#delivery-fee").text();

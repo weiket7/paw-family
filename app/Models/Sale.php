@@ -1,18 +1,14 @@
 <?php namespace App\Models;
 
-use App\Models\Entities\Address;
 use App\Models\Entities\CheckoutOption;
 use App\Models\Entities\PaypalField;
 use App\Models\Entities\SaleProduct;
-use App\Models\Entities\SaleTotal;
 use App\Models\Enums\DeliveryChoice;
 use App\Models\Enums\DeliveryTime;
 use App\Models\Enums\PaymentType;
 use App\Models\Enums\SaleStat;
-use Cache;
 use Carbon\Carbon;
-use CommonHelper;
-use Eloquent, DB, Validator, Input;
+use Eloquent, DB, Validator;
 use Illuminate\Support\Facades\App;
 
 class Sale extends Eloquent
@@ -292,11 +288,15 @@ class Sale extends Eloquent
     return $delivery_fee;
   }
 
+  public function postalIsCbd($postal) {
+    $postal_cbd = $this->getPostalCBD();
+    $postal = substr($postal, 0, 2);
+    return in_array($postal, $postal_cbd);
+  }
+
   public function setErpSurcharge()
   {
-    $postal = substr($this->postal, 0, 2);
-    $postal_cbd = $this->getPostalCBD();
-    $postal_is_cbd = in_array($postal, $postal_cbd);
+    $postal_is_cbd = $this->postalIsCbd($this->postal);
     $erp_surcharge = 0;
     if ($postal_is_cbd) {
       $erp_surcharge = 5;

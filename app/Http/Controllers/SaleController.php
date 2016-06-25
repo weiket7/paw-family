@@ -50,6 +50,7 @@ class SaleController extends Controller
     $data['customer'] = $customer;
     $sale_service = new Sale();
     $data['postal_cbd'] = $sale_service->getPostalCBD();
+    $data['postal_is_cbd'] = $sale_service->postalIsCbd($customer->postal);
     return view('checkout', $data);
   }
 
