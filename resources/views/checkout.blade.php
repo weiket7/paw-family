@@ -151,6 +151,14 @@
                   <p class="f_size_large m_xs_bottom_10">$5</p>
                 </td>
               </tr>
+              <tr id='tr-delivery-fee'>
+                <td colspan="3" class="v_align_m">
+                  <p class="f_size_large t_align_r t_xs_align_c">Delivery Fee:</p>
+                </td>
+                <td colspan="1" class="v_align_m">
+                  <p class="f_size_large m_xs_bottom_10" id="delivery-fee"></p>
+                </td>
+              </tr>
               <tr>
                 <td colspan="3" class="v_align_m">
                   <p class="fw_medium f_size_large t_align_r t_xs_align_c scheme_color">Total:</p>
@@ -416,6 +424,8 @@
         selectPayment(payment_type);
       }
       updatePoints();
+      updateDeliveryFee();
+      updateTotal();
     });
 
     function updateQuantity(element) {
@@ -433,25 +443,30 @@
     }
     
     function updateTotal() {
-      var total = 0;
-
-      $(".subtotal").each(function() {
-        var subtotal = removeDollarAndToFloat($(this).text());
-        //console.log('subtotal='+subtotal+' typeof='+typeof subtotal);
-        total += subtotal;
-      });
-      var redeemed_amt = getRedeemAmt();
+      var raw_total = getRawTotal();
+      var redeemed_amt = getRedeemedAmt();
+      var delivery_fee = getDeliveryFee();
       var postal = getCurrentAddressPostal();
       var postal_is_cbd = postalIsCbd(postal);
       var erp_surcharge = 0;
       if (postal_is_cbd) {
         erp_surcharge = 5;
       }
-      total = total - redeemed_amt + erp_surcharge;
-      //console.log('total='+total+' redeemed_amt='+redeemed_amt+ ' erp_surcharge='+erp_surcharge);
+      var total = raw_total - redeemed_amt + erp_surcharge + delivery_fee;
+      //console.log('total='+total+' redeemed_amt='+redeemed_amt+ ' erp_surcharge='+erp_surcharge + ' delivery_fee=' + delivery_fee);
       $("#p-total").text("$" + toTwoDecimal(total));
 
       refreshCartButton();
+    }
+
+    function getRawTotal() {
+      var raw_total = 0;
+      $(".subtotal").each(function() {
+        var subtotal = removeDollarAndToFloat($(this).text());
+        //console.log('subtotal='+subtotal+' typeof='+typeof subtotal);
+        raw_total += subtotal;
+      });
+      return raw_total;
     }
 
     function updateCart(product_id, size_id) {
@@ -470,6 +485,8 @@
         data: data,
         success: function(response) {
           updateSubtotal(product_id, size_id);
+          updatePoints();
+          updateDeliveryFee();
           updateTotal();
         },
         error: function(  ) {
@@ -543,26 +560,36 @@
     }
 
     function redeemPoints() {
-      var redeemed_amt = getRedeemAmt();
+      var redeemed_amt = getRedeemedAmt();
       $("#redeemed-amt").text('-$'+redeemed_amt);
-      var redeemed_points = getRedeemPoints();
+      var redeemed_points = getRedeemedPoints();
       $("#spend-points").html("<b>You will spend " + redeemed_points + " Paw Points</b><br>");
-      var current_points = getCurrentPoints();
-      var earned_points = getEarnedPoints();
-      var result_points = current_points + earned_points - redeemed_points;
       $("#redeemed_points").val(redeemed_points);
-      //console.log('current='+current_points+' earn='+earned_points + ' redeem='+redeemed_points+' result='+result_points);
-      $("#result-points").html("<b>"+result_points+"</b>");
+
+      updatePoints();
+      updateDeliveryFee();
       updateTotal();
     }
 
     function updatePoints() {
-      var total = getTotal();
-      console.log('total=' + total);
+      var total = getRawTotal();
       var earned_points = Math.floor(total);
       $("#earned-points").text(earned_points);
+      //console.log('total=' + total + ' earned_points=' + earned_points);
       var result_points = getCurrentPoints() + earned_points;
       $("#result-points").text(result_points);
+    }
+
+    function updateDeliveryFee() {
+      var raw_total = getRawTotal();
+      var redeem_amt = getRedeemedAmt();
+      raw_total = raw_total - redeem_amt;
+      var delivery_fee = 0;
+      if (raw_total < 80) {
+        delivery_fee = 10;
+      }
+      console.log('total=' + raw_total + ' delivery_fee=' + delivery_fee);
+      $("#delivery-fee").text('$'+delivery_fee);
     }
 
     function getElementPrefix(product_id, size_id) {
@@ -572,10 +599,10 @@
       var prefix = getElementPrefix(product_id, size_id);
       return parseFloat($(prefix+"discounted-price").attr('data-discounted-price'));
     }
-    function getRedeemAmt() {
+    function getRedeemedAmt() {
       return parseFloat($("input[name='radio-redeemed-points']:checked").attr('data-redeemed-amt')) | 0;
     }
-    function getRedeemPoints() {
+    function getRedeemedPoints() {
       return parseFloat($("input[name='radio-redeemed-points']:checked").val());
     }
     function getEarnedPoints() {
@@ -587,9 +614,9 @@
     function getCurrentAddressPostal() {
       return $("#current-address-postal").text();
     }
-    function getTotal() {
-      var total = $("#p-total").text();
-      return removeDollarAndToFloat(total);
+    function getDeliveryFee() {
+      var delivery_fee = $("#delivery-fee").text();
+      return removeDollarAndToFloat(delivery_fee);
     }
     function getQuantity(product_id, size_id) {
       var prefix = getElementPrefix(product_id, size_id);

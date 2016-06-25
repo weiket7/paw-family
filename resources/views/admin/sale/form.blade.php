@@ -41,18 +41,18 @@
         </div>
         <div class="portlet-body">
           <div class="row static-info">
-            <div class="col-md-3 name"> Order No: </div>
-            <div class="col-md-9 value"> {{$sale->sale_no}}
+            <div class="col-xs-3 name"> Order No: </div>
+            <div class="col-xs-9 value"> {{$sale->sale_no}}
 
             </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-3 name"> Date: </div>
-            <div class="col-md-9 value"> {{CommonHelper::formatDateTime($sale->sale_on)}} </div>
+            <div class="col-xs-3 name"> Date: </div>
+            <div class="col-xs-9 value"> {{CommonHelper::formatDateTime($sale->sale_on)}} </div>
           </div>
           <div class="row static-info">
-            <div class="col-md-3 name"> Status: </div>
-            <div class="col-md-9 value">
+            <div class="col-xs-3 name"> Status: </div>
+            <div class="col-xs-9 value">
               {{SaleStat::$values[$sale->stat]}}
               @if ($sale->stat == SaleStat::Pending)
                 &nbsp; <button type="button" class="btn btn-sm blue" id='btn-paid' data-placement="bottom" data-singleton='true' data-toggle='confirmation' data-original-title='Are you sure?'>Paid</button>
@@ -63,69 +63,78 @@
           </div>
           @if($sale->stat == SaleStat::Paid || $sale->stat == SaleStat::Delivered)
             <div class="row static-info">
-              <div class="col-md-3 name"> Paid On: </div>
-              <div class="col-md-9 value"> {{CommonHelper::formatDateTime($sale->paid_on)}} </div>
+              <div class="col-xs-3 name"> Paid On: </div>
+              <div class="col-xs-9 value"> {{CommonHelper::formatDateTime($sale->paid_on)}} </div>
             </div>
           @endif
           @if($sale->stat == SaleStat::Delivered)
             <div class="row static-info">
-              <div class="col-md-3 name"> Delivered On: </div>
-              <div class="col-md-9 value"> {{CommonHelper::formatDateTime($sale->delivered_on)}} </div>
+              <div class="col-xs-3 name"> Delivered On: </div>
+              <div class="col-xs-9 value"> {{CommonHelper::formatDateTime($sale->delivered_on)}} </div>
             </div>
           @endif
           <div class="row static-info">
-            <div class="col-md-3 name"> Payment Type: </div>
-            <div class="col-md-9 value"> {{PaymentType::$values[$sale->payment_type]}} </div>
+            <div class="col-xs-3 name"> Payment Type: </div>
+            <div class="col-xs-9 value"> {{PaymentType::$values[$sale->payment_type]}} </div>
           </div>
           @if($sale->payment_type == PaymentType::Bank)
             <div class="row static-info">
-              <div class="col-md-3 name"> Bank Ref: </div>
-              <div class="col-md-9 value"> {{$sale->bank_ref}} </div>
+              <div class="col-xs-3 name"> Bank Ref: </div>
+              <div class="col-xs-9 value"> {{$sale->bank_ref}} </div>
             </div>
           @endif
           <div class="row static-info">
-            <div class="col-md-3 name"> Earned Points: </div>
-            <div class="col-md-9 value"> {{$sale->earned_points}} </div>
+            <div class="col-xs-3 name"> Earned Points: </div>
+            <div class="col-xs-9 value"> {{$sale->earned_points}} </div>
           </div>
           @if($sale->redeemed_points)
             <div class="row static-info">
-              <div class="col-md-3 name"> Redeemed Points: </div>
-              <div class="col-md-9 value"> {{$sale->redeemed_points}} </div>
+              <div class="col-xs-3 name"> Redeemed Points: </div>
+              <div class="col-xs-9 value"> {{$sale->redeemed_points}} </div>
             </div>
           @endif
           <div class="row static-info">
-            <div class="col-md-3 name"> Gross Total: </div>
-            <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->gross_total)}} </div>
+            <div class="col-xs-3 name"> Gross Total: </div>
+            <div class="col-xs-9 value"> ${{CommonHelper::formatNumber($sale->gross_total)}} </div>
           </div>
+
+          <?php $running_total = $sale->gross_total - $sale->product_discount; ?>
           <div class="row static-info">
-            <div class="col-md-3 name"> Product Discount: </div>
-            <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->product_discount)}} </div>
+            <div class="col-xs-3 name"> Product Discount: </div>
+            <div class="col-xs-3 value"> ${{CommonHelper::formatNumber($sale->product_discount)}} </div>
+            <div class="col-xs-6 value font-grey-cascade"> ${{$running_total}} </div>
           </div>
-          @if($sale->delivery_fee > 0)
+          {{--<div class="row static-info">
+            <div class="col-xs-3 name"> Promo Discount: </div>
+            <div class="col-xs-9 value"> ${{CommonHelper::formatNumber($sale->promo_discount)}} </div>
+          </div>--}}
+          @if($sale->redeemed_points > 0)
+            <?php $running_total -= $sale->redeem_amt; ?>
             <div class="row static-info">
-              <div class="col-md-3 name"> Delivery Fee: </div>
-              <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->delivery_fee)}} </div>
+              <div class="col-xs-3 name"> Redeemed Amount: </div>
+              <div class="col-xs-3 value"> ${{CommonHelper::formatNumber($sale->redeemed_amt)}} </div>
+              <div class="col-xs-6 value font-grey-cascade"> ${{$running_total}} </div>
+            </div>
+          @endif
+          @if($sale->delivery_fee > 0)
+            <?php $running_total += $sale->delivery_fee; ?>
+            <div class="row static-info">
+              <div class="col-xs-3 name"> Delivery Fee: </div>
+              <div class="col-xs-3 value"> ${{CommonHelper::formatNumber($sale->delivery_fee)}} </div>
+              <div class="col-xs-6 value font-grey-cascade"> ${{$running_total}} </div>
             </div>
           @endif
           @if($sale->erp_surcharge > 0)
+            <?php $running_total += $sale->erp_surcharge; ?>
             <div class="row static-info">
-              <div class="col-md-3 name"> ERP surcharge: </div>
-              <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->erp_surcharge)}} </div>
+              <div class="col-xs-3 name"> ERP surcharge: </div>
+              <div class="col-xs-3 value"> ${{CommonHelper::formatNumber($sale->erp_surcharge)}} </div>
+              <div class="col-xs-6 value font-grey-cascade"> ${{$running_total}} </div>
             </div>
           @endif
-          @if($sale->redeemed_points > 0)
-            <div class="row static-info">
-              <div class="col-md-3 name"> Redeemed Amount: </div>
-              <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->redeemed_amt)}} </div>
-            </div>
-          @endif
-          {{--<div class="row static-info">
-            <div class="col-md-3 name"> Promo Discount: </div>
-            <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->promo_discount)}} </div>
-          </div>--}}
           <div class="row static-info">
-            <div class="col-md-3 name"> Nett Total: </div>
-            <div class="col-md-9 value"> ${{CommonHelper::formatNumber($sale->nett_total)}} </div>
+            <div class="col-xs-3 name"> Nett Total: </div>
+            <div class="col-xs-9 value"> ${{CommonHelper::formatNumber($sale->nett_total)}} </div>
           </div>
         </div>
       </div>
