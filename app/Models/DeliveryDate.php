@@ -7,17 +7,9 @@ use Eloquent, DB, Validator, Input;
 class DeliveryDate extends Eloquent
 {
   public $table = 'delivery_date';
-  protected $primaryKey = 'date';
+  protected $primaryKey = 'date_value';
   protected $validation;
   public $timestamps = false;
-
-  private $rules = [
-    'name'=>'required',
-  ];
-
-  private $messages = [
-    'name.required'=>'Name is required',
-  ];
 
   public function getDeliveryDate($advance) {
     $today = Carbon::now();
@@ -37,19 +29,47 @@ class DeliveryDate extends Eloquent
     return DB::select($s, $p);
   }
 
-  public function saveTemplate($input) {
+  public function saveDeliveryDate($input) {
     $this->validation = Validator::make($input, $this->rules, $this->messages );
-    if ( $this->validation->fails() ) {
+    if ( isset($input['stat']) == false && $input['area'] == '') {
+      $this->validation->errors()->add("input", "Select status or enter area");
       return false;
     }
 
-    $this->name = $input['name'];
-    $this->save();
-    return true;
-  }
+    if ( isset($input['dates']) == false) {
+      $this->validation->errors()->add("input", "Select dates");
+      return false;
+    }
 
+    foreach($input['dates'] as $date) {
+      $p['date'] = $date;
+      if ((isset($input['stat']) && $input['stat'] != '') && $input['area'] != '') {
+        $s = "UPDATE delivery_date set stat = :stat, area = :area where date_value = :date";
+        $p['stat'] = $input['stat'];
+        $p['area'] = $input['area'];
+        DB::update($s, $p);
+      } elseif ((isset($input['stat']) && $input['stat'] != '')) {
+        $s = "UPDATE delivery_date set stat = :stat where date_value = :date";
+        $p['stat'] = $input['stat'];
+        DB::update($s, $p);
+      } elseif ((isset($input['area']) && $input['area'] != '')) {
+        $s = "UPDATE delivery_date set area = :area where date_value = :date";
+        $p['area'] = $input['area'];
+        DB::update($s, $p);
+      }
+    }
+  }
 
   public function getValidation() {
     return $this->validation;
   }
+
+
+  private $rules = [
+  ];
+
+  private $messages = [
+  ];
+
+
 }

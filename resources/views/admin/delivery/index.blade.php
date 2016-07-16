@@ -27,8 +27,8 @@
     <tr>
       <td>
         <div class="radio-list">
-          <label><input type="radio" name='stat' class="form-control"> Enable</label>
-          <label><input type="radio" name='stat' class="form-control"> Disable</label>
+          <label><input type="radio" name='stat' value="1" class="form-control"> Enable</label>
+          <label><input type="radio" name='stat' value="0" class="form-control"> Disable</label>
         </div>
       </td>
       <td>
@@ -57,7 +57,7 @@
     <?php $days = [1=>'Monday', 2=>'Tuesday', 3=>'Wednesday', 4=>'Thursday', 5=>'Friday', 6=>'Saturday', 7=>'Sunday']; ?>
     @foreach($dates as $date)
       <tr>
-        <td><input type="checkbox" class="form-control"></td>
+        <td><input type="checkbox" name="dates[]" class="form-control" value="{{$date->date_value}}"></td>
         <td>
           @if($date->stat)
             <span class="font-green-meadow">{{CommonHelper::formatDate($date->date_value)}}</span>
