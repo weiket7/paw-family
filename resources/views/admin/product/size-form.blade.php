@@ -31,6 +31,18 @@
       //console.log('price='+price+' discount_amt='+discount_amt+' discount_percentage='+discount_percentage+' discounted_price='+discounted_price);
       $("input[name='discounted_price']").val(discounted_price);
     });
+
+    $("#btn-kg-calc").click(function() {
+      var weight_lb = ($("input[name='weight_lb']").val());
+      var weight_kg = poundToKg(weight_lb);
+      $("input[name='weight_kg']").val(toTwoDecimal(weight_kg));
+    });
+
+    $("#btn-lb-calc").click(function() {
+      var weight_kg = $("input[name='weight_kg']").val();
+      var weight_lb = kgToPound(weight_kg);
+      $("input[name='weight_lb']").val(toTwoDecimal(weight_lb));
+    });
   </script>
 @endsection
 
@@ -102,13 +114,23 @@
     <div class="form-group">
       <label class="control-label col-md-2">Weight (lbs)</label>
       <div class="col-md-10">
-        {!! Form::text('weight_lb', $size->weight_lb, ['class'=>'form-control']) !!}
+        <div class="input-group">
+          <span class="input-group-btn">
+            <button id="btn-lb-calc" class="btn blue" type="button"><i class="fa fa-calculator"></i></button>
+            </span>
+          {!! Form::text('weight_lb', $size->weight_lb, ['class'=>'form-control']) !!}
+        </div>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-md-2">Weight (kgs)</label>
       <div class="col-md-10">
-        {!! Form::text('weight_kg', $size->weight_kg, ['class'=>'form-control']) !!}
+        <div class="input-group">
+          <span class="input-group-btn">
+            <button id="btn-kg-calc" class="btn blue" type="button"><i class="fa fa-calculator"></i></button>
+          </span>
+          {!! Form::text('weight_kg', $size->weight_kg, ['class'=>'form-control']) !!}
+        </div>
       </div>
     </div>
   </div>

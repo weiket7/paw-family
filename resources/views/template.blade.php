@@ -9,8 +9,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <!--meta info-->
   <meta name="author" content="">
-  <meta name="keywords" content="">
-  <meta name="description" content="">
+  <?php $meta_keyword = isset($meta_keyword) ? $meta_keyword : ''; ?>
+  <?php $meta_desc = isset($meta_desc) ? $meta_desc : ''; ?>
+  <meta name="keywords" content="{{$meta_keyword}}">
+  <meta name="description" content="{{$meta_desc}}">
   <link rel="icon" type="image/ico" href="{{url("assets/flatastic")}}/images/fav.ico">
   <!--stylesheet include-->
   <link rel="stylesheet" type="text/css" media="all" href="{{url("assets")}}/css/bootstrap.min.css">

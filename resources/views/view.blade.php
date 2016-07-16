@@ -6,7 +6,9 @@
     0=>MainCategory::$values[$product->main_category],
     1=>$product->category_name,
     2=>$product->name,
-  ]
+  ],
+  'meta_keyword'=>$product->meta_keyword,
+  'meta_desc'=>$product->meta_desc
 ])
 
 @section('content')

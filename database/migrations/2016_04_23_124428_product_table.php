@@ -58,6 +58,8 @@ class ProductTable extends Migration
         'discount_amt'=>'10',
         'discount_type'=>DiscountType::Amount,
         'stat'=>ProductStat::Available,
+        'meta_keyword'=>'Addiction Viva La Venison Dry Dog Food In Singapore, addiction dry food, addiction dog food, addiction venison, addiction viva la, addiction viva la venison, addiction kibbles, addiction pet food, addiction pet food singapore, addiction dog food singapore, VENISON DOG FOOD, ADDICTION VENISON DOG FOOD.',
+        'meta_desc'=>'Addiction Dry Dog Food Viva La Venison - New Zealand Venison High in Protein, Low in Fat - Probiotics for a Healthy Digestive &amp; Immune System - Fruits &amp; Vegetables Rich in Phytonutrients Viva La Venison - A Delectable Grain-Free Meal for your Dog Featurin',
         'desc_short'=>'Delicious!',
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);

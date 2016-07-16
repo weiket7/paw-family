@@ -47,6 +47,8 @@ class Product extends Eloquent
     $this->weight_lb = $input['weight_lb'];
     $this->weight_kg = $input['weight_kg'];
     $this->desc_short = $input['desc_short'];
+    $this->meta_keyword = $input['meta_keyword'];
+    $this->meta_desc = $input['meta_desc'];
 
     $round_up_to_first_decimal = isset($input['round-up-to-first-decimal']);
     $product_discount = new ProductDiscount($input['price'], $input['discount_percentage'], $input['discount_amt'], $round_up_to_first_decimal);
@@ -98,7 +100,7 @@ class Product extends Eloquent
   public function getProduct($intOrSlug) {
     $s = "SELECT product_id, p.name, p.slug, p.image, cost_price, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat, supplier_id, sku,
     b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight_lb, weight_kg,
-    desc_short
+    desc_short, meta_keyword, meta_desc
     FROM product as p
     inner join brand as b on p.brand_id = b.brand_id
     inner join category as c on p.category_id = c.category_id";

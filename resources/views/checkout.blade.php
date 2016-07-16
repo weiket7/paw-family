@@ -153,7 +153,8 @@
               </tr>
               <tr id='tr-delivery-fee'>
                 <td colspan="3" class="v_align_m">
-                  <p class="f_size_large t_align_r t_xs_align_c">Delivery Fee:</p>
+                  <p class="f_size_large t_align_r t_xs_align_c">Delivery Fee:<br>
+                  <small>(Free delivery for orders $80 and above)</small>  </p>
                 </td>
                 <td colspan="1" class="v_align_m">
                   <p class="f_size_large m_xs_bottom_10" id="delivery-fee"></p>
@@ -649,7 +650,7 @@
       } else {
         delivery_fee = '$0';
       }
-      //console.log('total=' + raw_total + ' delivery_fee=' + delivery_fee);
+      console.log('total=' + raw_total + ' delivery_fee=' + delivery_fee);
       $("#delivery-fee").text(delivery_fee);
     }
 

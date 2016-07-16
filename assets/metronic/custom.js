@@ -28,3 +28,11 @@ function toTwoDecimal(decimal) {
 function toFloat(decimal) {
   return parseFloat(decimal) | 0;
 }
+
+function poundToKg(pound) {
+  return pound * 0.45359237;
+}
+
+function kgToPound(kg) {
+  return kg / 0.45359237;
+}
