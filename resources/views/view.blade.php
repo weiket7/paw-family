@@ -275,26 +275,29 @@
 @endsection
 
 @section('script')
+  <script src="{{url("assets/flatastic/js/cart.js")}}" type="text/javascript"></script>
+
   <script type="text/javascript">
     $(document).ready(function() {
-
       refreshCartSidebar();
 
-      $('#btn-add-to-cart').data('powertipjq', $('<p>Product has been added to cart</p>'));
-
-      $('#btn-add-to-cart').powerTip({
+      $("#btn-add-to-cart").data('powertipjq', $('<p>Product has been added to cart</p>')).powerTip({
         placement: 's',
         manual: true,
-        mouseOnToPopup: false,
-      });
+        mouseOnToPopup: false
+      }).click(function() {
 
-      $("#btn-add-to-cart").click(function() {
+        var quantity_txt = $("#quantity");
+        if (validateQuantity(quantity_txt) == false) {
+          return;
+        }
+
         var data = {
-          quantity: $("#quantity").val(),
+          quantity: quantity_txt.val(),
           product_id: "{{$product->product_id}}",
           size_id: getSelectedSize(),
           option_id: getSelectedRepack(),
-          _token: $("input[name='_token']").val(),
+          _token: $("input[name='_token']").val()
         };
 
         $.ajax({
@@ -386,16 +389,20 @@
     }
 
     function updateQuantity(element) {
-      var data = $(element).data('direction'),
-        i = $(element).parent().children('input[type="text"]'),
-        val = i.val();
+      var quantity_txt = $(element).parent().children('input[type="text"]');
+      if (validateQuantity(quantity_txt) == false) {
+        return;
+      }
+
+      var data = $(element).data('direction');
+      var val = quantity_txt.val();
       if(data == "up"){
         val++;
-        i.val(val);
+        quantity_txt.val(val);
       }else if(data == "down"){
         if(val == 1) return;
         val--;
-        i.val(val);
+        quantity_txt.val(val);
       }
 
       updatePrice();

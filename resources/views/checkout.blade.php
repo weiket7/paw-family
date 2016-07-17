@@ -113,7 +113,8 @@
                       @endif
                     </td>
                     <td colspan="1" class="v_align_m">
-                      <p id='redeemed-amt' class="fw_medium f_size_large m_xs_bottom_10">$0</p>
+                      <span id='redeemed-amt' class="fw_medium f_size_large m_xs_bottom_10" style="padding-top:5px;">$0</span>
+                      <button id='btn-redeem-clear' type='button' class="r_corners button_type_14 bg_color_blue color_light">Clear</button>
                     </td>
                   @else
                     <td colspan="1" class="v_align_m"></td>
@@ -317,7 +318,7 @@
                         </div>
                       </div>
                       <p id="p-postal-other-cbd" style="display:none">
-                        As this postal code is in <a href="#">CBD area</a>, there will be $5 ERP surcharge which has been included above.
+                        As this postal code is in <a href="{{url('cbd-area')}}" target="_blank">CBD area</a>, there will be $5 ERP surcharge which has been included above.
                       </p>
                     </figcaption>
                   </figure>
@@ -459,6 +460,8 @@
 @endsection
 
 @section('script')
+  <script src="{{url("assets/flatastic/js/cart.js")}}" type="text/javascript"></script>
+
   <script>
     var postal_cbd = {{json_encode($postal_cbd)}}
 
@@ -474,12 +477,21 @@
           updateErpSurcharge();
         }
       });
+
+      $("#btn-redeem-clear").click(function() {
+        $("input[name='radio-redeemed-points']:checked").prop('checked', false);
+        redeemPoints();
+      });
     });
 
     function updateQuantity(element) {
-      var data = $(element).data('direction'),
-        i = $(element).parent().children('input[type="text"]'),
-        val = i.val();
+      var quantity_txt = $(element).parent().children('input[type="text"]');
+      if (validateQuantity(quantity_txt) == false) {
+        return;
+      }
+
+      var data = $(element).data('direction');
+      var val = quantity_txt.val();
       if(data == "up"){
         val++;
         i.val(val);
@@ -556,6 +568,12 @@
     }
 
     function updateCart(product_id, size_id) {
+      var prefix = getElementPrefix(product_id, size_id);
+      var quantity_txt = $(prefix+"quantity");
+      if (validateQuantity(quantity_txt) == false) {
+        return;
+      }
+
       var data = {
         quantity: getQuantity(product_id, size_id),
         product_id: product_id,
@@ -634,6 +652,12 @@
 
     function redeemPoints() {
       var redeemed_amt = getRedeemedAmt();
+      //console.log('redeemed_amt'+redeemed_amt);
+      if (redeemed_amt == 0) {
+        $("#spend-points").html('');
+        $("#redeemed-amt").text('$0');
+        return;
+      }
       $("#redeemed-amt").text('-$'+redeemed_amt);
       var redeemed_points = getRedeemedPoints();
       $("#spend-points").html("<b>You will spend " + redeemed_points + " Paw Points</b><br>");

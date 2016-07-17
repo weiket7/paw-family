@@ -48,3 +48,8 @@ hr {
 .txt-border-red {
   border: 2px solid #cb2700;
 }
+
+.txt-quantity-error {
+  color: red !important;;
+  font-weight: bold
+}

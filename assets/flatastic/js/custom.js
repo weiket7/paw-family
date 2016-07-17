@@ -6,6 +6,10 @@ function redirect(url) {
   window.location.replace(url);
 }
 
+function toFloat(decimal) {
+  return parseFloat(decimal) | 0;
+}
+
 function getObjectSize(object) {
   return Object.keys(object).length
 }
@@ -37,3 +41,4 @@ function scrollToAnchor(aid){
   var aTag = $("a[name='"+ aid +"']");
   $('html,body').animate({scrollTop: aTag.offset().top},'slow');
 }
+

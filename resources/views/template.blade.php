@@ -27,6 +27,8 @@
   <!--font include-->
   <link href="{{url("assets/flatastic")}}/css/font-awesome.min.css" rel="stylesheet">
   <link href="{{url("assets/css/powertip/jquery.powertip-orange.css")}}" rel="stylesheet">
+  <link href="{{url("assets/css/toastr.css")}}" rel="stylesheet" type="text/css" />
+
   <script src="{{url("assets/flatastic")}}/js/modernizr.js"></script>
 </head>
 <body>
@@ -324,6 +326,8 @@
 <script src="{{url("assets/flatastic")}}/js/custom.js"></script>
 <script src="{{url("assets")}}/js/bootstrap3-typeahead.min.js"></script>
 <script src="{{url("assets")}}/js/jquery.powertip.min.js"></script>
+<script src="{{url("assets/js/toastr.js")}}" type="text/javascript"></script>
+
 
 <script type="text/javascript">
   var objects;
@@ -353,6 +357,9 @@
   });
 
   $(document).ready(function() {
+    toastr.options.positionClass = "toast-top-center";
+    toastr.options.preventDuplicates = true;
+
     refreshCartButton();
 
     $('#btn-login').click(function (){

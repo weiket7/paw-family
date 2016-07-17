@@ -132,6 +132,14 @@
               <div class="col-xs-6 value font-grey-cascade"> ${{CommonHelper::formatNumber($running_total)}} </div>
             </div>
           @endif
+          @if($sale->bulk_discount > 0)
+            <?php $running_total -= $sale->bulk_discount; ?>
+            <div class="row static-info">
+              <div class="col-xs-3 name"> Bulk Discount: </div>
+              <div class="col-xs-3 value"> ${{CommonHelper::formatNumber($sale->bulk_discount)}} </div>
+              <div class="col-xs-6 value font-grey-cascade"> ${{CommonHelper::formatNumber($running_total)}} </div>
+            </div>
+          @endif
           <div class="row static-info">
             <div class="col-xs-3 name"> Nett Total: </div>
             <div class="col-xs-9 value"> ${{CommonHelper::formatNumber($sale->nett_total)}} </div>

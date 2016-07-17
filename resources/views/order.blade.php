@@ -53,25 +53,25 @@
                   </tr>
                   <tr>
                     <td class="d_xs_none">Redeemed Amount</td>
-                    <td data-title="Paw Points">-${{CommonHelper::formatNumber($sale->redeemed_amt)}}</td>
+                    <td data-title="Paw Points">${{CommonHelper::formatNumber($sale->redeemed_amt)}}</td>
                   </tr>
                 @endif
                 @if($sale->delivery_fee > 0)
                   <tr>
                     <td class="d_xs_none">Delivery Fee</td>
-                    <td data-title="Paw Points">+${{CommonHelper::formatNumber($sale->delivery_fee)}}</td>
+                    <td data-title="Paw Points">${{CommonHelper::formatNumber($sale->delivery_fee)}}</td>
                   </tr>
                 @endif
                 @if($sale->erp_surcharge > 0)
                   <tr>
                     <td class="d_xs_none">ERP Surcharge</td>
-                    <td data-title="Paw Points">+${{CommonHelper::formatNumber($sale->erp_surcharge)}}</td>
+                    <td data-title="Paw Points">${{CommonHelper::formatNumber($sale->erp_surcharge)}}</td>
                   </tr>
                 @endif
                 @if($sale->bulk_discount > 0)
                   <tr>
                     <td class="d_xs_none">Bulk Discount</td>
-                    <td data-title="Paw Points">-${{CommonHelper::formatNumber($sale->bulk_discount)}}</td>
+                    <td data-title="Paw Points">${{CommonHelper::formatNumber($sale->bulk_discount)}}</td>
                   </tr>
                 @endif
                 <tr>
