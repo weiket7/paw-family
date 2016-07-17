@@ -146,11 +146,20 @@ Route::group(['middleware'=>'auth_operator'], function() {
 });
 
 Route::get('test', function() {
-  $postal = '250134';
-  $postal = substr($postal, 0, 2);
-  
-  echo $postal;
-  //echo 'gross_total='.$gross_total.' nett_total='.$nett_total.' cost_total='.$cost_total;
+  $product = new SaleProduct();
+  $product->price = 39.1;
+  $product->discounted_price = 29.1;
+  $product->discount_amt = 10;
+  $product->quantity = 12;
+  $product->cost_price = 25;
+  $products[] = $product;
+//37.45
+  //29.1*12=349.2, 349.2-25=342.2, bulk discount 342.2*0.06=19.45, 342.2-19.45=322.75
+  $sale = new Sale();
+  $sale->redeemed_amt = 25;
+  $sale->setSaleTotal($products);
+  var_dump($sale);
+
 });
 
 Route::get('hash', function() {

@@ -25,6 +25,8 @@ class ProductTest extends \Codeception\TestCase\Test
     $input['discount_percentage'] = 10;
     $input['discount_amt'] = 3.91;
     $input['discount_type'] = DiscountType::Percentage;
+    $input['meta_keyword'] = '';
+    $input['meta_desc'] = '';
     $input['desc_short'] = "Short description";
     $product->saveProduct($input);
 
@@ -63,6 +65,8 @@ class ProductTest extends \Codeception\TestCase\Test
     $input['discount_percentage'] = 10;
     $input['discount_amt'] = 3.91;
     $input['discount_type'] = DiscountType::Percentage;
+    $input['meta_keyword'] = '';
+    $input['meta_desc'] = '';
     $input['desc_short'] = "Short description";
     $input['round-up-to-first-decimal'] = 'Y';
     $product->saveProduct($input);

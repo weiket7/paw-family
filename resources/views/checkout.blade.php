@@ -639,8 +639,6 @@
       $("#spend-points").html("<b>You will spend " + redeemed_points + " Paw Points</b><br>");
       $("#redeemed_points").val(redeemed_points);
 
-      updatePoints();
-      updateDeliveryFee();
       updateTotal();
     }
 
@@ -671,12 +669,12 @@
     function updateBulkDiscount() {
       var raw_total = getRawTotal();
       var bulk_discount = 0;
-      if (raw_total >= 300) {
-        bulk_discount = raw_total * 0.06;
+      if (raw_total >= 1000) {
+        bulk_discount = raw_total * 0.08;
       } else if (raw_total >= 800) {
         bulk_discount = raw_total * 0.07;
-      } else if (raw_total >=1000) {
-        bulk_discount = raw_total * 0.08;
+      } else if (raw_total >= 300) {
+        bulk_discount = raw_total * 0.06;
       }
       if (bulk_discount == 0) {
         bulk_discount = '$0';

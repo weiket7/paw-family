@@ -31,7 +31,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $cart = new Cart();
     $size_id = 2;
     $option_id = 2;
-    $product1_quantity = 3;
+    $product1_quantity = 1;
     $cart->addToCart(1, $product1_quantity, $size_id, $option_id);
     $product2_quantity = 2;
     $cart->addToCart(2, $product2_quantity);
@@ -111,6 +111,27 @@ class SaleTest extends \Codeception\TestCase\Test
 
     $this->tester->seeRecord('sale', [
       'sale_no'=>$sale->sale_no, 'gross_total'=>21, 'nett_total'=>35, 'erp_surcharge'=>5, 'delivery_fee'=>'10',
+    ]);
+  }
+
+  public function testCheckoutCart_BulkDiscount() {
+    $cart = new Cart();
+    $product_id = 1;
+    $cart->addToCart($product_id, 12);
+    $products = $cart->getCart();
+
+    $sale_service = new Sale();
+    $customer_id = 1;
+    $checkout_option = new CheckoutOption();
+    $checkout_option->delivery_choice = DeliveryChoice::CurrentAddress;
+    $checkout_option->delivery_time = DeliveryTime::Four30to8;
+    $checkout_option->payment_type = PaymentType::Bank;
+    $checkout_option->delivery_date = 2;
+    $sale = $sale_service->checkoutCart($customer_id, $checkout_option, $products);
+
+    $this->tester->seeRecord('sale', [
+      'sale_no'=>$sale->sale_no, 'gross_total'=>469.2, 'product_discount'=>120.00,
+      'bulk_discount'=>20.95, 'nett_total'=>328.25, 'cost_total'=>349.20, 'erp_surcharge'=>0, 'delivery_fee'=>'0',
     ]);
   }
 
@@ -195,7 +216,8 @@ class SaleTest extends \Codeception\TestCase\Test
     $sale->setSaleTotal($products);
     $this->assertEquals(506.9, $sale->gross_total);
     $this->assertEquals(37.82, $sale->product_discount);
-    $this->assertEquals(469.08, $sale->nett_total);
+    $this->assertEquals(28.14, $sale->bulk_discount);
+    $this->assertEquals(440.94, $sale->nett_total);
     $this->assertEquals(441.08, $sale->cost_total);
   }
 
@@ -206,16 +228,60 @@ class SaleTest extends \Codeception\TestCase\Test
     $product->discount_amt = 0.25;
     $product->quantity = 4;
     $product->cost_price = 4;
-
     $products[] = $product;
 
+    //20 - 10 redeem amt + 10 delivery charge + 5 erp surcharge = 25
     $sale = new Sale();
-    $sale->setSaleTotal($products, 10);
+    $sale->redeemed_amt = 10;
+    $sale->erp_surcharge = 5;
+    $sale->setSaleTotal($products);
     $this->assertEquals(21, $sale->gross_total);
     $this->assertEquals(1, $sale->product_discount);
     $this->assertEquals(10, $sale->delivery_fee);
-    $this->assertEquals(20, $sale->nett_total);
+    $this->assertEquals(25, $sale->nett_total);
     $this->assertEquals(16, $sale->cost_total);
+  }
+
+  public function testCheckoutCart_GrossMinusProductDiscountMinusRedeemAmt_Below300_NoBulkDiscount() {
+    $product = new SaleProduct();
+    $product->price = 39.1;
+    $product->discounted_price = 29.1;
+    $product->discount_amt = 10;
+    $product->quantity = 11;
+    $product->cost_price = 25;
+    $products[] = $product;
+
+    //29.1*11=320.1, 320.1-25= 295.1, no bulk discount
+    $sale = new Sale();
+    $sale->redeemed_amt = 25;
+    $sale->setSaleTotal($products);
+    $this->assertEquals(430.1, $sale->gross_total);
+    $this->assertEquals(110, $sale->product_discount);
+    $this->assertEquals(0, $sale->bulk_discount);
+    $this->assertEquals(0, $sale->delivery_fee);
+    $this->assertEquals(295.1, $sale->nett_total);
+    $this->assertEquals(275, $sale->cost_total);
+  }
+
+  public function testCheckoutCart_GrossMinusProductDiscountMinusRedeemAmt_Above300_BulkDiscount() {
+    $product = new SaleProduct();
+    $product->price = 39.1;
+    $product->discounted_price = 29.1;
+    $product->discount_amt = 10;
+    $product->quantity = 12;
+    $product->cost_price = 25;
+    $products[] = $product;
+//37.45
+    //29.1*12=349.2, 349.2-25=324.2, bulk discount 324.2*0.06=19.45, 324.2-19.45=304.75
+    $sale = new Sale();
+    $sale->redeemed_amt = 25;
+    $sale->setSaleTotal($products);
+    $this->assertEquals(469.2, $sale->gross_total);
+    $this->assertEquals(120, $sale->product_discount);
+    $this->assertEquals(19.45, $sale->bulk_discount);
+    $this->assertEquals(0, $sale->delivery_fee);
+    $this->assertEquals(304.75, $sale->nett_total);
+    $this->assertEquals(300, $sale->cost_total);
   }
 
   public function testSalePaypalSuccess() {
@@ -282,6 +348,27 @@ class SaleTest extends \Codeception\TestCase\Test
     $sale = new Sale();
     $postal_is_cbd = $sale->postalIsCbd("470134");
     $this->assertFalse($postal_is_cbd);
+  }
+
+  public function testGetBulkDiscount() {
+    $sale = new Sale();
+    $product_discount = 0;
+    $redeemed_amt = 0;
+    $bulk_discount = $sale->getBulkDiscount(299.99, $product_discount, $redeemed_amt);
+    $this->assertEquals(0, $bulk_discount);
+
+    $redeemed_amt = 10;
+    $bulk_discount = $sale->getBulkDiscount(310, $product_discount, $redeemed_amt);
+    $this->assertEquals(18, $bulk_discount);
+
+    $redeemed_amt = 25;
+    $bulk_discount = $sale->getBulkDiscount(825, $product_discount, $redeemed_amt);
+    $this->assertEquals(56, $bulk_discount);
+
+    $redeemed_amt = 25;
+    $bulk_discount = $sale->getBulkDiscount(1025, $product_discount, $redeemed_amt);
+    $this->assertEquals(80, $bulk_discount);
+
   }
 
 }

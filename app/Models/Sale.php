@@ -108,13 +108,13 @@ class Sale extends Eloquent
       DB::table("sale_product")->insert((array)$product);
     }
 
-    $this->setSaleTotal($products, $this->redeemed_amt, $this->erp_surcharge);
+    $this->setSaleTotal($products);
     $this->earned_points = $this->calcPoints($this->nett_total);
     $this->save();
     return $this;
   }
 
-  public function setSaleTotal($products, $redeemed_amt = 0, $erp_surcharge = 0) {
+  public function setSaleTotal($products) {
     $gross_total = 0;
     $product_discount = 0;
     $cost_total = 0;
@@ -127,8 +127,9 @@ class Sale extends Eloquent
 
     $this->gross_total = $gross_total;
     $this->product_discount = $product_discount;
-    $this->delivery_fee = $this->getDeliveryFee($gross_total, $product_discount, $redeemed_amt);
-    $this->nett_total = $gross_total - $product_discount - $redeemed_amt + $erp_surcharge + $this->delivery_fee;
+    $this->bulk_discount = $this->getBulkDiscount($gross_total, $product_discount, $this->redeemed_amt);
+    $this->delivery_fee = $this->getDeliveryFee($gross_total, $product_discount, $this->redeemed_amt);
+    $this->nett_total = $gross_total - $product_discount - $this->redeemed_amt + $this->erp_surcharge + $this->delivery_fee - $this->bulk_discount;
     $this->cost_total = $cost_total;
   }
 
@@ -157,7 +158,7 @@ class Sale extends Eloquent
   }
 
   public function getSale($sale_id)   {
-    $s = "SELECT customer_id, sale_id, sale_no, stat, payment_type, product_discount, promo_discount, redeemed_points, redeemed_amt, earned_points,
+    $s = "SELECT bulk_discount, customer_id, sale_id, sale_no, stat, payment_type, product_discount, promo_discount, redeemed_points, redeemed_amt, earned_points,
     delivery_choice, address, postal, building, lift_lobby, erp_surcharge, delivery_time, customer_remark, operator_remark, bank_ref,
     gross_total, nett_total, sale_on, paid_on, delivered_on, delivery_fee
     FROM sale where sale_id = :sale_id";
@@ -277,6 +278,19 @@ class Sale extends Eloquent
       $res[] = $d->postal;
     }
     return $res;
+  }
+
+  public function getBulkDiscount($gross_total, $product_discount, $redeemed_amt) {
+    $bulk_discount = 0;
+    $total = $gross_total - $product_discount - $redeemed_amt;
+    if ($total >= 1000) {
+      $bulk_discount = $total * 0.08;
+    } else if ($total >= 800) {
+      $bulk_discount = $total * 0.07;
+    } else if ($total >= 300) {
+      $bulk_discount = $total * 0.06;
+    }
+    return round($bulk_discount, 2);
   }
 
   public function getDeliveryFee($gross_total, $product_discount, $redeemed_amt) {
