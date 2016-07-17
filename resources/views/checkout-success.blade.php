@@ -1,3 +1,5 @@
+<?php use App\Models\Enums\PaymentType; ?>
+
 @extends('template')
 
 @section('content')
@@ -11,13 +13,15 @@
           Your order <a href="{{url("order/".$sale_no)}}">#{{$sale_no}}</a> has been received.
           <br><br>
 
-          An order confirmation email has been sent to your email {{$email}}.
+          An order confirmation email has been sent to your email <b>{{$email}}</b>.
           <br><br>
 
-          After payment, it will be delivered within 1-3 working days.
-          <br><br>
+          @if(in_array($sale->payment_type, [PaymentType::Cheque]))
+            After payment, it will be delivered within 1-3 working days.
+            <br><br>
+          @endif
 
-          You can view your order history by going to your <a href="{{url('account#tab-orders')}}">Account</a>.
+          You can view your order history by going to your <a href="{{url('account#tab-orders')}}">account</a>.
           <br><br>
 
           If you have any questions or encounter any issues, please email us at admin@pawfamily.sg or contact us at +65 9026 4166.

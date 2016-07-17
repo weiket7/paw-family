@@ -113,8 +113,8 @@
                       @endif
                     </td>
                     <td colspan="1" class="v_align_m">
-                      <span id='redeemed-amt' class="fw_medium f_size_large m_xs_bottom_10" style="padding-top:5px;">$0</span>
-                      <button id='btn-redeem-clear' type='button' class="r_corners button_type_14 bg_color_blue color_light">Clear</button>
+                      <span id='redeemed-amt' class="f_size_large m_xs_bottom_10" style="padding-top:5px;">$0</span><br>
+                      <span id='span-redeem-clear' class="link color_dark" style="display:none"><i class="fa fa-times f_size_medium m_right_5"></i>Clear</span>
                     </td>
                   @else
                     <td colspan="1" class="v_align_m"></td>
@@ -478,7 +478,7 @@
         }
       });
 
-      $("#btn-redeem-clear").click(function() {
+      $("#span-redeem-clear").click(function() {
         $("input[name='radio-redeemed-points']:checked").prop('checked', false);
         redeemPoints();
       });
@@ -494,11 +494,11 @@
       var val = quantity_txt.val();
       if(data == "up"){
         val++;
-        i.val(val);
+        quantity_txt.val(val);
       }else if(data == "down"){
         if(val == 1) return;
         val--;
-        i.val(val);
+        quantity_txt.val(val);
       }
     }
     
@@ -654,6 +654,7 @@
       var redeemed_amt = getRedeemedAmt();
       //console.log('redeemed_amt'+redeemed_amt);
       if (redeemed_amt == 0) {
+        $("#span-redeem-clear").hide();
         $("#spend-points").html('');
         $("#redeemed-amt").text('$0');
         return;
@@ -662,6 +663,7 @@
       var redeemed_points = getRedeemedPoints();
       $("#spend-points").html("<b>You will spend " + redeemed_points + " Paw Points</b><br>");
       $("#redeemed_points").val(redeemed_points);
+      $("#span-redeem-clear").show();
 
       updateTotal();
     }
