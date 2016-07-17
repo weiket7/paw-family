@@ -570,18 +570,22 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{url('admin/delivery')}}" class="nav-link nav-toggle">
-            <i class="icon-frame"></i>
-            <span class="title">Delivery Dates</span>
-            <span class="arrow"></span>
-          </a>
-        </li>
-        <li class="nav-item">
           <a href="{{url('admin/setting')}}" class="nav-link nav-toggle">
-            <i class="icon-frame"></i>
+            <i class="icon-settings"></i>
             <span class="title">Settings</span>
             <span class="arrow"></span>
           </a>
+          <ul class="sub-menu">
+            <li class="nav-item ">
+              <a href="{{url("admin/delivery")}}" class="nav-link "> Delivery Dates </a>
+            </li>
+            <li class="nav-item ">
+              <a href="{{url("admin/district-postal")}}" class="nav-link "> Districts and Postals </a>
+            </li>
+            <li class="nav-item ">
+              <a href="{{url("admin/report/profit")}}" class="nav-link "> Config </a>
+            </li>
+          </ul>
         </li>
       </ul>
       <!-- END SIDEBAR MENU -->

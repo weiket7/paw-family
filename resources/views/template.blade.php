@@ -359,6 +359,10 @@
       login();
     });
 
+    $('#btn-back').click(function() {
+      window.history.back();
+    });
+
     function login() {
       var data = {
         email: $("#form-login #email_login").val(),

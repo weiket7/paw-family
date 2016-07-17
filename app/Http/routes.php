@@ -27,6 +27,7 @@ Route::get('brands', 'SiteController@brand');
 Route::get('contact', 'SiteController@contact');
 Route::post('contact', 'SiteController@contact');
 Route::get('terms-and-conditions', 'SiteController@termsandconditions');
+Route::get('cbd-area', 'SiteController@cbdArea');
 
 Route::get('product/category/{main_category}/{slug}', 'ProductController@category');
 Route::get('product/brand/{slug}', 'ProductController@brand');
@@ -137,6 +138,8 @@ Route::group(['middleware'=>'auth_operator'], function() {
 
   Route::get('admin/delivery', 'Admin\DeliveryController@index');
   Route::post('admin/delivery', 'Admin\DeliveryController@index');
+  Route::get('admin/district-postal', 'Admin\SettingController@districtPostal');
+  Route::post('admin/district-postal', 'Admin\SettingController@districtPostal');
 
   Route::get('admin/report/sales', 'Admin\ReportController@sales');
   Route::post('admin/report/sales', 'Admin\ReportController@sales');

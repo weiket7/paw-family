@@ -147,8 +147,13 @@ class SiteController extends Controller
   }
 
   public function termsAndConditions() {
-    return view('termsandconditions');
+    return view('terms-and-conditions');
   }
+
+  public function cbdArea() {
+    return view('cbd-area');
+  }
+
   /*public function resetPassword() {
     $data['name'] = 'Wei Ket';
     $data['email'] = 'wei_ket@hotmail.com';

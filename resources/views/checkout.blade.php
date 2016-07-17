@@ -262,7 +262,7 @@
                       </h5>
                       @if($postal_is_cbd)
                         <p>
-                          As this postal code is in <a href="#">CBD area</a>, there will be $5 ERP surcharge which has been included above.
+                          As this postal code is in <a href="{{url('cbd-area')}}" target="_blank">CBD area</a>, there will be $5 ERP surcharge which has been included above.
                         </p>
                       @endif
                     </figcaption>

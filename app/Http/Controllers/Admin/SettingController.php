@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DistrictPostal;
 use App\Models\Setting;
 use Hamcrest\Core\Set;
 use Illuminate\Http\Request;
@@ -14,10 +15,6 @@ class SettingController extends Controller
     return view("admin.setting.index", $data);
   }
 
-  public function deliveryDay() {
-
-  }
-
   public function config() {
     $app = App::getFacadeApplication();
     $data['laravel'] = $app::VERSION;
@@ -26,5 +23,10 @@ class SettingController extends Controller
     $data['email'] = env("APP_EMAIL");
     $data['timezone'] = date_default_timezone_get();
     return view("admin/setting/config", $data);
+  }
+
+  public function districtPostal() {
+    $data['district_postals'] = DistrictPostal::all();
+    return view('admin/setting/district-postal', $data);
   }
 }
