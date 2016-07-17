@@ -657,6 +657,7 @@
         $("#span-redeem-clear").hide();
         $("#spend-points").html('');
         $("#redeemed-amt").text('$0');
+        updateTotal();
         return;
       }
       $("#redeemed-amt").text('-$'+redeemed_amt);
@@ -681,14 +682,13 @@
     function updateDeliveryFee() {
       var raw_total = getRawTotal();
       var redeem_amt = getRedeemedAmt();
-      raw_total = raw_total - redeem_amt;
       var delivery_fee = 0;
-      if (raw_total < 80) {
+      if (raw_total - redeem_amt < 80) {
         delivery_fee = '+$10';
       } else {
         delivery_fee = '$0';
       }
-      //console.log('total=' + raw_total + ' delivery_fee=' + delivery_fee);
+      console.log('total=' + raw_total + ' delivery_fee=' + delivery_fee);
       $("#delivery-fee").text(delivery_fee);
     }
     

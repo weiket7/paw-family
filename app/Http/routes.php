@@ -63,6 +63,7 @@ Route::post('test', 'SaleController@test');
 Route::get('checkout', 'SaleController@checkout');
 Route::post('checkout', 'SaleController@checkout');
 Route::get('checkout-success', 'SaleController@checkoutSuccess');
+Route::get('email-view/{sale_id}', 'SaleController@emailView');
 
 Route::get('admin', 'Admin\AdminController@login');
 Route::post('admin', 'Admin\AdminController@login');

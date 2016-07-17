@@ -77,8 +77,8 @@ class SaleController extends Controller
       $mail_request->view_name = 'emails/order';
       $mail_request->subject = 'Paw Family - Order #'.$sale_no;
       $sale_id = $sale_service->getSaleIdByNo($sale_no);
-      $data['name'] = $customer->name;
       $data['sale'] = $sale_service->getSale($sale_id);
+      $data['customer'] = $customer;
       $mail_request->data = $data;
       $mail_service = new MailService();
       $mail_service->sendEmail($mail_request);
@@ -88,7 +88,17 @@ class SaleController extends Controller
     }
 
     return view("checkout-success", $data);
+  }
 
+  public function emailView($sale_id) {
+    if (env('APP_ENV') == 'local') {
+      $sale_service = new Sale();
+      $sale = $sale_service->getSale($sale_id);
+      $customer = Customer::find($sale->customer_id);
+      $data['sale'] = $sale;
+      $data['customer'] = $customer;
+      return view('emails/order', $data);
+    }
   }
 
   public function paypalProcess() {
