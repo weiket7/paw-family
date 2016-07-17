@@ -10,9 +10,10 @@ function getObjectSize(object) {
   return Object.keys(object).length
 }
 
-function removeDollarAndToFloat(string) {
-  string = string.replace('$', '')
-  string = string.replace(',', '')
+function removeMinusDollarAndToFloat(string) {
+  string = string.replace('$', '');
+  string = string.replace(',', '');
+  string = string.replace('-', '');
   return parseFloat(string);
 }
 

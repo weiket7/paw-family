@@ -15,5 +15,10 @@ class Setting extends Eloquent {
     }
     return $res;
   }
+
+  public function getCbdSurcharge()
+  {
+    return DB::table('setting')->where('name', 'cbdsurcharge')->value('value');
+  }
   
 }

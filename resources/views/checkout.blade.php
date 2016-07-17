@@ -160,6 +160,18 @@
                   <p class="f_size_large m_xs_bottom_10" id="delivery-fee"></p>
                 </td>
               </tr>
+              <tr id='tr-bulk-discount'>
+                <td colspan="3" class="v_align_m">
+                  <p class="f_size_large t_align_r t_xs_align_c">Bulk Discount:<br>
+                  <small>$300 and above: 6% discount<br>
+                  $800 and above: 7% discount<br>
+                  $1000 and above: 8% discount</small>
+                  </p>
+                </td>
+                <td colspan="1" class="v_align_m">
+                  <p class="f_size_large m_xs_bottom_10" id="bulk-discount">$0</p>
+                </td>
+              </tr>
               <tr>
                 <td colspan="3" class="v_align_m">
                   <p class="fw_medium f_size_large t_align_r t_xs_align_c scheme_color">Total:</p>
@@ -481,13 +493,15 @@
     function updateTotal() {
       updatePoints();
       updateDeliveryFee();
+      updateBulkDiscount();
       var erp_surcharge = updateErpSurcharge();
 
       var raw_total = getRawTotal();
       var redeemed_amt = getRedeemedAmt();
       var delivery_fee = getDeliveryFee();
-      var total = raw_total - redeemed_amt + erp_surcharge + delivery_fee;
-      //console.log('total='+total+' redeemed_amt='+redeemed_amt+ ' erp_surcharge='+erp_surcharge + ' delivery_fee=' + delivery_fee);
+      var bulk_discount = getBulkDiscount();
+      var total = raw_total - redeemed_amt + erp_surcharge + delivery_fee - bulk_discount;
+      //console.log('total='+total+' redeemed_amt='+redeemed_amt+ ' erp_surcharge='+erp_surcharge + ' delivery_fee=' + delivery_fee + ' bulk discount='+bulk_discount);
       $("#p-total").text("$" + toTwoDecimal(total));
 
       refreshCartButton();
@@ -534,7 +548,7 @@
     function getRawTotal() {
       var raw_total = 0;
       $(".subtotal").each(function() {
-        var subtotal = removeDollarAndToFloat($(this).text());
+        var subtotal = removeMinusDollarAndToFloat($(this).text());
         //console.log('subtotal='+subtotal+' typeof='+typeof subtotal);
         raw_total += subtotal;
       });
@@ -650,8 +664,27 @@
       } else {
         delivery_fee = '$0';
       }
-      console.log('total=' + raw_total + ' delivery_fee=' + delivery_fee);
+      //console.log('total=' + raw_total + ' delivery_fee=' + delivery_fee);
       $("#delivery-fee").text(delivery_fee);
+    }
+    
+    function updateBulkDiscount() {
+      var raw_total = getRawTotal();
+      var bulk_discount = 0;
+      if (raw_total >= 300) {
+        bulk_discount = raw_total * 0.06;
+      } else if (raw_total >= 800) {
+        bulk_discount = raw_total * 0.07;
+      } else if (raw_total >=1000) {
+        bulk_discount = raw_total * 0.08;
+      }
+      if (bulk_discount == 0) {
+        bulk_discount = '$0';
+      } else {
+        bulk_discount = '-$'+toTwoDecimal(bulk_discount);
+      }
+      //console.log('total=' + raw_total + ' bulk discount='+bulk_discount);
+      $("#bulk-discount").text(bulk_discount);
     }
 
     function getElementPrefix(product_id, size_id) {
@@ -681,7 +714,11 @@
     }
     function getDeliveryFee() {
       var delivery_fee = $("#delivery-fee").text();
-      return removeDollarAndToFloat(delivery_fee);
+      return removeMinusDollarAndToFloat(delivery_fee);
+    }
+    function getBulkDiscount() {
+      var bulk_discount = $("#bulk-discount").text();
+      return removeMinusDollarAndToFloat(bulk_discount);
     }
     function getQuantity(product_id, size_id) {
       var prefix = getElementPrefix(product_id, size_id);
