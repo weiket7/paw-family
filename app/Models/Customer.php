@@ -91,7 +91,7 @@ class Customer extends Eloquent
       return false;
     }
 
-    if (Hash::check($input['current_password'], $this->password)) {
+    if (! Hash::check($input['current_password'], $this->password)) {
       $this->validation->errors()->add("current_password", "Current password is wrong");
       return false;
     }
