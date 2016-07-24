@@ -674,8 +674,9 @@
       var earned_points = Math.floor(total);
       $("#earned-points").text(earned_points);
       $("#earned-points-not-logged-in").text(earned_points);
-      //console.log('total=' + total + ' earned_points=' + earned_points);
-      var result_points = getCurrentPoints() + earned_points;
+      var redeemed_points = getRedeemedPoints();
+      var result_points = getCurrentPoints() + earned_points - redeemed_points;
+      //console.log('total=' + total + ' earned_points=' + earned_points + 'result_points='+result_points);
       $("#result-points").text(result_points);
     }
 
@@ -688,7 +689,7 @@
       } else {
         delivery_fee = '$0';
       }
-      console.log('total=' + raw_total + ' delivery_fee=' + delivery_fee);
+      //console.log('total=' + raw_total + ' delivery_fee=' + delivery_fee);
       $("#delivery-fee").text(delivery_fee);
     }
     

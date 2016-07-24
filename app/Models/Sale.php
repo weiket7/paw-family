@@ -127,7 +127,7 @@ class Sale extends Eloquent
 
     $this->gross_total = $gross_total;
     $this->product_discount = $product_discount;
-    $this->bulk_discount = $this->getBulkDiscount($gross_total, $product_discount, $this->redeemed_amt);
+    $this->bulk_discount = $this->getBulkDiscount($gross_total, $product_discount);
     $this->delivery_fee = $this->getDeliveryFee($gross_total, $product_discount, $this->redeemed_amt);
     $this->nett_total = $gross_total - $product_discount - $this->redeemed_amt + $this->erp_surcharge + $this->delivery_fee - $this->bulk_discount;
     $this->cost_total = $cost_total;
@@ -280,9 +280,9 @@ class Sale extends Eloquent
     return $res;
   }
 
-  public function getBulkDiscount($gross_total, $product_discount, $redeemed_amt) {
+  public function getBulkDiscount($gross_total, $product_discount) {
     $bulk_discount = 0;
-    $total = $gross_total - $product_discount - $redeemed_amt;
+    $total = $gross_total - $product_discount;
     if ($total >= 1000) {
       $bulk_discount = $total * 0.08;
     } else if ($total >= 800) {
