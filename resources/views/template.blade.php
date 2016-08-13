@@ -181,7 +181,7 @@
     <div class="container">
       <ul class="horizontal_list clearfix bc_list f_size_medium"  style="background-color:#f2f4f5; padding: 9px;">
         <li class="m_right_10 current">
-          Home<i class="fa fa-angle-right d_inline_middle m_left_10"></i>
+          <a href="{{url('/')}}">Home</a><i class="fa fa-angle-right d_inline_middle m_left_10"></i>
         </li>
         @foreach($breadcrumbs as $b)
           <li class="m_right_10">

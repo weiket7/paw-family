@@ -723,7 +723,7 @@
       return parseFloat($("input[name='radio-redeemed-points']:checked").attr('data-redeemed-amt')) | 0;
     }
     function getRedeemedPoints() {
-      return parseFloat($("input[name='radio-redeemed-points']:checked").val());
+      return parseFloat($("input[name='radio-redeemed-points']:checked").val()) | 0;
     }
     function getEarnedPoints() {
       return parseFloat($("#earned-points").text());

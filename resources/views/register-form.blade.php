@@ -32,7 +32,7 @@
         <label for="email" class="d_inline_b">Promotions</label><br>
         <input type="checkbox" class="d_none" name="subscribe" id="subscribe"><label for="subscribe">Yes, I would like to receive emails about promotions</label>
       </li>
-      <li><button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover">Save</button></li>
+      <li></li>
     </ul>
   </div>
   <div class="col-lg-6 col-md-6 col-sm-6 m_xs_bottom_30">
@@ -58,5 +58,11 @@
         {{Form::text("lift_lobby", '', ['id'=>'lift_lobby', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>7])}}
       </li>
     </ul>
+  </div>
+
+  <div class="col-md-12">
+    <div class="text-center">
+      <button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover">Save</button>
+    </div>
   </div>
 </div>
