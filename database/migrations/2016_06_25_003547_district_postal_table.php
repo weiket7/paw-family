@@ -8,6 +8,7 @@ class DistrictPostalTable extends Migration
     public function up()
     {
       Schema::create('district_postal', function (Blueprint $table) {
+        $table->increments('district_postal_id');
         $table->integer('district');
         $table->integer('postal');
         $table->tinyInteger('cbd');
