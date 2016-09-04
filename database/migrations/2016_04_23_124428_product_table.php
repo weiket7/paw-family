@@ -62,6 +62,7 @@ class ProductTable extends Migration
         'meta_keyword'=>'Addiction Viva La Venison Dry Dog Food In Singapore, addiction dry food, addiction dog food, addiction venison, addiction viva la, addiction viva la venison, addiction kibbles, addiction pet food, addiction pet food singapore, addiction dog food singapore, VENISON DOG FOOD, ADDICTION VENISON DOG FOOD.',
         'meta_desc'=>'Addiction Dry Dog Food Viva La Venison - New Zealand Venison High in Protein, Low in Fat - Probiotics for a Healthy Digestive &amp; Immune System - Fruits &amp; Vegetables Rich in Phytonutrients Viva La Venison - A Delectable Grain-Free Meal for your Dog Featurin',
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -85,6 +86,7 @@ class ProductTable extends Migration
         'discount_type'=>DiscountType::Percentage,
         'stat'=>ProductStat::Hidden,
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -105,6 +107,7 @@ class ProductTable extends Migration
         'image'=>'addiction-le-lamb.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -125,6 +128,7 @@ class ProductTable extends Migration
         'image'=>'addiction-dry-dog-food-wild-kangaroo-apples.png',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -145,6 +149,7 @@ class ProductTable extends Migration
         'image'=>'addiction-la-porchetta.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -165,6 +170,7 @@ class ProductTable extends Migration
         'image'=>'addiction-zen-vegetarian.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -185,6 +191,7 @@ class ProductTable extends Migration
         'image'=>'addiction-viva-la-venison-puppy.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -205,6 +212,7 @@ class ProductTable extends Migration
         'image'=>'addiction-salmon-bleu-puppy.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -225,6 +233,7 @@ class ProductTable extends Migration
         'image'=>'addiction-raw-dehydrated-figlicious-venison-feast-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -245,6 +254,7 @@ class ProductTable extends Migration
         'image'=>'addiction-raw-dehydrated-herbed-lamb-potatoes-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -265,6 +275,7 @@ class ProductTable extends Migration
         'image'=>'addiction-raw-dehydrated-steakhouse-beef-zucchini-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -285,6 +296,7 @@ class ProductTable extends Migration
         'image'=>'addiction-raw-dehydrated-nz-forest-delicacies.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -305,6 +317,7 @@ class ProductTable extends Migration
         'image'=>'addiction-raw-dehydrated-homestyle-venison-cranberry-dinner.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -325,6 +338,7 @@ class ProductTable extends Migration
         'image'=>'addiction-raw-dehydrated-perfect-summer-brushtail-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -345,6 +359,7 @@ class ProductTable extends Migration
         'image'=>'addiction-raw-dehydrated-country-chicken-apricot-dinner-grain-free.jpg',
         'stat'=>ProductStat::Available,
         'desc_short'=>'Delicious!',
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -364,6 +379,7 @@ class ProductTable extends Migration
         'processing_day'=>3,
         'image'=>'primal-freeze-dried-canine-turkey-sardine.jpg',
         'stat'=>ProductStat::Available,
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -383,6 +399,7 @@ class ProductTable extends Migration
         'processing_day'=>3,
         'image'=>'primal-freeze-dried-canine-lamb-formula.jpg',
         'stat'=>ProductStat::Available,
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -402,6 +419,7 @@ class ProductTable extends Migration
         'processing_day'=>3,
         'image'=>'primal-freeze-dried-canine-duck-formula.jpg',
         'stat'=>ProductStat::Available,
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -421,6 +439,7 @@ class ProductTable extends Migration
         'processing_day'=>3,
         'image'=>'primal-freeze-dried-canine-chicken-formula.jpg',
         'stat'=>ProductStat::Available,
+        'bulk_discount_applicable'=>1,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -440,6 +459,7 @@ class ProductTable extends Migration
         'processing_day'=>3,
         'image'=>'addiction-nz-brushtail-vegetables-entree-grain-free-dog-canned-food.png',
         'stat'=>ProductStat::Available,
+        'bulk_discount_applicable'=>0,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -460,6 +480,7 @@ class ProductTable extends Migration
         'processing_day'=>3,
         'image'=>'addiction-nz-venison-apples-entree-grain-free-dog-canned-food.png',
         'stat'=>ProductStat::Available,
+        'bulk_discount_applicable'=>0,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -480,6 +501,7 @@ class ProductTable extends Migration
         'processing_day'=>3,
         'image'=>'addiction-king-salmon-potatoes-entree-grain-free-dog-canned-food.png',
         'stat'=>ProductStat::Available,
+        'bulk_discount_applicable'=>0,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -500,6 +522,7 @@ class ProductTable extends Migration
         'processing_day'=>3,
         'image'=>'addiction-unagi-seaweed-entree-grain-free-dog-canned-food.png',
         'stat'=>ProductStat::Available,
+        'bulk_discount_applicable'=>0,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -520,6 +543,7 @@ class ProductTable extends Migration
         'processing_day'=>3,
         'image'=>'nutripe-ambrosia-turkey-with-green-tripe-canned-dog-food.jpg',
         'stat'=>ProductStat::Available,
+        'bulk_discount_applicable'=>0,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -540,6 +564,7 @@ class ProductTable extends Migration
         'processing_day'=>3,
         'image'=>'addiction-unagi-seaweed-entree-grain-free-dog-canned-food.jpg',
         'stat'=>ProductStat::Available,
+        'bulk_discount_applicable'=>0,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
     }

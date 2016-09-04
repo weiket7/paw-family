@@ -7,6 +7,7 @@ use App\Models\Enums\DeliveryChoice;
 use App\Models\Enums\DeliveryTime;
 use App\Models\Enums\PaymentType;
 use App\Models\Enums\SaleStat;
+use App\Models\Product;
 use App\Models\Sale;
 use App\Models\ProductSize;
 
@@ -201,6 +202,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $product1->discount_amt = 10;
     $product1->quantity = 3;
     $product1->cost_price = 126.9;
+    $product1->bulk_discount_applicable = 1;
 
     $product2 = new SaleProduct();
     $product2->price = 39.10;
@@ -208,6 +210,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $product2->discount_amt = 3.91;
     $product2->quantity = 2;
     $product2->cost_price = 30.19;
+    $product2->bulk_discount_applicable = 1;
 
     $products[] = $product1;
     $products[] = $product2;
@@ -228,6 +231,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $product->discount_amt = 0.25;
     $product->quantity = 4;
     $product->cost_price = 4;
+    $product->bulk_discount_applicable = 1;
     $products[] = $product;
 
     //20 - 10 redeem amt + 10 delivery charge + 5 erp surcharge = 25
@@ -249,6 +253,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $product->discount_amt = 10;
     $product->quantity = 10;
     $product->cost_price = 25;
+    $product->bulk_discount_applicable = 1;
     $products[] = $product;
 
     //29.1*10=291, no bulk discount
@@ -270,6 +275,7 @@ class SaleTest extends \Codeception\TestCase\Test
     $product->discount_amt = 10;
     $product->quantity = 12;
     $product->cost_price = 25;
+    $product->bulk_discount_applicable = 1;
     $products[] = $product;
 //37.45
     //29.1*12=349.2, bulk discount 349.2*0.06=20.95, 324.2-20.95=303.25
@@ -352,19 +358,21 @@ class SaleTest extends \Codeception\TestCase\Test
 
   public function testGetBulkDiscount() {
     $sale = new Sale();
-    $product_discount = 0;
-    $bulk_discount = $sale->getBulkDiscount();
-    $this->assertEquals(0, $bulk_discount);
 
-    $bulk_discount = $sale->getBulkDiscount();
-    $this->assertEquals(18.6, $bulk_discount);
+    $product1 = new Product();
+    $product1->bulk_discount_applicable = 1;
+    $product1->discounted_price = 132.90;
+    $product1->quantity = 3;
 
-    $bulk_discount = $sale->getBulkDiscount();
-    $this->assertEquals(57.75, $bulk_discount);
+    $product2 = new Product();
+    $product2->bulk_discount_applicable = 0;
+    $product2->discounted_price = 5.25;
+    $product2->quantity = 90;
 
-    $bulk_discount = $sale->getBulkDiscount();
-    $this->assertEquals(82, $bulk_discount);
+    $products = [$product1, $product2];
 
+    $bulk_discount = $sale->getBulkDiscount($products);
+    $this->assertEquals(23.92, $bulk_discount);
   }
 
 }

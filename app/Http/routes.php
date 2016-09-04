@@ -19,6 +19,7 @@ use App\Models\Enums\CustomerStat;
 use App\Models\Enums\DeliveryChoice;
 use App\Models\Enums\DeliveryTime;
 use App\Models\Enums\PaymentType;
+use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\Sale;
 
@@ -164,21 +165,23 @@ Route::get('test', function() {
 
 });
 
-Route::get('hash', function() {
-  $pass = "test168";
-  $salt = "Gq";
-  $encryptedPass = md5($salt.$pass).":".$salt;
-  echo $encryptedPass;
-  $expectedPass = "4bb6c925ec104715a2ca6ec85e79e66d:Gq";
-  echo "<br>";
-  echo $expectedPass;
-  echo "<br>";
-  $str = "password";
-  $salt="Dr";
-  $pass= md5($salt.$str).":".$salt;
-  echo $pass; // the out put will be  fa23eb07d1c851f81707f4f649cb2c42:Dr
-  //return Hash::make("Pawpaw168");
-  //return str_slug("Addiction Raw Dehydrated - Figlicious Venison Feast (Grain Free)");
+Route::get('test', function() {
+  $sale = new Sale();
+
+  $product1 = new Product();
+  $product1->bulk_discount_applicable = 1;
+  $product1->discounted_price = 132.90;
+  $product1->quantity = 3;
+
+  $product2 = new Product();
+  $product2->bulk_discount_applicable = 0;
+  $product2->discounted_price = 5.25;
+  $product2->quantity = 90;
+
+  $products = [$product1, $product2];
+
+  $bulk_discount = $sale->getBulkDiscount($products);
+  var_dump($bulk_discount);
 });
 
 Route::get('clear-cache', function() {
