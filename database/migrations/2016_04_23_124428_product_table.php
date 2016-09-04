@@ -29,6 +29,7 @@ class ProductTable extends Migration
         $t->decimal('weight_kg', 7, 2);
         $t->tinyInteger('processing_day');
         $t->decimal('discount_amt', 7, 2); //round down
+        $t->boolean('bulk_discount_applicable');
         $t->string('image', 150);
         $t->string('desc_short', 250);
         $t->string('meta_title', 250);

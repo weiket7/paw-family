@@ -180,6 +180,26 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
+                <label class="control-label col-md-3">Bulk Discount</label>
+                <div class="col-md-9">
+                  <div class="radio-list">
+                    <label class="radio-inline">
+                      {{ Form::radio('bulk_discount_applicable', 1, $product->bulk_discount_applicable==1) }} Applicable
+                    </label>
+                    <label class="radio-inline">
+                      {{ Form::radio('bulk_discount_applicable', 0, $product->bulk_discount_applicable==0) }} Not Applicable
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
                 <label class="control-label col-md-3">Supplier</label>
                 <div class="col-md-9">
                   {!! Form::select('supplier_id', $suppliers, $product->supplier_id, ['class'=>'form-control']) !!}

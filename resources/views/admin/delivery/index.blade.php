@@ -44,6 +44,7 @@
   </table>
   <br>
 
+  <div class="table-responsive">
   <table class="table table-bordered table-hover">
     <thead>
     <tr>
@@ -71,4 +72,5 @@
     @endforeach
     </tbody>
   </table>
+  </div>
 @endsection

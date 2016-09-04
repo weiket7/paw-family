@@ -52,7 +52,9 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label class="control-label col-md-3">Paw Points</label>
-                <label class="form-control-static col-md-9">{{ $customer->points }}</label>
+                <div class="col-md-9">
+                  {!! Form::text('points', $customer->points, ['class'=>'form-control']) !!}
+                </div>
               </div>
             </div>
             <div class="col-md-6">

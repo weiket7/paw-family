@@ -34,7 +34,6 @@
             </div>
             <div class="col-md-7">
               <div class="p_top_10 t_xs_align_l">
-                <!--description-->
                 <h2 class="color_dark fw_medium m_bottom_10">{{$product->name}}</h2>
                 <hr class="m_bottom_10 divider_type_3">
                 <table class="description_table m_bottom_10">
@@ -48,7 +47,7 @@
                   </tr>
                   <tr>
                     <td>Availability:</td>
-                    <td><span class="color_green">In stock</span> {{--20 item(s)--}}</td>
+                    <td><span class="color_green">In Stock</span> {{--20 item(s)--}}</td>
                   </tr>
                   @if(count($product->sizes) == 0)
                   <tr>
@@ -56,13 +55,27 @@
                     <td>{{CommonHelper::formatWeight($product->weight_lb, $product->weight_kg)}}</td>
                   </tr>
                   @endif
-                </table>
-                <hr class="divider_type_3 m_bottom_10">
-                <p class="m_bottom_10">
-                  {{$product->desc_short}}
-                </p>
-                <hr class="divider_type_3 m_bottom_15">
 
+                  <tr>
+                    <td>Bulk Discount:</td>
+                    <td>
+                      @if($product->bulk_discount_applicable)
+                        Applicable
+                      @else
+                        Not Applicable
+                      @endif
+                    </td>
+                  </tr>
+                </table>
+
+                @if($product->desc_short)
+                  <hr class="divider_type_3 m_bottom_10">
+                  <p class="m_bottom_10">
+                    {{$product->desc_short}}
+                  </p>
+                @endif
+
+                <hr class="divider_type_3 m_bottom_15">
                 <table class="description_table type_2 m_bottom_15">
                   @if(count($product->sizes))
                     <tr>

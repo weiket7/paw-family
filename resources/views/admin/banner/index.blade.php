@@ -7,6 +7,7 @@
 ])
 
 @section("content")
+  <div class="table-responsive">
   <table class="table table-bordered">
     <thead>
     <tr>
@@ -35,4 +36,5 @@
     @endforeach
     </tbody>
   </table>
+  </div>
 @endsection

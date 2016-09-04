@@ -50,6 +50,7 @@
     </div>
   @endif
 
+  <div class="table-responsive">
   <table class="table table-bordered table-hover">
     <thead>
     <tr>
@@ -95,15 +96,16 @@
     @endforeach
     </tbody>
   </table>
+  </div>
 @endsection
 
 @section('script')
-<script type="text/javascript">
-function clearSearchProduct() {
-  $("#stat").val('');
-  $("input[name='name']").val('');
-  $("#brand_id").val('');
-  $("#category_id").val('');
-}
-</script>
+  <script type="text/javascript">
+  function clearSearchProduct() {
+    $("#stat").val('');
+    $("input[name='name']").val('');
+    $("#brand_id").val('');
+    $("#category_id").val('');
+  }
+  </script>
 @endsection

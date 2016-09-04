@@ -135,7 +135,8 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::get('admin/setting', 'Admin\SettingController@index');
   Route::get('admin/setting/save/{setting_id}', 'Admin\SettingController@save');
   Route::post('admin/setting/save/{setting_id}', 'Admin\SettingController@save');
-  Route::get('admin/setting/config', 'Admin\SettingController@config');
+  Route::get('admin/config', 'Admin\SettingController@config');
+  Route::get('admin/logout', 'Admin\AdminController@logout');
 
   Route::get('admin/delivery', 'Admin\DeliveryController@index');
   Route::post('admin/delivery', 'Admin\DeliveryController@index');

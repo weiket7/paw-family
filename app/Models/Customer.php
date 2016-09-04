@@ -81,6 +81,11 @@ class Customer extends Eloquent
     $this->building = $input['building'];
     $this->lift_lobby = $input['lift_lobby'];
     $this->subscribe = isset($input['subscribe']) ? SubscribeStat::Yes : SubscribeStat::No;
+    if ($this->points != $input['points']) {
+      $point_log_service = new PointLog();
+      $point_log_service->savePointLog($this->customer_id, $this->points, $input['points'], PointType::Overwrite);
+      $this->points = $input['points'];
+    }
     $this->save();
     return true;
   }

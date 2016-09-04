@@ -24,6 +24,7 @@ class Cart {
       $sale_product->product_id = $product_id;
       $sale_product->quantity = (int)$quantity;
       $sale_product->name = $product->name;
+      $sale_product->bulk_discount_applicable = $product->bulk_discount_applicable;
       $sale_product->size_id = $size_id;
       $sale_product->option_id = $option_id;
       if($size_id > 0) {

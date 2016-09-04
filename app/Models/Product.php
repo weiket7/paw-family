@@ -56,6 +56,7 @@ class Product extends Eloquent
     $this->discount_type = $product_discount->discount_type;
     $this->discount_amt = $product_discount->discount_amt;
     $this->discounted_price = $product_discount->discounted_price;
+    $this->bulk_discount_applicable = $input['bulk_discount_applicable'];
 
     if ($image) {
       $this->image = CommonHelper::uploadImage('products', $input['name'], $image);
@@ -98,7 +99,8 @@ class Product extends Eloquent
   }
 
   public function getProduct($intOrSlug) {
-    $s = "SELECT product_id, p.name, p.slug, p.image, cost_price, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat, supplier_id, sku,
+    $s = "SELECT product_id, p.name, p.slug, p.image, cost_price, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat,
+    supplier_id, sku, bulk_discount_applicable, 
     b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight_lb, weight_kg,
     desc_short, meta_keyword, meta_desc
     FROM product as p

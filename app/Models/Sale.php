@@ -127,7 +127,7 @@ class Sale extends Eloquent
 
     $this->gross_total = $gross_total;
     $this->product_discount = $product_discount;
-    $this->bulk_discount = $this->getBulkDiscount($gross_total, $product_discount);
+    $this->bulk_discount = $this->getBulkDiscount($products);
     $this->delivery_fee = $this->getDeliveryFee($gross_total, $product_discount, $this->redeemed_amt);
     $this->nett_total = $gross_total - $product_discount - $this->redeemed_amt + $this->erp_surcharge + $this->delivery_fee - $this->bulk_discount;
     $this->cost_total = $cost_total;
@@ -280,15 +280,21 @@ class Sale extends Eloquent
     return $res;
   }
 
-  public function getBulkDiscount($gross_total, $product_discount) {
+  public function getBulkDiscount($products) {
+    $total_applicable_for_bulk_discount = 0;
+    foreach($products as $product) {
+      if ($product->bulk_discount_applicable) {
+        $total_applicable_for_bulk_discount += $product->discounted_price * $product->quantity + $product->option_price * $product->quantity;
+      }
+    }
+
     $bulk_discount = 0;
-    $total = $gross_total - $product_discount;
-    if ($total >= 1000) {
-      $bulk_discount = $total * 0.08;
-    } else if ($total >= 800) {
-      $bulk_discount = $total * 0.07;
-    } else if ($total >= 300) {
-      $bulk_discount = $total * 0.06;
+    if ($total_applicable_for_bulk_discount >= 1000) {
+      $bulk_discount = $total_applicable_for_bulk_discount * 0.08;
+    } else if ($total_applicable_for_bulk_discount >= 800) {
+      $bulk_discount = $total_applicable_for_bulk_discount * 0.07;
+    } else if ($total_applicable_for_bulk_discount >= 300) {
+      $bulk_discount = $total_applicable_for_bulk_discount * 0.06;
     }
     return round($bulk_discount, 2);
   }

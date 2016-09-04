@@ -23,6 +23,7 @@ class SaleProductTable extends Migration
       $table->decimal('discounted_price', 9,2);
       $table->decimal('discount_amt', 9,2)->nullable();
       $table->decimal('discount_percentage', 9,2)->nullable();
+      $table->boolean('bulk_discount_applicable');
       $table->decimal('subtotal', 9,2);
     });
 

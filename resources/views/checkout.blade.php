@@ -48,12 +48,20 @@
                       </div>
                       <div class="col-md-9">
                         <a href="{{url("product/view/".$p->slug)}}">{{$p->name}}</a>
+
                         @if($p->size_id > 0)
                           <br>Size: {{$p->size_name}}
                         @endif
                         @if($p->option_id > 0)
                           <br>Repack: {{$p->option_name}} - ${{CommonHelper::formatNumber($p->option_price)}}
                         @endif
+
+                        <br>Bulk Discount:
+                          @if($p->bulk_discount_applicable)
+                            Applicable
+                          @else
+                            Not Applicable
+                          @endif
                       </div>
                     </div>
                   </td>
@@ -79,7 +87,9 @@
                     </div>
                   </td>
                   <td data-title="Subtotal">
-                    <p id='product{{$p->product_id}}-size{{$p->size_id}}-subtotal' class="subtotal f_size_large fw_medium scheme_color">${{CommonHelper::formatNumber($p->subtotal)}}</p>
+                    <p id='product{{$p->product_id}}-size{{$p->size_id}}-subtotal' data-bulk-discount-applicable='{{$p->bulk_discount_applicable}}' class="subtotal f_size_large fw_medium scheme_color">
+                      ${{CommonHelper::formatNumber($p->subtotal)}}
+                    </p>
                   </td>
                 </tr>
                 <?php $gross_total += $p->subtotal; ?>
@@ -144,14 +154,6 @@
                   <p class="fw_medium f_size_large m_xs_bottom_10">${{CommonHelper::formatNumber($promo_total)}}</p>
                 </td>
               </tr>--}}
-              <tr id='tr-cbd-surcharge' style="display:none">
-                <td colspan="3" class="v_align_m">
-                  <p class="f_size_large t_align_r t_xs_align_c">CBD ERP surcharge:</p>
-                </td>
-                <td colspan="1" class="v_align_m">
-                  <p class="f_size_large m_xs_bottom_10">+$5</p>
-                </td>
-              </tr>
               <tr id='tr-delivery-fee'>
                 <td colspan="3" class="v_align_m">
                   <p class="f_size_large t_align_r t_xs_align_c">Delivery Fee:<br>
@@ -159,6 +161,14 @@
                 </td>
                 <td colspan="1" class="v_align_m">
                   <p class="f_size_large m_xs_bottom_10" id="delivery-fee"></p>
+                </td>
+              </tr>
+              <tr id='tr-cbd-surcharge' style="display:none">
+                <td colspan="3" class="v_align_m">
+                  <p class="f_size_large t_align_r t_xs_align_c">CBD ERP surcharge:</p>
+                </td>
+                <td colspan="1" class="v_align_m">
+                  <p class="f_size_large m_xs_bottom_10">+$5</p>
                 </td>
               </tr>
               <tr id='tr-bulk-discount'>
@@ -694,7 +704,14 @@
     }
     
     function updateBulkDiscount() {
-      var raw_total = getRawTotal();
+      var raw_total = 0;
+      $(".subtotal").each(function() {
+        var bulk_discount_applicable = $(this).attr('data-bulk-discount-applicable') == 1;
+        if (bulk_discount_applicable) {
+          raw_total += removeMinusDollarAndToFloat($(this).text());
+        }
+      });
+
       var bulk_discount = 0;
       if (raw_total >= 1000) {
         bulk_discount = raw_total * 0.08;

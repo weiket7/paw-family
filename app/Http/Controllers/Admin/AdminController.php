@@ -25,6 +25,7 @@ class AdminController extends Controller
 
   public function logout(Request $request) {
     $request->session()->forget('auth_operator');
+    return redirect('admin');
   }
 
   public function dashboard(Request $request) {

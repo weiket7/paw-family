@@ -353,16 +353,16 @@ class SaleTest extends \Codeception\TestCase\Test
   public function testGetBulkDiscount() {
     $sale = new Sale();
     $product_discount = 0;
-    $bulk_discount = $sale->getBulkDiscount(299.99, $product_discount);
+    $bulk_discount = $sale->getBulkDiscount();
     $this->assertEquals(0, $bulk_discount);
 
-    $bulk_discount = $sale->getBulkDiscount(310, $product_discount);
+    $bulk_discount = $sale->getBulkDiscount();
     $this->assertEquals(18.6, $bulk_discount);
 
-    $bulk_discount = $sale->getBulkDiscount(825, $product_discount);
+    $bulk_discount = $sale->getBulkDiscount();
     $this->assertEquals(57.75, $bulk_discount);
 
-    $bulk_discount = $sale->getBulkDiscount(1025, $product_discount);
+    $bulk_discount = $sale->getBulkDiscount();
     $this->assertEquals(82, $bulk_discount);
 
   }
