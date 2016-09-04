@@ -27,7 +27,11 @@
         {!! Form::select('payment_type', PaymentType::$values, '', ['class'=>'form-control']) !!}
       </td>
       <td>
-
+        <div class="input-group input-daterange">
+          {!! Form::text('start', '', ['class'=>'form-control']) !!}
+          <span class="input-group-addon"> and </span>
+          {!! Form::text('end', '', ['class'=>'form-control']) !!}
+        </div>
       </td>
       </tr>
     </tbody>
@@ -50,6 +54,7 @@
   <table class="table table-bordered table-hover">
     <thead>
     <tr>
+      <th width="50px">Print</th>
       <th width="150px">Status</th>
       <th width="200px">Customer</th>
       <th width="100px">Payment Type</th>
@@ -63,6 +68,9 @@
     <tbody>
       @foreach($sales as $sale)
         <tr>
+          <td>
+            <input type="checkbox" class="form-control">
+          </td>
           <td>
             <a href="{{url("admin/sale/view/".$sale->sale_id)}}">
               {{ SaleStat::$values[$sale->stat] }}
@@ -84,5 +92,24 @@
     </tbody>
   </table>
   </div>
+
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <button class="btn btn-primary" type="button">
+        Print
+      </button>
+    </div>
+  </div>
+@endsection
+
+@section('script')
+  <script>
+    $('.input-daterange').datepicker({
+      todayHighlight: true,
+      format : "dd M yy",
+      autoclose: true,
+      endDate: '+0d'
+    });
+  </script>
 
 @endsection

@@ -223,6 +223,7 @@
           <table class="table table-bordered">
             <thead>
             <th>Name</th>
+            <th>Bulk Discount</th>
             <th>Size</th>
             <th>Option</th>
             <th>Quantity</th>
@@ -235,7 +236,15 @@
                 <td>
                   <a href="{{url("admin/product/save/".$product->product_id)}}">{{$product->name}}</a>
                 </td>
-                <td>{{$product->size_name}}</td>
+                <td>
+                  @if($product->bulk_discount_applicable)
+                    Applicable
+                  @else
+                    Not Applicable
+                  @endif
+                <td>
+                  {{$product->size_name}}
+                </td>
                 <td>
                   @if($product->option_name)
                     {{$product->option_name}} - ${{CommonHelper::formatNumber($product->option_price)}}

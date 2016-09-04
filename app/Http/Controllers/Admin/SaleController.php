@@ -12,8 +12,14 @@ class SaleController extends Controller
   public function index(Request $request) {
     $sale_service = new Sale();
     if($request->isMethod('post')) {
-      $input = $request->all();
-      $sales = $sale_service->searchSale($input);
+      $action = $request->get('action');
+      if ($action == 'search') {
+        $input = $request->all();
+        $sales = $sale_service->searchSale($input);
+      } else if($action == 'print') {
+        $data = [];
+        return view('admin/sale/print', $data);
+      }
     } else {
       $sales = $sale_service->getLatestSale();
     }

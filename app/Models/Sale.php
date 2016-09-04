@@ -150,6 +150,12 @@ class Sale extends Eloquent
     if (isset($input['payment_type']) && $input['payment_type'] != '') {
       $s .= " and payment_type = '$input[payment_type]'";
     }
+    if (isset($input['start']) && isset($input['end'])
+      && $input['start'] != '' && $input['end'] != '') {
+      $start = date('Y-m-d', strtotime($input['start']));
+      $end = Carbon::createFromFormat('d M y', $input['end'])->addDay(1)->format('Y-m-d');
+      $s .= " and (sale_on >= '".$start."' and sale_on < '".$end."')";
+    }
     $s .= " order by sale_on desc";
     $sales = DB::select($s);
     return $sales;
@@ -167,7 +173,7 @@ class Sale extends Eloquent
     $p['sale_id'] = $sale_id;
     $sale = DB::select($s, $p)[0];
 
-    $s = "SELECT sp.product_id, sp.name, p.image,
+    $s = "SELECT sp.product_id, sp.name, p.image, sp.bulk_discount_applicable,
     size_id, ifnull(size_name, '') as size_name,
     option_id, ifnull(option_name, '') as option_name, ifnull(option_price, '') as option_price,
     sp.quantity, sp.price, sp.discounted_price, subtotal from sale_product as sp

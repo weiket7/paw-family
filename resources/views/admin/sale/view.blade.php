@@ -226,10 +226,11 @@
           <table class="table table-bordered">
             <thead>
             <th>Name</th>
-            <th>Size</th>
-            <th>Option</th>
-            <th>Quantity</th>
-            <th>Discounted Price</th>
+            <th width="120px">Bulk Discount</th>
+            <th width="100px">Size</th>
+            <th width="100px">Option</th>
+            <th width="100px">Quantity</th>
+            <th width="140px">Discounted Price</th>
             <th>Subtotal</th>
             </thead>
             <tbody>
@@ -237,6 +238,13 @@
               <tr>
                 <td>
                   <a href="{{url("admin/product/save/".$product->product_id)}}">{{$product->name}}</a>
+                </td>
+                <td>
+                  @if($product->bulk_discount_applicable)
+                    Applicable
+                  @else
+                    Not Applicable
+                  @endif
                 </td>
                 <td>{{$product->size_name}}</td>
                 <td>
