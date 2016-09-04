@@ -2,7 +2,7 @@
 <?php use App\Models\Enums\PaymentType; ?>
 <?php use App\Models\Enums\DeliveryChoice; ?>
 
-<img src="http://pawfamily.sg/assets/images/paw-family-logo.png">
+<img src="{{url('/')}}/assets/images/paw-family-logo.png">
 
 <style>
   body {
@@ -163,6 +163,7 @@
 
 <table class="tbl-product">
   <tr>
+    <td></td>
     <td>Name</td>
     <td>Price</td>
     <td>Quantity</td>
@@ -170,6 +171,9 @@
   </tr>
   @foreach($sale->products as $product)
     <tr>
+      <td>
+        <img src="{{url('/')}}/assets/images/products/{{$product->image}}" style="max-height:80px">
+      </td>
       <td>
         {{$product->name}}
         @if($product->size_id > 0)

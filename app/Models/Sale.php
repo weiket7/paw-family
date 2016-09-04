@@ -165,10 +165,12 @@ class Sale extends Eloquent
     $p['sale_id'] = $sale_id;
     $sale = DB::select($s, $p)[0];
 
-    $s = "SELECT product_id, name, 
+    $s = "SELECT sp.product_id, sp.name, p.image,
     size_id, ifnull(size_name, '') as size_name,
     option_id, ifnull(option_name, '') as option_name, ifnull(option_price, '') as option_price,
-    product_id, quantity, price, discounted_price, subtotal from sale_product 
+    sp.quantity, sp.price, sp.discounted_price, subtotal from sale_product as sp
+    inner join product as p
+    on sp.product_id = p.product_id
     where sale_id = :sale_id";
     $sale->products = DB::select($s, $p);
 
@@ -322,6 +324,24 @@ class Sale extends Eloquent
       $erp_surcharge = 5;
     }
     $this->erp_surcharge = $erp_surcharge;
+  }
+
+  public function updateSale($input) {
+    $sale_products = DB::table('sale_product')->where('sale_id', $this->sale_id)->get();
+
+    foreach($sale_products as $product) {
+      $sale_product['quantity'] = $input['quantity'.$product->product_id];
+      $sale_product['subtotal'] = $sale_product['quantity'] * $product->discounted_price;
+      DB::table('sale_product')->where('sale_id', $this->sale_id)->where('product_id', $product->product_id)->update($sale_product);
+    }
+
+    $sale_products = DB::table('sale_product')->where('sale_id', $this->sale_id)->get();
+
+    $this->stat = $input['stat'];
+    $this->payment_type = $input['payment_type'];
+    $this->bank_ref = $input['bank_ref'];
+    $this->setSaleTotal($sale_products);
+    $this->save();
   }
   
 }

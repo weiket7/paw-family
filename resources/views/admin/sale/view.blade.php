@@ -50,7 +50,12 @@
           <div class="row static-info">
             <div class="col-xs-3 name"> Status: </div>
             <div class="col-xs-9 value">
-              {{ Form::select('stat', SaleStat::$values, $sale->stat, ['class'=>'form-control']) }}
+              {{SaleStat::$values[$sale->stat]}}
+              @if ($sale->stat == SaleStat::Pending)
+                &nbsp; <button type="button" class="btn btn-sm blue" id='btn-paid' data-placement="bottom" data-singleton='true' data-toggle='confirmation' data-original-title='Are you sure?'>Paid</button>
+              @elseif ($sale->stat == SaleStat::Paid)
+                &nbsp; <button type="button" class="btn btn-sm blue" id='btn-delivered' data-placement="bottom" data-singleton='true' data-toggle='confirmation' data-original-title='Are you sure?'>Delivered</button>
+              @endif
             </div>
           </div>
           @if($sale->stat == SaleStat::Paid || $sale->stat == SaleStat::Delivered)
@@ -67,16 +72,14 @@
           @endif
           <div class="row static-info">
             <div class="col-xs-3 name"> Payment Type: </div>
-            <div class="col-xs-9 value">
-              {{ Form::select('payment_type', PaymentType::$values, $sale->payment_type, ['class'=>'form-control']) }}
-            </div>
+            <div class="col-xs-9 value"> {{PaymentType::$values[$sale->payment_type]}} </div>
           </div>
-          <div class="row static-info">
-            <div class="col-xs-3 name"> Bank Ref: </div>
-            <div class="col-xs-9 value">
-              {{ Form::text('bank_ref', $sale->bank_ref, ['class'=>'form-control']) }}
+          @if($sale->payment_type == PaymentType::Bank)
+            <div class="row static-info">
+              <div class="col-xs-3 name"> Bank Ref: </div>
+              <div class="col-xs-9 value"> {{$sale->bank_ref}} </div>
             </div>
-          </div>
+          @endif
           <div class="row static-info">
             <div class="col-xs-3 name"> Earned Points: </div>
             <div class="col-xs-9 value"> {{$sale->earned_points}} </div>
@@ -241,9 +244,7 @@
                     {{$product->option_name}} - ${{CommonHelper::formatNumber($product->option_price)}}
                   @endif
                 </td>
-                <td>
-                  {{Form::text('quantity'.$product->product_id, $product->quantity, ['class'=>'form-control txt-num'])}}
-                </td>
+                <td>{{$product->quantity}}</td>
                 <td>${{CommonHelper::formatNumber($product->discounted_price)}}</td>
                 <td>${{CommonHelper::formatNumber($product->subtotal)}}</td>
               </tr>
@@ -252,13 +253,16 @@
           </table>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <a href="{{url('admin/sale/save/'.$sale->sale_id)}}">
+            <button type="button" class="btn btn-primary">
+              Update
+            </button>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-md-12 text-center">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-
 @endsection

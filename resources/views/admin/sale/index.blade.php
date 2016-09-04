@@ -64,7 +64,7 @@
       @foreach($sales as $sale)
         <tr>
           <td>
-            <a href="{{url("admin/sale/save/".$sale->sale_id)}}">
+            <a href="{{url("admin/sale/view/".$sale->sale_id)}}">
               {{ SaleStat::$values[$sale->stat] }}
             </a>
           </td>

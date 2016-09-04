@@ -21,7 +21,7 @@ class SaleController extends Controller
     return view('admin/sale/index', $data);
   }
 
-  public function save(Request $request, $sale_id) {
+  public function view(Request $request, $sale_id) {
     $sale_service = new Sale();
 
     if($request->isMethod('post')) {
@@ -29,6 +29,21 @@ class SaleController extends Controller
       $sale_service->updateSaleStat($sale_id, $stat);
     }
     $sale = $sale_service->getSale($sale_id);
+    $data['customer'] = Customer::find($sale->customer_id);
+    $data['sale'] = $sale;
+    return view('admin/sale/view', $data);
+  }
+
+  public function save(Request $request, $sale_id) {
+    $sale_service = new Sale();
+    $sale = $sale_service->getSale($sale_id);
+
+    if($request->isMethod('post')) {
+      $input = $request->all();
+      $sale = Sale::find($sale_id);
+      $sale->updateSale($input);
+      return redirect('admin/sale/save/'.$sale->sale_id)->with('msg', 'Sale updated');
+    }
     $data['customer'] = Customer::find($sale->customer_id);
     $data['sale'] = $sale;
     return view('admin/sale/form', $data);

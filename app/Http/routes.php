@@ -74,6 +74,8 @@ Route::group(['middleware'=>'auth_operator'], function() {
 
   Route::get('admin/sale', 'Admin\SaleController@index');
   Route::post('admin/sale', 'Admin\SaleController@index');
+  Route::get('admin/sale/view/{sale_id}', 'Admin\SaleController@view');
+  Route::post('admin/sale/view/{sale_id}', 'Admin\SaleController@view');
   Route::get('admin/sale/save/{sale_id}', 'Admin\SaleController@save');
   Route::post('admin/sale/save/{sale_id}', 'Admin\SaleController@save');
 

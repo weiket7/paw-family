@@ -5,3 +5,7 @@
 .portlet.light>.portlet-title {
   padding: 10px 0 0 0;
 }
+
+.txt-num {
+  width: 100px;
+}
