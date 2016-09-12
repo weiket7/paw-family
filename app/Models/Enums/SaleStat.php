@@ -2,7 +2,7 @@
 
 abstract class SaleStat {
   const Pending = 'P';
-  const Processing = 'R';
+  //const Processing = 'R';
   const Paid = 'A';
   const Delivered = 'D';
   const Void = 'V';
@@ -11,7 +11,7 @@ abstract class SaleStat {
     ''=>'',
     self::Pending=>'Pending Payment',
     self::Paid=>'Paid',
-    self::Processing=>'Processing',
+    //self::Processing=>'Processing',
     self::Delivered=>'Delivered',
     self::Void=>'Void',
   ];

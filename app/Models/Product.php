@@ -87,7 +87,9 @@ class Product extends Eloquent
     $s = "SELECT product_id, p.name, p.slug, p.image, cost_price, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat, supplier_id, sku,
     brand_id, category_id, processing_day, weight_lb, weight_kg,
     desc_short
-    from product as p";
+    from product as p
+    order by updated_on desc
+    limit 100";
     $products = DB::select($s);
 
     foreach($products as $product) {
@@ -104,8 +106,8 @@ class Product extends Eloquent
     b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight_lb, weight_kg,
     desc_short, meta_keyword, meta_desc
     FROM product as p
-    inner join brand as b on p.brand_id = b.brand_id
-    inner join category as c on p.category_id = c.category_id";
+    left join brand as b on p.brand_id = b.brand_id
+    left join category as c on p.category_id = c.category_id";
 
     if (is_int($intOrSlug)) {
       $s .= " where product_id = :product_id";

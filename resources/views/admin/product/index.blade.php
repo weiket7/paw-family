@@ -66,12 +66,21 @@
     </tr>
     </thead>
     <tbody>
+    <?php $categories = array_flatten($categories); ?>
     @foreach($products as $p)
       <tr>
         <td>{{ProductStat::$values[$p->stat]}}</td>
         <td width="450px"><a href="{{url("admin/product/save/".$p->product_id)}}">{{ $p->name }}</a></td>
-        <td>{{ $brands[$p->brand_id] }}</td>
-        <td>{{ array_flatten($categories)[$p->category_id] }}</td>
+        <td>
+          @if(isset($brands[$p->brand_id]))
+            {{ $brands[$p->brand_id] }}
+          @endif
+        </td>
+        <td>
+          @if(isset($categories[$p->category_id]))
+            {{ $categories[$p->category_id] }}
+          @endif
+        </td>
         {{--<td>{{ $suppliers[$p->supplier_id] }}</td>--}}
         <td>${{ $p->discounted_price }}</td>
         <td>${{ $p->price }}</td>

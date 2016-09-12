@@ -104,6 +104,7 @@ class Sale extends Eloquent
       unset($product->slug);
       unset($product->image);
       $product->sale_id = $this->sale_id;
+      $product->sale_no = $this->sale_no;
 
       DB::table("sale_product")->insert((array)$product);
     }

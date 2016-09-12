@@ -21,6 +21,7 @@ class ProductController extends Controller
       $request->session()->flash('search_result', "Showing ".count($products)." products");
     } else {
       $products = $product_service->getProductAll();
+      $request->session()->flash('search_result', "Showing last updated ".count($products)." products");
     }
     $category_service = new Category();
     $data['categories'] = $category_service->getCategoryForDropdown();

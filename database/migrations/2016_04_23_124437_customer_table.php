@@ -29,7 +29,7 @@ class CustomerTable extends Migration
         $table->decimal("spent_avg", 9, 2);
         $table->dateTime("last_login_on");
         $table->dateTime("joined_on");
-        $table->dateTime("updated_at");
+        $table->dateTime("updated_on");
         $table->rememberToken();
       });
 

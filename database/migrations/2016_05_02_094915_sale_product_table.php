@@ -10,6 +10,7 @@ class SaleProductTable extends Migration
     Schema::create('sale_product', function (Blueprint $table) {
       $table->increments('sale_product_id');
       $table->integer('sale_id');
+      $table->string('sale_no', 15);
       $table->integer('product_id');
       $table->string('name', 150);
       $table->integer('size_id')->nullable();

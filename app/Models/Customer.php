@@ -264,4 +264,10 @@ class Customer extends Eloquent
     $this->spent_avg = $this->spent_total / $this->order_count;
     $this->save();
   }
+
+  public function getCustomerAll()
+  {
+    $s = "SELECT * from customer order by joined_on desc limit 100";
+    return DB::select($s);
+  }
 }

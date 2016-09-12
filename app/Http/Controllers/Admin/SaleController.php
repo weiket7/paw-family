@@ -24,6 +24,7 @@ class SaleController extends Controller
       }
     } else {
       $sales = $sale_service->getLatestSale();
+      $request->session()->flash('search_result', "Showing latest ".count($sales)." orders");
     }
     $data['sales'] = $sales;
     return view('admin/sale/index', $data);

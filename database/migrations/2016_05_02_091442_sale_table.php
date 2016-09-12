@@ -13,7 +13,7 @@ class SaleTable extends Migration
   {
     Schema::create('sale', function (Blueprint $t) {
       $t->increments('sale_id');
-      $t->string('sale_no', 12);
+      $t->string('sale_no', 15);
       $t->integer('customer_id');
       $t->char('stat', 1);
       $t->char('payment_type', 1);

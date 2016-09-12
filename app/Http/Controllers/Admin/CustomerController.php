@@ -16,7 +16,8 @@ class CustomerController extends Controller
       $request->flash();
       $request->session()->flash('search_result', "Showing ".count($customers)." customers");
     } else {
-      $customers = Customer::all();
+      $customers = $customer_service->getCustomerAll();
+      $request->session()->flash('search_result', "Showing last joined ".count($customers)." customers");
     }
     $data['customers'] = $customers;
     return view("admin/customer/index", $data);
