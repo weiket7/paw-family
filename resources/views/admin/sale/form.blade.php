@@ -39,9 +39,7 @@
         <div class="portlet-body">
           <div class="row static-info">
             <div class="col-xs-3 name"> Order No: </div>
-            <div class="col-xs-9 value"> {{$sale->sale_no}}
-
-            </div>
+            <div class="col-xs-9 value"> {{$sale->sale_no}} </div>
           </div>
           <div class="row static-info">
             <div class="col-xs-3 name"> Date: </div>

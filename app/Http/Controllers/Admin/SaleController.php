@@ -17,7 +17,9 @@ class SaleController extends Controller
         $input = $request->all();
         $sales = $sale_service->searchSale($input);
       } else if($action == 'print') {
-        $data = [];
+        $sale_ids = $request->get('print');
+        $data['sales'] = $sale_service->getSaleForPrint($sale_ids);
+        $data['customers'] = $sale_service->getCustomerForPrint($sale_ids);
         return view('admin/sale/print', $data);
       }
     } else {

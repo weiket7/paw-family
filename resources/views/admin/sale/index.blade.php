@@ -8,6 +8,8 @@
 ])
 
 @section("content")
+  <input type="hidden" id="action" name="action">
+
   <table class="table table-bordered">
     <thead>
     <tr>
@@ -37,8 +39,8 @@
     </tbody>
     <tfoot>
     <td colspan="4" class="text-center">
-      <button type="submit" class="btn blue">Search</button>
-      <button type="button" class="btn green" onclick="clearSearchProduct()">Clear</button>
+      <button type="button" class="btn blue" onclick="searchOrder()">Search</button>
+      <button type="button" class="btn green">Clear</button>
     </td>
     </tfoot>
   </table>
@@ -69,7 +71,7 @@
       @foreach($sales as $sale)
         <tr>
           <td>
-            <input type="checkbox" class="form-control">
+            <input type="checkbox" value="{{$sale->sale_id}}" name="print[]" class="form-control">
           </td>
           <td>
             <a href="{{url("admin/sale/view/".$sale->sale_id)}}">
@@ -95,7 +97,7 @@
 
   <div class="row">
     <div class="col-md-12 text-center">
-      <button class="btn btn-primary" type="button">
+      <button class="btn btn-primary" type="button" onclick="printOrder()">
         Print
       </button>
     </div>
@@ -110,6 +112,15 @@
       autoclose: true,
       endDate: '+0d'
     });
-  </script>
 
+    function searchOrder() {
+      $("#action").val('search');
+      $("form").submit();
+    }
+
+    function printOrder() {
+      $("#action").val('print');
+      $("form").submit();
+    }
+  </script>
 @endsection

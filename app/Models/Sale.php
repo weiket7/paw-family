@@ -185,6 +185,10 @@ class Sale extends Eloquent
     return $sale;
   }
 
+  public function getSaleProduct($sale_id) {
+
+  }
+
   public function getPaypalField($sale_no, $nett_total) {
     $paypal_field = new PaypalField();
     $paypal_field->sale_no = $sale_no;
@@ -332,6 +336,28 @@ class Sale extends Eloquent
       $erp_surcharge = 5;
     }
     $this->erp_surcharge = $erp_surcharge;
+  }
+
+  public function getSaleForPrint($sale_ids) {
+    $res = [];
+    foreach($sale_ids as $sale_id) {
+      $res[] = $this->getSale($sale_id);
+    }
+    return $res;
+  }
+
+  public function getCustomerForPrint($sale_ids) {
+    $sale_ids = implode(',', $sale_ids);
+    $s = "SELECT s.customer_id, name, mobile, email from sale as s
+    inner join customer as c on s.customer_id = c.customer_id
+    where s.sale_id in ($sale_ids)";
+    $data = DB::select($s);
+
+    $res = [];
+    foreach($data as $d) {
+      $res[$d->customer_id] = $d;
+    }
+    return $res;
   }
 
   public function updateSale($input) {
