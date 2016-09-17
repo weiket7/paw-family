@@ -22,6 +22,7 @@ use App\Models\Enums\PaymentType;
 use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\Sale;
+use Carbon\Carbon;
 
 Route::get('/', 'SiteController@index');
 Route::get('brands', 'SiteController@brand');
@@ -151,39 +152,15 @@ Route::group(['middleware'=>'auth_operator'], function() {
 });
 
 Route::get('test', function() {
-  $product = new SaleProduct();
-  $product->price = 39.1;
-  $product->discounted_price = 29.1;
-  $product->discount_amt = 10;
-  $product->quantity = 12;
-  $product->cost_price = 25;
-  $products[] = $product;
-//37.45
-  //29.1*12=349.2, 349.2-25=342.2, bulk discount 342.2*0.06=19.45, 342.2-19.45=322.75
-  $sale = new Sale();
-  $sale->redeemed_amt = 25;
-  $sale->setSaleTotal($products);
-  var_dump($sale);
+  /*$pass = "test168";
+  $salt = "Gq";
+  $encryptedPass = md5($salt.$pass).":".$salt;*/
 
-});
-
-Route::get('test', function() {
-  $sale = new Sale();
-
-  $product1 = new Product();
-  $product1->bulk_discount_applicable = 1;
-  $product1->discounted_price = 132.90;
-  $product1->quantity = 3;
-
-  $product2 = new Product();
-  $product2->bulk_discount_applicable = 0;
-  $product2->discounted_price = 5.25;
-  $product2->quantity = 90;
-
-  $products = [$product1, $product2];
-
-  $bulk_discount = $sale->getBulkDiscount($products);
-  var_dump($bulk_discount);
+  $email = 'wei_ket@hotmail.com';
+  $password = 'test1234';
+  $customer_service = new Customer();
+  $login = $customer_service->login($email, $password);
+  var_dump($login);
 });
 
 Route::get('clear-cache', function() {

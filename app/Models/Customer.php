@@ -3,6 +3,7 @@
 use App\Models\Enums\CustomerStat;
 use App\Models\Enums\PointType;
 use App\Models\Enums\SubscribeStat;
+use Carbon\Carbon;
 use CommonHelper;
 use Eloquent, DB, Validator, Input;
 use Hash;
@@ -15,6 +16,19 @@ class Customer extends Eloquent
   protected $validation;
   public $timestamps = false;
 
+  public function login($email, $password) {
+    $customer = DB::table('customer')->where('email', $email)->first();
+    $joined_on = Carbon::createFromFormat('Y-m-d H:i:s', $customer->joined_on);
+    $cutoff = Carbon::create(2016, 9, 17, 18, 00);
+    if ($joined_on->lt($cutoff)) {
+      $password_arr = explode(':', $customer->password);
+      $salt = $password_arr[1];
+      $encrypted = md5($salt . $password) . ":" . $salt;
+      return $customer->password == $encrypted;
+    }
+
+    return Hash::check($password, $customer->password);
+  }
 
   public function emailAvailable($email, $customer_id = null) {
     if ($customer_id != null) {

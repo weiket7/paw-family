@@ -24,16 +24,24 @@ class SiteController extends Controller
 
       $email = $request->get("email");
       $password = trim($request->get("password"));
-      if (! Auth::attempt(['email'=>$email, 'password'=>$password])) {
-        if ($referrer == 'checkout') {
-          return redirect('checkout')->withErrors(['login'=>'Wrong username/password'], 'login');
-        }
-        return "fail";
+      $customer_service = new Customer();
+      $login = $customer_service->login($email, $password);
+
+      if ($login == true) {
+        $customer = Customer::where('email', $email)->first();
+        Auth::loginUsingId($customer->customer_id);
       }
+
       if ($referrer == 'checkout') {
+        if ($login == false) {
+          return redirect('checkout')->withErrors(['login' => 'Wrong username/password'], 'login');
+        }
         return redirect('checkout')->with('login', true);
       }
 
+      if ($login == false) {
+        return "fail";
+      }
       $request->session()->flash("login", true);
       return "success";
     }

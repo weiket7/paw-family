@@ -51,11 +51,11 @@
       </li>
       <li class="m_bottom_15">
         <label for="address" class="d_inline_b m_bottom_5">Building</label>
-        {{Form::text("building", '', ['id'=>'building', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>6])}}
+        {{Form::text("building", '', ['id'=>'building', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>8])}}
       </li>
       <li class="m_bottom_15">
         <label for="postal" class="d_inline_b m_bottom_5">Lift Lobby</label>
-        {{Form::text("lift_lobby", '', ['id'=>'lift_lobby', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>7])}}
+        {{Form::text("lift_lobby", '', ['id'=>'lift_lobby', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>9])}}
       </li>
     </ul>
   </div>

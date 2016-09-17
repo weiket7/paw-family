@@ -192,10 +192,6 @@ class Sale extends Eloquent
     return $sale;
   }
 
-  public function getSaleProduct($sale_id) {
-
-  }
-
   public function getPaypalField($sale_no, $nett_total) {
     $paypal_field = new PaypalField();
     $paypal_field->sale_no = $sale_no;
