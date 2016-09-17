@@ -177,8 +177,8 @@ class SaleController extends Controller
     $checkout_option->delivery_time = $input['delivery_time'];
     $checkout_option->delivery_date = $input['delivery_date'];
     $checkout_option->bank_ref = $input['bank_ref'];
-    $checkout_option->gift_wrap = isset($input['gift_wrap']) ? "Y" : "N";
-    $checkout_option->leave_outside_door = isset($input['leave_outside_door']) ? "Y" : "N";
+    $checkout_option->gift_wrap = isset($input['gift_wrap']) ? true : false;
+    $checkout_option->leave_outside_door = isset($input['leave_outside_door']) ? true : false;
     return $checkout_option;
   }
 

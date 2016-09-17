@@ -92,6 +92,12 @@ class Sale extends Eloquent
     $this->delivery_date = $checkout_option->delivery_date;
     $this->delivery_time = DeliveryTime::$values[$checkout_option->delivery_time];
     $this->customer_remark = $checkout_option->customer_remark;
+    if ($checkout_option->leave_outside_door) {
+      $this->customer_remark .= " | Leave outside door";
+    }
+    if ($checkout_option->gift_wrap) {
+      $this->customer_remark .= " | Gift wrap";
+    }
     $this->bank_ref = $checkout_option->bank_ref;
     $this->sale_on = date("Y-m-d H:i:s");
     $this->sale_no = $this->getSaleNoAndIncrement();
@@ -169,7 +175,7 @@ class Sale extends Eloquent
   public function getSale($sale_id)   {
     $s = "SELECT bulk_discount, customer_id, sale_id, sale_no, stat, payment_type, product_discount, promo_discount, redeemed_points, redeemed_amt, earned_points,
     delivery_choice, address, postal, building, lift_lobby, erp_surcharge, delivery_time, customer_remark, operator_remark, bank_ref,
-    gross_total, nett_total, sale_on, paid_on, delivered_on, delivery_fee
+    gross_total, nett_total, sale_on, paid_on, delivery_date, delivered_on, delivery_fee
     FROM sale where sale_id = :sale_id";
     $p['sale_id'] = $sale_id;
     $sale = DB::select($s, $p)[0];

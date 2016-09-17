@@ -28,9 +28,10 @@ class PointLog extends Eloquent
     } else if ($point_type == PointType::Earn) {
       $point_log['sign'] = '+';
       $point_log['point_after'] = $current_points + $points;
-    } else {
+    } else if ($point_type == PointType::Redeem) {
       $point_log['sign'] = '-';
-      $point_log['point_after'] = $current_points + $points;
+      $point_log['point_change'] = -1 * abs($points);
+      $point_log['point_after'] = $current_points - $points;
     }
     DB::table('point_log')->insert($point_log);
   }

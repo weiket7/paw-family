@@ -235,7 +235,7 @@
             <tr>
               <td><a href="{{url("admin/sale/save/".$log->sale_id)}}">{{$log->sale_no }}</a></td>
               <td>{{PointType::$values[$log->type] }}</td>
-              <td>{{$log->sign}}{{$log->point_change}}</td>
+              <td>@if($log->point_change > 0) +@endif{{$log->point_change}}</td>
             </tr>
           @endforeach
           </tbody>

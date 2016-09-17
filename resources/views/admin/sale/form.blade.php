@@ -190,9 +190,9 @@
             </div>
           @endif
           <div class="row static-info">
-            <div class="col-md-3 name"> Time: </div>
+            <div class="col-md-3 name"> Expected Delivery: </div>
             <div class="col-md-9 value">
-              {{$sale->delivery_time}}
+              {{CommonHelper::formatDate($sale->delivery_date)}} at {{$sale->delivery_time}}
             </div>
           </div>
           <div class="row static-info">
@@ -232,6 +232,7 @@
             @foreach($sale->products as $product)
               <tr>
                 <td>
+                  <img src="{{url('/')}}/assets/images/products/{{$product->image}}" style="max-height:80px">
                   <a href="{{url("admin/product/save/".$product->product_id)}}">{{$product->name}}</a>
                 </td>
                 <td>
