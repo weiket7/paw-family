@@ -143,9 +143,9 @@
           </tr>
         @endif
         <tr>
-          <td> Time </td>
+          <td> Expected Delivery </td>
           <td>
-            {{$sale->delivery_time}}
+            {{$sale->delivery_time}}{{CommonHelper::formatDate($sale->delivery_date)}} at {{$sale->delivery_time}}
           </td>
         </tr>
         <tr>

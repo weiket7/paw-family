@@ -333,7 +333,7 @@
                     </figcaption>
                   </figure>
                   <hr class="m_bottom_20">
-                  <figure class="block_select clearfix relative">
+                  <figure class="block_select clearfix relative" onclick="selectSelfCollect()">
                     {{Form::radio("delivery_choice", DeliveryChoice::SelfCollect, '', ['id'=>'radio-self-collect', 'class'=>'d_none'])}}
                     <figcaption>
                       <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-self-collect">Self collect at Upper Paya Lebar, between 11am-2pm, Tues to Thurs</h5>
@@ -341,53 +341,57 @@
                   </figure>
                 </div>
 
-                <h2 class="tt_uppercase color_dark m_bottom_15">
-                  Delivery Date
-                  @if($errors->checkout->has('delivery_date')) <span class="error">(Required)</span> @endif
-                </h2>
+                <div id="div-delivery-date-time">
 
-                <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
-                  <?php $count = 1; ?>
-                  @foreach($delivery_dates as $date)
+                  <h2 class="tt_uppercase color_dark m_bottom_15">
+                    Delivery Date
+                    @if($errors->checkout->has('delivery_date')) <span class="error">(Required)</span> @endif
+                  </h2>
+
+                  <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
+                    <?php $count = 1; ?>
+                    @foreach($delivery_dates as $date)
+                      <figure class="block_select clearfix relative">
+                        {{Form::radio("delivery_date", $date->date_value, '', ['class'=>'d_none'])}}
+                        <figcaption>
+                          <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-delivery-day-{{$date->date_value}}">
+                            {{CommonHelper::formatDateDay($date->date_value)}} &nbsp;-&nbsp; {{$date->area}}
+                          </h5>
+                        </figcaption>
+                      </figure>
+                      @if($count < count($delivery_dates)) <hr class="m_bottom_20"> @endif
+                      <?php $count++; ?>
+                    @endforeach
+                  </div>
+
+                  <h2 class="tt_uppercase color_dark m_bottom_15">
+                    Delivery Time
+                    @if($errors->checkout->has('delivery_time')) <span class="error">(Required)</span> @endif
+                  </h2>
+
+                  <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
                     <figure class="block_select clearfix relative">
-                      {{Form::radio("delivery_date", $date->date_value, '', ['class'=>'d_none'])}}
+                      {{Form::radio("delivery_time", DeliveryTime::AnyTime, '', ['class'=>'d_none'])}}
                       <figcaption>
-                        <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-delivery-day-{{$date->date_value}}">
-                          {{CommonHelper::formatDateDay($date->date_value)}} &nbsp;-&nbsp; {{$date->area}}
-                        </h5>
+                        <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-any-time">Any time</h5>
                       </figcaption>
                     </figure>
-                    @if($count < count($delivery_dates)) <hr class="m_bottom_20"> @endif
-                    <?php $count++; ?>
-                  @endforeach
-                </div>
+                    <hr class="m_bottom_20">
+                    <figure class="block_select clearfix relative">
+                      {{Form::radio("delivery_time", DeliveryTime::Oneto430, '', ['class'=>'d_none'])}}
+                      <figcaption>
+                        <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-1-430">1pm - 4.30pm</h5>
+                      </figcaption>
+                    </figure>
+                    <hr class="m_bottom_20">
+                    <figure class="block_select clearfix relative">
+                      {{Form::radio("delivery_time", DeliveryTime::Four30to8, '', ['class'=>'d_none'])}}
+                      <figcaption>
+                        <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-430-8">4.30pm - 8pm</h5>
+                      </figcaption>
+                    </figure>
+                  </div>
 
-                <h2 class="tt_uppercase color_dark m_bottom_15">
-                  Delivery Time
-                  @if($errors->checkout->has('delivery_time')) <span class="error">(Required)</span> @endif
-                </h2>
-
-                <div class="bs_inner_offsets bg_light_color_3 shadow r_corners m_bottom_45">
-                  <figure class="block_select clearfix relative">
-                    {{Form::radio("delivery_time", DeliveryTime::AnyTime, '', ['class'=>'d_none'])}}
-                    <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-any-time">Any time</h5>
-                    </figcaption>
-                  </figure>
-                  <hr class="m_bottom_20">
-                  <figure class="block_select clearfix relative">
-                    {{Form::radio("delivery_time", DeliveryTime::Oneto430, '', ['class'=>'d_none'])}}
-                    <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-1-430">1pm - 4.30pm</h5>
-                    </figcaption>
-                  </figure>
-                  <hr class="m_bottom_20">
-                  <figure class="block_select clearfix relative">
-                    {{Form::radio("delivery_time", DeliveryTime::Four30to8, '', ['class'=>'d_none'])}}
-                    <figcaption>
-                      <h5 class="color_dark fw_medium m_bottom_15 m_sm_bottom_5" id="h5-430-8">4.30pm - 8pm</h5>
-                    </figcaption>
-                  </figure>
                 </div>
 
                 <h2 class="tt_uppercase color_dark m_bottom_15">
@@ -558,12 +562,12 @@
     }
 
     function selectCurrentAddress() {
-      setRadioCheckedById('radio-current-address', true);
+      $("#div-delivery-date-time").show();
       updateTotal();
     }
 
     function selectOtherAddress() {
-      setRadioCheckedById('radio-other-address', true);
+      $("#div-delivery-date-time").show();
       updateTotal();
     }
 
@@ -688,6 +692,10 @@
       var result_points = getCurrentPoints() + earned_points - redeemed_points;
       //console.log('total=' + total + ' earned_points=' + earned_points + 'result_points='+result_points);
       $("#result-points").text(result_points);
+    }
+
+    function selectSelfCollect() {
+      $("#div-delivery-date-time").hide();
     }
 
     function updateDeliveryFee() {

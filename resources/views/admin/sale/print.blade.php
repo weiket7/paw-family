@@ -193,10 +193,10 @@
                     Bulk Discount Not Applicable
                   @endif
                   @if($product->size_name)
-                    <br>{{$product->size_name}}
+                    <br>Size: {{$product->size_name}}
                   @endif
                   @if($product->option_name)
-                    <br>{{$product->option_name}} - ${{CommonHelper::formatNumber($product->option_price)}}
+                    <br>Option: {{$product->option_name}} - ${{CommonHelper::formatNumber($product->option_price)}}
                   @endif
                 </td>
                 </td>
