@@ -52,7 +52,7 @@
                   @if(count($product->sizes) == 0)
                   <tr>
                     <td>Weight:</td>
-                    <td>{{CommonHelper::formatWeight($product->weight_lb, $product->weight_kg)}}</td>
+                    <td>{{$product->weight}} {{$product->weight_uom}}</td>
                   </tr>
                   @endif
 
@@ -89,7 +89,7 @@
                                 <input type="radio" name="size" {{$checked}} id="size-{{$size->name}}" class="d_none" value="{{$size->size_id}}" onclick="selectSize()">
                                 <label for="size-{{$size->name}}">
                                   {{$size->name}}
-                                  <span class="f_size_small">({{CommonHelper::formatWeight($size->weight_lb, $size->weight_kg)}})</span>
+                                  <span class="f_size_small">({{$size->weight}} {{$size->weight_uom}})</span>
                                 </label>
                               </td>
                               <td style="padding-right: 10px;">

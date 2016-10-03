@@ -11,6 +11,7 @@
 |
 */
 
+use App\Models\Brand;
 use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\Entities\CheckoutOption;
@@ -152,15 +153,11 @@ Route::group(['middleware'=>'auth_operator'], function() {
 });
 
 Route::get('test', function() {
-  /*$pass = "test168";
-  $salt = "Gq";
-  $encryptedPass = md5($salt.$pass).":".$salt;*/
-
-  $email = 'wei_ket@hotmail.com';
-  $password = 'test1234';
-  $customer_service = new Customer();
-  $login = $customer_service->login($email, $password);
-  var_dump($login);
+  $brands = Brand::all();
+  foreach($brands as $brand) {
+    $brand->slug = str_slug($brand->name);
+    $brand->save();
+  }
 });
 
 Route::get('clear-cache', function() {

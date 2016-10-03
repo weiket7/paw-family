@@ -1,5 +1,7 @@
 <?php use App\Models\Enums\CustomerStat; ?>
 <?php use App\Models\Enums\PointType; ?>
+<?php use App\Models\Enums\SaleStat; ?>
+<?php use App\Models\Enums\PaymentType; ?>
 
 @extends("admin.template", [
   "title"=>"Update Customer",
@@ -200,8 +202,8 @@
             <tr>
               <td>{{CommonHelper::formatDateTime($sale->sale_on)}}</td>
               <td><a href="{{url("admin/sale/view/".$sale->sale_id)}}">{{$sale->sale_no}}</a></td>
-              <td>{{\App\Models\Enums\SaleStat::$values[$sale->stat]}}</td>
-              <td>{{\App\Models\Enums\PaymentType::$values[$sale->payment_type]}}</td>
+              <td>{{SaleStat::$values[$sale->stat]}}</td>
+              <td>{{PaymentType::$values[$sale->payment_type]}}</td>
               <td>{{$sale->gross_total}}</td>
               <td>{{$sale->product_discount}}</td>
               <td>{{$sale->promo_discount}}</td>

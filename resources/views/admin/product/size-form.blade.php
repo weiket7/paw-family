@@ -3,6 +3,7 @@
 @extends("admin.template", [
   "title"=>ucfirst($action) . " Size",
   "action"=>$action,
+  "back_link"=>url('admin/product/save/'.$product->product_id)
 ])
 
 @section('script')
@@ -31,18 +32,6 @@
       //console.log('price='+price+' discount_amt='+discount_amt+' discount_percentage='+discount_percentage+' discounted_price='+discounted_price);
       $("input[name='discounted_price']").val(discounted_price);
     });
-
-    $("#btn-kg-calc").click(function() {
-      var weight_lb = ($("input[name='weight_lb']").val());
-      var weight_kg = poundToKg(weight_lb);
-      $("input[name='weight_kg']").val(toTwoDecimal(weight_kg));
-    });
-
-    $("#btn-lb-calc").click(function() {
-      var weight_kg = $("input[name='weight_kg']").val();
-      var weight_lb = kgToPound(weight_kg);
-      $("input[name='weight_lb']").val(toTwoDecimal(weight_lb));
-    });
   </script>
 @endsection
 
@@ -50,7 +39,7 @@
   <div class="form-body">
     <div class="form-group">
       <label class="control-label col-md-2">Product</label>
-      <label class="form-control-static col-md-10">{{ $product_name }}</label>
+      <label class="form-control-static col-md-10">{{ $product->name }}</label>
     </div>
     <div class="form-group">
       <label class="control-label col-md-2">Name</label>
@@ -112,25 +101,21 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-md-2">Weight (lbs)</label>
+      <label class="control-label col-md-2">Weight<br><small>(2 decimal places)</small></label>
       <div class="col-md-10">
-        <div class="input-group">
-          <span class="input-group-btn">
-            <button id="btn-lb-calc" class="btn blue" type="button"><i class="fa fa-calculator"></i></button>
-            </span>
-          {!! Form::text('weight_lb', $size->weight_lb, ['class'=>'form-control']) !!}
-        </div>
+        {!! Form::text('weight', $size->weight, ['class'=>'form-control']) !!}
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-md-2">Weight (kgs)</label>
+      <label class="control-label col-md-2">Weight UOM</label>
       <div class="col-md-10">
-        <div class="input-group">
-          <span class="input-group-btn">
-            <button id="btn-kg-calc" class="btn blue" type="button"><i class="fa fa-calculator"></i></button>
-          </span>
-          {!! Form::text('weight_kg', $size->weight_kg, ['class'=>'form-control']) !!}
-        </div>
+        {!! Form::text('weight_uom', $size->weight_uom, ['class'=>'form-control']) !!}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-2">SKU</label>
+      <div class="col-md-10">
+        {!! Form::text('sku', $size->sku, ['class'=>'form-control']) !!}
       </div>
     </div>
   </div>

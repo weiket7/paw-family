@@ -34,18 +34,6 @@
       //console.log('price='+price+' discount_amt='+discount_amt+' discount_percentage='+discount_percentage+' discounted_price='+discounted_price);
       $("input[name='discounted_price']").val(discounted_price);
     });
-
-    $("#btn-kg-calc").click(function() {
-      var weight_lb = ($("input[name='weight_lb']").val());
-      var weight_kg = poundToKg(weight_lb);
-      $("input[name='weight_kg']").val(toTwoDecimal(weight_kg));
-    });
-
-    $("#btn-lb-calc").click(function() {
-      var weight_kg = $("input[name='weight_kg']").val();
-      var weight_lb = kgToPound(weight_kg);
-      $("input[name='weight_lb']").val(toTwoDecimal(weight_lb));
-    });
   </script>
 @endsection
 
@@ -218,27 +206,17 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Weight (lbs)</label>
+                <label class="control-label col-md-3">Weight<br><small>(2 decimal places)</small></label>
                 <div class="col-md-9">
-                  <div class="input-group">
-                    <span class="input-group-btn">
-                      <button id="btn-lb-calc" class="btn blue" type="button"><i class="fa fa-calculator"></i></button>
-                    </span>
-                    {!! Form::text('weight_lb', $product->weight_lb, ['class'=>'form-control']) !!}
-                  </div>
+                  {!! Form::text('weight', $product->weight, ['class'=>'form-control']) !!}
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Weight (kgs)</label>
+                <label class="control-label col-md-3">Weight UOM</label>
                 <div class="col-md-9">
-                  <div class="input-group">
-                    <span class="input-group-btn">
-                      <button id="btn-kg-calc" class="btn blue" type="button"><i class="fa fa-calculator"></i></button>
-                    </span>
-                    {!! Form::text('weight_kg', $product->weight_kg, ['class'=>'form-control']) !!}
-                  </div>
+                  {!! Form::text('weight_uom', $product->weight_uom, ['class'=>'form-control']) !!}
                 </div>
               </div>
             </div>
@@ -299,7 +277,8 @@
             <th width="100px">Price</th>
             <th width="150px">Discount Amount</th>
             <th width="100px">Weight (lbs)</th>
-            <th>Weight (kgs)</th>
+            <th width="100px">Weight (kgs)</th>
+            <th>SKU</th>
           </tr>
           </thead>
           <tbody>
@@ -312,8 +291,9 @@
               <td>
                 {{ CommonHelper::showDiscountAmt($size->discount_amt, $size->discount_percentage) }}
               </td>
-              <td>{{$size->weight_lb}}</td>
-              <td>{{$size->weight_kg}}</td>
+              <td>{{$size->weight}}</td>
+              <td>{{$size->weight_uom}}</td>
+              <td>{{$size->sku}}</td>
             </tr>
           @endforeach
           </tbody>

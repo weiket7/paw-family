@@ -88,7 +88,7 @@
           <li class="dropdown dropdown-user">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
               <img alt="" class="img-circle" src="{{ url("assets/metronic/layouts/layout2/img/avatar3_small.jpg")}}" />
-              <span class="username username-hide-on-mobile"> Nick </span>
+              <span class="username username-hide-on-mobile"> {{Session::get("auth_operator")}} </span>
               <i class="fa fa-angle-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-default">
@@ -266,7 +266,11 @@
                       @elseif($action == "index")
                         <a href="{{url("admin/".$controller."/save")}}"><button type="button" class="btn blue">Create</button></a>
                       @endif
-                      <button type="button" name="back" class="btn btn-default" onclick="history.go(-1)"><i class="fa fa-angle-left"></i> Back</button>
+                      @if(isset($back_link))
+                        <button type="button" name="back" class="btn btn-default" onclick="location.href='{{$back_link}}'"><i class="fa fa-angle-left"></i> Back</button>
+                      @else
+                        <button type="button" name="back" class="btn btn-default" onclick="history.go(-1)"><i class="fa fa-angle-left"></i> Back</button>
+                      @endif
                     </div>
                   </div>
 

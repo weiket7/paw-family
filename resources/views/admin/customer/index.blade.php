@@ -25,7 +25,9 @@
     </tr>
     </tbody>
     <tfoot>
-      <td colspan="4" class="text-center"><button type="submit" class="btn blue">Search</button></td>
+      <td colspan="4" class="text-center"><button type="submit" class="btn blue">Search</button>
+        <br>
+        <small>(to view all, just click Search)</small></td>
     </tfoot>
   </table>
 

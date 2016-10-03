@@ -17,8 +17,7 @@ class ProductSize extends Eloquent
     'quantity'=>'required|numeric',
     'price'=>'required|numeric',
     'discount_amt'=>'numeric',
-    'weight_lb'=>'numeric',
-    'weight_kg'=>'numeric',
+    'weight'=>'numeric',
   ];
 
   private $messages = [
@@ -28,12 +27,11 @@ class ProductSize extends Eloquent
     'price.required'=>'Price is required',
     'price.numeric'=>'Price must be numeric',
     'discount_amt.numeric'=>'Discount amount must be numeric',
-    'weight_lb.numeric'=>'Weight (lbs) must be numeric',
-    'weight_kg.numeric'=>'Weight (kbs) must be numeric',
+    'weight.numeric'=>'Weight (lbs) must be numeric',
   ];
 
   public function getSize($size_id) {
-    $s = "SELECT size_id, s.name, p.name as product_name, s.price, s.quantity, s.weight_lb, s.weight_kg, s.discount_amt, s.discount_type
+    $s = "SELECT size_id, s.name, p.name as product_name, s.price, s.quantity, s.weight, s.weight_uom, s.discount_amt, s.discount_type
     from product_size as s
     inner join product as p on s.product_id = p.product_id
     where size_id = :size_id";
@@ -55,8 +53,9 @@ class ProductSize extends Eloquent
     $this->quantity = $input['quantity'];
     $this->cost_price = $input['cost_price'];
     $this->price = $input['price'];
-    $this->weight_lb = $input['weight_lb'];
-    $this->weight_kg = $input['weight_kg'];
+    $this->weight = $input['weight'];
+    $this->weight_uom = $input['weight_uom'];
+    $this->sku = $input['sku'];
     $this->updated_on= date('Y-m-d H:i:s');
 
     $round_up_to_first_decimal = isset($input['round-up-to-first-decimal']);

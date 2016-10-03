@@ -3,13 +3,14 @@
 @extends("admin.template", [
   "title"=>ucfirst($action) . " Description",
   "action"=>$action,
+  "back_link"=>url('admin/product/save/'.$product->product_id)
 ])
 
 @section("content")
 <div class="form-body">
     <div class="form-group">
       <label class="control-label col-md-2">Product</label>
-      <label class="form-control-static col-md-10">{{ $product_name }}</label>
+      <label class="form-control-static col-md-10">{{ $product->name }}</label>
     </div>
     <div class="form-group">
       <label class="control-label col-md-2">Type</label>

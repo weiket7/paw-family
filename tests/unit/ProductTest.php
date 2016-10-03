@@ -80,12 +80,6 @@ class ProductTest extends \Codeception\TestCase\Test
     $this->assertEquals(DiscountType::Percentage, $product->discount_type);
   }
 
-  public function testGetProductNameSuccess() {
-    $product_service = new Product();
-    $product_name = $product_service->getProductName(1);
-    $this->assertEquals("Addiction Viva La Venison", $product_name);
-  }
-
   public function testGetProductByCategorySuccess() {
     $product_service = new Product();
     $products = $product_service->getProductByCategory(1);

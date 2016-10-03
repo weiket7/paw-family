@@ -33,7 +33,7 @@ class OptionController extends Controller
     $data['size_name'] = $size_service->getSizeName($option->size_id);
     //var_dump($option);
     $product_service = new Product();
-    $data['product_name'] = $product_service->getProductName($option->product_id);
+    $data['product'] = Product::find($option->product_id);
     $data['sizes'] = CommonHelper::arrayForDropdown($product_service->getProductSize($option->product_id), 'size_id', 'name');
     $data['option'] = $option;
     return view('admin/product/option-form', $data);

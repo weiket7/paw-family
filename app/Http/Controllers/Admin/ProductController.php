@@ -95,8 +95,7 @@ class ProductController extends Controller
       return redirect('admin/product/desc/save/'.$product_desc->desc_id)->with('msg', 'Description ' . $action . "d");
     }
     $data['action'] = $action;
-    $product_service = new Product();
-    $data['product_name'] = $product_service->getProductName($product_desc->product_id);
+    $data['product'] = Product::find($product_desc->product_id);
     $data['product_desc'] = $product_desc;
     return view('admin.product.desc-form', $data);
   }

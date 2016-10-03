@@ -4,6 +4,7 @@ use App\Models\Entities\ProductDiscount;
 use App\Models\Enums\DiscountType;
 use App\Models\Enums\ProductOptionType;
 use App\Models\Enums\ProductStat;
+use Carbon\Carbon;
 use CommonHelper;
 use Eloquent, DB, Validator;
 
@@ -44,11 +45,12 @@ class Product extends Eloquent
     $this->cost_price = $input['cost_price'];
     $this->price = $input['price'];
     $this->processing_day = $input['processing_day'];
-    $this->weight_lb = $input['weight_lb'];
-    $this->weight_kg = $input['weight_kg'];
+    $this->weight = $input['weight'];
+    $this->weight_uom = $input['weight_uom'];
     $this->desc_short = $input['desc_short'];
     $this->meta_keyword = $input['meta_keyword'];
     $this->meta_desc = $input['meta_desc'];
+    $this->updated_on = Carbon::now();
 
     $round_up_to_first_decimal = isset($input['round-up-to-first-decimal']);
     $product_discount = new ProductDiscount($input['price'], $input['discount_percentage'], $input['discount_amt'], $round_up_to_first_decimal);
@@ -85,7 +87,7 @@ class Product extends Eloquent
 
   public function getProductAll() {
     $s = "SELECT product_id, p.name, p.slug, p.image, cost_price, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat, supplier_id, sku,
-    brand_id, category_id, processing_day, weight_lb, weight_kg,
+    brand_id, category_id, processing_day, weight, weight_uom,
     desc_short
     from product as p
     order by updated_on desc
@@ -103,7 +105,7 @@ class Product extends Eloquent
   public function getProduct($intOrSlug) {
     $s = "SELECT product_id, p.name, p.slug, p.image, cost_price, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat,
     supplier_id, sku, bulk_discount_applicable, 
-    b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight_lb, weight_kg,
+    b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight, weight_uom,
     desc_short, meta_keyword, meta_desc
     FROM product as p
     left join brand as b on p.brand_id = b.brand_id
@@ -126,11 +128,6 @@ class Product extends Eloquent
     return $product;
   }
 
-  public function getProductName($product_id) {
-    $product_name = DB::table("product")->where("product_id", $product_id)->value("name");
-    return $product_name;
-  }
-
   public function getProductDesc($product_id) {
     $s = "SELECT desc_id, type, value from product_desc where product_id = :product_id";
     $p['product_id'] = $product_id;
@@ -141,7 +138,7 @@ class Product extends Eloquent
   }
 
   public function getProductSize($product_id) {
-    $s = "SELECT size_id, name, cost_price, price, quantity, weight_lb, weight_kg, discount_amt, discount_type, discount_percentage, discounted_price
+    $s = "SELECT sku, size_id, name, cost_price, price, quantity, weight, weight_uom, discount_amt, discount_type, discount_percentage, discounted_price
     from product_size where product_id = :product_id";
     $p['product_id'] = $product_id;
     $data = DB::select($s, $p);
