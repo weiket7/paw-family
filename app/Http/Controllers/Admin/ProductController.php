@@ -11,18 +11,25 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-  public function index(Request $request)
-  {
+  public function index(Request $request) {
     $product_service = new Product();
+    $msg = '';
+    if($request->isMethod('post') && $request->get('submit') == 'Delete') {
+      $product_ids = $request->get('product_id');
+      $product_service->deleteProducts($product_ids);
+      $msg .= 'Products were deleted. ';
+    }
     if($request->isMethod('post')) {
       $input = $request->all();
       $products = $product_service->searchProduct($input);
       $request->flash();
-      $request->session()->flash('search_result', "Showing ".count($products)." products");
+      $msg .= "Showing ".count($products)." products";
     } else {
       $products = $product_service->getProductAll();
-      $request->session()->flash('search_result', "Showing last updated ".count($products)." products");
+      $msg .= "Showing last updated ".count($products)." products";
     }
+    $request->session()->flash('search_result', $msg);
+
     $category_service = new Category();
     $data['categories'] = $category_service->getCategoryForDropdown();
     $supplier_service = new Supplier();

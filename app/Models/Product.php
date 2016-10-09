@@ -250,4 +250,11 @@ class Product extends Eloquent
     DB::statement($s);
   }
 
+  public function deleteProducts($product_ids) {
+    foreach($product_ids as $product_id) {
+      $product = Product::find($product_id);
+      $product->delete();
+    }
+  }
+
 }

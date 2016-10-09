@@ -37,7 +37,7 @@
     </tbody>
     <tfoot>
     <th colspan="4" class="text-center">
-      <button type="submit" class="btn blue">Search</button>
+      <button type="submit" name="submit" class="btn blue" value="Search">Search</button>
       <button type="button" class="btn green" onclick="clearSearchProduct()">Clear</button>
       <br>
       <small>(to view all, just click Search)</small>
@@ -72,7 +72,7 @@
       <?php $categories = array_flatten($categories); ?>
       @foreach($products as $p)
         <tr>
-          <td><input type="checkbox" name="delete[]"></td>
+          <td><input type="checkbox" name="product_id[]" value="{{$p->product_id}}"></td>
           <td>{{ProductStat::$values[$p->stat]}}</td>
           <td width="450px"><a href="{{url("admin/product/save/".$p->product_id)}}">{{ $p->name }}</a></td>
           <td>
@@ -113,7 +113,7 @@
 
   <div class="row">
     <div class="col-md-12 text-center">
-      <input type="submit" class="btn btn-primary" value="Delete">
+      <input type="submit" name="submit" class="btn btn-primary" value="Delete">
     </div>
   </div>
 @endsection
