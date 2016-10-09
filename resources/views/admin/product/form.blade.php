@@ -271,6 +271,7 @@
         <table class="table table-bordered">
           <thead>
           <tr>
+            <th width="100px">Position</th>
             <th width="150px">Name</th>
             <th width="100px">Quantity</th>
             <th width="140px">Discounted Price</th>
@@ -284,6 +285,7 @@
           <tbody>
           @foreach($product->sizes as $size)
             <tr>
+              <td><input type="text" name="pos{{$size->size_id}}" value="{{$size->pos}}" class="form-control txt-num"></td>
               <td><a href="{{url("admin/product/size/save/".$size->size_id)}}">{{$size->name}}</a></td>
               <td>{{$size->quantity}}</td>
               <td>${{$size->discounted_price}}</td>

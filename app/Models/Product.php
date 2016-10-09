@@ -63,6 +63,7 @@ class Product extends Eloquent
     if ($image) {
       $this->image = CommonHelper::uploadImage('products', $input['name'], $image);
     }
+
     $this->save();
     return true;
   }
@@ -138,8 +139,9 @@ class Product extends Eloquent
   }
 
   public function getProductSize($product_id) {
-    $s = "SELECT sku, size_id, name, cost_price, price, quantity, weight, weight_uom, discount_amt, discount_type, discount_percentage, discounted_price
-    from product_size where product_id = :product_id";
+    $s = "SELECT sku, size_id, name, cost_price, price, quantity, weight, weight_uom, discount_amt, discount_type, discount_percentage, discounted_price, pos
+    from product_size where product_id = :product_id
+    order by pos";
     $p['product_id'] = $product_id;
     $data = DB::select($s, $p);
 

@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductDesc;
+use App\Models\ProductSize;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
@@ -55,6 +56,10 @@ class ProductController extends Controller
       $prev_supplier_id = $product->supplier_id;
       $prev_category_id = $product->category_id;
       $prev_brand_id = $product->brand_id;
+
+      $product_size_service = new ProductSize();
+      $product_size_service->saveSizePos($product_id, $input);
+
       if (! $product->saveProduct($input, $request->file('image'))) {
         return redirect()->back()->withErrors($product->getValidation())->withInput($input);
       }

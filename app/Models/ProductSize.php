@@ -69,6 +69,16 @@ class ProductSize extends Eloquent
     return true;
   }
 
+  public function saveSizePos($product_id, $input) {
+    $size_ids = ProductSize::where('product_id', $product_id)->pluck('size_id');
+    foreach($size_ids as $size_id) {
+      ProductSize::where('product_id', $product_id)->where('size_id', $size_id)->update([
+        'pos'=>$input['pos'.$size_id]
+      ]);
+    }
+
+  }
+
   public function getValidation() {
     return $this->validation;
   }

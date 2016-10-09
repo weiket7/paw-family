@@ -21,23 +21,24 @@ class ProductSizeTable extends Migration
       $t->decimal('discounted_price', 7, 2);
       $t->decimal('weight', 7, 2);
       $t->string('weight_uom', 20);
+      $t->tinyInteger('pos');
       $t->string('updated_by', 20);
       $t->dateTime('updated_on');
     });
 
     DB::table('product_size')->insert([
       'size_id'=>1, 'product_id'=>1, 'name'=>'Small', 'quantity'=>5, 'weight_uom'=>'kg', 'weight'=>1.81, 'cost_price'=>24.1, 'price'=>39.1,
-      'discount_amt'=>10, 'discount_type'=>'A', 'discounted_price'=>29.1,
+      'discount_amt'=>10, 'discount_type'=>'A', 'discounted_price'=>29.1, 'pos'=>1,
       'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
     DB::table('product_size')->insert([
       'size_id'=>2, 'product_id'=>1, 'name'=>'Medium', 'quantity'=>10, 'weight_uom'=>'kg', 'weight'=>9.07, 'cost_price'=>126.9, 'price'=>142.9,
-      'discount_amt'=>10, 'discount_type'=>'A', 'discounted_price'=>132.9,
+      'discount_amt'=>10, 'discount_type'=>'A', 'discounted_price'=>132.9, 'pos'=>2,
       'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
     DB::table('product_size')->insert([
       'size_id'=>3, 'product_id'=>1, 'name'=>'Large', 'quantity'=>0, 'weight_uom'=>'kg', 'weight'=>14.96, 'cost_price'=>170, 'price'=>195.55,
-      'discount_amt'=>19.55, 'discount_type'=>'P', 'discounted_price'=>176, 'discount_percentage'=>10,
+      'discount_amt'=>19.55, 'discount_type'=>'P', 'discounted_price'=>176, 'discount_percentage'=>10, 'pos'=>3,
       'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
     ]);
   }
