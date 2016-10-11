@@ -145,7 +145,7 @@
                     </span>
                   @endif
                 </div>
-                <div class="d_ib_offset_0 m_bottom_20">
+                <div class="m_bottom_20">
                   {{ csrf_field() }}
                   <button type="button" class="button_type_12 r_corners bg_scheme_color color_light tr_delay_hover d_inline_b f_size_large m_right_5" id="btn-add-to-cart">Add to Cart</button>
                   <button type="button" class="button_type_12 r_corners bg_color_blue color_light tr_delay_hover d_inline_b f_size_large" onclick="history.go(-1)">Back</button>

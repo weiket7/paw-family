@@ -39,6 +39,7 @@ class Product extends Eloquent
     $this->name = $input['name'];
     $this->stat = $input['stat'];
     $this->sku = $input['sku'];
+    $this->slug = str_slug($input['name']);
     $this->supplier_id = $input['supplier_id'];
     $this->brand_id = $input['brand_id'];
     $this->category_id = $input['category_id'];
