@@ -8,7 +8,14 @@ use Illuminate\Http\Request;
 class BrandController extends Controller
 {
   public function index(Request $request) {
-    $data['brands'] = Brand::all();
+    $brands = Brand::all();
+    if($request->isMethod('post')) {
+      $brand_service = new Brand();
+      $input = $request->all();
+      $brand_service->updateBrandPos($brands, $input);
+      return redirect('admin/brand')->with('msg', 'Brand positions updated');
+    }
+    $data['brands'] = $brands;
     return view("admin.brand.index", $data);
   }
 

@@ -1,4 +1,7 @@
-@extends('template')
+@extends('template', [
+  'meta_keyword'=>$brand->meta_keyword,
+  'meta_desc'=>$brand->meta_desc
+])
 
 @section('content')
   <div class="page_content_offset">

@@ -21,6 +21,18 @@
         {!! Form::file('image') !!}
       </div>
     </div>
+    <div class="form-group">
+      <label class="control-label col-md-2">Meta Keyword</label>
+      <div class="col-md-10">
+        {!! Form::text('meta_keyword', $brand->meta_keyword, ['class'=>'form-control']) !!}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-2">Meta Description</label>
+      <div class="col-md-10">
+        {!! Form::text('meta_desc', $brand->meta_desc, ['class'=>'form-control']) !!}
+      </div>
+    </div>
 
     <div class="form-group">
       <label class="control-label col-md-2">Product Count</label>

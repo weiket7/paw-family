@@ -102,8 +102,9 @@ Route::group(['middleware'=>'auth_operator'], function() {
   Route::post('admin/product/desc/save', 'Admin\ProductController@saveDesc');
   Route::get('admin/product/desc/save/{desc_id}', 'Admin\ProductController@saveDesc');
   Route::post('admin/product/desc/save/{desc_id}', 'Admin\ProductController@saveDesc');
-
+  
   Route::get('admin/brand', 'Admin\BrandController@index');
+  Route::post('admin/brand', 'Admin\BrandController@index');
   Route::get('admin/brand/save', 'Admin\BrandController@save');
   Route::post('admin/brand/save', 'Admin\BrandController@save');
   Route::get('admin/brand/save/{brand_id}', 'Admin\BrandController@save');

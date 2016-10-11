@@ -107,7 +107,7 @@ class Product extends Eloquent
     $s = "SELECT product_id, p.name, p.slug, p.image, cost_price, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat,
     supplier_id, sku, bulk_discount_applicable, 
     b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight, weight_uom,
-    desc_short, meta_keyword, meta_desc
+    desc_short, p.meta_keyword, p.meta_desc
     FROM product as p
     left join brand as b on p.brand_id = b.brand_id
     left join category as c on p.category_id = c.category_id";

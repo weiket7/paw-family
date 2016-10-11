@@ -4,6 +4,8 @@
 
 @extends('template', [
   "breadcrumbs"=>$breadcrumbs,
+  "meta_keyword"=>isset($meta_keyword) ? $meta_keyword : '',
+  "meta_desc"=>isset($meta_desc) ? $meta_desc : '',
 ])
 
 @section('script')

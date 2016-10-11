@@ -13,6 +13,8 @@ class BrandTable extends Migration
       $t->string('slug', 50);
       $t->string('image', 50);
       $t->integer('product_count');
+      $t->string('meta_keyword', 250);
+      $t->string('meta_desc', 250);
       $t->mediumInteger('pos');
       $t->string('updated_by', 10);
       $t->dateTime('updated_on');

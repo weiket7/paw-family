@@ -93,7 +93,7 @@ class SiteController extends Controller
   }
 
   public function brand() {
-    $data['brands'] = Brand::all();
+    $data['brands'] = Brand::orderBy('pos')->get();
     return view("brand", $data);
   }
 

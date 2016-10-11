@@ -40,6 +40,8 @@ class ProductController extends Controller
   public function brand($slugs) {
     $brand_service = new Brand();
     $brands = $brand_service->getBrandWithProductCountBySlug($slugs);
+    $data['meta_desc'] = $brand_service->getBrandMetaDesc($slugs);
+    $data['meta_keyword'] = $brand_service->getBrandMetaKeyword($slugs);
     $selected_brand_ids = CommonHelper::getIdFromArr($brands, 'brand_id');
     $product_service = new Product();
     $data['products'] = $product_service->getProductByBrand($selected_brand_ids);
