@@ -51,10 +51,11 @@ class Product extends Eloquent
     $this->desc_short = $input['desc_short'];
     $this->meta_keyword = $input['meta_keyword'];
     $this->meta_desc = $input['meta_desc'];
+    $this->round_up_ten_cent = isset($input['round_up_ten_cent']) ? true : false;
     $this->updated_on = Carbon::now();
 
-    $round_up_to_first_decimal = isset($input['round-up-to-first-decimal']);
-    $product_discount = new ProductDiscount($input['price'], $input['discount_percentage'], $input['discount_amt'], $round_up_to_first_decimal);
+    $round_up_ten_cent = isset($input['round_up_ten_cent']);
+    $product_discount = new ProductDiscount($input['price'], $input['discount_percentage'], $input['discount_amt'], $round_up_ten_cent);
     $this->discount_percentage = $product_discount->discount_percentage;
     $this->discount_type = $product_discount->discount_type;
     $this->discount_amt = $product_discount->discount_amt;
@@ -66,7 +67,14 @@ class Product extends Eloquent
     }
 
     $this->save();
+
+    $this->updateProductSizeUom();
+
     return true;
+  }
+
+  public function updateProductSizeUom() {
+    DB::table('product_size')->where('product_id', $this->product_id)->update(['weight_uom' => $this->weight_uom]);
   }
 
   public function getProductByCategory($category_id) {
@@ -106,7 +114,7 @@ class Product extends Eloquent
 
   public function getProduct($intOrSlug) {
     $s = "SELECT product_id, p.name, p.slug, p.image, cost_price, price, discount_amt, discount_type, discount_percentage, discounted_price, p.stat,
-    supplier_id, sku, bulk_discount_applicable, 
+    supplier_id, sku, bulk_discount_applicable, round_up_ten_cent, 
     b.name as brand_name, b.brand_id, c.main_category, c.name as category_name, c.category_id, processing_day, weight, weight_uom,
     desc_short, p.meta_keyword, p.meta_desc
     FROM product as p

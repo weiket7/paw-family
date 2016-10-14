@@ -24,7 +24,6 @@ class ProductTable extends Migration
         $t->decimal('discount_percentage', 5, 2);
         $t->char('discount_type', 1); //A or P
         $t->decimal('discounted_price', 7, 2);
-        //$t->string('ingredient', 250);
         $t->decimal('weight', 7, 2);
         $t->string('weight_uom', 20);
         $t->tinyInteger('processing_day');
@@ -37,6 +36,7 @@ class ProductTable extends Migration
         $t->string('meta_desc', 250);
         $t->integer("view_count");
         $t->integer("size_count");
+        $t->boolean("round_up_ten_cent");
         $t->string('updated_by', 20);
         $t->dateTime('updated_on');
       });

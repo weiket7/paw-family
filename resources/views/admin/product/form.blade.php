@@ -148,7 +148,10 @@
                     <i class="fa fa-dollar"></i>
                     {!! Form::text('discounted_price', $product->discounted_price, ['class'=>'form-control']) !!}
                     <button class="btn green" type="button" id="btn-calculate">Calculate</button>
-                    &nbsp;&nbsp;&nbsp;<label><input type="checkbox" id='round-up-to-first-decimal' name="round-up-to-first-decimal" class="form-control"> Round up to nearest 10 cents</label>
+                    &nbsp;&nbsp;&nbsp;
+                    <label>
+                      {{ Form::checkbox('round_up_ten_cent', 1, $product->round_up_ten_cent, ['id'=>'round-up-to-first-decimal', 'class'=>'form-control']) }} Round up to nearest 10 cents
+                    </label>
                   </div>
                 </div>
               </div>
@@ -277,8 +280,8 @@
             <th width="140px">Discounted Price</th>
             <th width="100px">Price</th>
             <th width="150px">Discount Amount</th>
-            <th width="100px">Weight (lbs)</th>
-            <th width="100px">Weight (kgs)</th>
+            <th width="100px">Weight</th>
+            <th width="120px">Weight UOM</th>
             <th>SKU</th>
           </tr>
           </thead>

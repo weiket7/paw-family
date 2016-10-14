@@ -12,7 +12,7 @@ class ProductDiscount
   public $discount_amt;
   public $discounted_price;
   
-  public function __construct($price, $discount_percentage, $discount_amt, $round_up_to_first_decimal = false)
+  public function __construct($price, $discount_percentage, $discount_amt, $round_up_ten_cent = false)
   {
     $this->discount_percentage = $discount_percentage;
     if ($discount_percentage > 0) {
@@ -23,7 +23,7 @@ class ProductDiscount
       $this->discount_amt = $discount_amt;
     }
     $this->discounted_price = $price - $this->discount_amt;
-    if ($round_up_to_first_decimal) {
+    if ($round_up_ten_cent) {
       $this->discounted_price = CommonHelper::roundUpToFirstDecimal($this->discounted_price);
       $this->discount_amt = $price - $this->discounted_price;
     }

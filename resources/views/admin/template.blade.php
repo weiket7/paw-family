@@ -351,6 +351,7 @@
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <script src="{{url("assets/metronic/custom.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/js/decimal-light.js")}}" type="text/javascript"></script>
 
 <script type="text/javascript">
   toastr.options.positionClass = "toast-top-center";

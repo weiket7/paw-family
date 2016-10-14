@@ -14,11 +14,16 @@ function isCheckedById(id) {
 }
 
 function toTwoDecimalAndRoundDown(decimal) {
-  return (Math.floor(decimal * 100) / 100).toFixed(2);
+  return +(Math.floor(decimal * 100) / 100).toFixed(2);
 }
 
 function roundUpToFirstDecimal(decimal) {
-  return (Math.round(decimal * 10) / 10).toFixed(2);
+  return +(Math.round(decimal * 10) / 10).toFixed(2);
+}
+
+function countDecimals(number) {
+  if(Math.floor(number.valueOf()) === number.valueOf()) return 0;
+  return number.toString().split(".")[1].length || 0;
 }
 
 function toTwoDecimal(decimal) {

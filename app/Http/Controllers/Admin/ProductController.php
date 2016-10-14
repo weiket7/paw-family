@@ -17,13 +17,16 @@ class ProductController extends Controller
     $msg = '';
     if($request->isMethod('post') && $request->get('submit') == 'Delete') {
       $product_ids = $request->get('product_id');
-      $product_service->deleteProducts($product_ids);
-      $msg .= 'Products were deleted. ';
+      if(count($product_ids) == 0) {
+        $msg .= 'No products were selected for deletion. ';
+      } else {
+        $product_service->deleteProducts($product_ids);
+        $msg .= 'Products were deleted. ';
+      }
     }
     if($request->isMethod('post')) {
       $input = $request->all();
       $products = $product_service->searchProduct($input);
-      $request->flash();
       $msg .= "Showing ".count($products)." products";
     } else {
       $products = $product_service->getProductAll();
