@@ -55,7 +55,7 @@ class Product extends Eloquent
     $this->updated_on = Carbon::now();
 
     $round_up_ten_cent = isset($input['round_up_ten_cent']);
-    $product_discount = new ProductDiscount($input['price'], $input['discount_percentage'], $input['discount_amt'], $round_up_ten_cent);
+    $product_discount = new ProductDiscount($input['price'], $input['discount_type'], $input['discount_percentage'], $input['discount_amt'], $round_up_ten_cent);
     $this->discount_percentage = $product_discount->discount_percentage;
     $this->discount_type = $product_discount->discount_type;
     $this->discount_amt = $product_discount->discount_amt;

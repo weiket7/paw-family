@@ -14,7 +14,6 @@
     function selectDiscountType(discount_type) {
       if (discount_type == "A") {
         $("#div-discount-percentage").hide();
-        $("input[name='discount_percentage']").val(0);
       } else {
         $("#div-discount-percentage").show();
       }

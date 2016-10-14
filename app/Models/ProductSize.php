@@ -59,7 +59,7 @@ class ProductSize extends Eloquent
     $this->updated_on= date('Y-m-d H:i:s');
 
     $round_up_to_first_decimal = isset($input['round-up-to-first-decimal']);
-    $product_discount = new ProductDiscount($input['price'], $input['discount_percentage'], $input['discount_amt'], $round_up_to_first_decimal);
+    $product_discount = new ProductDiscount($input['price'], $input['discount_type'], $input['discount_percentage'], $input['discount_amt'], $round_up_to_first_decimal);
     $this->discount_percentage = $product_discount->discount_percentage;
     $this->discount_type = $product_discount->discount_type;
     $this->discount_amt = $product_discount->discount_amt;
