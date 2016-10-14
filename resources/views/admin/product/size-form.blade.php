@@ -8,28 +8,41 @@
 
 @section('script')
   <script type="text/javascript">
+    function selectDiscountType(discount_type) {
+      if (discount_type == "A") {
+        $("#div-discount-percentage").hide();
+        $("input[name='discount_percentage']").val(0);
+      } else {
+        $("#div-discount-percentage").show();
+      }
+    }
+
     $("#btn-calculate").click(function() {
       var price = parseFloat($("input[name='price']").val());
+      var discount_type = $("input[name='discount_type']:checked").val();
       var discount_percentage = toFloat($("input[name='discount_percentage']").val());
-      var discounted_price = 0;
-      var round_up_to_first_decimal = isCheckedById('round-up-to-first-decimal');
-      if (discount_percentage == 0) {
-        var discount_amt = toFloat($("input[name='discount_amt']").val());
-        discounted_price = toTwoDecimalAndRoundDown(price - discount_amt);
-      } else {
+
+      //console.log('price=' + price + ' discount_type='+discount_type + ' discount_percentage='+discount_percentage);
+
+      var discount_amt = $("input[name='discount_amt']").val();
+      if (discount_type == 'A') {
+        if (countDecimals(discount_amt) > 2) {
+          toastr.error('Discount amount max 2 decimal places');
+        }
+        discount_amt = toTwoDecimalAndRoundDown(discount_amt);
+      } else { //percentage
         discount_amt = toTwoDecimalAndRoundDown(price / 100 * discount_percentage);
         $("input[name='discount_amt']").val(discount_amt);
-        discounted_price = toTwoDecimalAndRoundDown(price - discount_amt);
       }
+      var discounted_price = price - discount_amt;
+      //console.log('discount type='+discount_type + ' discount_amt=' + discount_amt + ' discounted_price=' + discounted_price);
+
+      var round_up_to_first_decimal = isCheckedById('round-up-to-first-decimal');
       if (round_up_to_first_decimal) {
         discounted_price = roundUpToFirstDecimal(discounted_price);
-        discount_amt = toTwoDecimal(price - discounted_price);
-        //console.log('price=' + price + ' discounted_price=' + discounted_price + 'discount_amt=' + discount_amt);
-        $("input[name='discount_amt']").val(discount_amt);
+        //console.log('discount_amt='+discount_amt+'discounted_price='+discounted_price);
       }
 
-      //console.log('round_up_to_ten_cent=' + round_up_to_ten_cent);
-      //console.log('price='+price+' discount_amt='+discount_amt+' discount_percentage='+discount_percentage+' discounted_price='+discounted_price);
       $("input[name='discounted_price']").val(discounted_price);
     });
   </script>
@@ -83,6 +96,19 @@
       </div>
     </div>
     <div class="form-group">
+      <label class="control-label col-md-2">Discount Type</label>
+      <div class="col-md-10">
+        <div class="radio-list">
+          <label class="radio-inline">
+            {{ Form::radio('discount_type', 'A', $product->discount_type=='A', ['onclick'=>'selectDiscountType("A")']) }} Amount
+          </label>
+          <label class="radio-inline">
+            {{ Form::radio('discount_type', 'P', $product->discount_type=='P', ['onclick'=>'selectDiscountType("P")']) }} Percentage
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
       <label class="control-label col-md-2">Discount Amount</label>
       <div class="col-md-10">
         <div class="input-icon">
@@ -91,7 +117,7 @@
         </div>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" id="div-discount-percentage">
       <label class="control-label col-md-2">Discount Percentage</label>
       <div class="col-md-10">
         <div class="input-icon">

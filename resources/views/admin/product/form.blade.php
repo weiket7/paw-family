@@ -128,7 +128,6 @@
               </div>
             </div>
           </div>
-
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -226,179 +225,178 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="control-label col-md-3">Supplier</label>
-              <div class="col-md-9">
-                {!! Form::select('supplier_id', $suppliers, $product->supplier_id, ['class'=>'form-control']) !!}
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Supplier</label>
+                <div class="col-md-9">
+                  {!! Form::select('supplier_id', $suppliers, $product->supplier_id, ['class'=>'form-control']) !!}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">SKU</label>
+                <div class="col-md-9">
+                  {!! Form::text('sku', $product->sku, ['class'=>'form-control']) !!}
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="control-label col-md-3">SKU</label>
-              <div class="col-md-9">
-                {!! Form::text('sku', $product->sku, ['class'=>'form-control']) !!}
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Weight<br><small>(2 decimal places)</small></label>
+                <div class="col-md-9">
+                  {!! Form::text('weight', $product->weight, ['class'=>'form-control']) !!}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Weight UOM</label>
+                <div class="col-md-9">
+                  {!! Form::text('weight_uom', $product->weight_uom, ['class'=>'form-control']) !!}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="control-label col-md-3">Weight<br><small>(2 decimal places)</small></label>
-              <div class="col-md-9">
-                {!! Form::text('weight', $product->weight, ['class'=>'form-control']) !!}
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Meta Keywords</label>
+                <div class="col-md-9">
+                  {!! Form::textarea('meta_keyword', $product->meta_keyword, ['class'=>'form-control', 'rows'=>5]) !!}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Meta Description</label>
+                <div class="col-md-9">
+                  {!! Form::textarea('meta_desc', $product->meta_desc, ['class'=>'form-control', 'rows'=>5]) !!}
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="control-label col-md-3">Weight UOM</label>
-              <div class="col-md-9">
-                {!! Form::text('weight_uom', $product->weight_uom, ['class'=>'form-control']) !!}
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Short Description</label>
+                <div class="col-md-9">
+                  {!! Form::text('desc_short', $product->desc_short, ['class'=>'form-control']) !!}
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="control-label col-md-3">Meta Keywords</label>
-              <div class="col-md-9">
-                {!! Form::textarea('meta_keyword', $product->meta_keyword, ['class'=>'form-control', 'rows'=>5]) !!}
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="control-label col-md-3">Meta Description</label>
-              <div class="col-md-9">
-                {!! Form::textarea('meta_desc', $product->meta_desc, ['class'=>'form-control', 'rows'=>5]) !!}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="control-label col-md-3">Short Description</label>
-              <div class="col-md-9">
-                {!! Form::text('desc_short', $product->desc_short, ['class'=>'form-control']) !!}
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="control-label col-md-3">
-                Image<br>
-                <span class="help-block"> 242px width x 322px height</span>
-              </label>
-              <div class="col-md-9">
-                @if(strlen($product->image) > 0)
-                  <img src="{{url("assets/images/products/".$product->image)}}" class='thumbnail' style="max-height:200px;"/>
-                @endif
-                <input type='file' name='image'>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">
+                  Image<br>
+                  <span class="help-block"> 242px width x 322px height</span>
+                </label>
+                <div class="col-md-9">
+                  @if(strlen($product->image) > 0)
+                    <img src="{{url("assets/images/products/".$product->image)}}" class='thumbnail' style="max-height:200px;"/>
+                  @endif
+                  <input type='file' name='image'>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="tab-pane" id="tab-sizes">
-      <a href="{{url("admin/product/size/save?product_id=".$product->product_id)}}"><button type="button" class="btn blue btn-create">Create Size</button></a>
-      <br>
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th width="100px">Position</th>
-          <th width="150px">Name</th>
-          <th width="100px">Quantity</th>
-          <th width="140px">Discounted Price</th>
-          <th width="100px">Price</th>
-          <th width="150px">Discount Amount</th>
-          <th width="100px">Weight</th>
-          <th width="120px">Weight UOM</th>
-          <th>SKU</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($product->sizes as $size)
+      <div class="tab-pane" id="tab-sizes">
+        <a href="{{url("admin/product/size/save?product_id=".$product->product_id)}}"><button type="button" class="btn blue btn-create">Create Size</button></a>
+        <br>
+        <table class="table table-bordered">
+          <thead>
           <tr>
-            <td><input type="text" name="pos{{$size->size_id}}" value="{{$size->pos}}" class="form-control txt-num"></td>
-            <td><a href="{{url("admin/product/size/save/".$size->size_id)}}">{{$size->name}}</a></td>
-            <td>{{$size->quantity}}</td>
-            <td>${{$size->discounted_price}}</td>
-            <td>${{$size->price}}</td>
-            <td>
-              {{ CommonHelper::showDiscountAmt($size->discount_amt, $size->discount_percentage) }}
-            </td>
-            <td>{{$size->weight}}</td>
-            <td>{{$size->weight_uom}}</td>
-            <td>{{$size->sku}}</td>
+            <th width="100px">Position</th>
+            <th width="150px">Name</th>
+            <th width="100px">Quantity</th>
+            <th width="140px">Discounted Price</th>
+            <th width="100px">Price</th>
+            <th width="150px">Discount Amount</th>
+            <th width="100px">Weight</th>
+            <th width="120px">Weight UOM</th>
+            <th>SKU</th>
           </tr>
-        @endforeach
-        </tbody>
-      </table>
-    </div>
-    <div class="tab-pane" id="tab-repacks">
-      <a href="{{url("admin/product/option/save?product_id=".$product->product_id)}}"><button type="button" class="btn blue btn-create">Create Repack</button></a>
-      <br>
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th width="150px">Size</th>
-          <th width="200px">Name</th>
-          <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($product->sizes as $size)
-          <?php $size_shown = false ?>
-          @if(isset($product->repacks[$size->size_id]))
-            @foreach($product->repacks[$size->size_id] as $r)
-              <tr>
-                @if($size_shown == false)
-                  <td rowspan="{{count($product->repacks[$size->size_id])}}">
-                    <a href="{{url("admin/product/option/save/".$r->option_id)}}">{{ $size->name }}</a></td>
-                  <?php $size_shown = true; ?>
-                @endif
-                <td>
-                  {{ $r->name}}
-                </td>
-                <td>
-                  ${{ $r->price}}
-                </td>
-              </tr>
-            @endforeach
-          @endif
-        @endforeach
-        </tbody>
-      </table>
-    </div>
-    <div class="tab-pane" id="tab-descriptions">
-      <a href="{{url("admin/product/desc/save?product_id=".$product->product_id)}}"><button type="button" class="btn blue btn-create">Create Description</button></a>
-      <br>
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th width="150px">Type</th>
-          <th>Value</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($product->descs as $desc)
+          </thead>
+          <tbody>
+          @foreach($product->sizes as $size)
+            <tr>
+              <td><input type="text" name="pos{{$size->size_id}}" value="{{$size->pos}}" class="form-control txt-num"></td>
+              <td><a href="{{url("admin/product/size/save/".$size->size_id)}}">{{$size->name}}</a></td>
+              <td>{{$size->quantity}}</td>
+              <td>${{$size->discounted_price}}</td>
+              <td>${{$size->price}}</td>
+              <td>
+                {{ CommonHelper::showDiscountAmt($size->discount_amt, $size->discount_percentage) }}
+              </td>
+              <td>{{$size->weight}}</td>
+              <td>{{$size->weight_uom}}</td>
+              <td>{{$size->sku}}</td>
+            </tr>
+          @endforeach
+          </tbody>
+        </table>
+      </div>
+      <div class="tab-pane" id="tab-repacks">
+        <a href="{{url("admin/product/option/save?product_id=".$product->product_id)}}"><button type="button" class="btn blue btn-create">Create Repack</button></a>
+        <br>
+        <table class="table table-bordered">
+          <thead>
           <tr>
-            <td><a href="{{url("admin/product/desc/save/".$desc->desc_id)}}">{{ProductDescType::$values[$desc->type]}}</a></td>
-            <td>{!! nl2br($desc->value) !!}</td>
+            <th width="150px">Size</th>
+            <th width="200px">Name</th>
+            <th>Price</th>
           </tr>
-        @endforeach
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+          @foreach($product->sizes as $size)
+            <?php $size_shown = false ?>
+            @if(isset($product->repacks[$size->size_id]))
+              @foreach($product->repacks[$size->size_id] as $r)
+                <tr>
+                  @if($size_shown == false)
+                    <td rowspan="{{count($product->repacks[$size->size_id])}}">
+                      <a href="{{url("admin/product/option/save/".$r->option_id)}}">{{ $size->name }}</a></td>
+                    <?php $size_shown = true; ?>
+                  @endif
+                  <td>
+                    {{ $r->name}}
+                  </td>
+                  <td>
+                    ${{ $r->price}}
+                  </td>
+                </tr>
+              @endforeach
+            @endif
+          @endforeach
+          </tbody>
+        </table>
+      </div>
+      <div class="tab-pane" id="tab-descriptions">
+        <a href="{{url("admin/product/desc/save?product_id=".$product->product_id)}}"><button type="button" class="btn blue btn-create">Create Description</button></a>
+        <br>
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th width="150px">Type</th>
+            <th>Value</th>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach($product->descs as $desc)
+            <tr>
+              <td><a href="{{url("admin/product/desc/save/".$desc->desc_id)}}">{{ProductDescType::$values[$desc->type]}}</a></td>
+              <td>{!! nl2br($desc->value) !!}</td>
+            </tr>
+          @endforeach
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
   </div>
 
 @endsection
