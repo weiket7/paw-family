@@ -18,7 +18,7 @@ function toTwoDecimalAndRoundDown(decimal) {
 }
 
 function roundUpToFirstDecimal(decimal) {
-  return +(Math.round(decimal * 10) / 10).toFixed(2);
+  return +(Math.ceil(decimal * 10) / 10).toFixed(2);
 }
 
 function countDecimals(number) {

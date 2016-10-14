@@ -2,6 +2,7 @@
 
 use App\Models\Enums\DiscountType;
 use App\Models\Enums\ProductStat;
+use App\Models\Enums\ProductTag;
 use App\Models\Product;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -64,6 +65,7 @@ class ProductTable extends Migration
         'meta_desc'=>'Addiction Dry Dog Food Viva La Venison - New Zealand Venison High in Protein, Low in Fat - Probiotics for a Healthy Digestive &amp; Immune System - Fruits &amp; Vegetables Rich in Phytonutrients Viva La Venison - A Delectable Grain-Free Meal for your Dog Featurin',
         'desc_short'=>'Delicious!',
         'bulk_discount_applicable'=>1,
+        'tag'=>ProductTag::Fresh,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
@@ -88,6 +90,7 @@ class ProductTable extends Migration
         'stat'=>ProductStat::Hidden,
         'desc_short'=>'Delicious!',
         'bulk_discount_applicable'=>1,
+        'tag'=>ProductTag::Hot,
         'updated_by'=>'ruth', 'updated_on'=>date('Y-m-d H:i:s')
       ]);
 
