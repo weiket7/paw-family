@@ -28,7 +28,9 @@ class ProductTable extends Migration
         $t->string('weight_uom', 20);
         $t->tinyInteger('processing_day');
         $t->decimal('discount_amt', 7, 2); //round down
+        $t->boolean("round_up_ten_cent");
         $t->boolean('bulk_discount_applicable');
+        $t->char('tag', 1);
         $t->string('image', 150);
         $t->string('desc_short', 250);
         $t->string('meta_title', 250);
@@ -36,7 +38,6 @@ class ProductTable extends Migration
         $t->string('meta_desc', 250);
         $t->integer("view_count");
         $t->integer("size_count");
-        $t->boolean("round_up_ten_cent");
         $t->string('updated_by', 20);
         $t->dateTime('updated_on');
       });

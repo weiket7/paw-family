@@ -1,5 +1,6 @@
 
 <?php use App\Models\Enums\FeaturedType; ?>
+<?php use App\Models\Enums\ProductTag; ?>
 <?php use App\Models\Enums\MainCategory; ?>
 
 @extends('template', [
@@ -82,11 +83,11 @@
                 <figure class="r_corners photoframe animate_ftb type_2 t_align_c tr_all_hover shadow relative">
                   <!--product preview-->
                   <a href="{{url("product/view/".$product->slug)}}" class="d_block relative pp_wrap m_bottom_15">
-                    @if($product->featured_stat == FeaturedType::Hot)
-                      <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/hot_product.png" alt=""></span>
-                    @elseif($product->featured_stat == FeaturedType::Sale)
-                      <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/sale_product.png" alt=""></span>
-                    @endif
+                    <span class="hot_stripe">
+                      @if($product->tag)
+                        <img src="{{url("")}}/assets/images/{{strtolower(ProductTag::$values[$product->tag])}}_tag.png" alt="">
+                      @endif
+                    </span>
                     <img src="{{url("assets/images/products/".$product->image)}}" class="tr_all_hover" alt="{{$product->slug}}" style="max-width:242px; max-height: 320px;">
                   </a>
                   <figcaption>

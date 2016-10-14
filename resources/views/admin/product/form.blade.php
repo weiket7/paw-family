@@ -2,6 +2,7 @@
 <?php use App\Models\Enums\ProductDescType; ?>
 <?php use App\Models\Enums\ProductStat; ?>
 <?php use App\Models\Enums\DiscountType; ?>
+<?php use App\Models\Enums\ProductTag; ?>
 
 @extends("admin.template", [
   "title"=>ucfirst($action) . " Product",
@@ -185,7 +186,13 @@
               </div>
             </div>
             <div class="col-md-6">
-
+              <div class="form-group">
+                <label class="control-label col-md-3">Product Tag</label>
+                <div class="col-md-9">
+                  {!! Form::select('tag', [''=>'']+ProductTag::$values, $product->tag, ['class'=>'form-control']) !!}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="row">

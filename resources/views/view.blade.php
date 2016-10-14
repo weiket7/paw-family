@@ -1,5 +1,6 @@
 <?php use App\Models\Enums\MainCategory; ?>
 <?php use App\Models\Enums\ProductDescType; ?>
+<?php use App\Models\Enums\ProductTag; ?>
 
 @extends('template', [
   "breadcrumbs"=>[
@@ -25,7 +26,11 @@
           <div class="row">
             <div class="col-md-5">
               <div class="photoframe type_2 shadow r_corners f_left f_sm_none d_xs_inline_b product_single_preview relative m_right_30 m_bottom_5 m_sm_bottom_20 m_xs_right_0 w_mxs_full">
-                <span class="hot_stripe"><img src="{{url("assets/flatastic")}}/images/sale_product.png" alt=""></span>
+                <span class="hot_stripe">
+                  @if($product->tag)
+                    <img src="{{url("")}}/assets/images/{{strtolower(ProductTag::$values[$product->tag])}}_tag.png" alt="">
+                  @endif
+                </span>
                 <div class="relative d_inline_b m_bottom_10 qv_preview d_xs_block">
                   <img id="zoom_image" src="{{url("assets/images/products/".$product->image)}}" class="tr_all_hover" alt="">
                   </a>
