@@ -101,4 +101,10 @@ class Brand extends Eloquent
   public function getValidation() {
     return $this->validation;
   }
+
+  public function searchBrandByTerm($term) {
+    $s = "SELECT concat('/product/brand/',slug) as link, name from brand where name like :term";
+    $p["term"] = '%'.$term.'%';
+    return DB::select($s, $p);
+  }
 }

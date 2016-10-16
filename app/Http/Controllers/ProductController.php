@@ -65,13 +65,18 @@ class ProductController extends Controller
 
   public function autocomplete() {
     $term = Input::get("query");
+
+    $brand_service = new Brand();
+    $data = $brand_service->searchBrandByTerm($term);
+
     $product_service = new Product();
-    $data = $product_service->searchProductByTerm($term);
+    $data = array_merge($data, $product_service->searchProductByTerm($term));
 
     $res = [];
     foreach($data as $d) {
-      $res[] = ['name'=>$d->name, 'slug'=>$d->slug];
+      $res[] = ['name'=>$d->name, 'link'=>$d->link];
     }
     return $res;
   }
+
 }

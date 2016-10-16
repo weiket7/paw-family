@@ -67,7 +67,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6">
               <form class="relative type_2" role="search" method="get" action="{{url("product/search")}}">
                 <input type="text" placeholder="Search" name="term" id="search" autocomplete="off" class="r_corners f_size_medium full_width">
-                <button class="f_right search_button tr_all_hover f_xs_none">
+                <button type="button" id="btn-search" class="f_right search_button tr_all_hover f_xs_none">
                   <i class="fa fa-search"></i>
                 </button>
               </form>
@@ -352,8 +352,16 @@
     },
     updater: function(item) {
       //console.log(map[item].slug);
-      redirect('{{url("product/view/")}}/'+map[item].slug);
+      redirect("{{url('/')}}"+map[item].link);
     }
+  });
+
+  $("#btn-search").click(function() {
+    //http://stackoverflow.com/questions/15115059/programmatically-triggering-typeahead-js-result-display
+    var val = $("#search").typeahead();
+    var evt = jQuery.Event('keydown');
+    evt.keyCode = evt.which = 40;
+    val.trigger(evt);
   });
 
   $(document).ready(function() {

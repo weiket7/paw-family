@@ -202,7 +202,7 @@ class Product extends Eloquent
 
   public function searchProductByTerm($term)
   {
-    $s = "SELECT slug, name from product where name like :term";
+    $s = "SELECT concat('/product/view/',slug) as link, name from product where name like :term";
     $p["term"] = '%'.$term.'%';
     return DB::select($s, $p);
   }
