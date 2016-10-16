@@ -52,6 +52,13 @@
     </div>
   @endif
 
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <input type="submit" name="submit" class="btn btn-primary" value="Delete">
+    </div>
+  </div>
+  <br>
+
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead>

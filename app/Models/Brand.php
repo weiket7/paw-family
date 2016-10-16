@@ -34,6 +34,11 @@ class Brand extends Eloquent
     $this->save();
     return true;
   }
+
+  public function deleteBrand() {
+    DB::table('product')->where('brand_id', $this->brand_id)->delete();
+    $this->delete();
+  }
   
   public function updateBrandPos($brands, $input) {
     foreach($brands as $brand) {
