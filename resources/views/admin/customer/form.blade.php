@@ -23,9 +23,6 @@
         <a href="#tab-points" data-toggle="tab">Points</a>
       </li>
       <li>
-        <a href="#tab-pets" data-toggle="tab">Pets</a>
-      </li>
-      <li>
         <a href="#tab-password" data-toggle="tab">Change Password</a>
       </li>
     </ul>

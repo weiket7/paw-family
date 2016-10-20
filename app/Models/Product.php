@@ -139,6 +139,16 @@ class Product extends Eloquent
     return $product;
   }
 
+  public function getProductsYouMayLike() {
+    $s = "SELECT product_id, p.name, p.slug, p.image, price, discounted_price
+    FROM product as p
+    ORDER BY RAND( )
+    LIMIT 8";
+
+    $data = DB::select($s);
+    return $data;
+  }
+
   public function getProductDesc($product_id) {
     $s = "SELECT desc_id, type, value from product_desc where product_id = :product_id";
     $p['product_id'] = $product_id;

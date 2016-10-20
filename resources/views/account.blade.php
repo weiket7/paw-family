@@ -33,7 +33,6 @@
                 <li><a href="#tab-account" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Account</a></li>
                 <li><a href="#tab-orders" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Orders</a></li>
                 <li><a href="#tab-points" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Points</a></li>
-                <li><a href="#tab-pets" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Pets</a></li>
                 <li><a href="#tab-password" class="bg_light_color_1 color_dark tr_delay_hover r_corners d_block">Change Password</a></li>
               </ul>
             </nav>

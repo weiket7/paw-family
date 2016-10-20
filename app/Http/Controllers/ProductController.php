@@ -60,6 +60,7 @@ class ProductController extends Controller
     $product_service = new Product();
     $product = $product_service->getProduct($slug);
     $data['product'] = $product;
+    $data['products_you_may_like'] = $product_service->getProductsYouMayLike();
     return view("view", $data);
   }
 

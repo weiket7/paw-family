@@ -32,7 +32,7 @@
           <ul>
             <li class="m_bottom_15">
               <label for="email" class="d_inline_b m_bottom_5 required">Email</label>
-              <input type="text" name="email" class="r_corners full_width m_bottom_5">
+              {{ Form::text('email', '', ['class'=>'r_corners full_width m_bottom_5']) }}
             </li>
             <li><button type="submit" class="button_type_4 r_corners bg_scheme_color color_light tr_all_hover">Reset Password</button></li>
           </ul>

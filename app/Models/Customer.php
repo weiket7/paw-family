@@ -229,7 +229,7 @@ class Customer extends Eloquent
     $email = $input['email'];
     $customer = Customer::where('email', $email)->first();
     if ($customer == null) {
-      $this->validation->errors()->add("email", "Email does not exist");
+      //$this->validation->errors()->add("email", "Email does not exist");
       return false;
     }
 

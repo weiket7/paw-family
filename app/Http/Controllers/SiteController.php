@@ -136,7 +136,10 @@ class SiteController extends Controller
       $input = $request->all();
       $data = $customer_service->resetPassword($input);
       if ($data == false) {
-        return redirect("forgot-password")->withErrors($customer_service->getValidation())->withInput($input);
+        if (count($customer_service->getValidation()->errors()->all()) > 0) {
+          return redirect("forgot-password")->withErrors($customer_service->getValidation())->withInput($input);
+        }
+        return redirect('forgot-password')->with('msg', 'If the email is valid, a new password will be emailed to you shortly')->withInput($input);
       }
 
       $mail_request = new MailRequest();
@@ -149,7 +152,7 @@ class SiteController extends Controller
       $mail_service = new MailService();
       $mail_service->sendEmail($mail_request);
 
-      return redirect('forgot-password')->with('msg', 'A new password has been emailed to you shortly');
+      return redirect('forgot-password')->with('msg', 'If the email is valid, a new password will be emailed to you shortly')->withInput($input);
     }
     return view('forgot-password');
   }

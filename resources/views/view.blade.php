@@ -183,89 +183,36 @@
             </section>
           </div>
           <div class="clearfix">
-            <h2 class="color_dark tt_uppercase f_left m_bottom_15 f_mxs_none">Related Products</h2>
+            <h2 class="color_dark tt_uppercase f_left m_bottom_15 f_mxs_none">Products You May Like</h2>
             <div class="f_right clearfix nav_buttons_wrap f_mxs_none m_mxs_bottom_5">
               <button class="button_type_7 bg_cs_hover box_s_none f_size_ex_large t_align_c bg_light_color_1 f_left tr_delay_hover r_corners rp_prev"><i class="fa fa-angle-left"></i></button>
               <button class="button_type_7 bg_cs_hover box_s_none f_size_ex_large t_align_c bg_light_color_1 f_left m_left_5 tr_delay_hover r_corners rp_next"><i class="fa fa-angle-right"></i></button>
             </div>
           </div>
           <div class="related_projects product_full_width m_bottom_15">
-            <figure class="r_corners photoframe shadow relative d_inline_b d_md_block d_xs_inline_b tr_all_hover">
-              <!--product preview-->
-              <a href="#" class="d_block relative pp_wrap">
-                <!--hot product-->
-                <span class="hot_stripe type_2"><img src="{{url("assets/flatastic")}}/images/hot_product_type_2.png" alt=""></span>
-                <img src="{{url("assets/flatastic")}}/images/product_img_5.jpg" class="tr_all_hover" alt="">
-                <span data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
-              </a>
-              <!--description and price of product-->
-              <figcaption class="t_xs_align_l">
-                <h5 class="m_bottom_10"><a href="#" class="color_dark ellipsis">Eget elementum vel</a></h5>
-                <div class="clearfix">
-                  <p class="scheme_color f_left f_size_large m_bottom_15">$102.00</p>
-                </div>
-              </figcaption>
-            </figure>
-            <figure class="r_corners photoframe shadow relative d_inline_b d_md_block d_xs_inline_b tr_all_hover">
-              <!--product preview-->
-              <a href="#" class="d_block relative pp_wrap">
-                <img src="{{url("assets/flatastic")}}/images/product_img_7.jpg" class="tr_all_hover" alt="">
-                <span data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
-              </a>
-              <!--description and price of product-->
-              <figcaption class="t_xs_align_l">
-                <h5 class="m_bottom_10"><a href="#" class="color_dark ellipsis">Cursus eleifend elit aenean elit aenean</a></h5>
-                <div class="clearfix">
-                  <p class="scheme_color f_left f_size_large m_bottom_15">$99.00</p>
-                </div>
-              </figcaption>
-            </figure>
-            <figure class="r_corners photoframe shadow relative d_inline_b d_md_block d_xs_inline_b tr_all_hover">
-              <!--product preview-->
-              <a href="#" class="d_block relative pp_wrap">
-                <!--hot product-->
-                <span class="hot_stripe type_2"><img src="{{url("assets/flatastic")}}/images/hot_product_type_2.png" alt=""></span>
-                <img src="{{url("assets/flatastic")}}/images/product_img_3.jpg" class="tr_all_hover" alt="">
-                <span data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
-              </a>
-              <!--description and price of product-->
-              <figcaption class="t_xs_align_l">
-                <h5 class="m_bottom_10"><a href="#" class="color_dark ellipsis">Eget elementum vel</a></h5>
-                <div class="clearfix">
-                  <p class="scheme_color f_left f_size_large m_bottom_15">$102.00</p>
-                </div>
-              </figcaption>
-            </figure>
-            <figure class="r_corners photoframe shadow relative d_inline_b d_md_block d_xs_inline_b tr_all_hover">
-              <!--product preview-->
-              <a href="#" class="d_block relative pp_wrap">
-                <img src="{{url("assets/flatastic")}}/images/product_img_1.jpg" class="tr_all_hover" alt="">
-                <span data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
-              </a>
-              <!--description and price of product-->
-              <figcaption class="t_xs_align_l">
-                <h5 class="m_bottom_10"><a href="#" class="color_dark ellipsis">Cursus eleifend elit aenean...</a></h5>
-                <div class="clearfix">
-                  <p class="scheme_color f_left f_size_large m_bottom_15">$99.00</p>
-                </div>
-              </figcaption>
-            </figure>
-            <figure class="r_corners photoframe shadow relative d_inline_b d_md_block d_xs_inline_b tr_all_hover">
-              <!--product preview-->
-              <a href="#" class="d_block relative pp_wrap">
-                <!--sale product-->
-                <span class="hot_stripe type_2"><img src="{{url("assets/flatastic")}}/images/sale_product_type_2.png" alt=""></span>
-                <img src="{{url("assets/flatastic")}}/images/product_img_9.jpg" class="tr_all_hover" alt="">
-                <span data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
-              </a>
-              <!--description and price of product-->
-              <figcaption class="t_xs_align_l">
-                <h5 class="m_bottom_10"><a href="#" class="color_dark ellipsis">Aliquam erat volutpat</a></h5>
-                <div class="clearfix">
-                  <p class="scheme_color f_left f_size_large m_bottom_15"><s class="default_t_color m_right_5">$79.00</s>$36.00</p>
-                </div>
-              </figcaption>
-            </figure>
+            @foreach($products_you_may_like as $p)
+              <figure class="r_corners photoframe shadow relative d_inline_b d_md_block d_xs_inline_b tr_all_hover">
+                <!--product preview-->
+                <a href="#" class="d_block relative pp_wrap">
+                  <!--sale product-->
+                  <span class="hot_stripe type_2"><img src="{{url("assets/images/products/".$p->image)}}" alt=""></span>
+                  <img src="{{url("assets/images/products/".$p->image)}}" class="tr_all_hover" alt="">
+                  <span data-popup="#quick_view_product" class="button_type_5 box_s_none color_light r_corners tr_all_hover d_xs_none">Quick View</span>
+                </a>
+                <!--description and price of product-->
+                <figcaption class="t_xs_align_l">
+                  <h5 class="m_bottom_10"><a href="#" class="color_dark ellipsis">{{$p->name}}</a></h5>
+                  <div class="clearfix">
+                    <p class="scheme_color f_left f_size_large m_bottom_15">
+                      <s class="default_t_color m_right_5">
+                        ${{CommonHelper::formatNumber($p->price)}}
+                      </s>
+                      ${{CommonHelper::formatNumber($p->discounted_price)}}
+                    </p>
+                  </div>
+                </figcaption>
+              </figure>
+            @endforeach
           </div>
         </section>
         <aside class="col-lg-3 col-md-3 col-sm-3">

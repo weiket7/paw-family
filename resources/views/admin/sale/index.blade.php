@@ -52,6 +52,15 @@
     </div>
   @endif
 
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <button class="btn btn-primary" type="button" onclick="printOrder()">
+        Print
+      </button>
+    </div>
+  </div>
+  <br>
+
   <div class="table-responsive">
   <table class="table table-bordered table-hover">
     <thead>
