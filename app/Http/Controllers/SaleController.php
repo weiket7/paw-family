@@ -173,6 +173,8 @@ class SaleController extends Controller
     $checkout_option->postal_other = isset($input['postal_other']) ? $input['postal_other'] : '';
     $checkout_option->building_other = isset($input['building_other']) ? $input['building_other'] : '';
     $checkout_option->lift_lobby_other = isset($input['lift_lobby_other']) ? $input['lift_lobby_other'] : '';
+    $checkout_option->contact_person_other = isset($input['contact_person_other']) ? $input['contact_person_other'] : '';
+    $checkout_option->contact_number_other = isset($input['contact_number_other']) ? $input['contact_number_other'] : '';
     $checkout_option->customer_remark = $input['customer_remark'];
     $checkout_option->delivery_time = $input['delivery_time'];
     $checkout_option->delivery_date = $input['delivery_date'];

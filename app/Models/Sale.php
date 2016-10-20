@@ -103,6 +103,7 @@ class Sale extends Eloquent
     $this->sale_no = $this->getSaleNoAndIncrement();
     $this->setDeliveryAddress($checkout_option, $customer_id);
     $this->setErpSurcharge();
+    $this->setContact($checkout_option, $customer_id);
     $this->save();
 
     /* @var $product SaleProduct */
@@ -173,7 +174,7 @@ class Sale extends Eloquent
   }
 
   public function getSale($sale_id)   {
-    $s = "SELECT bulk_discount, customer_id, sale_id, sale_no, stat, payment_type, product_discount, promo_discount, redeemed_points, redeemed_amt, earned_points,
+    $s = "SELECT bulk_discount, customer_id, sale_id, sale_no, stat, payment_type, product_discount, promo_discount, redeemed_points, redeemed_amt, earned_points, contact_person, contact_number,
     delivery_choice, address, postal, building, lift_lobby, erp_surcharge, delivery_time, customer_remark, operator_remark, bank_ref,
     gross_total, nett_total, sale_on, paid_on, delivery_date, delivered_on, delivery_fee
     FROM sale where sale_id = :sale_id";
@@ -233,6 +234,18 @@ class Sale extends Eloquent
       $this->lift_lobby = $customer->lift_lobby;
     }
   }
+
+  private function setContact(CheckoutOption $checkout_option, $customer_id) {
+    if ($checkout_option->delivery_choice == DeliveryChoice::OtherAddress) {
+      $this->contact_person = $checkout_option->contact_person_other;
+      $this->contact_number = $checkout_option->contact_number_other;
+    } else if ($checkout_option->delivery_choice == DeliveryChoice::CurrentAddress) {
+      $customer = Customer::find($customer_id);
+      $this->contact_person = $customer->name;
+      $this->contact_number = $customer->mobile;
+    }
+  }
+
 
   public function calcPoints($nett_total) {
     return floor($nett_total);

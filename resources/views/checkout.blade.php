@@ -303,14 +303,14 @@
                         </div>
                         <div class="col-md-5">
                           <?php $bank_ref_style = $errors->checkout->has('address_other') ? 'border-color: #cb2700' : ''; ?>
-                          {{Form::text("address_other", '', ['id'=>'address_other', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                          {{Form::text("address_other", '', ['id'=>'address_other', 'class'=>'r_corners full_width m_bottom_5'])}}
                         </div>
                         <div class="col-md-1">
                           <label class="'required">Postal</label> @if($errors->checkout->has('postal_other')) <span class="error">(Required)</span> @endif
                         </div>
                         <div class="col-md-5">
                           <?php $bank_ref_style = $errors->checkout->has('postal_other') ? 'border-color: #cb2700' : ''; ?>
-                          {{Form::text("postal_other", '', ['id'=>'postal_other', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                          {{Form::text("postal_other", '', ['id'=>'postal_other', 'class'=>'r_corners full_width m_bottom_5'])}}
                         </div>
                       </div>
                       <div class="row">
@@ -318,13 +318,27 @@
                           Building
                         </div>
                         <div class="col-md-5">
-                          {{Form::text("building_other", '', ['id'=>'building_other', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                          {{Form::text("building_other", '', ['id'=>'building_other', 'class'=>'r_corners full_width m_bottom_5'])}}
                         </div>
                         <div class="col-md-1">
                           Lift Lobby
                         </div>
                         <div class="col-md-5">
-                          {{Form::text("lift_lobby_other", '', ['id'=>'lift_lobby_other', 'class'=>'r_corners full_width m_bottom_5', 'tabindex'=>2])}}
+                          {{Form::text("lift_lobby_other", '', ['id'=>'lift_lobby_other', 'class'=>'r_corners full_width m_bottom_5'])}}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-1">
+                          Contact Person
+                        </div>
+                        <div class="col-md-5">
+                          {{Form::text("contact_person_other", '', ['id'=>'contact_person_other', 'class'=>'r_corners full_width m_bottom_5'])}}
+                        </div>
+                        <div class="col-md-1">
+                          Contact Number
+                        </div>
+                        <div class="col-md-5">
+                          {{Form::text("contact_number_other", '', ['id'=>'contact_number_other', 'class'=>'r_corners full_width m_bottom_5'])}}
                         </div>
                       </div>
                       <p id="p-postal-other-cbd" style="display:none">

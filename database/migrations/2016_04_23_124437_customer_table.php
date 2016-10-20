@@ -2,6 +2,7 @@
 
 use App\Models\Enums\CustomerStat;
 use App\Models\Enums\SubscribeStat;
+use Carbon\Carbon;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -50,7 +51,7 @@ class CustomerTable extends Migration
         'order_count'=>0,
         'points'=>377,
         'last_login_on'=>date("Y-m-d H:i:s"),
-        'joined_on'=>'2016-05-01',
+        'joined_on'=>Carbon::now(),
       ]);
     }
 

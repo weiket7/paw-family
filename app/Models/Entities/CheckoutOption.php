@@ -14,6 +14,8 @@ class CheckoutOption
   public $postal_other;
   public $building_other;
   public $lift_lobby_other;
+  public $contact_person_other;
+  public $contact_number_other;
 
   public $gift_wrap;
   public $leave_outside_door;

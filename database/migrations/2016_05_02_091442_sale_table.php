@@ -39,6 +39,9 @@ class SaleTable extends Migration
       $t->string('postal', 10);
       $t->string('building', 20)->nullable();
       $t->string('lift_lobby', 10)->nullable();
+      $t->string('contact_person', 50)->nullable();
+      $t->string('contact_number', 30)->nullable();
+
       $t->string('delivery_time', 20);
       $t->string('bank_ref', 20)->nullable();
       $t->string('customer_remark', 200)->nullable();

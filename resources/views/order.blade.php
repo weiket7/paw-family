@@ -89,8 +89,12 @@
               <table class="table_type_6 responsive_table full_width r_corners shadow m_bottom_45 t_align_l">
                 <tbody>
                 <tr>
-                  <td class="d_xs_none">Choice</td>
-                  <td data-title="Address">{{DeliveryChoice::$values[$sale->delivery_choice]}}</td>
+                  <td class="d_xs_none">Contact Person</td>
+                  <td data-title="Contact Person">{{$sale->contact_person}}</td>
+                </tr>
+                <tr>
+                  <td class="d_xs_none">Contact Number</td>
+                  <td data-title="Contact Number">{{$sale->contact_number}}</td>
                 </tr>
                 <tr>
                   <td class="d_xs_none">Address</td>

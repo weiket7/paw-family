@@ -119,6 +119,18 @@
           </div>
           <div class="portlet-body">
             <div class="row static-info">
+              <div class="col-md-2 name"> Contact Person: </div>
+              <div class="col-md-10 value">
+                {{ $sale->contact_person }}
+              </div>
+            </div>
+            <div class="row static-info">
+              <div class="col-md-2 name"> Contact Number: </div>
+              <div class="col-md-10 value">
+                {{ $sale->contact_number }}
+              </div>
+            </div>
+            <div class="row static-info">
               <div class="col-xs-2 name"> Choice: </div>
               <div class="col-xs-10 value"> {{DeliveryChoice::$values[$sale->delivery_choice]}} </div>
             </div>

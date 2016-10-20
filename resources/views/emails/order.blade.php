@@ -101,24 +101,12 @@
     <td style="vertical-align:top; padding-left: 30px">
       <table class="tbl-product ">
         <tr>
-          <td> Name </td>
-          <td> <a href="{{url("admin/customer/save/".$customer->customer_id)}}">{{$customer->name}}</a> </td>
+          <td>Contact Person</td>
+          <td>{{$sale->contact_person}}</td>
         </tr>
         <tr>
-          <td> Points </td>
-          <td> {{$customer->points }} </td>
-        </tr>
-        <tr>
-          <td> Mobile </td>
-          <td> {{$customer->mobile }} </td>
-        </tr>
-        <tr>
-          <td> Email </td>
-          <td> {{$customer->email }} </td>
-        </tr>
-        <tr>
-          <td> Choice </td>
-          <td> {{DeliveryChoice::$values[$sale->delivery_choice]}} </td>
+          <td>Contact Number</td>
+          <td>{{$sale->contact_number}}</td>
         </tr>
         <tr>
           <td> Address </td>
@@ -145,7 +133,7 @@
         <tr>
           <td> Expected Delivery </td>
           <td>
-            {{$sale->delivery_time}}{{CommonHelper::formatDate($sale->delivery_date)}} at {{$sale->delivery_time}}
+            {{CommonHelper::formatDate($sale->delivery_date)}} at {{$sale->delivery_time}}
           </td>
         </tr>
         <tr>
