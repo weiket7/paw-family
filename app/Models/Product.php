@@ -140,12 +140,15 @@ class Product extends Eloquent
   }
 
   public function getProductsYouMayLike() {
-    $s = "SELECT product_id, p.name, p.slug, p.image, price, discounted_price
-    FROM product as p
-    ORDER BY RAND( )
+    $s = "SELECT product_id, name, slug, image, price, discounted_price
+    FROM product
+    where stat = :stat and (image is not null and image != '') and discounted_price > 0
+    and image not like '/%' and image != 'no selection'
+    ORDER BY RAND()
     LIMIT 8";
+    $p['stat'] = ProductStat::Available;
 
-    $data = DB::select($s);
+    $data = DB::select($s, $p);
     return $data;
   }
 

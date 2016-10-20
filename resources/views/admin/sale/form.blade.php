@@ -211,11 +211,6 @@
           <div class="caption">
             <i class="fa fa-shopping-cart"></i>Products
           </div>
-          <div class="actions">
-            <a href="{{url('admin/sale/save/'.$sale->sale_id)}}" class="btn btn-default btn-sm">
-              <i class="fa fa-pencil"></i> Edit </a>
-          </div>
-
         </div>
         <div class="portlet-body">
           <table class="table table-bordered">

@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductDesc;
 use App\Models\ProductSize;
+use App\Models\Setting;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
@@ -88,6 +89,9 @@ class ProductController extends Controller
     $brand_service = new Brand();
     $data['brands'] = $brand_service->getBrandForDropdown();
     $data['action'] = $action;
+    $setting_service = new Setting();
+    $data['file_upload_max_size'] = $setting_service->file_upload_max_size();
+    
     return view("admin.product.form", $data);
   }
 
