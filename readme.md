@@ -1,30 +1,20 @@
-https://github.com/abbodi1406/vcredist/releases
-Install VisualCppRedist_AIO_x86_x64.exe
+## Laravel 5.2
 
-https://www.wampserver.com/en/
+https://laravel.com/docs/5.x
 
-Wampserver change to PHP 7
+PHP 7
 
-composer install
+`composer install`
 
-php artisan key:generate
+Create database `pawfamily`
 
-Create `pawfamily` database
+`php artisan migrate`
 
-.env
-```
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=pawfamily
-DB_USERNAME=root
-DB_PASSWORD=
-```
+Create `.env`
 
-php artisan migrate
+`php artisan serve`
 
-http://localhost/paw-family
+<br>
 
-count(): Parameter must be an array or an object that implements Countable
-Upgrade Laravel to 5.6 or downgrade PHP to 7.1
-https://stackoverflow.com/questions/48343557/count-parameter-must-be-an-array-or-an-object-that-implements-countable
+![alt text](paw-family.png)
+
